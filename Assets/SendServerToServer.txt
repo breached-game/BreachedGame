@@ -1,0 +1,3 @@
+ scp -i ~/.ssh/breached-default-key.pem ./Builds/Linux/Server.zip ec2-user@18.130.195.150:.
+unzip Server.zip
+chmod +x ./Server.x86_64
