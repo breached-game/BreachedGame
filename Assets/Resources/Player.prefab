@@ -1382,6 +1382,8 @@ MonoBehaviour:
   sensitivity: 5
   smoothing: 2
   character: {fileID: 465144899986651690}
+  minAngle: -75
+  maxAngle: 75
 --- !u!1 &6537809996619175534
 GameObject:
   m_ObjectHideFlags: 0
