@@ -84,7 +84,7 @@ jobs:
             This is to shows the update of master to the dev
           token: ${{secrets.GITHUB_TOKEN}}
 
- buildWebGL:
+buildWebGL:
    needs: testRunner
    name: Build for WebGL
    runs-on: ubuntu-latest
