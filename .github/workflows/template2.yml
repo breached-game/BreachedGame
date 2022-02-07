@@ -83,7 +83,7 @@ jobs:
           token: ${{secrets.GITHUB_TOKEN}}
 
   buildWebGL:
-    needs: testRunner
+    needs: commitToMain
     name: Build for WebGL
     runs-on: ubuntu-latest
     strategy:
