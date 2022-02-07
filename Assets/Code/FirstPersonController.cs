@@ -26,6 +26,10 @@ public class FirstPersonController : MonoBehaviour
     void Start()
     {
         identity = character.GetComponent<NetworkIdentity>();
+        if (!identity.isLocalPlayer)
+        {
+            GetComponent<Camera>().enabled = false;
+        }
     }
 
     // Update is called once per frame
