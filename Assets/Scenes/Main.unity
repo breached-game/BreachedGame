@@ -1020,6 +1020,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8311737465105528528, guid: 0561da21a30732245955663234389802,
         type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311737465105528528, guid: 0561da21a30732245955663234389802,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.1420507
       objectReference: {fileID: 0}
@@ -1078,7 +1083,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoomMark1
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
     m_RemovedComponents: []
+=======
+    m_RemovedComponents:
+    - {fileID: 8418213220834529984, guid: 0561da21a30732245955663234389802, type: 3}
+>>>>>>> Stashed changes
   m_SourcePrefab: {fileID: 100100000, guid: 0561da21a30732245955663234389802, type: 3}
 --- !u!1 &1130878270
 GameObject:
