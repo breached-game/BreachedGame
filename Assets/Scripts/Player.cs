@@ -8,6 +8,8 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(OnHolaCountChanged))]
     int holaCount = 0;
 
+    Camera cam;
+    public Interactable focus;
     void HandleMovement()
     {
         if (isLocalPlayer)
@@ -23,11 +25,45 @@ public class Player : NetworkBehaviour
     {
         HandleMovement();
 
-        if (isLocalPlayer && Input.GetKeyDown(KeyCode.X))
+        //if the right mouse button is pressed
+        if (Input.GetAxis("Fire2")>0 && isLocalPlayer)
         {
-            Debug.Log("Sending Hola to Server!");
-            Hola();
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                Interactable intractable = hit.collider.GetComponent<Interactable>();
+                if (intractable != null)
+                {
+                    SetFocus(intractable);
+                }
+            }
         }
+
+        //if the left mouse button is pressed 
+        if (Input.GetAxis("Fire1") > 0 && isLocalPlayer)
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                RemoveFocus();
+            }
+        }
+    }
+
+    void SetFocus(Interactable newFocus) {
+        if(newFocus != focus)
+        {
+            focus = newFocus;
+        }
+        
+    }
+    void RemoveFocus()
+    {
+        focus = null;
     }
 
     public override void OnStartServer()
