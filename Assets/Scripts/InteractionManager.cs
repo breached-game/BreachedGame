@@ -9,6 +9,7 @@ public class InteractionManager : NetworkBehaviour
     //checking if it's a Player and if it's our player
     [SyncVar]
     public bool avalible = true;
+    bool isFocus = false;
     //We need this to display text/any UI
     private SubmarineUIManager UIManager;
 
@@ -31,6 +32,10 @@ public class InteractionManager : NetworkBehaviour
                 //Accept input and tigger event
                 if (Input.GetAxis("Interact") == 1)
                 {
+                    if (isFocus)
+                    {
+                        Debug.Log("INTERACT");    
+                    }
                     if (avalible) avalible = false;
                     else avalible = true;
                 }
