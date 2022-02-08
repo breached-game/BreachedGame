@@ -53,6 +53,15 @@ public class InteractionManager : NetworkBehaviour
                                 disableWhenOpen.enabled = false;
                                 GetComponent<Animator>().Play("Open");
                             }
+
+                            if (typeMenu == Type.MiniGame)
+                            {
+                                Debug.Log("Interacting with minigame");
+                                //intractable.gameObject.GetComponent<MiniGame>().action;
+                                // instead of having multiple if statements we want a minigame class 
+                                // we can then do something like this this.gameobject.action()
+
+                            }
                         }
                     }
                 }
