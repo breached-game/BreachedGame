@@ -14,7 +14,8 @@ public class InteractionManager : NetworkBehaviour
     enum Type
     {
         Door,
-        MiniGame
+        MiniGame,
+        Button
     };
     [SerializeField] Type typeMenu;
 
@@ -54,13 +55,23 @@ public class InteractionManager : NetworkBehaviour
                                 GetComponent<Animator>().Play("Open");
                             }
 
+                            SceneChanger sceneChanger = gameObject.GetComponent<SceneChanger>();
+
                             if (typeMenu == Type.MiniGame)
                             {
+                                //Change to minigame scene
                                 Debug.Log("Interacting with minigame");
+                                sceneChanger.MiniGame1();
                                 //intractable.gameObject.GetComponent<MiniGame>().action;
                                 // instead of having multiple if statements we want a minigame class 
                                 // we can then do something like this this.gameobject.action()
 
+                            }
+                            if (typeMenu == Type.Button)
+                            {
+                                //Return back to main scene
+                                Debug.Log("Returned to main scene");
+                                sceneChanger.MainScene();
                             }
                         }
                     }
