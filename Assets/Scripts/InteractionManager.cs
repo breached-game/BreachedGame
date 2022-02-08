@@ -6,19 +6,27 @@ using Mirror;
 public class InteractionManager : NetworkBehaviour
 {
     //We manage all interaction here
-    //checking if it's a Player and if it's our player
     [SyncVar]
     public bool avalible = true;
-    bool isFocus = false;
+
+    public BoxCollider disableWhenOpen;
+
+    enum Type
+    {
+        Door,
+        MiniGame
+    };
+    [SerializeField] Type typeMenu;
+
     //We need this to display text/any UI
-    private SubmarineUIManager UIManager;
+    //private SubmarineUIManager UIManager;
 
     //Not recommeneded to use GameObject.Find
     private void Start()
     {
-        UIManager = GameObject.Find("Canvas").GetComponent<SubmarineUIManager>();
+        //UIManager = GameObject.Find("Canvas").GetComponent<SubmarineUIManager>();
 
-        if (UIManager == null) Debug.LogError("Interaction Manager cannot find SubmarineUIManager. Either Canvas doesn't exist or doesn't have SubmarineUIManager comp");
+        //if (UIManager == null) Debug.LogError("Interaction Manager cannot find SubmarineUIManager. Either Canvas doesn't exist or doesn't have SubmarineUIManager comp");
     }
 
     void OnTriggerStay(Collider other)
@@ -27,20 +35,29 @@ public class InteractionManager : NetworkBehaviour
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                //Display interaction avalible
-                UIManager.ShowInteractionText(true);
-                //Accept input and tigger event
-                if (Input.GetAxis("Interact") == 1)
+                Ray ray = other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, 100))
                 {
-                    if (isFocus)
+                    InteractionManager intractable = hit.collider.GetComponent<InteractionManager>();
+                    if (intractable != null && intractable.gameObject == this.gameObject)
                     {
-                        Debug.Log("INTERACT");    
+                        //Display interaction avalible
+                        //UIManager.ShowInteractionText(true);
+                        //Accept input and tigger event
+                        if (Input.GetAxis("Interact") == 1)
+                        {
+                            if (typeMenu == Type.Door)
+                            {
+                                disableWhenOpen.enabled = false;
+                                GetComponent<Animator>().Play("Open");
+                            }
+                        }
                     }
-                    if (avalible) avalible = false;
-                    else avalible = true;
                 }
-            } else UIManager.ShowInteractionText(false);
-        } else UIManager.ShowInteractionText(false);
+            } //else UIManager.ShowInteractionText(false);
+        } //else UIManager.ShowInteractionText(false);
     }
     private void OnTriggerExit(Collider other)
     {
@@ -49,7 +66,7 @@ public class InteractionManager : NetworkBehaviour
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 //Display interaction not avalible
-                UIManager.ShowInteractionText(false);
+                //UIManager.ShowInteractionText(false);
             }
         }
     }

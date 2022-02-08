@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     public static GameObject LocalPlayerInstance;
 
     public GameObject PlayerModel;
+    public GameObject FirstPersonCamera;
 
     private NetworkIdentity identity;
 
