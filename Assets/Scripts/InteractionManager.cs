@@ -55,26 +55,19 @@ public class InteractionManager : NetworkBehaviour
                                 GetComponent<Animator>().Play("Open");
                             }
 
-                            SceneChanger sceneChanger = gameObject.GetComponent<SceneChanger>();
 
                             if (typeMenu == Type.MiniGame)
                             {
                                 //Change to minigame scene
                                 Debug.Log("Interacting with minigame");
-                                //sceneChanger.MiniGame1();
-                                gameObject.GetComponent<SceneChanger>().MiniGame1();
-                                // need to build server for this
+                               // need to build server for this
 
-                                //intractable.gameObject.GetComponent<MiniGame>().action;
-                                // instead of having multiple if statements we want a minigame class 
-                                // we can then do something like this this.gameobject.action()
 
                             }
                             if (typeMenu == Type.Button)
                             {
                                 //Return back to main scene
                                 Debug.Log("Returned to main scene");
-                                gameObject.GetComponent<SceneChanger>().MainScene();
                             }
                         }
                     }
