@@ -8,7 +8,10 @@ public class SceneChanger : MonoBehaviour
     public void MainScene()
     {
         //SceneManager.LoadScene("Main");
-        SceneManager.UnloadScene
+        //SceneManager.UnloadScene;
+        //apparently above is now obselete
+        SceneManager.UnloadSceneAsync("MiniGame1");
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
     }
 
     public void MiniGame1()
