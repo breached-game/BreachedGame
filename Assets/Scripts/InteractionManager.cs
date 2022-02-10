@@ -63,6 +63,7 @@ public class InteractionManager : NetworkBehaviour
                                 Debug.Log("Interacting with minigame");
                                 //sceneChanger.MiniGame1();
                                 gameObject.GetComponent<SceneChanger>().MiniGame1();
+                                // need to build server for this
 
                                 //intractable.gameObject.GetComponent<MiniGame>().action;
                                 // instead of having multiple if statements we want a minigame class 

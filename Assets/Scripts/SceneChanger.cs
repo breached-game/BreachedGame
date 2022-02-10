@@ -7,7 +7,8 @@ public class SceneChanger : MonoBehaviour
 {
     public void MainScene()
     {
-        SceneManager.LoadScene("Main");  
+        //SceneManager.LoadScene("Main");
+        SceneManager.UnloadScene
     }
 
     public void MiniGame1()
