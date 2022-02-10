@@ -61,7 +61,9 @@ public class InteractionManager : NetworkBehaviour
                             {
                                 //Change to minigame scene
                                 Debug.Log("Interacting with minigame");
-                                sceneChanger.MiniGame1();
+                                //sceneChanger.MiniGame1();
+                                gameObject.GetComponent<SceneChanger>().MiniGame1();
+
                                 //intractable.gameObject.GetComponent<MiniGame>().action;
                                 // instead of having multiple if statements we want a minigame class 
                                 // we can then do something like this this.gameobject.action()
@@ -71,7 +73,7 @@ public class InteractionManager : NetworkBehaviour
                             {
                                 //Return back to main scene
                                 Debug.Log("Returned to main scene");
-                                sceneChanger.MainScene();
+                                gameObject.GetComponent<SceneChanger>().MainScene();
                             }
                         }
                     }
