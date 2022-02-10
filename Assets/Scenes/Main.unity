@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -271,8 +271,8 @@ GameObject:
   m_Component:
   - component: {fileID: 207291382}
   - component: {fileID: 207291381}
-  - component: {fileID: 207291380}
   - component: {fileID: 207291379}
+  - component: {fileID: 207291380}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 207291378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f039183eda8945448b822a77e2a9d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnClientConnected:
@@ -333,10 +333,10 @@ MonoBehaviour:
       m_Calls: []
   port: 7777
   NoDelay: 1
-  serverMaxMessageSize: 16384
-  serverMaxReceivesPerTick: 10000
-  clientMaxMessageSize: 16384
-  clientMaxReceivesPerTick: 1000
+  Secure: 0
+  CertificatePath: 
+  CertificatePassword: 
+  EnabledSslProtocols: 240
 --- !u!114 &207291381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
   serverTickRate: 30
   offlineScene: 
   onlineScene: 
-  transport: {fileID: 207291380}
+  transport: {fileID: 0}
   networkAddress: 18.130.195.150
   maxConnections: 4
   disconnectInactiveConnections: 0
