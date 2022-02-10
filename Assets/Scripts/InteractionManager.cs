@@ -15,7 +15,9 @@ public class InteractionManager : NetworkBehaviour
     {
         Door,
         MiniGame,
-        Button
+        Button,
+        PickUp,
+        DropOff
     };
     [SerializeField] Type typeMenu;
 
@@ -68,6 +70,25 @@ public class InteractionManager : NetworkBehaviour
                             {
                                 //Return back to main scene
                                 Debug.Log("Returned to main scene");
+                            }
+
+                            if (typeMenu == Type.PickUp)
+                            {
+                                //Return back to main scene
+                                Debug.Log("Picked up" + other.gameObject.transform.name);
+                                if(other.GetComponent<PlayerManager>().objectPlayerHas != null)
+                                {
+                                    other.GetComponent<PlayerManager>().objectPlayerHas = this.gameObject.name;
+                                    Destroy(this.gameObject);
+                                } else
+                                {
+                                    print("Player already has item");
+                                }
+                            }
+
+                            if(typeMenu == Type.DropOff)
+                            {
+                                GetComponent<DropOff>().droppingOffItem(other.GetComponent<PlayerManager>().objectPlayerHas, other.gameObject);
                             }
                         }
                     }
