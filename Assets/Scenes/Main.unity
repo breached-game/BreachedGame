@@ -271,9 +271,9 @@ MonoBehaviour:
   port: 7777
   NoDelay: 1
   Secure: 1
-  CertificatePath: 
-  CertificatePassword: 
-  EnabledSslProtocols: 240
+  CertificatePath: ./cert.pfx
+  CertificatePassword: yourPassword
+  EnabledSslProtocols: 0
 --- !u!114 &207291381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
   offlineScene: 
   onlineScene: 
   transport: {fileID: 207291380}
-  networkAddress: breached.icedcoffee.dev
+  networkAddress: wss://breached.icedcoffee.dev
   maxConnections: 4
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
@@ -1055,7 +1055,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406876344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.258757, y: -0.26409435, z: 8.995434}
+  m_LocalPosition: {x: 8.15, y: -0.26409435, z: 8.995434}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6150636}
