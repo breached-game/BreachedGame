@@ -54,7 +54,7 @@ public class InteractionManager : NetworkBehaviour
                             if (typeMenu == Type.Door)
                             {
                                 disableWhenOpen.enabled = false;
-                                GetComponent<Animator>().Play("Open");
+                                ///GetComponent<Animator>().Play("Open");
                             }
 
 
