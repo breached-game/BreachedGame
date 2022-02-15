@@ -7,7 +7,7 @@ public class InteractionManager : NetworkBehaviour
 {
     //We manage all interaction here
     [SyncVar]
-    public bool avalible = true;
+    public bool available = true;
 
     public BoxCollider disableWhenOpen;
 
@@ -17,40 +17,31 @@ public class InteractionManager : NetworkBehaviour
         MiniGame,
         Button,
         PickUp,
-        DropOff
+        DropOff,
+        ColourButton,
     };
     [SerializeField] Type typeMenu;
 
-    //We need this to display text/any UI
-    //private SubmarineUIManager UIManager;
-
-    //Not recommeneded to use GameObject.Find
-    private void Start()
-    {
-        //UIManager = GameObject.Find("Canvas").GetComponent<SubmarineUIManager>();
-
-        //if (UIManager == null) Debug.LogError("Interaction Manager cannot find SubmarineUIManager. Either Canvas doesn't exist or doesn't have SubmarineUIManager comp");
-    }
-
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && avalible)
+        if (other.gameObject.tag == "Player" && available)
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                Ray ray = other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+                Ray ray = other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit, 100))
                 {
-                    InteractionManager intractable = hit.collider.GetComponent<InteractionManager>();
-                    if (intractable != null && intractable.gameObject == this.gameObject)
+                    InteractionManager interactable = hit.collider.GetComponent<InteractionManager>();
+                    if (interactable != null && interactable.gameObject == this.gameObject)
                     {
-                        //Display interaction avalible
+                        //Display interaction available
                         //UIManager.ShowInteractionText(true);
-                        //Accept input and tigger event
-                        if (Input.GetAxis("Interact") == 1)
+                        //Accept input and trigger event
+                        if (Input.GetKeyDown(KeyCode.E))
                         {
+                            Debug.Log("E pressed");
                             if (typeMenu == Type.Door)
                             {
                                 disableWhenOpen.enabled = false;
@@ -66,10 +57,9 @@ public class InteractionManager : NetworkBehaviour
 
 
                             }
-                            if (typeMenu == Type.Button)
+                            if (typeMenu == Type.ColourButton)
                             {
-                                //Return back to main scene
-                                Debug.Log("Returned to main scene");
+                                GetComponent<ColourMiniGameButton>().buttonPressed();
                             }
 
                             if (typeMenu == Type.PickUp)
@@ -98,11 +88,11 @@ public class InteractionManager : NetworkBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player" && avalible)
+        if (other.gameObject.tag == "Player" && available)
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                //Display interaction not avalible
+                //Display interaction not available
                 //UIManager.ShowInteractionText(false);
             }
         }
