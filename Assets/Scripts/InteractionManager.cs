@@ -59,7 +59,11 @@ public class InteractionManager : NetworkBehaviour
                             }
                             if (typeMenu == Type.ColourButton)
                             {
-                                GetComponent<ColourMiniGameButton>().buttonPressed();
+                                if (transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Click"))
+                                {
+                                    GetComponent<ColourMiniGameButton>().buttonPressed();
+                                    transform.GetChild(0).GetComponent<Animator>().Play("Click");
+                                }
                             }
 
                             if (typeMenu == Type.PickUp)

@@ -6,11 +6,11 @@ using UnityEngine;
 public class ColourMiniGameManger : MonoBehaviour
 {
     public List<string> correctColourCombination; // Can make this private and randomly generated -> Laterbase
-    private List<string> currentColourCombination;
+    public List<string> currentColourCombination;
 
     public void sendPressedColour(string colour)
     {
-       // Debug.Log("Got colour " + colour);
+        // Debug.Log("Got colour " + colour);
         currentColourCombination.Add(colour);
         //Debug.Log(currentColourCombination + "\n" + correctColourCombination);
         if (correctColourCombination.Count == currentColourCombination.Count)
