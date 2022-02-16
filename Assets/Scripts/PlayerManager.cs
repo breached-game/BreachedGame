@@ -30,6 +30,11 @@ public class PlayerManager : MonoBehaviour
         {
             PlayerManager.LocalPlayerInstance = this.gameObject;
         }
+        else
+        {
+            //lets disable all other audio listeners
+            FirstPersonCamera.GetComponent<AudioListener>().enabled = false;
+        }
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(this.gameObject);
