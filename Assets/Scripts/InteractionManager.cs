@@ -28,11 +28,11 @@ public class InteractionManager : NetworkBehaviour
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                Ray ray = other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, 100))
+                int maxDistance = 100;
+                if (Physics.Raycast(other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform.position, other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform.forward, out hit, maxDistance))
                 {
+                    //print(hit.transform.name);
                     InteractionManager interactable = hit.collider.GetComponent<InteractionManager>();
                     if (interactable != null && interactable.gameObject == this.gameObject)
                     {
@@ -41,7 +41,7 @@ public class InteractionManager : NetworkBehaviour
                         //Accept input and trigger event
                         if (Input.GetKeyDown(KeyCode.E))
                         {
-                            Debug.Log("E pressed");
+                            //Debug.Log("E pressed");
                             if (typeMenu == Type.Door)
                             {
                                 disableWhenOpen.enabled = false;
@@ -59,7 +59,7 @@ public class InteractionManager : NetworkBehaviour
                             }
                             if (typeMenu == Type.ColourButton)
                             {
-                                if (transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Click"))
+                                if (transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                                 {
                                     GetComponent<ColourMiniGameButton>().buttonPressed();
                                     transform.GetChild(0).GetComponent<Animator>().Play("Click");
