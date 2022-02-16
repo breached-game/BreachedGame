@@ -9,7 +9,7 @@ public class InteractionManager : NetworkBehaviour
     [SyncVar]
     public bool available = true;
 
-    public BoxCollider disableWhenOpen;
+    public List<BoxCollider> disableWhenOpen;
 
     enum Type
     {
@@ -44,8 +44,11 @@ public class InteractionManager : NetworkBehaviour
                             //Debug.Log("E pressed");
                             if (typeMenu == Type.Door)
                             {
-                                disableWhenOpen.enabled = false;
-                                ///GetComponent<Animator>().Play("Open");
+                                foreach(BoxCollider box in disableWhenOpen)
+                                {
+                                    box.enabled = false;
+                                }
+                                GetComponent<Animator>().Play("Open");
                             }
 
 
