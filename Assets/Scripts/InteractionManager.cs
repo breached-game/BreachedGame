@@ -69,20 +69,22 @@ public class InteractionManager : NetworkBehaviour
                             if (typeMenu == Type.PickUp)
                             {
                                 //Return back to main scene
-                                Debug.Log("Picked up" + other.gameObject.transform.name);
-                                if(other.GetComponent<PlayerManager>().objectPlayerHas != null)
+                                Debug.Log("Picked up" + other.gameObject.name);
+                                if(other.GetComponent<PlayerManager>().objectPlayerHas2 == null)
                                 {
-                                    other.GetComponent<PlayerManager>().objectPlayerHas = this.gameObject.name;
-                                    Destroy(this.gameObject);
+                                    other.GetComponent<PlayerManager>().objectPlayerHas2 = this.gameObject;
+                                    //Destroy(this.gameObject);
+                                    this.gameObject.SetActive(false);
                                 } else
                                 {
-                                    print("Player already has item");
+                                    print("Player is already carrying an item = " + other.GetComponent<PlayerManager>().objectPlayerHas2);
                                 }
                             }
 
                             if(typeMenu == Type.DropOff)
                             {
-                                GetComponent<DropOff>().droppingOffItem(other.GetComponent<PlayerManager>().objectPlayerHas, other.gameObject);
+                                print("try to drop off");
+                                GetComponent<DropOff>().droppingOffItem(other.GetComponent<PlayerManager>().objectPlayerHas2, other.GetComponent<PlayerManager>(), gameObject.transform.position);
                             }
                         }
                     }
