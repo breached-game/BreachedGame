@@ -16,8 +16,7 @@ public class PlayerManager : MonoBehaviour
 
     private CharacterController _controller;
 
-    public string objectPlayerHas;
-    public GameObject objectPlayerHas2;
+    public GameObject objectPlayerHas;
     void Awake()
     {
         _controller = GetComponent<CharacterController>();
