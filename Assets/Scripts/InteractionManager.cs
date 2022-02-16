@@ -68,23 +68,22 @@ public class InteractionManager : NetworkBehaviour
 
                             if (typeMenu == Type.PickUp)
                             {
-                                //Return back to main scene
-                                Debug.Log("Picked up" + other.gameObject.name);
-                                if(other.GetComponent<PlayerManager>().objectPlayerHas2 == null)
+                                if(other.GetComponent<PlayerManager>().objectPlayerHas == null)
                                 {
-                                    other.GetComponent<PlayerManager>().objectPlayerHas2 = this.gameObject;
-                                    //Destroy(this.gameObject);
+                                    //if the player is not carrying anything
+                                    Debug.Log("Picked up" + this.gameObject.name);
+                                    other.GetComponent<PlayerManager>().objectPlayerHas = this.gameObject;
                                     this.gameObject.SetActive(false);
                                 } else
                                 {
-                                    print("Player is already carrying an item = " + other.GetComponent<PlayerManager>().objectPlayerHas2);
+                                    print("Player is already carrying an item = " + other.GetComponent<PlayerManager>().objectPlayerHas);
                                 }
                             }
 
                             if(typeMenu == Type.DropOff)
                             {
                                 print("try to drop off");
-                                GetComponent<DropOff>().droppingOffItem(other.GetComponent<PlayerManager>().objectPlayerHas2, other.GetComponent<PlayerManager>(), gameObject.transform.position);
+                                GetComponent<DropOff>().droppingOffItem(other.GetComponent<PlayerManager>().objectPlayerHas, other.GetComponent<PlayerManager>(), gameObject.transform.position);
                             }
                         }
                     }
