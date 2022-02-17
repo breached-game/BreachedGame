@@ -7,9 +7,9 @@ public class InteractionManager : NetworkBehaviour
 {
     //We manage all interaction here
     [SyncVar]
-    public bool avalible = true;
+    public bool available = true;
 
-    public BoxCollider disableWhenOpen;
+    public List<BoxCollider> disableWhenOpen;
 
     enum Type
     {
@@ -17,43 +17,37 @@ public class InteractionManager : NetworkBehaviour
         MiniGame,
         Button,
         PickUp,
-        DropOff
+        DropOff,
+        ColourButton,
     };
     [SerializeField] Type typeMenu;
 
-    //We need this to display text/any UI
-    //private SubmarineUIManager UIManager;
-
-    //Not recommeneded to use GameObject.Find
-    private void Start()
-    {
-        //UIManager = GameObject.Find("Canvas").GetComponent<SubmarineUIManager>();
-
-        //if (UIManager == null) Debug.LogError("Interaction Manager cannot find SubmarineUIManager. Either Canvas doesn't exist or doesn't have SubmarineUIManager comp");
-    }
-
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && avalible)
+        if (other.gameObject.tag == "Player" && available)
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                Ray ray = other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, 100))
+                int maxDistance = 100;
+                if (Physics.Raycast(other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform.position, other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform.forward, out hit, maxDistance))
                 {
-                    InteractionManager intractable = hit.collider.GetComponent<InteractionManager>();
-                    if (intractable != null && intractable.gameObject == this.gameObject)
+                    //print(hit.transform.name);
+                    InteractionManager interactable = hit.collider.GetComponent<InteractionManager>();
+                    if (interactable != null && interactable.gameObject == this.gameObject)
                     {
-                        //Display interaction avalible
+                        //Display interaction available
                         //UIManager.ShowInteractionText(true);
-                        //Accept input and tigger event
-                        if (Input.GetAxis("Interact") == 1)
+                        //Accept input and trigger event
+                        if (Input.GetKeyDown(KeyCode.E))
                         {
+                            //Debug.Log("E pressed");
                             if (typeMenu == Type.Door)
                             {
-                                disableWhenOpen.enabled = false;
+                                foreach(BoxCollider box in disableWhenOpen)
+                                {
+                                    box.enabled = false;
+                                }
                                 GetComponent<Animator>().Play("Open");
                             }
 
@@ -66,29 +60,33 @@ public class InteractionManager : NetworkBehaviour
 
 
                             }
-                            if (typeMenu == Type.Button)
+                            if (typeMenu == Type.ColourButton)
                             {
-                                //Return back to main scene
-                                Debug.Log("Returned to main scene");
+                                if (transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                                {
+                                    GetComponent<ColourMiniGameButton>().buttonPressed();
+                                    transform.GetChild(0).GetComponent<Animator>().Play("Click");
+                                }
                             }
 
                             if (typeMenu == Type.PickUp)
                             {
-                                //Return back to main scene
-                                Debug.Log("Picked up" + other.gameObject.transform.name);
-                                if(other.GetComponent<PlayerManager>().objectPlayerHas != null)
+                                if(other.GetComponent<PlayerManager>().objectPlayerHas == null)
                                 {
-                                    other.GetComponent<PlayerManager>().objectPlayerHas = this.gameObject.name;
-                                    Destroy(this.gameObject);
+                                    //if the player is not carrying anything
+                                    Debug.Log("Picked up" + this.gameObject.name);
+                                    other.GetComponent<PlayerManager>().objectPlayerHas = this.gameObject;
+                                    this.gameObject.SetActive(false);
                                 } else
                                 {
-                                    print("Player already has item");
+                                    print("Player is already carrying an item = " + other.GetComponent<PlayerManager>().objectPlayerHas);
                                 }
                             }
 
                             if(typeMenu == Type.DropOff)
                             {
-                                GetComponent<DropOff>().droppingOffItem(other.GetComponent<PlayerManager>().objectPlayerHas, other.gameObject);
+                                print("try to drop off");
+                                GetComponent<DropOff>().droppingOffItem(other.GetComponent<PlayerManager>().objectPlayerHas, other.GetComponent<PlayerManager>(), gameObject.transform.position);
                             }
                         }
                     }
@@ -98,11 +96,11 @@ public class InteractionManager : NetworkBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player" && avalible)
+        if (other.gameObject.tag == "Player" && available)
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                //Display interaction not avalible
+                //Display interaction not available
                 //UIManager.ShowInteractionText(false);
             }
         }
