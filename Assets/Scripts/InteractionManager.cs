@@ -19,6 +19,7 @@ public class InteractionManager : NetworkBehaviour
         PickUp,
         DropOff,
         ColourButton,
+        StartGameButton
     };
     [SerializeField] Type typeMenu;
 
@@ -65,6 +66,14 @@ public class InteractionManager : NetworkBehaviour
                                 if (transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                                 {
                                     GetComponent<ColourMiniGameButton>().buttonPressed();
+                                    transform.GetChild(0).GetComponent<Animator>().Play("Click");
+                                }
+                            }
+                            if (typeMenu == Type.StartGameButton)
+                            {
+                                if (transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                                {
+                                    GetComponent<StartGameButton>().startGame();
                                     transform.GetChild(0).GetComponent<Animator>().Play("Click");
                                 }
                             }
