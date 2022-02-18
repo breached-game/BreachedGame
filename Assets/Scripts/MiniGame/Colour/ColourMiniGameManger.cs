@@ -6,7 +6,20 @@ using UnityEngine;
 public class ColourMiniGameManger : MonoBehaviour
 {
     public List<string> correctColourCombination; // Can make this private and randomly generated -> Laterbase
-    public List<string> currentColourCombination;
+    private List<string> currentColourCombination;
+
+    private MinigameManager minigameManager;
+
+    public string minigameName;
+    public string minigameObjective;
+
+    private string failiureReason;
+
+    private void Start()
+    {
+        minigameManager = transform.parent.GetComponent<MinigameManager>();
+        minigameManager.SendObjectiveData(minigameName, minigameObjective);
+    }
 
     public void sendPressedColour(string colour)
     {
@@ -24,12 +37,15 @@ public class ColourMiniGameManger : MonoBehaviour
     {
         if (listAreEqual(currentColourCombination,correctColourCombination))
         {
-            print("Correct combination");
+            //print("Correct combination");
+            minigameManager.ObjectiveCompleted(minigameName); 
         }
         else
         {
-            print("Incorrect combination");
+            //print("Incorrect combination");
+            failiureReason = "Incorrect Combination";
             currentColourCombination = new List<string>();
+            minigameManager.ObjectiveFailed(minigameName, failiureReason); //Change this 
         }
     }
 
