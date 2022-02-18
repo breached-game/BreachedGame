@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1792,6 +1792,32 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.193942, y: 2.1537328, z: 5.198589}
   m_Center: {x: 0.0032901422, y: 3.5313603e-16, z: 1.5993396}
+--- !u!1 &684673222 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4601627099292998605, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4601627097843903544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!108 &684673224 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 4601627099292998607, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4601627097843903544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &684673225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684673222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d808a6bca73e6d6489c370db9dd11c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  lightSource: {fileID: 684673224}
 --- !u!4 &687990768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5907955863293442369, guid: 8ad05a1b2bc874b4eb42e26921a5c402,
@@ -2674,8 +2700,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Sample text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2763,7 +2789,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5400,6 +5426,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601627099292998605, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+        type: 3}
+      propertyPath: m_Name
+      value: TorchLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601627099292998605, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601627099292998607, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+        type: 3}
+      propertyPath: m_Range
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601627099292998607, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+        type: 3}
+      propertyPath: m_SpotAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601627099292998607, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+        type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4601627099317941936, guid: ee8a3c428d492d94b8166cd13ccecc5f,
         type: 3}
