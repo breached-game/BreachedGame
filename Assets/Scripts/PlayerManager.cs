@@ -30,6 +30,7 @@ public class PlayerManager : MonoBehaviour
         if (identity.isLocalPlayer)
         {
             PlayerManager.LocalPlayerInstance = this.gameObject;
+            FirstPersonCamera.GetComponent<AudioListener>().enabled = true;
         }
         else
         {

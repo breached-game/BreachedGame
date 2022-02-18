@@ -8,16 +8,9 @@ public class PlayerUIManager : MonoBehaviour
     public GameObject prefabObjectiveName;
     public GameObject prefabObjectiveDescription;
 
-    private List<GameObject> UIComponents = new List<GameObject>();
+    private List<GameObject> UIElements =  new List<GameObject>();
+    private float offsetY = 5;
 
-    private Vector3 componentPostion = new Vector3(5f, -5f, 0);
-    
-    /*
-    private void Start()
-    {
-        componentPostion += gameObject.transform.position;
-
-    }
     public void updateObjectiveList(Dictionary<string, string> objectives)
     {
         foreach(var objective in objectives)
@@ -25,43 +18,37 @@ public class PlayerUIManager : MonoBehaviour
             string objectiveName = objective.Key;
             string objectiveDescription = objective.Value;
             createObjectiveBox(objectiveName, objectiveDescription);
-
         }
 
     }
 
-    private void setPosition(GameObject UIElement)
+    private void setPosition(RectTransform UIElement)
     {
-        if (UIComponents.Count == 0)
-        {
-            UIElement.GetComponent<RectTransform>().rect.Set(0, 0, 100, 100);
-            UIElement.transform.position = componentPostion;
-        }
-        else
-        {
-            RectTransform rectOfUIElement = UIElement.GetComponent<RectTransform>();
-            float yOffset = rectOfUIElement.rect.height / 2;
-            Debug.Log(yOffset);
-            rectOfUIElement.rect.Set(rectOfUIElement.rect.x, rectOfUIElement.rect.y - yOffset, rectOfUIElement.rect.width, rectOfUIElement.rect.height);
-        }
-
+        //Get this from parent //hard coded to be lazy
+        float defultx = -100;
+        float defulty = 100;
+        UIElement.localPosition = new Vector3(defultx, defulty - offsetY, 0);
+        UIElements.Add(UIElement.gameObject);
     }
-
     private void createObjectiveBox(string objectiveName, string objectiveDescription)
     {
-        GameObject objectiveNameUI = Instantiate(prefabObjectiveName, transform.position, Quaternion.identity);
-        objectiveNameUI.transform.SetParent(gameObject.transform, false);
+        GameObject objectiveNameUI = Instantiate(prefabObjectiveName, new Vector3(0,0,0), Quaternion.identity);
+        objectiveNameUI.transform.SetParent(gameObject.transform, true);
         objectiveNameUI.GetComponent<TextMeshProUGUI>().text = objectiveName;
-        objectiveNameUI.GetComponent<RectTransform>().localPosition = new Vector3(5, -5, 0);
-        //setPosition(objectiveNameUI);
-        UIComponents.Add(objectiveNameUI);
 
-        GameObject objectiveDescriptionUI = Instantiate(prefabObjectiveDescription, transform.position, Quaternion.identity);
-        objectiveDescriptionUI.transform.SetParent(gameObject.transform, false);
+        //If first then don't update offset
+        if(UIElements.Count != 0)
+        {
+            offsetY = offsetY + objectiveNameUI.GetComponent<RectTransform>().rect.height/2;
+        }
+        setPosition(objectiveNameUI.GetComponent<RectTransform>());
+
+        GameObject objectiveDescriptionUI = Instantiate(prefabObjectiveDescription, new Vector3(0, 0, 0), Quaternion.identity);
+        objectiveDescriptionUI.transform.SetParent(gameObject.transform, true);
         objectiveDescriptionUI.GetComponent<TextMeshProUGUI>().text = objectiveDescription;
-        //setPosition(objectiveDescriptionUI);
-        UIComponents.Add(objectiveDescriptionUI);
-    
+
+        offsetY = offsetY + objectiveDescriptionUI.GetComponent<RectTransform>().rect.height/2;
+        setPosition(objectiveDescriptionUI.GetComponent<RectTransform>());
+
     }
-    */
 }
