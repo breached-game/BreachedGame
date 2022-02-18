@@ -40,7 +40,6 @@ public class WaterGrid : MonoBehaviour
             {
                 GridVertex column = ScriptableObject.CreateInstance<GridVertex>();
                 column.Setup(new Vector2Int(x, z), water_grid.CellToLocal(new Vector3Int(x, 0, z)), 0, cellSize);
-                Debug.Log(gameObject.transform.position);
                 if (x == 0 || z == 0 || x == width -1 || z == depth -1)
                 {
                     column.boundary = true;
