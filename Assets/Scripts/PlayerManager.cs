@@ -40,24 +40,9 @@ public class PlayerManager : MonoBehaviour
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(this.gameObject);
 
+        //Start Animation Control
+        StartCoroutine(animationControll());
 
-        /*Legacy code from third person camera control
-        //Camera Work stuff
-        CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
-
-
-        if (_cameraWork != null)
-        {
-            if (identity.isLocalPlayer)
-            {
-                _cameraWork.OnStartFollowing();
-            }
-        }
-        else
-        {
-            Debug.LogError("<Color=Red><a>Missing</a></Color> CameraWork Component on playerPrefab.", this);
-        }
-        */
     }
 
     #region Movement
@@ -112,18 +97,19 @@ public class PlayerManager : MonoBehaviour
                     torch.SetActive(true);
                 }
             }
-
+        }
+    }
+    IEnumerator animationControll()
+    {
+        while (true)
+        {
             //Animation control
+            Vector3 prevPos = transform.position;
+            yield return new WaitForSeconds(0.5f);
+            Vector3 actualPos = transform.position;
 
-            //Getting animation to play when character moving
-            if (move == new Vector3(0, 0, 0))
-            {
-                PlayerModel.GetComponent<Animator>().SetBool("Moving", false);
-            }
-            if (move != new Vector3(0, 0, 0))
-            {
-                PlayerModel.GetComponent<Animator>().SetBool("Moving", true);
-            }
+            if (prevPos == actualPos) PlayerModel.GetComponent<Animator>().SetBool("Moving", false);
+            if (prevPos != actualPos) PlayerModel.GetComponent<Animator>().SetBool("Moving", true);
         }
     }
     #endregion

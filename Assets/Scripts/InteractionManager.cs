@@ -19,7 +19,8 @@ public class InteractionManager : NetworkBehaviour
         PickUp,
         DropOff,
         ColourButton,
-        StartGameButton
+        StartGameButton,
+        WaterDoor,
     };
     [SerializeField] Type typeMenu;
 
@@ -43,8 +44,12 @@ public class InteractionManager : NetworkBehaviour
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             //Debug.Log("E pressed");
-                            if (typeMenu == Type.Door)
+                            if (typeMenu == Type.Door || typeMenu == Type.WaterDoor)
                             {
+                                if (typeMenu == Type.WaterDoor)
+                                {
+                                    GetComponent<WaterDoor>().StartWater();
+                                }
                                 foreach(BoxCollider box in disableWhenOpen)
                                 {
                                     box.enabled = false;

@@ -6,6 +6,7 @@ public class StartGameButton : MonoBehaviour
 {
     public GameObject spawnPoint;
     public GameObject[] players;
+    public GameObject playerUI;
 
     public void startGame()
     {
@@ -14,6 +15,7 @@ public class StartGameButton : MonoBehaviour
         foreach(GameObject player in players)
         {
             player.transform.position = spawnPoint.transform.position;
+            playerUI.SetActive(true);
         }
     }
 }
