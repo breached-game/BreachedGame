@@ -16,7 +16,8 @@ public class PlayerManager : MonoBehaviour
 
     private CharacterController _controller;
 
-    public string objectPlayerHas;
+    public GameObject objectPlayerHas = null;
+    public GameObject torch;
 
     void Awake()
     {
@@ -29,6 +30,11 @@ public class PlayerManager : MonoBehaviour
         if (identity.isLocalPlayer)
         {
             PlayerManager.LocalPlayerInstance = this.gameObject;
+        }
+        else
+        {
+            //lets disable all other audio listeners
+            FirstPersonCamera.GetComponent<AudioListener>().enabled = false;
         }
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
@@ -79,21 +85,34 @@ public class PlayerManager : MonoBehaviour
                 // turn on the cursor
                 Cursor.lockState = CursorLockMode.None;
             }
-
-            /* Not in first person but it's useful in third
-            //Player look where they move
-            if (move != Vector3.zero)
-            {
-                //We use model because it has no rotation where as player model does
-                //We flip the movement  
-                PlayerModel.transform.parent.gameObject.transform.forward = move * -1;
-            }
-            */
             
             if (!_controller.isGrounded)
             {
                 _controller.Move(new Vector3(0, -10, 0) * Time.deltaTime);
             }
+
+            if (Input.GetKeyDown(KeyCode.G) && objectPlayerHas != null)
+            {
+                //Drop current item
+
+                objectPlayerHas.transform.position = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z); //Currrently -1 for player height, objects will float
+                objectPlayerHas.SetActive(true);
+                if (objectPlayerHas.transform.name == "Torch")//Torch is different to generic object.
+                {
+                    torch.SetActive(false);
+                }
+                objectPlayerHas = null;
+            }
+
+            //check if we have torch 
+            if (objectPlayerHas != null)
+            {
+                if (objectPlayerHas.transform.name == "Torch")
+                {
+                    torch.SetActive(true);
+                }
+            }
+
             //Animation control
 
             //Getting animation to play when character moving
