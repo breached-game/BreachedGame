@@ -12,7 +12,7 @@ public class PlayerUIManager : MonoBehaviour
 
     private Vector3 componentPostion = new Vector3(5f, -5f, 0);
     
-
+    /*
     private void Start()
     {
         componentPostion += gameObject.transform.position;
@@ -34,16 +34,15 @@ public class PlayerUIManager : MonoBehaviour
     {
         if (UIComponents.Count == 0)
         {
+            UIElement.GetComponent<RectTransform>().rect.Set(0, 0, 100, 100);
             UIElement.transform.position = componentPostion;
         }
         else
         {
-
-            float yOffset = UIComponents[UIComponents.Count - 1].GetComponent<Rect>().height / 2;
+            RectTransform rectOfUIElement = UIElement.GetComponent<RectTransform>();
+            float yOffset = rectOfUIElement.rect.height / 2;
             Debug.Log(yOffset);
-            componentPostion.y -= yOffset;
-            UIElement.transform.position = componentPostion;
-
+            rectOfUIElement.rect.Set(rectOfUIElement.rect.x, rectOfUIElement.rect.y - yOffset, rectOfUIElement.rect.width, rectOfUIElement.rect.height);
         }
 
     }
@@ -51,20 +50,18 @@ public class PlayerUIManager : MonoBehaviour
     private void createObjectiveBox(string objectiveName, string objectiveDescription)
     {
         GameObject objectiveNameUI = Instantiate(prefabObjectiveName, transform.position, Quaternion.identity);
-        objectiveNameUI.transform.parent = gameObject.transform;
+        objectiveNameUI.transform.SetParent(gameObject.transform, false);
         objectiveNameUI.GetComponent<TextMeshProUGUI>().text = objectiveName;
-        setPosition(objectiveNameUI);
+        objectiveNameUI.GetComponent<RectTransform>().localPosition = new Vector3(5, -5, 0);
+        //setPosition(objectiveNameUI);
         UIComponents.Add(objectiveNameUI);
-    
-
-       
-
 
         GameObject objectiveDescriptionUI = Instantiate(prefabObjectiveDescription, transform.position, Quaternion.identity);
-        objectiveDescriptionUI.transform.parent = gameObject.transform;
+        objectiveDescriptionUI.transform.SetParent(gameObject.transform, false);
         objectiveDescriptionUI.GetComponent<TextMeshProUGUI>().text = objectiveDescription;
-        setPosition(objectiveDescriptionUI);
+        //setPosition(objectiveDescriptionUI);
         UIComponents.Add(objectiveDescriptionUI);
     
     }
+    */
 }
