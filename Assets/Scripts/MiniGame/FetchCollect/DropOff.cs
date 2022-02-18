@@ -5,7 +5,10 @@ using UnityEngine;
 public class DropOff : MonoBehaviour
 {
     public string itemToBeDroppedOff;
+
     public GameObject dropOffPrefab;
+    private GameObject itemDropped;
+    public bool hasItem;
 
     public void droppingOffItem(GameObject itemCarried, PlayerManager player, Vector3 platformPosition)
     {
@@ -21,12 +24,33 @@ public class DropOff : MonoBehaviour
             itemCarried.SetActive(true);
             //reset carry field
             player.objectPlayerHas = null;
-
+            
+            hasItem = true;
+            itemDropped = itemCarried;
+            Debug.Log("The drop off zone now has the item: " + itemCarried.name);
         }
         else
         {
             //when player doesn't have right item
             print("Player does not have " + itemCarried+ "instead it has " + player.objectPlayerHas.name);
         }
+    }
+
+    public void FixedUpdate()
+    {
+        if (itemDropped != null)
+        {
+            //if the item dropped is not active it means it is temporarily in a players inventory and so not on the dropzone
+            if (!itemDropped.activeSelf)
+            {
+                hasItem = false;
+                Debug.Log("The drop off zone no longer has the item: " + itemDropped);
+                itemDropped = null;
+
+            }
+        }
+     
+
+
     }
 }
