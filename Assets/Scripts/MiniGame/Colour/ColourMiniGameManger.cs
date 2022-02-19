@@ -6,7 +6,7 @@ using UnityEngine;
 public class ColourMiniGameManger : MonoBehaviour
 {
     public List<string> correctColourCombination; // Can make this private and randomly generated -> Laterbase
-    private List<string> currentColourCombination;
+    private List<string> currentColourCombination = new List<string>();
 
     private MinigameManager minigameManager;
 
@@ -38,7 +38,7 @@ public class ColourMiniGameManger : MonoBehaviour
         if (listAreEqual(currentColourCombination,correctColourCombination))
         {
             //print("Correct combination");
-            minigameManager.ObjectiveCompleted(minigameName); 
+            minigameManager.ObjectiveCompleted(minigameName, minigameObjective); 
         }
         else
         {

@@ -19,6 +19,10 @@ public class LightFlickerEffect : MonoBehaviour
     public float intensity = 3f;
     public float interval = 0.5f;
 
+    public GameObject actualLight;
+    public Material onLight;
+    public Material offLight;
+
     void Start()
     {
         //Start the coroutine we define below named ExampleCoroutine.
@@ -30,7 +34,9 @@ public class LightFlickerEffect : MonoBehaviour
         while (true)
         {
             light.intensity = intensity;
+            actualLight.GetComponent<Renderer>().material = onLight;
             yield return new WaitForSeconds(interval);
+            actualLight.GetComponent<Renderer>().material = offLight;
             light.intensity = 0;
             yield return new WaitForSeconds(interval);
         }

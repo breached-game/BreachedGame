@@ -13,14 +13,12 @@ public class InteractionManager : NetworkBehaviour
 
     enum Type
     {
-        Door,
         MiniGame,
         Button,
         PickUp,
         DropOff,
         ColourButton,
-        StartGameButton,
-        WaterDoor,
+        StartGameButton, 
     };
     [SerializeField] Type typeMenu;
 
@@ -30,39 +28,31 @@ public class InteractionManager : NetworkBehaviour
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                RaycastHit hit;
-                int maxDistance = 100;
-                if (Physics.Raycast(other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform.position, other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform.forward, out hit, maxDistance))
+                //Okay so GetKeyDown actually sucks
+                //We check to see if the player is already interacting via the animator
+                Animator playerAni = other.gameObject.GetComponent<PlayerManager>().PlayerModel.GetComponent<Animator>();
+                if (Input.GetAxis("Interact") == 1 && !playerAni.GetCurrentAnimatorStateInfo(0).IsName("Interact") )
                 {
-                    //print(hit.transform.name);
-                    InteractionManager interactable = hit.collider.GetComponent<InteractionManager>();
-                    if (interactable != null && interactable.gameObject == this.gameObject)
+                    playerAni.Play("Interact");
+                    RaycastHit hit;
+                    int maxDistance = 10000;
+
+                    Transform cameraTransform = other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform;
+                    if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.forward, out hit, maxDistance))
                     {
-                        //Display interaction available
-                        //UIManager.ShowInteractionText(true);
-                        //Accept input and trigger event
-                        if (Input.GetKeyDown(KeyCode.E))
+                        //print(hit.transform.name);
+                        InteractionManager interactable = hit.collider.GetComponent<InteractionManager>();
+                        if (interactable != null && hit.collider.gameObject == gameObject)
                         {
+                            //Display interaction available
+                            //UIManager.ShowInteractionText(true);
+                            //Accept input and trigger event
                             //Debug.Log("E pressed");
-                            if (typeMenu == Type.Door || typeMenu == Type.WaterDoor)
-                            {
-                                if (typeMenu == Type.WaterDoor)
-                                {
-                                    GetComponent<WaterDoor>().StartWater();
-                                }
-                                foreach(BoxCollider box in disableWhenOpen)
-                                {
-                                    box.enabled = false;
-                                }
-                                GetComponent<Animator>().Play("Open");
-                            }
-
-
                             if (typeMenu == Type.MiniGame)
                             {
                                 //Change to minigame scene
                                 Debug.Log("Interacting with minigame");
-                               // need to build server for this
+                                // need to build server for this
 
 
                             }
@@ -85,19 +75,20 @@ public class InteractionManager : NetworkBehaviour
 
                             if (typeMenu == Type.PickUp)
                             {
-                                if(other.GetComponent<PlayerManager>().objectPlayerHas == null)
+                                if (other.GetComponent<PlayerManager>().objectPlayerHas == null)
                                 {
                                     //if the player is not carrying anything
                                     Debug.Log("Picked up" + this.gameObject.name);
                                     other.GetComponent<PlayerManager>().objectPlayerHas = this.gameObject;
                                     this.gameObject.SetActive(false);
-                                } else
+                                }
+                                else
                                 {
                                     print("Player is already carrying an item = " + other.GetComponent<PlayerManager>().objectPlayerHas);
                                 }
                             }
 
-                            if(typeMenu == Type.DropOff)
+                            if (typeMenu == Type.DropOff)
                             {
                                 print("try to drop off");
                                 GetComponent<DropOff>().droppingOffItem(other.GetComponent<PlayerManager>().objectPlayerHas, other.GetComponent<PlayerManager>(), gameObject.transform.position);

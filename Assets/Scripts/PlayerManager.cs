@@ -25,18 +25,6 @@ public class PlayerManager : MonoBehaviour
         identity = GetComponent<NetworkIdentity>();
         Cursor.lockState = CursorLockMode.Locked;
 
-        // #Important
-        // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
-        if (identity.isLocalPlayer)
-        {
-            PlayerManager.LocalPlayerInstance = this.gameObject;
-            FirstPersonCamera.GetComponent<AudioListener>().enabled = true;
-        }
-        else
-        {
-            //lets disable all other audio listeners
-            FirstPersonCamera.GetComponent<AudioListener>().enabled = false;
-        }
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(this.gameObject);
@@ -44,6 +32,17 @@ public class PlayerManager : MonoBehaviour
         //Start Animation Control
         StartCoroutine(animationControll());
 
+    }
+
+    public void TurnOnAudio()
+    {
+        // #Important
+        // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
+        if (identity.isLocalPlayer)
+        {
+            PlayerManager.LocalPlayerInstance = this.gameObject;
+            FirstPersonCamera.GetComponent<AudioListener>().enabled = true;
+        }
     }
 
     #region Movement

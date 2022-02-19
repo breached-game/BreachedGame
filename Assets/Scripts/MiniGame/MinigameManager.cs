@@ -14,6 +14,7 @@ public class MinigameManager : MonoBehaviour
     // Dictionary shape : {Objective name (string) : Instructions (array of string) 
     public Dictionary<string, string> allObjectives = new Dictionary<string, string>();
     private Dictionary<string, string> currentObjectives;
+    private Dictionary<string, string> doneObjectives;
    
 
     // Dictionary shape : {Objective name (string) : Reason for failiuew (string)
@@ -23,17 +24,18 @@ public class MinigameManager : MonoBehaviour
 
     public void SendObjectiveData(string objectiveName, string objectiveDescription)
     {
-
         //Debug.Log(objectiveName + "\n" + objectiveDescription);
         allObjectives.Add(objectiveName, objectiveDescription);
         currentObjectives = allObjectives;
         UpdateObjectivesPlayerUI();
     }
 
-    public void ObjectiveCompleted(string objectiveName)
+    public void ObjectiveCompleted(string objectiveName, string objectiveDescription)
     {
         //Called when minigame finished. Removes entry from current objectives, checks if won, updates players UI
         currentObjectives.Remove(objectiveName);
+        //Add it to done objectives
+        doneObjectives.Add(objectiveName, objectiveDescription);
         CheckWon();
         UpdateObjectivesPlayerUI();
     }
@@ -55,6 +57,6 @@ public class MinigameManager : MonoBehaviour
 
     public void UpdateObjectivesPlayerUI()
     {
-        UIManager.GetComponent<PlayerUIManager>().updateObjectiveList(currentObjectives);
+        UIManager.GetComponent<PlayerUIManager>().updateObjectiveList(currentObjectives, doneObjectives);
     }
 }

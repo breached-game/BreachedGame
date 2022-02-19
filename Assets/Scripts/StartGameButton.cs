@@ -18,6 +18,7 @@ public class StartGameButton : MonoBehaviour
         {
             player.transform.position = spawnPoint.transform.position;
             playerUI.SetActive(true);
+            player.GetComponent<PlayerManager>().TurnOnAudio();
         }
     }
 }
