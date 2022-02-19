@@ -32,6 +32,7 @@ public class MinigameManager : MonoBehaviour
 
     public void ObjectiveCompleted(string objectiveName, string objectiveDescription)
     {
+        print("Object Complete");
         //Called when minigame finished. Removes entry from current objectives, checks if won, updates players UI
         currentObjectives.Remove(objectiveName);
         //Add it to done objectives

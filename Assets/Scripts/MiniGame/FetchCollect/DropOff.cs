@@ -16,6 +16,8 @@ public class DropOff : MonoBehaviour
         {
             //if the player has the right item to drop off
             print(dropOffPrefab + " has been dropped off");
+            //Update player UI
+            player.updateItemText();
             //respawn object 
             int height = (int)itemCarried.transform.lossyScale.y;
             Vector3 heightVector =  new Vector3 (0, height, 0);

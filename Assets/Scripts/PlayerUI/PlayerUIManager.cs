@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Mirror;
 
 public class PlayerUIManager : MonoBehaviour
 {
+    public GameObject playerHoldingText;
     public GameObject prefabObjectiveName;
     public GameObject prefabObjectiveDescription;
 
@@ -14,8 +16,20 @@ public class PlayerUIManager : MonoBehaviour
     private List<GameObject> UIElements =  new List<GameObject>();
     private float offsetY = 5;
 
+    public void UpdatePlayerHolding(string itemName)
+    {
+        playerHoldingText.GetComponent<TextMeshProUGUI>().text = itemName;
+    }
     public void updateObjectiveList(Dictionary<string, string> objectives, Dictionary<string, string> doneObjectives)
     {
+        //Clear UI
+        offsetY = 5;
+        foreach (GameObject UIElement in UIElements)
+        {
+            Destroy(UIElement);
+        }
+        UIElements.Clear();
+
         if (doneObjectives != null)
         {
             foreach (var objective in doneObjectives)

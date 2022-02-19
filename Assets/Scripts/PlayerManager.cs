@@ -87,6 +87,8 @@ public class PlayerManager : MonoBehaviour
                     torch.SetActive(false);
                 }
                 objectPlayerHas = null;
+                //Update the item text
+                updateItemText();
             }
 
             //check if we have torch 
@@ -96,8 +98,19 @@ public class PlayerManager : MonoBehaviour
                 {
                     torch.SetActive(true);
                 }
+                //Update the item text
+                updateItemText();
             }
         }
+    }
+
+    public void updateItemText()
+    {
+        //TERRIBLE PRACTICE
+        GameObject UI = GameObject.Find("Canvas/PlayerUI");
+        if (UI == null) Debug.LogError("Player Script cannot access player UI --Andrew's fault");
+        if (objectPlayerHas.transform.name != null) UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding(objectPlayerHas.transform.name);
+        else UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding("");
     }
     IEnumerator animationControll()
     {
