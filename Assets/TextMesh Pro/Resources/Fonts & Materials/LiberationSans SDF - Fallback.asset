@@ -95,6 +95,10 @@ Material:
     - _GlowPower: 0.75
     - _GradientScale: 10
     - _LightAngle: 90
+<<<<<<< Updated upstream
+=======
+    - _LightRange: 10
+>>>>>>> Stashed changes
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
     - _Metallic: 0
