@@ -94,7 +94,7 @@ Material:
     - _GlowOuter: 0.05
     - _GlowPower: 0.75
     - _GradientScale: 10
-    - _LightAngle: 3.1416
+    - _LightAngle: 90
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
     - _Metallic: 0

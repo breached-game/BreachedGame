@@ -13,9 +13,9 @@ public class MinigameManager : MonoBehaviour
 
     // Dictionary shape : {Objective name (string) : Instructions (array of string) 
     public Dictionary<string, string> allObjectives = new Dictionary<string, string>();
-    private Dictionary<string, string> currentObjectives;
-    private Dictionary<string, string> doneObjectives;
-   
+    private Dictionary<string, string> currentObjectives = new Dictionary<string, string>();
+    private Dictionary<string, string> doneObjectives = new Dictionary<string, string>();
+
 
     // Dictionary shape : {Objective name (string) : Reason for failiuew (string)
     private Dictionary<string, string> failedObjectives;

@@ -16,8 +16,6 @@ public class DropOff : MonoBehaviour
         {
             //if the player has the right item to drop off
             print(dropOffPrefab + " has been dropped off");
-            //Update player UI
-            player.updateItemText();
             //respawn object 
             int height = (int)itemCarried.transform.lossyScale.y;
             Vector3 heightVector =  new Vector3 (0, height, 0);
@@ -26,10 +24,15 @@ public class DropOff : MonoBehaviour
             itemCarried.SetActive(true);
             //reset carry field
             player.objectPlayerHas = null;
-            
+            //Update player UI
+            player.updateItemText();
+
             hasItem = true;
             itemDropped = itemCarried;
             Debug.Log("The drop off zone now has the item: " + itemCarried.name);
+
+            //Tell manager that we have change of state
+            transform.parent.GetComponent<DropOffMiniGameManager>().changeInState(true);
         }
         else
         {
@@ -49,6 +52,8 @@ public class DropOff : MonoBehaviour
                 Debug.Log("The drop off zone no longer has the item: " + itemDropped);
                 itemDropped = null;
 
+                //Tell manager that we have change of state
+                transform.parent.GetComponent<DropOffMiniGameManager>().changeInState(false);
             }
         }
      
