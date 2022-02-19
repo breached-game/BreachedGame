@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 2461585780
-  serverOnly: 0
+  serverOnly: 1
   m_AssetId: 
   hasSpawned: 0
 --- !u!65 &124804725
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 2435406843
-  serverOnly: 0
+  serverOnly: 1
   m_AssetId: 
   hasSpawned: 0
 --- !u!65 &141281118
@@ -2405,7 +2405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &623296604
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4897,7 +4897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 3843139964
-  serverOnly: 0
+  serverOnly: 1
   m_AssetId: 
   hasSpawned: 0
 --- !u!65 &1191814266
@@ -5708,7 +5708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 1118143816
-  serverOnly: 0
+  serverOnly: 1
   m_AssetId: 
   hasSpawned: 0
 --- !u!65 &1361078887
@@ -7364,7 +7364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 1185595925
-  serverOnly: 0
+  serverOnly: 1
   m_AssetId: 
   hasSpawned: 0
 --- !u!65 &2018227277
@@ -8094,6 +8094,11 @@ PrefabInstance:
       propertyPath: sceneId
       value: 3079983498
       objectReference: {fileID: 0}
+    - target: {fileID: 4601627099317941939, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+        type: 3}
+      propertyPath: serverOnly
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4601627099317941943, guid: ee8a3c428d492d94b8166cd13ccecc5f,
         type: 3}
       propertyPath: m_RootOrder
@@ -8485,6 +8490,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sceneId
       value: 3119467379
+      objectReference: {fileID: 0}
+    - target: {fileID: 5907955863293442373, guid: 8ad05a1b2bc874b4eb42e26921a5c402,
+        type: 3}
+      propertyPath: serverOnly
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5907955863293442375, guid: 8ad05a1b2bc874b4eb42e26921a5c402,
         type: 3}

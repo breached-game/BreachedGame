@@ -42,7 +42,7 @@ public class InteractionManager : NetworkBehaviour
                     {
                         //print(hit.transform.name);
                         InteractionManager interactable = hit.collider.GetComponent<InteractionManager>();
-                        if (interactable != null && hit.collider.gameObject == gameObject)
+                        if (interactable != null && (hit.collider.gameObject == gameObject || hit.collider.gameObject == gameObject.transform.GetChild(0).gameObject))
                         {
                             //Display interaction available
                             //UIManager.ShowInteractionText(true);

@@ -33,7 +33,7 @@ public class MinigameManager : MonoBehaviour
 
     public void ObjectiveCompleted(string objectiveName, string objectiveDescription)
     {
-        ConsoleLog.GetComponent<ConsoleLog>().createLogItem("Mini Game Completed: " + objectiveName);
+        //ConsoleLog.GetComponent<ConsoleLog>().createLogItem("Mini Game Completed: " + objectiveName);
         //Called when minigame finished. Removes entry from current objectives, checks if won, updates players UI
         currentObjectives.Remove(objectiveName);
         //Add it to done objectives
