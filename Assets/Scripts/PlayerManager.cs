@@ -109,7 +109,7 @@ public class PlayerManager : MonoBehaviour
         //TERRIBLE PRACTICE
         GameObject UI = GameObject.Find("Canvas/PlayerUI");
         if (UI == null) Debug.LogError("Player Script cannot access player UI --Andrew's fault");
-        if (objectPlayerHas.transform.name != null) UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding(objectPlayerHas.transform.name);
+        if (objectPlayerHas != null) UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding(objectPlayerHas.transform.name);
         else UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding("");
     }
     IEnumerator animationControll()
