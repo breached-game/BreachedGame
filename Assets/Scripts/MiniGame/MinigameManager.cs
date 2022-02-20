@@ -6,13 +6,15 @@ using TMPro;
 
 public class MinigameManager : MonoBehaviour
 {
-  
+    public GameObject winScreen;//
+    private GameObject[] players;
+    
     public GameObject UIManager;
     public GameObject ConsoleLog;
     private string currentText;
 
 
-    // Dictionary shape : {Objective name (string) : Instructions (array of string) 
+    // Dictionary shape : {Objective name (string) : Instructions (string) 
     public Dictionary<string, string> allObjectives = new Dictionary<string, string>();
     private Dictionary<string, string> currentObjectives = new Dictionary<string, string>();
     private Dictionary<string, string> doneObjectives = new Dictionary<string, string>();
@@ -52,6 +54,16 @@ public class MinigameManager : MonoBehaviour
     {
         if (currentObjectives.Count == 0)
         {
+
+            //This function should probably be its own script
+            players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in players)
+            {
+                player.GetComponent<PlayerManager>().TurnOffAudio();
+            }
+
+            UIManager.SetActive(false);
+            winScreen.SetActive(true);
             // Win !!!!
         }
     }

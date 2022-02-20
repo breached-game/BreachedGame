@@ -45,6 +45,18 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+
+    public void TurnOffAudio()
+    {
+        // #Important
+        // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
+        if (identity.isLocalPlayer)
+        {
+            PlayerManager.LocalPlayerInstance = this.gameObject;
+            FirstPersonCamera.GetComponent<AudioListener>().enabled = false;
+        }
+    }
+
     #region Movement
     public float Speed = 4.0f;
     public float smooth = 5f;
