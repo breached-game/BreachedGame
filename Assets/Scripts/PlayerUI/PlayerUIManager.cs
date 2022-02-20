@@ -76,13 +76,13 @@ public class PlayerUIManager : NetworkBehaviour
 
     public void OnObjectiveChange(SyncDictionaryStringString.Operation op, string key, string value)
     {
+        Debug.Log("Callback");
+        Debug.Log("Current Objectives: " + currentObjectives.Count);
+        Debug.Log("Done Objectives: " + doneObjectives.Count);
         switch (op)
         {
             case SyncIDictionary<string, string>.Operation.OP_ADD:
-                if (currentObjectives.Count + doneObjectives.Count == 3)
-                {
-                    UpdateObjectiveUI();
-                }
+                UpdateObjectiveUI();
                 break;
             case SyncIDictionary<string, string>.Operation.OP_CLEAR:
                 break;
