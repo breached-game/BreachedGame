@@ -8,6 +8,9 @@ public class InteractionManager : NetworkBehaviour
     //We manage all interaction here
     [SyncVar]
     public bool available = true;
+    //We manage all interaction here
+    [SyncVar]
+    public bool active = true;
 
     public List<BoxCollider> disableWhenOpen;
 
@@ -79,8 +82,7 @@ public class InteractionManager : NetworkBehaviour
                                 {
                                     //if the player is not carrying anything
                                     Debug.Log("Picked up" + this.gameObject.name);
-                                    other.GetComponent<PlayerManager>().objectPlayerHas = this.gameObject;
-                                    this.gameObject.SetActive(false);
+                                    other.GetComponent<PlayerManager>().PickUp(this.gameObject);
                                 }
                                 else
                                 {
@@ -109,5 +111,10 @@ public class InteractionManager : NetworkBehaviour
                 //UIManager.ShowInteractionText(false);
             }
         }
+    }
+    public void FixedUpdate()
+    {
+        if (active) gameObject.SetActive(true);
+        else gameObject.SetActive(false);
     }
 }
