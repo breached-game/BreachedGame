@@ -21,7 +21,7 @@ public class DropOff : MonoBehaviour
             Vector3 heightVector =  new Vector3 (0, height, 0);
             itemCarried.transform.position = platformPosition + heightVector/2; //This is for dropping it on specific platform
             //itemCarried.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-            itemCarried.GetComponent<InteractionManager>().active = true;
+            itemCarried.SetActive(true);
             //reset carry field
             player.objectPlayerHas = null;
             //Update player UI

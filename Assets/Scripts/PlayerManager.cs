@@ -45,12 +45,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void PickUp(GameObject item)
-    {
-        objectPlayerHas = item;
-        item.GetComponent<InteractionManager>().active = false;
-    }
-
     #region Movement
     public float Speed = 4.0f;
     public float smooth = 5f;
@@ -87,7 +81,7 @@ public class PlayerManager : MonoBehaviour
                 //Drop current item
 
                 objectPlayerHas.transform.position = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z); //Currrently -1 for player height, objects will float
-                objectPlayerHas.GetComponent<InteractionManager>().active = true;
+                objectPlayerHas.SetActive(true);
                 if (objectPlayerHas.transform.name == "Torch")//Torch is different to generic object.
                 {
                     torch.SetActive(false);
