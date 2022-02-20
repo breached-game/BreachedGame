@@ -48,7 +48,7 @@ public class DoorOpenningScript : MonoBehaviour
             {
                 if (typeMenu == Type.WaterDoor)
                 {
-                    GetComponent<WaterDoor>().StartWater();
+                    GetComponent<WaterManager>().StartWater();
                 }
             }
         }

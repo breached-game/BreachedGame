@@ -90,7 +90,11 @@ public class InteractionManager : NetworkBehaviour
 
                             if (typeMenu == Type.DropOff)
                             {
-                                print("try to drop off");
+                                if (other.GetComponent<PlayerManager>().objectPlayerHas.name == "WaterPumpItem")
+                                {
+                                    other.GetComponent<PlayerManager>().objectPlayerHas.GetComponent<WaterManager>().OutflowWater();
+                                }
+                                print("Try to drop off");
                                 GetComponent<DropOff>().droppingOffItem(other.GetComponent<PlayerManager>().objectPlayerHas, other.GetComponent<PlayerManager>(), gameObject.transform.position);
                             }
                         }
