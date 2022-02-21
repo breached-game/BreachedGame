@@ -72,7 +72,11 @@ public class PlayerManager : NetworkBehaviour
         switch (op)
         {
             case SyncIDictionary<string, string>.Operation.OP_ADD:
-                playerUI.GetComponent<PlayerUIManager>().UpdateObjectiveUI(objectiveNames.ToArray(), objectiveDescriptions.ToArray(), completedObjectiveNames.ToArray(), completedObjectiveDescriptions.ToArray());
+                if (doneObjectives.Count + currentObjectives.Count == 3)
+                {
+                    playerUI.GetComponent<PlayerUIManager>().UpdateObjectiveUI(objectiveNames.ToArray(), objectiveDescriptions.ToArray(), completedObjectiveNames.ToArray(), completedObjectiveDescriptions.ToArray());
+
+                }
                 break;
             case SyncIDictionary<string, string>.Operation.OP_CLEAR:
                 break;
@@ -89,6 +93,7 @@ public class PlayerManager : NetworkBehaviour
     public void CmdUpdateObjectiveList(string[] objectiveNames, string[] objectiveDescriptions, string[] completedObjectiveNames, string[] completedObjectiveDescriptions)
     {
         Debug.Log("Command called");
+        Debug.Log("Done:" + completedObjectiveNames.Length);
         currentObjectives.Clear();
         doneObjectives.Clear();
         for (int i = 0; i < objectiveNames.Length; i++)
