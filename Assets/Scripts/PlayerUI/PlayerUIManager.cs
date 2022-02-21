@@ -23,10 +23,10 @@ public class PlayerUIManager : MonoBehaviour
         playerHoldingText.GetComponent<TextMeshProUGUI>().text = itemName;
     }
 
-    public void UpdateObjectiveUI(string[] doneObjectives, string[] doneObjectivesDescriptions, string[] currentObjectives, string[] currentObjectivesDescriptions)
+    public void UpdateObjectiveUI(string[] currentObjectives, string[] currentObjectivesDescriptions, string[] doneObjectives, string[] doneObjectivesDescriptions)
     {
         //Clear UI
-        offsetY = 5;
+        offsetY = 50;
         foreach (GameObject UIElement in UIElements)
         {
             Destroy(UIElement);

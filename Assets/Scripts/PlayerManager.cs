@@ -97,7 +97,7 @@ public class PlayerManager : NetworkBehaviour
         }
         for (int i = 0; i < completedObjectiveNames.Length; i++)
         {
-            currentObjectives.Add(completedObjectiveNames[i], completedObjectiveDescriptions[i]);
+            doneObjectives.Add(completedObjectiveNames[i], completedObjectiveDescriptions[i]);
         }
     }
 

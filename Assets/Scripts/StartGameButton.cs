@@ -8,7 +8,7 @@ public class StartGameButton : MonoBehaviour
     public GameObject[] players;
     public GameObject playerUI;
     public GameObject lights;
-
+    public GameObject minigameManager;
     public void startGame()
     {
         //Bad practice we should pass players in some other way 
@@ -19,6 +19,7 @@ public class StartGameButton : MonoBehaviour
             player.transform.position = spawnPoint.transform.position;
             playerUI.SetActive(true);
             player.GetComponent<PlayerManager>().TurnOnAudio();
+            minigameManager.GetComponent<MinigameManager>().UpdateObjectivesPlayerUI();
         }
     }
 }

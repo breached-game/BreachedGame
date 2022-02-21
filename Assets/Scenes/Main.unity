@@ -1772,6 +1772,7 @@ MonoBehaviour:
   players: []
   playerUI: {fileID: 623296603}
   lights: {fileID: 3736068290316298105}
+  minigameManager: {fileID: 1563282945}
 --- !u!1 &346575969
 GameObject:
   m_ObjectHideFlags: 0
@@ -8520,7 +8521,7 @@ PrefabInstance:
     - target: {fileID: 4601627099317941939, guid: ee8a3c428d492d94b8166cd13ccecc5f,
         type: 3}
       propertyPath: serverOnly
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4601627099317941943, guid: ee8a3c428d492d94b8166cd13ccecc5f,
         type: 3}
