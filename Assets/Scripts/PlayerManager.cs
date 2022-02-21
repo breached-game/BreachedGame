@@ -1,10 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
 using System.Collections;
 using Mirror;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : NetworkBehaviour
 {
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
@@ -12,15 +13,25 @@ public class PlayerManager : MonoBehaviour
     public GameObject PlayerModel;
     public GameObject FirstPersonCamera;
 
-    private NetworkIdentity identity;
+    public NetworkIdentity identity;
 
     private CharacterController _controller;
 
     public GameObject objectPlayerHas = null;
     public GameObject torch;
 
+    public readonly SyncDictionaryStringString currentObjectives = new SyncDictionaryStringString();
+    public readonly SyncDictionaryStringString doneObjectives = new SyncDictionaryStringString();
+
+    GameObject playerUI;
+
     void Awake()
     {
+        playerUI = GameObject.Find("/Canvas/PlayerUI");
+        if (playerUI == null)
+        {
+            Debug.LogError("No playerUI - buggy code");
+        }
         _controller = GetComponent<CharacterController>();
         identity = GetComponent<NetworkIdentity>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -32,6 +43,62 @@ public class PlayerManager : MonoBehaviour
         //Start Animation Control
         StartCoroutine(animationControll());
 
+    }
+
+    public override void OnStartClient()
+    {
+        currentObjectives.Callback += OnObjectiveChange;
+        doneObjectives.Callback += OnObjectiveChange;
+    }
+    public void OnObjectiveChange(SyncDictionaryStringString.Operation op, string key, string value)
+    {
+        Debug.Log("Callback");
+        Debug.Log("Current Objectives: " + currentObjectives.Count);
+        Debug.Log("Done Objectives: " + doneObjectives.Count);
+        List<string> objectiveNames = new List<string>();
+        List<string> objectiveDescriptions = new List<string>();
+        List<string> completedObjectiveNames = new List<string>();
+        List<string> completedObjectiveDescriptions = new List<string>();
+        foreach (var o in currentObjectives)
+        {
+            objectiveNames.Add(o.Key);
+            objectiveDescriptions.Add(o.Value);
+        }
+        foreach (var o in doneObjectives)
+        {
+            completedObjectiveNames.Add(o.Key);
+            completedObjectiveDescriptions.Add(o.Value);
+        }
+        switch (op)
+        {
+            case SyncIDictionary<string, string>.Operation.OP_ADD:
+                playerUI.GetComponent<PlayerUIManager>().UpdateObjectiveUI(objectiveNames.ToArray(), objectiveDescriptions.ToArray(), completedObjectiveNames.ToArray(), completedObjectiveDescriptions.ToArray());
+                break;
+            case SyncIDictionary<string, string>.Operation.OP_CLEAR:
+                break;
+            case SyncIDictionary<string, string>.Operation.OP_REMOVE:
+                break;
+            case SyncIDictionary<string, string>.Operation.OP_SET:
+                break;
+            default:
+                break;
+        }
+    }
+
+    [Command]
+    public void CmdUpdateObjectiveList(string[] objectiveNames, string[] objectiveDescriptions, string[] completedObjectiveNames, string[] completedObjectiveDescriptions)
+    {
+        Debug.Log("Command called");
+        currentObjectives.Clear();
+        doneObjectives.Clear();
+        for (int i = 0; i < objectiveNames.Length; i++)
+        {
+            currentObjectives.Add(objectiveNames[i], objectiveDescriptions[i]);
+        }
+        for (int i = 0; i < completedObjectiveNames.Length; i++)
+        {
+            currentObjectives.Add(completedObjectiveNames[i], completedObjectiveDescriptions[i]);
+        }
     }
 
     public void TurnOnAudio()

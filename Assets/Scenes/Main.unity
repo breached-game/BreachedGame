@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 2461585780
-  serverOnly: 1
+  serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
 --- !u!65 &124804725
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 2435406843
-  serverOnly: 1
+  serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
 --- !u!65 &141281118
@@ -2602,7 +2602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &623296604
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2635,8 +2635,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74cde093007152d44965650d568ce566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   playerHoldingText: {fileID: 392115587}
   prefabObjectiveName: {fileID: 1124906396857492461, guid: ea2654f3542387d4b8243d3b180d3248,
     type: 3}
@@ -5112,7 +5110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 3843139964
-  serverOnly: 1
+  serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
 --- !u!65 &1191814266
@@ -5998,7 +5996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 1118143816
-  serverOnly: 1
+  serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
 --- !u!65 &1361078887
@@ -7789,7 +7787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 1185595925
-  serverOnly: 1
+  serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
 --- !u!65 &2018227277
@@ -8919,7 +8917,7 @@ PrefabInstance:
     - target: {fileID: 5907955863293442373, guid: 8ad05a1b2bc874b4eb42e26921a5c402,
         type: 3}
       propertyPath: serverOnly
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5907955863293442375, guid: 8ad05a1b2bc874b4eb42e26921a5c402,
         type: 3}

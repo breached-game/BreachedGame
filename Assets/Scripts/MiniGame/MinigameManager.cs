@@ -71,6 +71,8 @@ public class MinigameManager : MonoBehaviour
 
     public void UpdateObjectivesPlayerUI()
     {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        Debug.Log(currentObjectives.Count);
         List<string> objectiveNames = new List<string>();
         List<string> objectiveDescriptions = new List<string>();
         List<string> completedObjectiveNames = new List<string>();
@@ -85,6 +87,13 @@ public class MinigameManager : MonoBehaviour
             completedObjectiveNames.Add(o.Key);
             completedObjectiveDescriptions.Add(o.Value);
         }
-        UIManager.GetComponent<PlayerUIManager>().CmdUpdateObjectiveList(objectiveNames.ToArray(), objectiveDescriptions.ToArray(), completedObjectiveNames.ToArray(), completedObjectiveDescriptions.ToArray());
+        foreach (GameObject p in players)
+        {
+            if (p.GetComponent<PlayerManager>().identity.isLocalPlayer)
+            {
+                p.GetComponent<PlayerManager>().CmdUpdateObjectiveList(objectiveNames.ToArray(), objectiveDescriptions.ToArray(), completedObjectiveNames.ToArray(), completedObjectiveDescriptions.ToArray());
+
+            }
+        }
     }
 }

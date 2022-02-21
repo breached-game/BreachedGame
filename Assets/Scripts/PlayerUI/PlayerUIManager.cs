@@ -6,14 +6,11 @@ using Mirror;
 
 public class SyncDictionaryStringString : SyncDictionary<string, string> { }
 
-public class PlayerUIManager : NetworkBehaviour
+public class PlayerUIManager : MonoBehaviour
 {
     public GameObject playerHoldingText;
     public GameObject prefabObjectiveName;
     public GameObject prefabObjectiveDescription;
-
-    public readonly SyncDictionaryStringString currentObjectives = new SyncDictionaryStringString();
-    public readonly SyncDictionaryStringString doneObjectives = new SyncDictionaryStringString();
 
     public Color doneObjectTextColour;
     public Color objectTextColour;
@@ -21,18 +18,12 @@ public class PlayerUIManager : NetworkBehaviour
     private List<GameObject> UIElements = new List<GameObject>();
     private float offsetY = 5;
 
-    public override void OnStartClient()
-    {
-        currentObjectives.Callback += OnObjectiveChange;
-        doneObjectives.Callback += OnObjectiveChange;
-    }
-
     public void UpdatePlayerHolding(string itemName)
     {
         playerHoldingText.GetComponent<TextMeshProUGUI>().text = itemName;
     }
 
-    public void UpdateObjectiveUI()
+    public void UpdateObjectiveUI(string[] doneObjectives, string[] doneObjectivesDescriptions, string[] currentObjectives, string[] currentObjectivesDescriptions)
     {
         //Clear UI
         offsetY = 5;
@@ -42,57 +33,19 @@ public class PlayerUIManager : NetworkBehaviour
         }
         UIElements.Clear();
 
-        if (doneObjectives != null)
+        if (doneObjectives.Length > 0)
         {
-            foreach (var objective in doneObjectives)
+            for (int i = 0; i < doneObjectives.Length; i++)
             {
-                string objectiveName = objective.Key;
-                string objectiveDescription = objective.Value;
-                createObjectiveBox(objectiveName, objectiveDescription, doneObjectTextColour);
+                createObjectiveBox(doneObjectives[i], doneObjectivesDescriptions[i], doneObjectTextColour);
             }
         }
-
-        foreach (var objective in currentObjectives)
+        if (currentObjectives.Length > 0)
         {
-            string objectiveName = objective.Key;
-            string objectiveDescription = objective.Value;
-            createObjectiveBox(objectiveName, objectiveDescription, objectTextColour);
-        }
-    }
-
-    [Command]
-    public void CmdUpdateObjectiveList(string[] objectiveNames, string[] objectiveDescriptions, string[] completedObjectiveNames, string[] completedObjectiveDescriptions)
-    {
-        currentObjectives.Clear();
-        doneObjectives.Clear();
-        for (int i = 0; i < objectiveNames.Length; i++)
-        {
-            currentObjectives.Add(objectiveNames[i], objectiveDescriptions[i]);
-        }
-        for (int i = 0; i < completedObjectiveNames.Length; i++)
-        {
-            currentObjectives.Add(completedObjectiveNames[i], completedObjectiveDescriptions[i]);
-        }
-    }
-
-    public void OnObjectiveChange(SyncDictionaryStringString.Operation op, string key, string value)
-    {
-        Debug.Log("Callback");
-        Debug.Log("Current Objectives: " + currentObjectives.Count);
-        Debug.Log("Done Objectives: " + doneObjectives.Count);
-        switch (op)
-        {
-            case SyncIDictionary<string, string>.Operation.OP_ADD:
-                UpdateObjectiveUI();
-                break;
-            case SyncIDictionary<string, string>.Operation.OP_CLEAR:
-                break;
-            case SyncIDictionary<string, string>.Operation.OP_REMOVE:
-                break;
-            case SyncIDictionary<string, string>.Operation.OP_SET:
-                break;
-            default:
-                break;
+            for (int i = 0; i < currentObjectives.Length; i++)
+            {
+                createObjectiveBox(currentObjectives[i], currentObjectivesDescriptions[i], objectTextColour);
+            }
         }
     }
 
