@@ -4,23 +4,35 @@ using UnityEngine;
 using TMPro;
 using Mirror;
 
-public class PlayerUIManager : MonoBehaviour
+public class SyncDictionaryStringString : SyncDictionary<string, string> { }
+
+public class PlayerUIManager : NetworkBehaviour
 {
     public GameObject playerHoldingText;
     public GameObject prefabObjectiveName;
     public GameObject prefabObjectiveDescription;
 
+    public readonly SyncDictionaryStringString currentObjectives = new SyncDictionaryStringString();
+    public readonly SyncDictionaryStringString doneObjectives = new SyncDictionaryStringString();
+
     public Color doneObjectTextColour;
     public Color objectTextColour;
 
-    private List<GameObject> UIElements =  new List<GameObject>();
+    private List<GameObject> UIElements = new List<GameObject>();
     private float offsetY = 5;
+
+    public override void OnStartClient()
+    {
+        currentObjectives.Callback += OnObjectiveChange;
+        doneObjectives.Callback += OnObjectiveChange;
+    }
 
     public void UpdatePlayerHolding(string itemName)
     {
         playerHoldingText.GetComponent<TextMeshProUGUI>().text = itemName;
     }
-    public void updateObjectiveList(Dictionary<string, string> objectives, Dictionary<string, string> doneObjectives)
+
+    public void UpdateObjectiveUI()
     {
         //Clear UI
         offsetY = 5;
@@ -40,11 +52,47 @@ public class PlayerUIManager : MonoBehaviour
             }
         }
 
-        foreach (var objective in objectives)
+        foreach (var objective in currentObjectives)
         {
             string objectiveName = objective.Key;
             string objectiveDescription = objective.Value;
             createObjectiveBox(objectiveName, objectiveDescription, objectTextColour);
+        }
+    }
+
+    [Command]
+    public void CmdUpdateObjectiveList(string[] objectiveNames, string[] objectiveDescriptions, string[] completedObjectiveNames, string[] completedObjectiveDescriptions)
+    {
+        currentObjectives.Clear();
+        doneObjectives.Clear();
+        for (int i = 0; i < objectiveNames.Length; i++)
+        {
+            currentObjectives.Add(objectiveNames[i], objectiveDescriptions[i]);
+        }
+        for (int i = 0; i < completedObjectiveNames.Length; i++)
+        {
+            currentObjectives.Add(completedObjectiveNames[i], completedObjectiveDescriptions[i]);
+        }
+    }
+
+    public void OnObjectiveChange(SyncDictionaryStringString.Operation op, string key, string value)
+    {
+        Debug.Log("Callback");
+        Debug.Log("Current Objectives: " + currentObjectives.Count);
+        Debug.Log("Done Objectives: " + doneObjectives.Count);
+        switch (op)
+        {
+            case SyncIDictionary<string, string>.Operation.OP_ADD:
+                UpdateObjectiveUI();
+                break;
+            case SyncIDictionary<string, string>.Operation.OP_CLEAR:
+                break;
+            case SyncIDictionary<string, string>.Operation.OP_REMOVE:
+                break;
+            case SyncIDictionary<string, string>.Operation.OP_SET:
+                break;
+            default:
+                break;
         }
     }
 
@@ -58,15 +106,15 @@ public class PlayerUIManager : MonoBehaviour
     }
     private void createObjectiveBox(string objectiveName, string objectiveDescription, Color colour)
     {
-        GameObject objectiveNameUI = Instantiate(prefabObjectiveName, new Vector3(0,0,0), Quaternion.identity);
+        GameObject objectiveNameUI = Instantiate(prefabObjectiveName, new Vector3(0, 0, 0), Quaternion.identity);
         objectiveNameUI.transform.SetParent(gameObject.transform, true);
         objectiveNameUI.GetComponent<TextMeshProUGUI>().text = objectiveName;
         objectiveNameUI.GetComponent<TextMeshProUGUI>().color = colour;
 
         //If first then don't update offset
-        if(UIElements.Count != 0)
+        if (UIElements.Count != 0)
         {
-            offsetY = offsetY + objectiveNameUI.GetComponent<RectTransform>().rect.height/2;
+            offsetY = offsetY + objectiveNameUI.GetComponent<RectTransform>().rect.height / 2;
         }
         setPosition(objectiveNameUI.GetComponent<RectTransform>());
 
@@ -75,8 +123,9 @@ public class PlayerUIManager : MonoBehaviour
         objectiveDescriptionUI.GetComponent<TextMeshProUGUI>().text = objectiveDescription;
         objectiveDescriptionUI.GetComponent<TextMeshProUGUI>().color = colour;
 
-        offsetY = offsetY + objectiveDescriptionUI.GetComponent<RectTransform>().rect.height/2;
+        offsetY = offsetY + objectiveDescriptionUI.GetComponent<RectTransform>().rect.height / 2;
         setPosition(objectiveDescriptionUI.GetComponent<RectTransform>());
 
     }
 }
+

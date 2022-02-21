@@ -71,6 +71,20 @@ public class MinigameManager : MonoBehaviour
 
     public void UpdateObjectivesPlayerUI()
     {
-        UIManager.GetComponent<PlayerUIManager>().updateObjectiveList(currentObjectives, doneObjectives);
+        List<string> objectiveNames = new List<string>();
+        List<string> objectiveDescriptions = new List<string>();
+        List<string> completedObjectiveNames = new List<string>();
+        List<string> completedObjectiveDescriptions = new List<string>();
+        foreach (var o in currentObjectives)
+        {
+            objectiveNames.Add(o.Key);
+            objectiveDescriptions.Add(o.Value);
+        }
+        foreach (var o in doneObjectives)
+        {
+            completedObjectiveNames.Add(o.Key);
+            completedObjectiveDescriptions.Add(o.Value);
+        }
+        UIManager.GetComponent<PlayerUIManager>().CmdUpdateObjectiveList(objectiveNames.ToArray(), objectiveDescriptions.ToArray(), completedObjectiveNames.ToArray(), completedObjectiveDescriptions.ToArray());
     }
 }
