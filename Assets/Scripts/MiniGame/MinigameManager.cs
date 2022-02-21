@@ -77,6 +77,7 @@ public class MinigameManager : MonoBehaviour
         List<string> objectiveDescriptions = new List<string>();
         List<string> completedObjectiveNames = new List<string>();
         List<string> completedObjectiveDescriptions = new List<string>();
+        Debug.Log("Done objectives: " + doneObjectives.Count);
         foreach (var o in currentObjectives)
         {
             objectiveNames.Add(o.Key);
@@ -87,6 +88,7 @@ public class MinigameManager : MonoBehaviour
             completedObjectiveNames.Add(o.Key);
             completedObjectiveDescriptions.Add(o.Value);
         }
+        Debug.Log("done: " + completedObjectiveNames.Count);
         foreach (GameObject p in players)
         {
             if (p.GetComponent<PlayerManager>().identity.isLocalPlayer)
