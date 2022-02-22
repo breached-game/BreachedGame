@@ -112,10 +112,10 @@ public class InteractionManager : NetworkBehaviour
         print("Hello");
     }
 
-    private void Update()
+ /*   private void Update()
     {
         CmdTakestAuthorityAway();
-    }
+    }*/
 
     int playersInColliderCount = 0;
 
@@ -132,7 +132,7 @@ public class InteractionManager : NetworkBehaviour
     private void OnTriggerEnter(Collider other)
     {
         print("entered on trigger enter");
-        if (other.gameObject.tag == "Player" && available)
+        if (other.gameObject.tag == "Player" && available && this.gameObject.GetComponent<NetworkIdentity>().isServer)
         {
             playersInColliderCount++;
             CmdGiveAuthority(other.gameObject);
