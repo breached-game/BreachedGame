@@ -112,6 +112,13 @@ public class InteractionManager : NetworkBehaviour
         print("Hello");
     }
 
+    private void Update()
+    {
+        CmdTakestAuthorityAway();
+    }
+
+    int playersInColliderCount = 0;
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player" && available)
@@ -119,10 +126,7 @@ public class InteractionManager : NetworkBehaviour
             //other.gameObject is the local player
             //Display interaction not available
             //UIManager.ShowInteractionText(false);
-            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                CmdTakestAuthorityAway();
-            }
+            playersInColliderCount--;
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -130,19 +134,22 @@ public class InteractionManager : NetworkBehaviour
         print("entered on trigger enter");
         if (other.gameObject.tag == "Player" && available)
         {
-            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                CmdGiveAuthority(other.gameObject);
-            }
+            playersInColliderCount++;
+            CmdGiveAuthority(other.gameObject);
         }
     }
-    [Command]
+   
+    [Server]
     void CmdTakestAuthorityAway()
     {
-        print("doin your mum");
-        this.gameObject.GetComponent<NetworkIdentity>().RemoveClientAuthority();
+        if(playersInColliderCount == 0)
+        {
+            print("doin your mum");
+            this.gameObject.GetComponent<NetworkIdentity>().RemoveClientAuthority();
+        }
     }
-    [Command]
+    
+    [Server]
     void CmdGiveAuthority(GameObject player)
     {
         print("doin doin your mum");
