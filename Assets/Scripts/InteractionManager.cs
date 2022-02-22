@@ -103,6 +103,7 @@ public class InteractionManager : NetworkBehaviour
             } //else UIManager.ShowInteractionText(false);
         } //else UIManager.ShowInteractionText(false);
     }
+    /*
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player" && available)
@@ -139,4 +140,5 @@ public class InteractionManager : NetworkBehaviour
         print("doin doin your mum");
         //GetComponent<NetworkIdentity>().AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToServer);
     }
+    */
 }
