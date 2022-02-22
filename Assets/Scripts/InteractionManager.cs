@@ -58,10 +58,12 @@ public class InteractionManager : NetworkBehaviour
                             }
                             if (typeMenu == Type.ColourButton)
                             {
+
                                 if (transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                                 {
                                     GetComponent<ColourMiniGameButton>().buttonPressed();
                                     transform.GetChild(0).GetComponent<Animator>().Play("Click");
+                                    CmdTestCommand();
                                 }
                             }
                             if (typeMenu == Type.StartGameButton)
@@ -103,42 +105,48 @@ public class InteractionManager : NetworkBehaviour
             } //else UIManager.ShowInteractionText(false);
         } //else UIManager.ShowInteractionText(false);
     }
-    /*
+
+    [Command]
+    void CmdTestCommand()
+    {
+        print("Hello");
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player" && available)
         {
-             //other.gameObject is the local player
-             //Display interaction not available
-             //UIManager.ShowInteractionText(false);
-            if(other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
+            //other.gameObject is the local player
+            //Display interaction not available
+            //UIManager.ShowInteractionText(false);
+            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                TakestAuthorityAway();
+                CmdTakestAuthorityAway();
             }
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        print("entered on trigger enter");       
+        print("entered on trigger enter");
         if (other.gameObject.tag == "Player" && available)
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                GiveAuthority(other.gameObject);
+                CmdGiveAuthority(other.gameObject);
             }
         }
     }
     [Command]
-    void TakestAuthorityAway()
+    void CmdTakestAuthorityAway()
     {
         print("doin your mum");
-        //GetComponent<NetworkIdentity>().RemoveClientAuthority();
+        this.gameObject.GetComponent<NetworkIdentity>().RemoveClientAuthority();
     }
     [Command]
-    void GiveAuthority(GameObject player)
+    void CmdGiveAuthority(GameObject player)
     {
         print("doin doin your mum");
-        //GetComponent<NetworkIdentity>().AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToServer);
+        this.gameObject.GetComponent<NetworkIdentity>().AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToServer);
     }
-    */
+
 }

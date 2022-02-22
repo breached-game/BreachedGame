@@ -1,21 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 
-public class ColourMiniGameButton : NetworkBehaviour
+public class ColourMiniGameButton : MonoBehaviour
 {
     public string colour;
-    [Command(ignoreAuthority = true)]
+
     public void buttonPressed()
-    {
-        print("Called Button Pressed");
-        syncButtonPress();
-    }
-    [ClientRpc]
-    void syncButtonPress()
-    {
-        print("Called");
+    { 
         transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour);
     }
 }
