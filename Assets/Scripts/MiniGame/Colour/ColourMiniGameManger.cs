@@ -42,7 +42,7 @@ public class ColourMiniGameManger : MonoBehaviour
         }
         else
         {
-            //print("Incorrect combination");
+            print("Incorrect combination");
             failiureReason = "Incorrect Combination";
             currentColourCombination = new List<string>();
             minigameManager.ObjectiveFailed(minigameName, failiureReason); //Change this 

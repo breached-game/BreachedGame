@@ -8,7 +8,14 @@ public class ColourMiniGameButton : NetworkBehaviour
     public string colour;
     [Command]
     public void buttonPressed()
-    { 
+    {
+        print("Called Button Pressed");
+        syncButtonPress();
+    }
+    [ClientRpc]
+    void syncButtonPress()
+    {
+        print("Called");
         transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour);
     }
 }

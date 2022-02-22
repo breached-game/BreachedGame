@@ -103,29 +103,23 @@ public class InteractionManager : NetworkBehaviour
             } //else UIManager.ShowInteractionText(false);
         } //else UIManager.ShowInteractionText(false);
     }
+    [Server]
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player" && available)
         {
-            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
-            
-            {
-                //other.gameObject is the local player
-
-                //Display interaction not available
-                //UIManager.ShowInteractionText(false);
-                GetComponent<NetworkIdentity>().AssignClientAuthority(other.gameObject.GetComponent<NetworkIdentity>().connectionToClient);
-            }
+             //other.gameObject is the local player
+             //Display interaction not available
+             //UIManager.ShowInteractionText(false);
+             GetComponent<NetworkIdentity>().AssignClientAuthority(other.gameObject.GetComponent<NetworkIdentity>().connectionToClient);
         }
     }
+    [Server]
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player" && available)
         {
-            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                GetComponent<NetworkIdentity>().RemoveClientAuthority();
-            }
+            GetComponent<NetworkIdentity>().RemoveClientAuthority();
         }
     }
 }
