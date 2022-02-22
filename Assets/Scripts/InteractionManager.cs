@@ -131,13 +131,19 @@ public class InteractionManager : NetworkBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+
+        
         print("entered on trigger enter");
+
+        print(other);
         /*
                 if (other.gameObject.tag == "Player" && available && this.gameObject.GetComponent<NetworkIdentity>().isServer)
                 {
                     playersInColliderCount++;
                     CmdGiveAuthority(other.gameObject);
                 }*/
+
+
 
         if (other.gameObject.tag == "Player")
         {
