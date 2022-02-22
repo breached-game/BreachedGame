@@ -6,7 +6,7 @@ using Mirror;
 public class ColourMiniGameButton : NetworkBehaviour
 {
     public string colour;
-    [Command]
+    [Command(ignoreAuthority = true)]
     public void buttonPressed()
     {
         print("Called Button Pressed");

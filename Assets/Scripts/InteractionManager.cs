@@ -121,17 +121,22 @@ public class InteractionManager : NetworkBehaviour
         print("entered on trigger enter");       
         if (other.gameObject.tag == "Player" && available)
         {
-            GiveAuthority(other.gameObject);
+            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                GiveAuthority(other.gameObject);
+            }
         }
     }
     [Command]
     void TakestAuthorityAway()
     {
-        GetComponent<NetworkIdentity>().RemoveClientAuthority();
+        print("doin your mum");
+        //GetComponent<NetworkIdentity>().RemoveClientAuthority();
     }
     [Command]
     void GiveAuthority(GameObject player)
     {
-        GetComponent<NetworkIdentity>().AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
+        print("doin doin your mum");
+        //GetComponent<NetworkIdentity>().AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToServer);
     }
 }
