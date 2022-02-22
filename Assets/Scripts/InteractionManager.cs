@@ -108,9 +108,23 @@ public class InteractionManager : NetworkBehaviour
         if (other.gameObject.tag == "Player" && available)
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
+            
             {
+                //other.gameObject is the local player
+
                 //Display interaction not available
                 //UIManager.ShowInteractionText(false);
+                GetComponent<NetworkIdentity>().AssignClientAuthority(other.gameObject.GetComponent<NetworkIdentity>().connectionToClient);
+            }
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && available)
+        {
+            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                GetComponent<NetworkIdentity>().RemoveClientAuthority();
             }
         }
     }
