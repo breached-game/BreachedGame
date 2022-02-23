@@ -86,6 +86,7 @@ public class PlayerManager : NetworkBehaviour
         player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
         player.GetComponent<PlayerManager>().updateItemText();
         objectPlayerHas.SetActive(false);
+        VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
     }
     [Command]
     public void CmdDropItem()
@@ -107,6 +108,11 @@ public class PlayerManager : NetworkBehaviour
         player.GetComponent<PlayerManager>().objectPlayerHas = null;
         //Update the item text
         player.GetComponent<PlayerManager>().updateItemText();
+    }
+
+    void VisualEffectOfPlayerPickingUpItem(GameObject objectPickedUp)
+    {
+        PlayerModel.GetComponent<Animator>().SetBool("Holding", true);
     }
 
     public float Speed = 4.0f;

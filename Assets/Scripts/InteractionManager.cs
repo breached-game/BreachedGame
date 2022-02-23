@@ -69,7 +69,7 @@ public class InteractionManager : NetworkBehaviour
                             {
                                 if (transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                                 {
-                                    GetComponent<StartGameButton>().startGame();
+                                    GetComponent<StartGameButton>().CmdstartGame();
                                     transform.GetChild(0).GetComponent<Animator>().Play("Click");
                                 }
                             }

@@ -10,7 +10,7 @@ public class StartGameButton : NetworkBehaviour
     public GameObject playerUI;
     public GameObject lights;
     [Command]
-    public void startGame()
+    public void CmdstartGame()
     {
         //If server only items (this might be true in the future, we can enable them all using this command
         //NetworkServer.SpawnObjects();
