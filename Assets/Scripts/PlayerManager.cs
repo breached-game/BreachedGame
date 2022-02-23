@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using Mirror;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : NetworkBehaviour
 {
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
@@ -56,8 +56,37 @@ public class PlayerManager : MonoBehaviour
             FirstPersonCamera.GetComponent<AudioListener>().enabled = false;
         }
     }
+    [Command]
+    public void CmdAssignAurthority(GameObject wantsAurthority)
+    {
+        GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects.Add(wantsAurthority.GetComponent<NetworkIdentity>());
+        wantsAurthority.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
+        print("Player has given " + wantsAurthority.transform.name + " Aurthority");
+    }
+    [Command]
+    public void CmdRemoveAurthority(GameObject wantsRemovedAurthority)
+    {
+        wantsRemovedAurthority.GetComponent<NetworkIdentity>().RemoveClientAuthority();
+        print("Player has removed " + wantsRemovedAurthority.transform.name + " Aurthority");
+    }
+    [Command]
+    public void CmdPickUpObject(GameObject objectBeingPickedUp)
+    {
+        //Check that we still can pick up the object
+        if (objectBeingPickedUp.activeInHierarchy)
+        {
+            UpdatePickUpObjects(this.gameObject, objectBeingPickedUp);
+        }
+        else print("Player tried to pick up none active gameobject");
+    }
+    [ClientRpc]
+    void UpdatePickUpObjects(GameObject player, GameObject objectBeingPickedUp)
+    {
+        //Runs for everyone so all instances say that this player has this object 
+        player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
+        player.GetComponent<PlayerManager>().updateItemText();
+    }
 
-    #region Movement
     public float Speed = 4.0f;
     public float smooth = 5f;
     private float translation;
@@ -88,6 +117,7 @@ public class PlayerManager : MonoBehaviour
                 _controller.Move(new Vector3(0, -10, 0) * Time.deltaTime);
             }
 
+            /* Yet to be implemented over the network
             if (Input.GetKeyDown(KeyCode.G) && objectPlayerHas != null)
             {
                 //Drop current item
@@ -102,6 +132,7 @@ public class PlayerManager : MonoBehaviour
                 //Update the item text
                 updateItemText();
             }
+            */
 
             //check if we have torch 
             if (objectPlayerHas != null)
@@ -137,5 +168,4 @@ public class PlayerManager : MonoBehaviour
             if (prevPos != actualPos) PlayerModel.GetComponent<Animator>().SetBool("Moving", true);
         }
     }
-    #endregion
 }

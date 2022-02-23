@@ -18,7 +18,7 @@ public class InteractionManager : NetworkBehaviour
         PickUp,
         DropOff,
         ColourButton,
-        StartGameButton, 
+        StartGameButton,
     };
     [SerializeField] Type typeMenu;
 
@@ -31,7 +31,7 @@ public class InteractionManager : NetworkBehaviour
                 //Okay so GetKeyDown actually sucks
                 //We check to see if the player is already interacting via the animator
                 Animator playerAni = other.gameObject.GetComponent<PlayerManager>().PlayerModel.GetComponent<Animator>();
-                if (Input.GetAxis("Interact") == 1 && !playerAni.GetCurrentAnimatorStateInfo(0).IsName("Interact") )
+                if (Input.GetAxis("Interact") == 1 && !playerAni.GetCurrentAnimatorStateInfo(0).IsName("Interact"))
                 {
                     playerAni.Play("Interact");
                     RaycastHit hit;
@@ -63,7 +63,6 @@ public class InteractionManager : NetworkBehaviour
                                 {
                                     GetComponent<ColourMiniGameButton>().buttonPressed();
                                     transform.GetChild(0).GetComponent<Animator>().Play("Click");
-                                    CmdTestCommand();
                                 }
                             }
                             if (typeMenu == Type.StartGameButton)
@@ -77,12 +76,11 @@ public class InteractionManager : NetworkBehaviour
 
                             if (typeMenu == Type.PickUp)
                             {
+                                //if the player is not carrying anything
                                 if (other.GetComponent<PlayerManager>().objectPlayerHas == null)
                                 {
-                                    //if the player is not carrying anything
-                                    Debug.Log("Picked up" + this.gameObject.name);
-                                    other.GetComponent<PlayerManager>().objectPlayerHas = this.gameObject;
-                                    this.gameObject.SetActive(false);
+                                    Debug.Log("Picked up " + this.gameObject.name);
+                                    other.GetComponent<PlayerManager>().CmdPickUpObject(this.gameObject);
                                 }
                                 else
                                 {
@@ -97,7 +95,7 @@ public class InteractionManager : NetworkBehaviour
                                     other.GetComponent<PlayerManager>().objectPlayerHas.GetComponent<WaterManager>().OutflowWater();
                                 }
                                 print("Try to drop off");
-                                GetComponent<DropOff>().droppingOffItem(other.GetComponent<PlayerManager>().objectPlayerHas, other.GetComponent<PlayerManager>(), gameObject.transform.position);
+                                GetComponent<DropOff>().CmdDropOff(other.gameObject, gameObject.transform.position);
                             }
                         }
                     }
@@ -105,17 +103,6 @@ public class InteractionManager : NetworkBehaviour
             } //else UIManager.ShowInteractionText(false);
         } //else UIManager.ShowInteractionText(false);
     }
-
-    [Command]
-    void CmdTestCommand()
-    {
-        print("Hello");
-    }
-
- /*   private void Update()
-    {
-        CmdTakestAuthorityAway();
-    }*/
 
     int playersInColliderCount = 0;
 
@@ -127,55 +114,24 @@ public class InteractionManager : NetworkBehaviour
             //Display interaction not available
             //UIManager.ShowInteractionText(false);
             playersInColliderCount--;
+            if (playersInColliderCount == 0 && other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                other.gameObject.GetComponent<PlayerManager>().CmdRemoveAurthority(this.gameObject);
+            }
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-
-        
-        print("entered on trigger enter");
-
-        print(other);
-        /*
-                if (other.gameObject.tag == "Player" && available && this.gameObject.GetComponent<NetworkIdentity>().isServer)
-                {
-                    playersInColliderCount++;
-                    CmdGiveAuthority(other.gameObject);
-                }*/
-
-
-
         if (other.gameObject.tag == "Player")
         {
-            print("other.gameObject.tag == Player");
-            if (available) { 
-                print("available");
-                if (this.gameObject.GetComponent<NetworkIdentity>().isServer)
+            if (available)
+            {
+                if(other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
                 {
-                    print("is server");
                     playersInColliderCount++;
-                    CmdGiveAuthority(other.gameObject);
-
+                    other.gameObject.GetComponent<PlayerManager>().CmdAssignAurthority(this.gameObject);
                 }
             }
         }
     }
-   
-    [Server]
-    void CmdTakestAuthorityAway()
-    {
-        if(playersInColliderCount == 0)
-        {
-            print("doin your mum");
-            this.gameObject.GetComponent<NetworkIdentity>().RemoveClientAuthority();
-        }
-    }
-    
-    [Server]
-    void CmdGiveAuthority(GameObject player)
-    {
-        print("doin doin your mum");
-        this.gameObject.GetComponent<NetworkIdentity>().AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToServer);
-    }
-
 }
