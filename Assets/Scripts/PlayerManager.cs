@@ -85,6 +85,28 @@ public class PlayerManager : NetworkBehaviour
         //Runs for everyone so all instances say that this player has this object 
         player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
         player.GetComponent<PlayerManager>().updateItemText();
+        objectPlayerHas.SetActive(false);
+    }
+    [Command]
+    public void CmdDropItem()
+    {
+        UpdateDropItem(this.gameObject);
+    }
+    //Code runs on all clients so we need to be accurate about which player this is happening for
+    [ClientRpc]
+    void UpdateDropItem(GameObject player)
+    {
+        GameObject droppedItem = player.GetComponent<PlayerManager>().objectPlayerHas;
+        //Drop current item
+        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
+        droppedItem.SetActive(true);
+        if (player.GetComponent<PlayerManager>().objectPlayerHas.transform.name == "Torch")//Torch is different to generic object.
+        {
+            player.GetComponent<PlayerManager>().torch.SetActive(false);
+        }
+        player.GetComponent<PlayerManager>().objectPlayerHas = null;
+        //Update the item text
+        player.GetComponent<PlayerManager>().updateItemText();
     }
 
     public float Speed = 4.0f;
@@ -117,22 +139,10 @@ public class PlayerManager : NetworkBehaviour
                 _controller.Move(new Vector3(0, -10, 0) * Time.deltaTime);
             }
 
-            /* Yet to be implemented over the network
             if (Input.GetKeyDown(KeyCode.G) && objectPlayerHas != null)
             {
-                //Drop current item
-
-                objectPlayerHas.transform.position = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z); //Currrently -1 for player height, objects will float
-                objectPlayerHas.SetActive(true);
-                if (objectPlayerHas.transform.name == "Torch")//Torch is different to generic object.
-                {
-                    torch.SetActive(false);
-                }
-                objectPlayerHas = null;
-                //Update the item text
-                updateItemText();
+                CmdDropItem();
             }
-            */
 
             //check if we have torch 
             if (objectPlayerHas != null)
