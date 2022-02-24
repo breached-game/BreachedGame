@@ -2,13 +2,13 @@ name: Test Build and Deploy
 
 on:
   push:
-    #  pull_request:
     branches:
-      - dev
+      - main
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  SSH_KEY: ${{secrets.SSH_KEY}}
 
 jobs:
   testRunner:
@@ -59,32 +59,33 @@ jobs:
           name: Test results (${{ matrix.testMode }})
           path: ${{ steps.testRunner.outputs.artifactsPath }}
 
-  commitToMain:
+  UploadToServer:
     needs: testRunner
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: checkout code
+        uses: actions/checkout@v1
 
-      - name: git commit data
-        uses: rlespinasse/git-commit-data-action@v1.x
-
-      - name: update auth info
-        run: echo ${{env.GIT_COMMIT_AUTHOR_NAME}} > AUTHOR
-
-      - name: Make PR
-        uses: peter-evans/create-pull-request@v3
+      - name: ssh into code
+        uses: appleboy/ssh-action@master
         with:
-          branch: "main"
-          base: dev
-          title: "update main"
-          #          committer: ${{env.GIT_COMMIT_AUTHOR_NAME}} <${{env.GIT_COMMIT_AUTHOR_EMAIL}}">
-          #          author: ${{env.GIT_COMMIT_AUTHOR_NAME}} <${{env.GIT_COMMIT_AUTHOR_EMAIL}}">
-          body: This is to shows the update of master to the dev
-          token: ${{secrets.GITHUB_TOKEN}}
+          host: 34.142.71.62
+          username: danielsavidge
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/andrewdmorgan_2/
+            cd BreachedGame
+            sudo git checkout main
+            sudo git pull
+            sudo cp ./Builds/Linux/Server.zip /home/andrewdmorgan_2/
+            cd ..
+            sudo unzip -o Server.zip -d ./Main_Server
+            cd Main_Server
+            sudo chmod +x ./Server.x86_64
 
   buildWebGL:
-    needs: commitToMain
     name: Build for WebGL
+    needs: testRunner
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -107,7 +108,6 @@ jobs:
           git lfs pull
           git add .
           git reset --hard
-
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
@@ -116,8 +116,7 @@ jobs:
           restore-keys: |
             Library-build-
             Library-
-
-      - uses: game-ci/unity-builder@v2
+      - uses: game-ci/unity-builder@v2.0.0-alpha-14
         with:
           targetPlatform: WebGL
 
