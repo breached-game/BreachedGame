@@ -7,7 +7,7 @@ public class ColourMiniGameButton : NetworkBehaviour
 {
     public string colour;
     [Command]
-    public void buttonPressed()
+    public void CmdButtonPressed()
     {
         UpdateAllButtonPresses();
     }
@@ -16,6 +16,10 @@ public class ColourMiniGameButton : NetworkBehaviour
     {
         transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour);
         print("We syncing the button y'all");
+        transform.GetChild(0).GetComponent<Animator>().Play("Click");
     }
 }
+
+
+
 
