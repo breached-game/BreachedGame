@@ -11,6 +11,7 @@ public class PlayerManager : NetworkBehaviour
 
     public GameObject PlayerModel;
     public GameObject FirstPersonCamera;
+    public GameObject PlayerCurrentlyHolding;
 
     private NetworkIdentity identity;
 
@@ -56,6 +57,7 @@ public class PlayerManager : NetworkBehaviour
             FirstPersonCamera.GetComponent<AudioListener>().enabled = false;
         }
     }
+    #region Player Sync
     [Command]
     public void CmdAssignAurthority(GameObject wantsAurthority)
     {
@@ -70,23 +72,23 @@ public class PlayerManager : NetworkBehaviour
         print("Player has removed " + wantsRemovedAurthority.transform.name + " Aurthority");
     }
     [Command]
-    public void CmdPickUpObject(GameObject objectBeingPickedUp)
+    public void CmdPickUpObject(GameObject objectBeingPickedUp, ItemSO item)
     {
         //Check that we still can pick up the object
         if (objectBeingPickedUp.activeInHierarchy)
         {
-            UpdatePickUpObjects(this.gameObject, objectBeingPickedUp);
+            UpdatePickUpObjects(this.gameObject, objectBeingPickedUp, item);
         }
         else print("Player tried to pick up none active gameobject");
     }
     [ClientRpc]
-    void UpdatePickUpObjects(GameObject player, GameObject objectBeingPickedUp)
+    void UpdatePickUpObjects(GameObject player, GameObject objectBeingPickedUp, ItemSO item)
     {
         //Runs for everyone so all instances say that this player has this object 
         player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
         player.GetComponent<PlayerManager>().updateItemText();
-        objectPlayerHas.SetActive(false);
-        VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
+        objectBeingPickedUp.SetActive(false);
+        player.GetComponent<PlayerManager>().VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp, item);
     }
     [Command]
     public void CmdDropItem()
@@ -109,10 +111,17 @@ public class PlayerManager : NetworkBehaviour
         //Update the item text
         player.GetComponent<PlayerManager>().updateItemText();
     }
+    #endregion
 
-    void VisualEffectOfPlayerPickingUpItem(GameObject objectPickedUp)
+    void VisualEffectOfPlayerPickingUpItem(GameObject objectPickedUp, ItemSO item)
     {
+        PlayerModel.GetComponent<Animator>().Play("PickUp");
         PlayerModel.GetComponent<Animator>().SetBool("Holding", true);
+        if (identity.isLocalPlayer) {
+            GameObject itemHeld = Instantiate(item.itemPlayerHolds, PlayerCurrentlyHolding.transform.position, Quaternion.identity);
+            itemHeld.transform.parent = this.gameObject.transform;
+            NetworkServer.Spawn(item.itemPlayerHolds, this.gameObject);
+        }
     }
 
     public float Speed = 4.0f;

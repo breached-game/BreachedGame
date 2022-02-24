@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 124804723}
   - component: {fileID: 124804722}
   - component: {fileID: 124804728}
+  - component: {fileID: 124804729}
   m_Layer: 0
   m_Name: WaterPumpItem
   m_TagString: Untagged
@@ -389,6 +390,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterGrid: {fileID: 1763471340}
+--- !u!114 &124804729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124804720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb51eb01de4d83842ad1cf912371f03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: d2dd89f61d4ef1646a1ab02f65e5123c, type: 2}
 --- !u!1 &141281112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1301,6 +1315,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20, y: 5, z: 20}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &240996044 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4601627099317941936, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4601627097843903544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &240996045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240996044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb51eb01de4d83842ad1cf912371f03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 0840c025aacec854594ac36f1a3c3a9e, type: 2}
 --- !u!1 &250752970
 GameObject:
   m_ObjectHideFlags: 0
@@ -3123,6 +3156,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5907955862516790580}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &939414487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939414486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb51eb01de4d83842ad1cf912371f03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: ceaa7c07c962d4b4092cc2a62bf2f431, type: 2}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -6454,6 +6500,7 @@ GameObject:
   - component: {fileID: 2018227276}
   - component: {fileID: 2018227275}
   - component: {fileID: 2018227274}
+  - component: {fileID: 2018227281}
   m_Layer: 0
   m_Name: Battery
   m_TagString: Untagged
@@ -6584,6 +6631,19 @@ Transform:
   m_Father: {fileID: 884243987}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2018227281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018227273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb51eb01de4d83842ad1cf912371f03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: ceaa7c07c962d4b4092cc2a62bf2f431, type: 2}
 --- !u!1001 &2026823963
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7430,7 +7490,7 @@ PrefabInstance:
     - target: {fileID: 5907955863293442369, guid: 8ad05a1b2bc874b4eb42e26921a5c402,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5907955863293442369, guid: 8ad05a1b2bc874b4eb42e26921a5c402,
         type: 3}

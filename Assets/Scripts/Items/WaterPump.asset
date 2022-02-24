@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aed2762c503893040b3189612c462aca, type: 3}
-  m_Name: Torch
+  m_Name: WaterPump
   m_EditorClassIdentifier: 
-  itemPlayerHolds: {fileID: 4601627099317941936, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+  itemPlayerHolds: {fileID: 5222301254067427213, guid: cf1bfda0d0338134fae8df808381c82e,
     type: 3}
-  itemName: Torch
+  itemName: WaterPump

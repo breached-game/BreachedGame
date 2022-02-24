@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aed2762c503893040b3189612c462aca, type: 3}
-  m_Name: Torch
+  m_Name: Battery
   m_EditorClassIdentifier: 
-  itemPlayerHolds: {fileID: 4601627099317941936, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+  itemPlayerHolds: {fileID: 5087921003995974665, guid: 116d594405c6bcf41b729ac286f901a2,
     type: 3}
-  itemName: Torch
+  itemName: Battery

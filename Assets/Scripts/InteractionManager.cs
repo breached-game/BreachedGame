@@ -80,7 +80,7 @@ public class InteractionManager : NetworkBehaviour
                                 if (other.GetComponent<PlayerManager>().objectPlayerHas == null)
                                 {
                                     Debug.Log("Picked up " + this.gameObject.name);
-                                    other.GetComponent<PlayerManager>().CmdPickUpObject(this.gameObject);
+                                    other.GetComponent<PlayerManager>().CmdPickUpObject(this.gameObject, GetComponent<Equipitem>().item);
                                 }
                                 else
                                 {
