@@ -18,6 +18,11 @@ public class DropOff : NetworkBehaviour
     [ClientRpc]
     public void droppingOffItem(GameObject player, Vector3 platformPosition)
     {
+        if(player.GetComponent<PlayerManager>().objectPlayerHas == null)
+        {
+            print("Player isn't carrying anything");
+            return;
+        }
         GameObject playerHas = player.GetComponent<PlayerManager>().objectPlayerHas;
         if (playerHas.name == dropOffPrefab.name)
         {
@@ -35,6 +40,8 @@ public class DropOff : NetworkBehaviour
             player.GetComponent<PlayerManager>().objectPlayerHas = null;
             //Update player UI
             player.GetComponent<PlayerManager>().updateItemText();
+            //Visual Effect
+            player.GetComponent<PlayerManager>().VisualEffectOfPlayerDroppingItem();
 
             hasItem = true;
             itemDropped = playerHas;

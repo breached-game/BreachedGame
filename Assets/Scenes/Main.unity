@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 124804722}
   - component: {fileID: 124804728}
   - component: {fileID: 124804729}
+  - component: {fileID: 124804730}
   m_Layer: 0
   m_Name: WaterPumpItem
   m_TagString: Untagged
@@ -399,10 +400,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 124804720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb51eb01de4d83842ad1cf912371f03c, type: 3}
+  m_Script: {fileID: 11500000, guid: 200cbfc32c7bb434d96d71c1a809f875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: d2dd89f61d4ef1646a1ab02f65e5123c, type: 2}
+  itemBeingHeld: {fileID: 5222301254067427213, guid: cf1bfda0d0338134fae8df808381c82e,
+    type: 3}
+--- !u!114 &124804730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124804720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!1 &141281112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,10 +1350,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 240996044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb51eb01de4d83842ad1cf912371f03c, type: 3}
+  m_Script: {fileID: 11500000, guid: 200cbfc32c7bb434d96d71c1a809f875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 0840c025aacec854594ac36f1a3c3a9e, type: 2}
+  itemBeingHeld: {fileID: 240996044}
+--- !u!114 &240996046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240996044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!1 &250752970
 GameObject:
   m_ObjectHideFlags: 0
@@ -3165,10 +3203,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 939414486}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb51eb01de4d83842ad1cf912371f03c, type: 3}
+  m_Script: {fileID: 11500000, guid: 200cbfc32c7bb434d96d71c1a809f875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: ceaa7c07c962d4b4092cc2a62bf2f431, type: 2}
+  itemBeingHeld: {fileID: 5087921003995974665, guid: 116d594405c6bcf41b729ac286f901a2,
+    type: 3}
+--- !u!114 &939414488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939414486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -6501,6 +6558,7 @@ GameObject:
   - component: {fileID: 2018227275}
   - component: {fileID: 2018227274}
   - component: {fileID: 2018227281}
+  - component: {fileID: 2018227282}
   m_Layer: 0
   m_Name: Battery
   m_TagString: Untagged
@@ -6640,10 +6698,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 2018227273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb51eb01de4d83842ad1cf912371f03c, type: 3}
+  m_Script: {fileID: 11500000, guid: 200cbfc32c7bb434d96d71c1a809f875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: ceaa7c07c962d4b4092cc2a62bf2f431, type: 2}
+  itemBeingHeld: {fileID: 5087921003995974665, guid: 116d594405c6bcf41b729ac286f901a2,
+    type: 3}
+--- !u!114 &2018227282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018227273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!1001 &2026823963
 PrefabInstance:
   m_ObjectHideFlags: 0

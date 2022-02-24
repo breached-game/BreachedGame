@@ -72,23 +72,23 @@ public class PlayerManager : NetworkBehaviour
         print("Player has removed " + wantsRemovedAurthority.transform.name + " Aurthority");
     }
     [Command]
-    public void CmdPickUpObject(GameObject objectBeingPickedUp, ItemSO item)
+    public void CmdPickUpObject(GameObject objectBeingPickedUp)
     {
         //Check that we still can pick up the object
         if (objectBeingPickedUp.activeInHierarchy)
         {
-            UpdatePickUpObjects(this.gameObject, objectBeingPickedUp, item);
+            UpdatePickUpObjects(this.gameObject, objectBeingPickedUp);
         }
         else print("Player tried to pick up none active gameobject");
     }
     [ClientRpc]
-    void UpdatePickUpObjects(GameObject player, GameObject objectBeingPickedUp, ItemSO item)
+    void UpdatePickUpObjects(GameObject player, GameObject objectBeingPickedUp)
     {
         //Runs for everyone so all instances say that this player has this object 
         player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
         player.GetComponent<PlayerManager>().updateItemText();
         objectBeingPickedUp.SetActive(false);
-        player.GetComponent<PlayerManager>().VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp, item);
+        player.GetComponent<PlayerManager>().VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
     }
     [Command]
     public void CmdDropItem()
@@ -110,19 +110,34 @@ public class PlayerManager : NetworkBehaviour
         player.GetComponent<PlayerManager>().objectPlayerHas = null;
         //Update the item text
         player.GetComponent<PlayerManager>().updateItemText();
+        //Visual Effect
+        player.GetComponent<PlayerManager>().VisualEffectOfPlayerDroppingItem();
     }
     #endregion
 
-    void VisualEffectOfPlayerPickingUpItem(GameObject objectPickedUp, ItemSO item)
+    #region Visual Effects
+    void VisualEffectOfPlayerPickingUpItem(GameObject objectPickedUp)
     {
-        PlayerModel.GetComponent<Animator>().Play("PickUp");
+        PlayerModel.GetComponent<Animator>().Play("Walk_Carry");
         PlayerModel.GetComponent<Animator>().SetBool("Holding", true);
-        if (identity.isLocalPlayer) {
-            GameObject itemHeld = Instantiate(item.itemPlayerHolds, PlayerCurrentlyHolding.transform.position, Quaternion.identity);
-            itemHeld.transform.parent = this.gameObject.transform;
-            NetworkServer.Spawn(item.itemPlayerHolds, this.gameObject);
+        for(int i = 0; i < PlayerCurrentlyHolding.transform.childCount; i++)
+        {
+            if (PlayerCurrentlyHolding.transform.GetChild(i).gameObject.name == objectPickedUp.GetComponent<ItemPickUp>().itemBeingHeld.name)
+            {
+                PlayerCurrentlyHolding.transform.GetChild(i).gameObject.SetActive(true);
+            }
         }
     }
+    public void VisualEffectOfPlayerDroppingItem()
+    {
+        //Stop animation and empty hands
+        PlayerModel.GetComponent<Animator>().SetBool("Holding", false);
+        for (int i = 0; i < PlayerCurrentlyHolding.transform.childCount; i++)
+        {
+            PlayerCurrentlyHolding.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+    #endregion
 
     public float Speed = 4.0f;
     public float smooth = 5f;

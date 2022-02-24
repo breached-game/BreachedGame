@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Equipitem : MonoBehaviour
+public class ItemPickUp : MonoBehaviour
 {
-    public ItemSO item;
+    public GameObject itemBeingHeld;
 }
