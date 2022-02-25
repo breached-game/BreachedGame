@@ -105,4 +105,9 @@ public class GridVertex : ScriptableObject
     {
         return new Vector3(localPosition.x, localPosition.y + (cellSize * (h + H)) / 2, localPosition.z);
     }
+
+    public void SetH(float arg_H)
+    {
+        H = arg_H;
+    }
 }
