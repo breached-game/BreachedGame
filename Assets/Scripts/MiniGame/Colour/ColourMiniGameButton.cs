@@ -6,6 +6,7 @@ using Mirror;
 public class ColourMiniGameButton : NetworkBehaviour
 {
     public string colour;
+
     [Command]
     public void CmdButtonPressed()
     {
