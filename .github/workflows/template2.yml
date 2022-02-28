@@ -80,5 +80,9 @@ jobs:
             sudo git checkout dev
             sudo git pull
             sudo systemctl stop breached-server.service
-            sudo cp ./Builds/Linux/Server/Server.x86_64 /home/andrewdmorgan_2/Server
+            sudo cp ./Builds/Linux/Server.zip /home/andrewdmorgan_2/
+            cd ..
+            sudo unzip -o ./Server.zip
+            cd Server
+            sudo chmod +x ./Server.x86_64
             sudo systemctl start breached-server.service
