@@ -123,7 +123,9 @@ jobs:
             sudo cp ./Builds/Linux/Server.zip /home/andrewdmorgan_2/
             cd ..
             sudo unzip -o Server.zip -d ./Main_Server
+            # unzip command wrong here. ssh to understand but thats why workflow fails.
             cd Main_Server
+            cd Server
             sudo chmod +x ./Server.x86_64
 
   buildWebGL:
