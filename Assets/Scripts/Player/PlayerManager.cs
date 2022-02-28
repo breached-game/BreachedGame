@@ -65,7 +65,7 @@ public class PlayerManager : NetworkBehaviour
         wantsAurthority.gameObject.GetComponent<NetworkIdentity>().AssignClientAuthority(GetComponent<NetworkIdentity>().connectionToClient);
         print("Player has given " + wantsAurthority.transform.name + " Aurthority");
 
-        affirmAuthority();
+        AffirmAuthority();
 
         /*var networkIdentity = wantsAurthority.gameObject.GetComponent<NetworkIdentity>();
         networkIdentity.AssignClientAuthority(identity.connectionToClient);*/
@@ -82,7 +82,7 @@ public class PlayerManager : NetworkBehaviour
  */
     }
     [ClientRpc]
-    public void affirmAuthority()
+    public void AffirmAuthority()
     {
         Debug.Log("ran CmdAssignAuthority");
     }
