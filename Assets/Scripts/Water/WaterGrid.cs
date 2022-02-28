@@ -24,6 +24,7 @@ public class WaterGrid : MonoBehaviour
     private BoxCollider boxCollider;
     public bool run = false;
     public float playerSpeed;
+    private bool full = false;
 
     void Awake()
     {
@@ -77,8 +78,6 @@ public class WaterGrid : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Entered trigger");
-        Debug.Log(other.gameObject.name);
         Vector3Int cellPos = water_grid.LocalToCell(other.gameObject.transform.position - water_grid.transform.position);
         Vector3Int cellWidth = water_grid.LocalToCell(other.gameObject.transform.localScale / 2);
         for (int x = cellPos.x - cellWidth.x + 1; x < cellPos.x + cellWidth.x; x++)
@@ -122,6 +121,7 @@ public class WaterGrid : MonoBehaviour
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
         Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
+        Dictionary<Vector2Int, float> currentOutflows;
         GridVertex currentColumn;
 
         int xInflow;
@@ -152,10 +152,11 @@ public class WaterGrid : MonoBehaviour
                     dhT = totalHeight - gridArray[x, z + 1].GetH() - gridArray[x, z + 1].Geth();
                     dhB = totalHeight - gridArray[x, z - 1].GetH() - gridArray[x, z - 1].Geth();
 
-                    tempFlux.Add(Vector2Int.left, Mathf.Max(0.0f, currentColumn.GetOutflows()[Vector2Int.left] + (dt_A_g_l * dhL)));
-                    tempFlux.Add(Vector2Int.right, Mathf.Max(0.0f, currentColumn.GetOutflows()[Vector2Int.right] + (dt_A_g_l * dhR)));
-                    tempFlux.Add(Vector2Int.up, Mathf.Max(0.0f, currentColumn.GetOutflows()[Vector2Int.up] + (dt_A_g_l * dhT)));
-                    tempFlux.Add(Vector2Int.down, Mathf.Max(0.0f, currentColumn.GetOutflows()[Vector2Int.down] + (dt_A_g_l * dhB)));
+                    currentOutflows = currentColumn.GetOutflows();
+                    tempFlux.Add(Vector2Int.left, Mathf.Max(0.0f, currentOutflows[Vector2Int.left] + (dt_A_g_l * dhL)));
+                    tempFlux.Add(Vector2Int.right, Mathf.Max(0.0f, currentOutflows[Vector2Int.right] + (dt_A_g_l * dhR)));
+                    tempFlux.Add(Vector2Int.up, Mathf.Max(0.0f, currentOutflows[Vector2Int.up] + (dt_A_g_l * dhT)));
+                    tempFlux.Add(Vector2Int.down, Mathf.Max(0.0f, currentOutflows[Vector2Int.down] + (dt_A_g_l * dhB)));
 
                     if (x == 1)
                     {
@@ -195,69 +196,62 @@ public class WaterGrid : MonoBehaviour
                 currentColumn.SetNewOutflows(tempFlux);
             }
         }
-        for (int x = 1; x < width - 1; x++)
-        {
-            for (int z = 1; z < depth - 1; z++)
-            {
-                currentColumn = gridArray[x, z];
-                dV = dt * (SumInflows(currentColumn) - currentColumn.GetNewOutflows().Sum(x => x.Value));
-                if (currentColumn.Geth() + dV / (dx * dx) + currentColumn.GetH() >= height)
-                {
-                    inflow = false;
-                    currentColumn.SetNewh(height - currentColumn.GetH() - 1);
-                }
-                else
-                {
-                    currentColumn.SetNewh(currentColumn.Geth() + dV / (dx * dx));
-                }
-            }
-        }
-
+        int vertexCount = columnMesh.vertexCount;
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < depth; z++)
             {
                 currentColumn = gridArray[x, z];
-                currentColumn.UpdateValues();
+                if (x != 0 & x != width - 1 & z != 0 & z != depth - 1)
+                {
+                    dV = dt * (SumInflows(currentColumn) - currentColumn.GetNewOutflows().Sum(x => x.Value));
+                    if (currentColumn.Geth() + dV / (dx * dx) + currentColumn.GetH() >= height)
+                    {
+                        inflow = false;
+                        currentColumn.SetNewh(height - currentColumn.GetH() - 1);
+                    }
+                    else
+                    {
+                        currentColumn.SetNewh(currentColumn.Geth() + dV / (dx * dx));
+                    }
+                    currentColumn.UpdateValues();
+                }
                 if (currentColumn.isVertex)
                 {
                     vertices.Add(currentColumn.GetVertexPosition());
                     currentColumn.vertex = vCount;
                     vCount++;
+                    if (x != 0 & z != 0 & !full)
+                    {
+                        if (gridArray[x, z - 1].isVertex & gridArray[x - 1, z - 1].isVertex & gridArray[x - 1, z].isVertex)
+                        {
+                            triangles.Add(currentColumn.vertex);
+                            triangles.Add(gridArray[x, z - 1].vertex);
+                            triangles.Add(gridArray[x - 1, z - 1].vertex);
+                            triangles.Add(gridArray[x - 1, z].vertex);
+                            triangles.Add(currentColumn.vertex);
+                            triangles.Add(gridArray[x - 1, z - 1].vertex);
+                        }
+                    }
+                    if (vertices.Count == vertexCount)
+                    {
+                        full = true;
+                        if (triangles.Count == 0)
+                        {
+                            triangles = columnMesh.triangles.ToList();
+                        }
+                    }
+                    else
+                    {
+                        full = false;
+                    }
                 }
             }
         }
         columnMesh.Clear();
         columnMesh.SetVertices(vertices);
-        for (int x = 0; x < width; x++)
-        {
-            for (int z = 0; z < depth; z++)
-            {
-                currentColumn = gridArray[x, z];
-                if (currentColumn.isVertex)
-                {
-                    if (x != width - 1 & z != depth - 1)
-                    {
-                        if (gridArray[x + 1, z].isVertex & gridArray[x, z + 1].isVertex & gridArray[x+1, z+1].isVertex)
-                        {
-                            triangles.Add(currentColumn.vertex);
-                            triangles.Add(gridArray[x, z + 1].vertex);
-                            triangles.Add(gridArray[x + 1, z].vertex);
-                        }
-                    }
-                    if (x != 0 & z != depth - 1)
-                    {
-                        if (gridArray[x - 1, z + 1].isVertex & gridArray[x, z + 1].isVertex & gridArray[x-1, z].isVertex)
-                        {
-                            triangles.Add(currentColumn.vertex);
-                            triangles.Add(gridArray[x - 1, z + 1].vertex);
-                            triangles.Add(gridArray[x, z + 1].vertex);
-                        }
-                    }
-                }
-            }
-        }
         columnMesh.SetTriangles(triangles, 0);
         columnMesh.RecalculateNormals();
+        columnMesh.Optimize();
     }
 }
