@@ -34,7 +34,11 @@ public class InteractionManager : NetworkBehaviour
                         if (interactable != null && (hit.collider.gameObject == gameObject || hit.collider.gameObject == gameObject.transform.GetChild(0).gameObject))
                         {
                             //Want access to interactable SO
+
+                            
                             interactionSO.RunInteraction(gameObject, other.gameObject);
+                           
+
                             //Display interaction available
                         }
                     }
@@ -70,6 +74,9 @@ public class InteractionManager : NetworkBehaviour
                 {
                     playersInColliderCount++;
                     other.gameObject.GetComponent<PlayerManager>().CmdAssignAurthority(this.gameObject);
+                   
+             
+                    Debug.Log("This object has authority: " +  this.gameObject.GetComponent<NetworkIdentity>().hasAuthority);
                 }
             }
         }

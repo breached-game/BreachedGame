@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -297,9 +297,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   available: 1
-  disableWhenOpen:
-  - {fileID: 0}
-  typeMenu: 2
+  interactionSO: {fileID: 11400000, guid: ac287b8f8bee61346a853a85741d7f11, type: 2}
 --- !u!114 &124804724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,9 +502,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   available: 1
-  disableWhenOpen:
-  - {fileID: 0}
-  typeMenu: 3
+  interactionSO: {fileID: 11400000, guid: ef513ddc0dfa9344c8af0a08129c1a70, type: 2}
 --- !u!114 &141281117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,9 +1222,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   available: 1
-  disableWhenOpen:
-  - {fileID: 0}
-  typeMenu: 4
+  interactionSO: {fileID: 0}
 --- !u!114 &223974229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1856,9 +1850,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   available: 1
-  disableWhenOpen:
-  - {fileID: 0}
-  typeMenu: 5
+  interactionSO: {fileID: 11400000, guid: 298f6b200de16c64ab54163f7bdc203b, type: 2}
 --- !u!114 &312314565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4409,9 +4401,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   available: 1
-  disableWhenOpen:
-  - {fileID: 0}
-  typeMenu: 3
+  interactionSO: {fileID: 11400000, guid: ef513ddc0dfa9344c8af0a08129c1a70, type: 2}
 --- !u!114 &1191814265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4720,9 +4710,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   available: 1
-  disableWhenOpen:
-  - {fileID: 0}
-  typeMenu: 4
+  interactionSO: {fileID: 11400000, guid: d963c0e571423314390d266f6a62b016, type: 2}
 --- !u!114 &1271718198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4912,9 +4900,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   available: 1
-  disableWhenOpen:
-  - {fileID: 0}
-  typeMenu: 4
+  interactionSO: {fileID: 11400000, guid: d963c0e571423314390d266f6a62b016, type: 2}
 --- !u!114 &1353014295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5025,9 +5011,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   available: 1
-  disableWhenOpen:
-  - {fileID: 0}
-  typeMenu: 3
+  interactionSO: {fileID: 11400000, guid: ef513ddc0dfa9344c8af0a08129c1a70, type: 2}
 --- !u!114 &1361078886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5534,9 +5518,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   available: 1
-  disableWhenOpen:
-  - {fileID: 0}
-  typeMenu: 4
+  interactionSO: {fileID: 11400000, guid: d963c0e571423314390d266f6a62b016, type: 2}
 --- !u!114 &1587297897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6594,9 +6576,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   available: 1
-  disableWhenOpen:
-  - {fileID: 0}
-  typeMenu: 2
+  interactionSO: {fileID: 11400000, guid: ac287b8f8bee61346a853a85741d7f11, type: 2}
 --- !u!114 &2018227276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7624,6 +7604,12 @@ PrefabInstance:
       propertyPath: typeMenu
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5907955863293442372, guid: 8ad05a1b2bc874b4eb42e26921a5c402,
+        type: 3}
+      propertyPath: interactionSO
+      value: 
+      objectReference: {fileID: 11400000, guid: ac287b8f8bee61346a853a85741d7f11,
+        type: 2}
     - target: {fileID: 5907955863293442373, guid: 8ad05a1b2bc874b4eb42e26921a5c402,
         type: 3}
       propertyPath: sceneId
