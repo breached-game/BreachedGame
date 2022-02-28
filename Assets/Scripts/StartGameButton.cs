@@ -15,6 +15,9 @@ public class StartGameButton : NetworkBehaviour
         //If server only items (this might be true in the future, we can enable them all using this command
         //NetworkServer.SpawnObjects();
         updateStartGame();
+        //calls Javascript hello alert function, via VoiceWrapper
+        VoiceWrapper.Hello();
+
     }
     [ClientRpc]
     void updateStartGame()
