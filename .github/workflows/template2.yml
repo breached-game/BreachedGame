@@ -103,7 +103,6 @@ jobs:
           path: ${{ steps.testRunner.outputs.artifactsPath }}
 
   UploadToServer:
-    needs: testRunner
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
