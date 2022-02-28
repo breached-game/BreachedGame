@@ -74,8 +74,6 @@ public class InteractionManager : NetworkBehaviour
                 {
                     playersInColliderCount++;
                     other.gameObject.GetComponent<PlayerManager>().CmdAssignAurthority(this.gameObject);
-                   
-             
                     Debug.Log("This object has authority: " +  this.gameObject.GetComponent<NetworkIdentity>().hasAuthority);
                 }
             }
