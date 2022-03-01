@@ -12,6 +12,7 @@ public class LauncherUI : MonoBehaviour
     public GameObject StartUI;
     public GameObject LobbyUI;
     public GameObject MenuCamera;
+    public GameObject crosshair;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class LauncherUI : MonoBehaviour
                 ClientScene.AddPlayer(NetworkClient.connection);
                 StartUI.SetActive(false);
                 LobbyUI.SetActive(true);
+                crosshair.SetActive(true);
             }
         }
 

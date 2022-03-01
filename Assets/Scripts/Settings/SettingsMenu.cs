@@ -6,6 +6,9 @@ using Mirror;
 
 public class SettingsMenu : MonoBehaviour
 {
+    public GameObject mainMenu;
+    public GameObject crosshair;
+
     public void SetMouseSensitivity(float sensitivity)
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -16,5 +19,12 @@ public class SettingsMenu : MonoBehaviour
                 players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<FirstPersonController>().sensitivity = sensitivity;
             }
         }
+    }
+
+    public void BackButton()
+    {
+        mainMenu.SetActive(false);
+        crosshair.SetActive(true);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }
