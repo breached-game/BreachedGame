@@ -85,7 +85,7 @@ public class WaterGrid : MonoBehaviour
             for (int z = cellPos.z - cellWidth.z + 1; z < cellPos.z + cellWidth.z; z++)
             {
                 Debug.Log("x: " + x + " z: " + z);
-                if (x < width && z < depth)
+                if (x < width && z < depth && x > 0 && z > 0)
                 {
                     Debug.Log("x: " + x + " z: " + z);
                     gridArray[x, z].SetH(2 * (cellWidth.y + cellPos.y));
