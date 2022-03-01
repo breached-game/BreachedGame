@@ -20,6 +20,8 @@ public class MyNetworkManager : NetworkManager
     {
         Debug.Log("Connected to Server!");
         playerConn = conn;
+        //print(playerConn.identity.netId);
+        print(conn);
     }
 
     public override void OnClientDisconnect(NetworkConnection conn)

@@ -65,6 +65,10 @@ public class PlayerManager : NetworkBehaviour
         print(GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects.Count);
         wantsAurthority.gameObject.GetComponent<NetworkIdentity>().AssignClientAuthority(GetComponent<NetworkIdentity>().connectionToClient);
         print("Memes: " + GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects.Count);
+        foreach(NetworkIdentity nets in GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects)
+        {
+            print(nets.gameObject.name);
+        }
         print("Player has given " + wantsAurthority.transform.name + " Aurthority");
 
 
