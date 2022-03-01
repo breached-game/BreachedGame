@@ -11,8 +11,6 @@ public class InteractionManager : NetworkBehaviour
 
     public InteractionSO interactionSO;
 
-    private bool playerInCollider = false;
-
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player" && available)
@@ -35,15 +33,8 @@ public class InteractionManager : NetworkBehaviour
                         InteractionManager interactable = hit.collider.GetComponent<InteractionManager>();
                         if (interactable != null && (hit.collider.gameObject == gameObject || hit.collider.gameObject == gameObject.transform.GetChild(0).gameObject))
                         {
-                            //Give Aurthority
-                            other.gameObject.GetComponent<PlayerManager>().CmdAssignAurthority(this.gameObject);
-
                             //Want access to interactable SO
-
                             interactionSO.RunInteraction(gameObject, other.gameObject);
-
-                            //Take Authority Away
-                            other.gameObject.GetComponent<PlayerManager>().CmdRemoveAurthority(this.gameObject);
                         }
                     }
                 }
@@ -64,7 +55,8 @@ public class InteractionManager : NetworkBehaviour
             playersInColliderCount--;
             if (playersInColliderCount == 0 && other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                playerInCollider = false;
+                //Take Authority Away
+                other.gameObject.GetComponent<PlayerManager>().CmdRemoveAurthority(this.gameObject);
             }
         }
     }
@@ -77,7 +69,8 @@ public class InteractionManager : NetworkBehaviour
                 if(other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
                 {
                     playersInColliderCount++;
-                    playerInCollider = true;
+                    //Give Aurthority
+                    other.gameObject.GetComponent<PlayerManager>().CmdAssignAurthority(this.gameObject);
                     //Debug.Log("This object has authority: " +  this.gameObject.GetComponent<NetworkIdentity>().hasAuthority);
                 }
             }

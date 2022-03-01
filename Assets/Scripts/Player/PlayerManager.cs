@@ -61,14 +61,13 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     public void CmdAssignAurthority(GameObject wantsAurthority)
     {
-        GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects.Add(wantsAurthority.GetComponent<NetworkIdentity>());
+        //GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects.Add(wantsAurthority.GetComponent<NetworkIdentity>());
         wantsAurthority.gameObject.GetComponent<NetworkIdentity>().AssignClientAuthority(GetComponent<NetworkIdentity>().connectionToClient);
         print("Player has given " + wantsAurthority.transform.name + " Aurthority");
 
 
         /*var networkIdentity = wantsAurthority.gameObject.GetComponent<NetworkIdentity>();
         networkIdentity.AssignClientAuthority(identity.connectionToClient);*/
-
 
     }
     [Command]
@@ -78,7 +77,7 @@ public class PlayerManager : NetworkBehaviour
         print("Player has removed " + wantsRemovedAurthority.transform.name + " Aurthority");
         /* var networkIdentity = wantsRemovedAurthority.gameObject.GetComponent<NetworkIdentity>();
          networkIdentity.AssignClientAuthority(identity.connectionToClient);
- */
+        */
     }
    
 
