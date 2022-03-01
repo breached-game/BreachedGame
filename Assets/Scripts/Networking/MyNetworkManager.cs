@@ -5,7 +5,6 @@ using Mirror;
 
 public class MyNetworkManager : NetworkManager
 {
-    private NetworkConnection playerConn;
     public override void OnStartServer()
     {
         Debug.Log("Server Started!");
@@ -19,15 +18,16 @@ public class MyNetworkManager : NetworkManager
     public override void OnClientConnect(NetworkConnection conn)
     {
         Debug.Log("Connected to Server!");
-        playerConn = conn;
-        //print(playerConn.identity.netId);
-        print(conn);
     }
 
     public override void OnServerDisconnect(NetworkConnection conn)
     {
         Debug.Log("Disconnected from Server!");
+        playerExitsOrDisconnects(conn);
+    }
 
+    void playerExitsOrDisconnects(NetworkConnection conn)
+    {
         //Remove all objects owned by the player
         var ownedObjects = new NetworkIdentity[conn.clientOwnedObjects.Count];
         conn.clientOwnedObjects.CopyTo(ownedObjects);
@@ -35,22 +35,7 @@ public class MyNetworkManager : NetworkManager
         {
             networkIdentity.RemoveClientAuthority();
         }
-    }
-
-    public override void OnApplicationQuit()
-    {
-       
-        print("Here");
-        print(NetworkClient.isConnected);
-        //Remove all objects owned by the player
-        var ownedObjects = new NetworkIdentity[playerConn.clientOwnedObjects.Count];
-        playerConn.clientOwnedObjects.CopyTo(ownedObjects);
-        print(ownedObjects.Length);
-        foreach (var networkIdentity in ownedObjects)
-        {
-            networkIdentity.RemoveClientAuthority();
-        }
-
-        base.OnApplicationQuit();
+        //Delete Player
+        NetworkServer.Destroy(conn.identity.gameObject);
     }
 }

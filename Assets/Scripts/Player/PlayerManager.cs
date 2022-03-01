@@ -62,13 +62,7 @@ public class PlayerManager : NetworkBehaviour
     public void CmdAssignAurthority(GameObject wantsAurthority)
     {
         GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects.Add(wantsAurthority.GetComponent<NetworkIdentity>());
-        print(GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects.Count);
         wantsAurthority.gameObject.GetComponent<NetworkIdentity>().AssignClientAuthority(GetComponent<NetworkIdentity>().connectionToClient);
-        print("Memes: " + GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects.Count);
-        foreach(NetworkIdentity nets in GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects)
-        {
-            print(nets.gameObject.name);
-        }
         print("Player has given " + wantsAurthority.transform.name + " Aurthority");
 
 
@@ -80,7 +74,6 @@ public class PlayerManager : NetworkBehaviour
     public void CmdRemoveAurthority(GameObject wantsRemovedAurthority)
     {
         wantsRemovedAurthority.GetComponent<NetworkIdentity>().RemoveClientAuthority();
-        print(GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects.Count);
         print("Player has removed " + wantsRemovedAurthority.transform.name + " Aurthority");
         /* var networkIdentity = wantsRemovedAurthority.gameObject.GetComponent<NetworkIdentity>();
          networkIdentity.AssignClientAuthority(identity.connectionToClient);
