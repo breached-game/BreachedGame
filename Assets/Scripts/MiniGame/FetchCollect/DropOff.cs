@@ -29,6 +29,7 @@ public class DropOff : NetworkBehaviour
             //if the player has the right item to drop off
             print(dropOffPrefab + " has been dropped off");
 
+            /* Legacy
             //respawn object 
             int height = (int)playerHas.transform.lossyScale.y;
             Vector3 heightVector =  new Vector3 (0, height, 0);
@@ -36,6 +37,8 @@ public class DropOff : NetworkBehaviour
 
             //itemCarried.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
             playerHas.SetActive(true);
+            */
+
             //reset carry field
             player.GetComponent<PlayerManager>().objectPlayerHas = null;
             //Update player UI
