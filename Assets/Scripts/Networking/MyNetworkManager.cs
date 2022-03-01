@@ -24,7 +24,7 @@ public class MyNetworkManager : NetworkManager
         print(conn);
     }
 
-    public override void OnClientDisconnect(NetworkConnection conn)
+    public override void OnServerDisconnect(NetworkConnection conn)
     {
         Debug.Log("Disconnected from Server!");
 
@@ -41,6 +41,7 @@ public class MyNetworkManager : NetworkManager
     {
        
         print("Here");
+        print(NetworkClient.isConnected);
         //Remove all objects owned by the player
         var ownedObjects = new NetworkIdentity[playerConn.clientOwnedObjects.Count];
         playerConn.clientOwnedObjects.CopyTo(ownedObjects);
