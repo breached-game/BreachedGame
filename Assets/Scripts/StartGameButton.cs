@@ -9,6 +9,9 @@ public class StartGameButton : NetworkBehaviour
     public GameObject[] players;
     public GameObject playerUI;
     public GameObject lights;
+    public List<GameObject> items;
+    private bool canStartGame = true;
+
     [Command]
     public void CmdstartGame()
     {
@@ -27,6 +30,10 @@ public class StartGameButton : NetworkBehaviour
             player.transform.position = spawnPoint.transform.position;
             playerUI.SetActive(true);
             player.GetComponent<PlayerManager>().TurnOnAudio();
+        }
+        foreach(GameObject item in items)
+        {
+            item.SetActive(true);
         }
     }
 }
