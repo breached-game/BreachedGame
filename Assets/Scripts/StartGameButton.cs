@@ -10,7 +10,7 @@ public class StartGameButton : NetworkBehaviour
     public GameObject playerUI;
     public GameObject lights;
     public List<GameObject> items;
-    private bool canStartGame = true;
+    //private bool canStartGame = true;
 
     [Command]
     public void CmdstartGame()

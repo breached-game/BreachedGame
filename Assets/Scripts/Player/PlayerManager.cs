@@ -109,19 +109,20 @@ public class PlayerManager : NetworkBehaviour
     [ClientRpc]
     void UpdateDropItem(GameObject player)
     {
-        GameObject droppedItem = player.GetComponent<PlayerManager>().objectPlayerHas;
+        PlayerManager playerManager = player.GetComponent<PlayerManager>();
+        GameObject droppedItem = playerManager.objectPlayerHas;
         //Drop current item
-        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
         droppedItem.SetActive(true);
-        if (player.GetComponent<PlayerManager>().objectPlayerHas.transform.name == "Torch")//Torch is different to generic object.
+        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
+        if (playerManager.objectPlayerHas.transform.name == "Torch")//Torch is different to generic object.
         {
-            player.GetComponent<PlayerManager>().torch.SetActive(false);
+            playerManager.torch.SetActive(false);
         }
-        player.GetComponent<PlayerManager>().objectPlayerHas = null;
+        playerManager.objectPlayerHas = null;
         //Update the item text
-        player.GetComponent<PlayerManager>().updateItemText();
+        playerManager.updateItemText();
         //Visual Effect
-        player.GetComponent<PlayerManager>().VisualEffectOfPlayerDroppingItem();
+        playerManager.VisualEffectOfPlayerDroppingItem();
     }
     #endregion
 
