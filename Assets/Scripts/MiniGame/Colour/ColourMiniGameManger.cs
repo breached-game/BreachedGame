@@ -18,6 +18,7 @@ public class ColourMiniGameManger : MonoBehaviour
     public GameObject combinationDisplay;
     public Material SuccessColour;
     public Material FailColour;
+    public Material white;
     public float interval = 0.3f;
     public int NumberOfFlashes = 3;
 
@@ -33,33 +34,35 @@ public class ColourMiniGameManger : MonoBehaviour
 
     public void sendPressedColour(string colour, Material mat)
     {
-        // Debug.Log("Got colour " + colour);
-        currentColourCombination.Add(colour);
-        //Display the new colour added
-        combinationDisplay.transform.GetChild(currentColourCombination.Count).transform.gameObject.GetComponent<MeshRenderer>().material = mat;
-        //Debug.Log(currentColourCombination + "\n" + correctColourCombination);
-        if (correctColourCombination.Count == currentColourCombination.Count)
+        //We check so see if we can add more to the combination
+        if (correctColourCombination.Count != currentColourCombination.Count)
         {
-            checkCombination();
+            // Debug.Log("Got colour " + colour);
+            currentColourCombination.Add(colour);
+            //Display the new colour added
+            combinationDisplay.transform.GetChild(currentColourCombination.Count - 1).transform.gameObject.GetComponent<MeshRenderer>().material = mat;
+            //Debug.Log(currentColourCombination + "\n" + correctColourCombination);
+            if (correctColourCombination.Count == currentColourCombination.Count)
+            {
+                checkCombination();
+            }
         }
-
     }
 
     public void checkCombination()
     {
         if (listAreEqual(currentColourCombination,correctColourCombination))
         {
+            StartCoroutine(FlickerEffect(SuccessColour));
             //print("Correct combination");
             minigameManager.ObjectiveCompleted(minigameName, minigameObjective);
-            StartCoroutine(FlickerEffect(SuccessColour));
         }
         else
         {
+            StartCoroutine(FlickerEffect(FailColour));
             print("Incorrect combination");
             failiureReason = "Incorrect Combination";
-            currentColourCombination = new List<string>();
             minigameManager.ObjectiveFailed(minigameName, failiureReason); //Change this 
-            StartCoroutine(FlickerEffect(FailColour));
         }
     }
 
@@ -77,16 +80,22 @@ public class ColourMiniGameManger : MonoBehaviour
     {
         for (int i = 0; i < currentColourCombination.Count; i++)
         {
-            combinationDisplay.transform.GetChild(currentColourCombination.Count).transform.gameObject.GetComponent<MeshRenderer>().material = matOutcome;
+            combinationDisplay.transform.GetChild(i).transform.gameObject.GetComponent<MeshRenderer>().material = matOutcome;
         }
     }
 
     IEnumerator FlickerEffect(Material matFlicker)
     {
-        for (int i = 0; i < NumberOfFlashes; i++)
+        for (int i = 0; i <= NumberOfFlashes; i++)
         {
             displayCominationOutcome(matFlicker);
             yield return new WaitForSeconds(interval);
+            displayCominationOutcome(white);
+            yield return new WaitForSeconds(interval);
         }
+        //RESET
+        displayCominationOutcome(white);
+        currentColourCombination = new List<string>();
+        print("All done");
     }
 }

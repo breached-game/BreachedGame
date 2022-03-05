@@ -30,9 +30,6 @@ public class PlayerManager : NetworkBehaviour
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(this.gameObject);
 
-        //Start Animation Control
-        StartCoroutine(animationControll());
-
     }
 
     public void TurnOnAudio()
@@ -190,11 +187,13 @@ public class PlayerManager : NetworkBehaviour
             {
                 translation = Input.GetAxis("Vertical") * SprintSpeed * Time.deltaTime;
                 straffe = Input.GetAxis("Horizontal") * SprintSpeed * Time.deltaTime;
+                PlayerModel.GetComponent<Animator>().SetBool("Sprint", true);
             }
             else
             {
                 translation = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
                 straffe = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
+                PlayerModel.GetComponent<Animator>().SetBool("Sprint", false);
             }
             _controller.Move(translation *  transform.forward);
             _controller.Move(straffe *  transform.right);
@@ -225,6 +224,12 @@ public class PlayerManager : NetworkBehaviour
                 //Update the item text
                 updateItemText();
             }
+
+            //Animation Controll
+            if(move == new Vector3(0, 0, 0))
+            {
+                PlayerModel.GetComponent<Animator>().SetBool("Moving", false);
+            } else PlayerModel.GetComponent<Animator>().SetBool("Moving", true);
         }
     }
 
@@ -235,18 +240,5 @@ public class PlayerManager : NetworkBehaviour
         if (UI == null) Debug.LogError("Player Script cannot access player UI --Andrew's fault");
         if (objectPlayerHas != null) UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding(objectPlayerHas.transform.name);
         else UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding("");
-    }
-    IEnumerator animationControll()
-    {
-        while (true)
-        {
-            //Animation control
-            Vector3 prevPos = transform.position;
-            yield return new WaitForSeconds(0.5f);
-            Vector3 actualPos = transform.position;
-
-            if (prevPos == actualPos) PlayerModel.GetComponent<Animator>().SetBool("Moving", false);
-            if (prevPos != actualPos) PlayerModel.GetComponent<Animator>().SetBool("Moving", true);
-        }
     }
 }
