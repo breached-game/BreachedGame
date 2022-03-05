@@ -104,6 +104,23 @@ public class PlayerManager : NetworkBehaviour
     public void CmdDropItem()
     {
         UpdateDropItem(this.gameObject);
+        GameObject player = this.gameObject;
+        PlayerManager playerManager = player.GetComponent<PlayerManager>();
+        GameObject droppedItem = playerManager.objectPlayerHas;
+        //Drop current item
+        droppedItem.SetActive(true);
+        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
+        if (playerManager.objectPlayerHas.transform.name == "Torch")//Torch is different to generic object.
+        {
+            playerManager.torch.SetActive(false);
+        }
+        playerManager.objectPlayerHas = null;
+        //Update the item text
+        playerManager.updateItemText();
+        //Visual Effect
+        playerManager.VisualEffectOfPlayerDroppingItem();
+        print("Synced Item from server");
+        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for
     }
     [ClientRpc]
     void UpdateDropItem(GameObject player)
