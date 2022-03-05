@@ -147,13 +147,16 @@ public class PlayerManager : NetworkBehaviour
     #region Visual Effects
     void VisualEffectOfPlayerPickingUpItem(GameObject objectPickedUp)
     {
-        PlayerModel.GetComponent<Animator>().Play("Walk_Carry");
-        PlayerModel.GetComponent<Animator>().SetBool("Holding", true);
-        for(int i = 0; i < PlayerCurrentlyHolding.transform.childCount; i++)
+        if (objectPickedUp.name != "Torch")
         {
-            if (PlayerCurrentlyHolding.transform.GetChild(i).gameObject.name == objectPickedUp.GetComponent<ItemPickUp>().itemBeingHeld.name)
+            PlayerModel.GetComponent<Animator>().Play("Walk_Carry");
+            PlayerModel.GetComponent<Animator>().SetBool("Holding", true);
+            for (int i = 0; i < PlayerCurrentlyHolding.transform.childCount; i++)
             {
-                PlayerCurrentlyHolding.transform.GetChild(i).gameObject.SetActive(true);
+                if (PlayerCurrentlyHolding.transform.GetChild(i).gameObject.name == objectPickedUp.GetComponent<ItemPickUp>().itemBeingHeld.name)
+                {
+                    PlayerCurrentlyHolding.transform.GetChild(i).gameObject.SetActive(true);
+                }
             }
         }
     }
