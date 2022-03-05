@@ -105,7 +105,7 @@ public class PlayerManager : NetworkBehaviour
     {
         UpdateDropItem(this.gameObject);
     }
-    [Server]
+    [Command]
     void UpdateDropItem(GameObject player)
     {
         PlayerManager playerManager = player.GetComponent<PlayerManager>();
