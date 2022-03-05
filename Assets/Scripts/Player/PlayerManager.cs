@@ -105,8 +105,7 @@ public class PlayerManager : NetworkBehaviour
     {
         UpdateDropItem(this.gameObject);
     }
-    //Code runs on all clients so we need to be accurate about which player this is happening for
-    [ClientRpc]
+    [Server]
     void UpdateDropItem(GameObject player)
     {
         PlayerManager playerManager = player.GetComponent<PlayerManager>();
