@@ -10,13 +10,30 @@ public class StartGameButton : NetworkBehaviour
     public GameObject playerUI;
     public GameObject lights;
     public List<GameObject> items;
+    private List<Vector3> startPositionItems;
     //private bool canStartGame = true;
+    private void Start()
+    {
+        if (isServer)
+        {
+            foreach(GameObject item in items)
+            {
+                startPositionItems.Add(item.transform.position);
+            }
+        }
+    }
 
     [Command]
     public void CmdstartGame()
     {
         //If server only items (this might be true in the future, we can enable them all using this command
         //NetworkServer.SpawnObjects();
+        int index = 0;
+        foreach (GameObject item in items)
+        {
+            item.transform.position = startPositionItems[index];
+            index++;
+        }
         updateStartGame();
     }
     [ClientRpc]

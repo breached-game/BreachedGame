@@ -26,10 +26,10 @@ public class LightFlickerEffect : MonoBehaviour
     void Start()
     {
         //Start the coroutine we define below named ExampleCoroutine.
-        StartCoroutine(ExampleCoroutine());
+        StartCoroutine(LightFlicker());
     }
 
-    IEnumerator ExampleCoroutine()
+    IEnumerator LightFlicker()
     {
         while (true)
         {

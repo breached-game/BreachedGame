@@ -113,7 +113,6 @@ public class PlayerManager : NetworkBehaviour
         GameObject player = identity.gameObject;
         PlayerManager playerManager = identity.gameObject.GetComponent<PlayerManager>();
         GameObject droppedItem = playerManager.objectPlayerHas;
-        print("Hello");
         //Drop current item
         droppedItem.SetActive(true);
         droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
@@ -126,10 +125,6 @@ public class PlayerManager : NetworkBehaviour
         playerManager.updateItemText();
         //Visual Effect
         playerManager.VisualEffectOfPlayerDroppingItem();
-        print("Synced Item from server");
-        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
-        print(player.transform.position);
-        print(droppedItem.transform.position);
     }
     [ClientRpc]
     void UpdateDropItem(NetworkIdentity playerID)
@@ -137,10 +132,6 @@ public class PlayerManager : NetworkBehaviour
         PlayerManager playerManager = playerID.gameObject.GetComponent<PlayerManager>();
         GameObject player = playerID.gameObject;
         GameObject droppedItem = playerManager.objectPlayerHas;
-        print("memesStart");
-        print(player.transform.position);
-        print(droppedItem.transform.position);
-        print("memes");
         //Drop current item
         droppedItem.SetActive(true);
         droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
@@ -153,10 +144,6 @@ public class PlayerManager : NetworkBehaviour
         playerManager.updateItemText();
         //Visual Effect
         playerManager.VisualEffectOfPlayerDroppingItem();
-        print("Synced Item from server");
-        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
-        print(player.transform.position);
-        print(droppedItem.transform.position);
     }
     #endregion
 
@@ -185,6 +172,7 @@ public class PlayerManager : NetworkBehaviour
     #endregion
 
     public float Speed = 4.0f;
+    public float SprintSpeed = 6.0f;
     public float smooth = 5f;
     private float translation;
     private float straffe;
@@ -196,10 +184,18 @@ public class PlayerManager : NetworkBehaviour
         {
             // Input.GetAxis() is used to get the user's input
             // You can furthor set it on Unity. (Edit, Project Settings, Input)
-            translation = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
-            straffe = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
             Vector3 move = new Vector3(translation, 0, straffe);
 
+            if(Input.GetAxisRaw("Sprint") != 0)
+            {
+                translation = Input.GetAxis("Vertical") * SprintSpeed * Time.deltaTime;
+                straffe = Input.GetAxis("Horizontal") * SprintSpeed * Time.deltaTime;
+            }
+            else
+            {
+                translation = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
+                straffe = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
+            }
             _controller.Move(translation *  transform.forward);
             _controller.Move(straffe *  transform.right);
 

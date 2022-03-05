@@ -6,6 +6,7 @@ using Mirror;
 public class ColourMiniGameButton : NetworkBehaviour
 {
     public string colour;
+    public Material mat;
 
     [Command]
     public void CmdButtonPressed()
@@ -15,7 +16,7 @@ public class ColourMiniGameButton : NetworkBehaviour
     [ClientRpc]
     void UpdateAllButtonPresses()
     {
-        transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour);
+        transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour, mat);
         print("We syncing the button y'all");
         transform.GetChild(0).GetComponent<Animator>().Play("Click");
     }

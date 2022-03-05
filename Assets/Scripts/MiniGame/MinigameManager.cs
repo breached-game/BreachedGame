@@ -23,8 +23,6 @@ public class MinigameManager : MonoBehaviour
     // Dictionary shape : {Objective name (string) : Reason for failiuew (string)
     private Dictionary<string, string> failedObjectives;
 
-
-
     public void SendObjectiveData(string objectiveName, string objectiveDescription)
     {
         //Debug.Log(objectiveName + "\n" + objectiveDescription);

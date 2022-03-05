@@ -90,6 +90,7 @@ MonoBehaviour:
   objectPlayerHas: {fileID: 0}
   torch: {fileID: 8599462594555413210}
   Speed: 4
+  SprintSpeed: 6
   smooth: 5
 --- !u!114 &1501644772030148387
 MonoBehaviour:
@@ -730,6 +731,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterAttempt4
       objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: eaf2420e3670b5b40b3476a0d331a6e4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d64aa96570db197478b63c1ee7902f4a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaf2420e3670b5b40b3476a0d331a6e4, type: 3}
 --- !u!1 &457091109782114499 stripped
