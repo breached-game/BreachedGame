@@ -88,6 +88,12 @@ public class PlayerManager : NetworkBehaviour
         if (objectBeingPickedUp.activeInHierarchy)
         {
             UpdatePickUpObjects(this.gameObject, objectBeingPickedUp);
+            GameObject player = this.gameObject;
+            //Runs for everyone so all instances say that this player has this object 
+            player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
+            player.GetComponent<PlayerManager>().updateItemText();
+            objectBeingPickedUp.SetActive(false);
+            player.GetComponent<PlayerManager>().VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
         }
         else print("Player tried to pick up none active gameobject");
     }
@@ -105,10 +111,25 @@ public class PlayerManager : NetworkBehaviour
     {
         UpdateDropItem(identity);
         GameObject player = identity.gameObject;
+        PlayerManager playerManager = identity.gameObject.GetComponent<PlayerManager>();
+        GameObject droppedItem = playerManager.objectPlayerHas;
         print("Hello");
-        player.GetComponent<PlayerManager>().objectPlayerHas.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
+        //Drop current item
+        droppedItem.SetActive(true);
+        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
+        if (playerManager.objectPlayerHas.transform.name == "Torch")//Torch is different to generic object.
+        {
+            playerManager.torch.SetActive(false);
+        }
+        playerManager.objectPlayerHas = null;
+        //Update the item text
+        playerManager.updateItemText();
+        //Visual Effect
+        playerManager.VisualEffectOfPlayerDroppingItem();
+        print("Synced Item from server");
+        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
         print(player.transform.position);
-        print(player.GetComponent<PlayerManager>().objectPlayerHas.transform.position);
+        print(droppedItem.transform.position);
     }
     [ClientRpc]
     void UpdateDropItem(NetworkIdentity playerID)
