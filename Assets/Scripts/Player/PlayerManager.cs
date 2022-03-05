@@ -122,6 +122,8 @@ public class PlayerManager : NetworkBehaviour
         playerManager.updateItemText();
         //Visual Effect
         playerManager.VisualEffectOfPlayerDroppingItem();
+        print("Synced Item from server");
+        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
     }
     #endregion
 
