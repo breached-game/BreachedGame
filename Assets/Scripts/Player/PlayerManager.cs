@@ -104,6 +104,11 @@ public class PlayerManager : NetworkBehaviour
     public void CmdDropItem()
     {
         UpdateDropItem(identity);
+        GameObject player = identity.gameObject;
+        print("Hello");
+        player.GetComponent<PlayerManager>().objectPlayerHas.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
+        print(player.transform.position);
+        print(player.GetComponent<PlayerManager>().objectPlayerHas.transform.position);
     }
     [ClientRpc]
     void UpdateDropItem(NetworkIdentity playerID)
@@ -111,6 +116,10 @@ public class PlayerManager : NetworkBehaviour
         PlayerManager playerManager = playerID.gameObject.GetComponent<PlayerManager>();
         GameObject player = playerID.gameObject;
         GameObject droppedItem = playerManager.objectPlayerHas;
+        print("memesStart");
+        print(player.transform.position);
+        print(droppedItem.transform.position);
+        print("memes");
         //Drop current item
         droppedItem.SetActive(true);
         droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
@@ -125,6 +134,8 @@ public class PlayerManager : NetworkBehaviour
         playerManager.VisualEffectOfPlayerDroppingItem();
         print("Synced Item from server");
         droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
+        print(player.transform.position);
+        print(droppedItem.transform.position);
     }
     #endregion
 
