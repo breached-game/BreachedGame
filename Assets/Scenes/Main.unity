@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2340,6 +2340,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4601627097843903544}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &240996045
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240996044}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &250752970
 GameObject:
   m_ObjectHideFlags: 0
@@ -14785,7 +14798,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winScreen: {fileID: 509473408}
   UIManager: {fileID: 623296603}
-  ConsoleLog: {fileID: 0}
 --- !u!4 &1563282947
 Transform:
   m_ObjectHideFlags: 0
@@ -20064,6 +20076,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch
       objectReference: {fileID: 0}
+    - target: {fileID: 4601627099317941937, guid: ee8a3c428d492d94b8166cd13ccecc5f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4601627099317941938, guid: ee8a3c428d492d94b8166cd13ccecc5f,
         type: 3}
       propertyPath: interactionSO
@@ -20135,7 +20152,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4601627098332748505, guid: ee8a3c428d492d94b8166cd13ccecc5f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ee8a3c428d492d94b8166cd13ccecc5f, type: 3}
 --- !u!23 &4933046972744950968
 MeshRenderer:
