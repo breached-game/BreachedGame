@@ -244,8 +244,11 @@ public class PlayerManager : NetworkBehaviour
     {
         //TERRIBLE PRACTICE
         GameObject UI = GameObject.Find("Canvas/PlayerUI");
-        if (UI == null) Debug.LogError("Player Script cannot access player UI --Andrew's fault");
-        if (objectPlayerHas != null) UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding(objectPlayerHas.transform.name);
-        else UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding("");
+        // Andrew's fault
+        if (UI != null)
+        {
+            if (objectPlayerHas != null) UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding(objectPlayerHas.transform.name);
+            else UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding("");
+        }
     }
 }
