@@ -26,7 +26,7 @@ public class DropOffMiniGameManager : MonoBehaviour
         if (droppedOff) dropsDone++;
         else dropsDone--;
 
-        print(droppedOff);
+        print(dropsDone);
 
         if(dropsDone == numberOfDropOffs)
         {
