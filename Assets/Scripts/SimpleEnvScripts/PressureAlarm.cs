@@ -6,6 +6,7 @@ using Mirror;
 public class PressureAlarm : NetworkBehaviour
 {
    public GameObject lights;
+    private bool DISABLE_AFTER_TESTING = false;
    [Command]
    public void CmdPressureAlarmPress()
    {
@@ -14,6 +15,14 @@ public class PressureAlarm : NetworkBehaviour
     [ClientRpc]
     void PressureAlarmPress()
    {
-        lights.GetComponent<LightManager>().TurnPressureAlarmOff();
-   }
-}
+        if (DISABLE_AFTER_TESTING)
+        {
+            lights.GetComponent<LightManager>().TurnPressureAlarmOn();
+            DISABLE_AFTER_TESTING = true;
+        }
+        else
+        {
+            lights.GetComponent<LightManager>().TurnPressureAlarmOff();
+            DISABLE_AFTER_TESTING = false;
+        } 
+    }
