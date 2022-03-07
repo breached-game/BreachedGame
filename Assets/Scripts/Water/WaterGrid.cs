@@ -84,10 +84,8 @@ public class WaterGrid : MonoBehaviour
         {
             for (int z = cellPos.z - cellWidth.z + 1; z < cellPos.z + cellWidth.z; z++)
             {
-                Debug.Log("x: " + x + " z: " + z);
                 if (x < width && z < depth && x > 0 && z > 0)
                 {
-                    Debug.Log("x: " + x + " z: " + z);
                     gridArray[x, z].SetH(2 * (cellWidth.y + cellPos.y));
                 }
             }
@@ -107,6 +105,13 @@ public class WaterGrid : MonoBehaviour
         iB = gridArray[pos.x, pos.y - 1].GetNewOutflows()[Vector2Int.up];
 
         return iL + iR + iT + iB;
+    }
+
+    public float GetWaterHeight(Vector3 pos)
+    {
+        Vector3Int cellPos = water_grid.LocalToCell(pos - water_grid.transform.position);
+        GridVertex cell = gridArray[cellPos.x, cellPos.z];
+        return cell.Geth() + cell.GetH();
     }
 
     public void FixedUpdate()
