@@ -26,6 +26,8 @@ public class DropOffMiniGameManager : MonoBehaviour
         if (droppedOff) dropsDone++;
         else dropsDone--;
 
+        print(droppedOff);
+
         if(dropsDone == numberOfDropOffs)
         {
             minigameManager.ObjectiveCompleted(minigameName, minigameObjective);
