@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4601627099292998606}
   - component: {fileID: 4601627099292998607}
+  - component: {fileID: 684673225}
   m_Layer: 7
-  m_Name: Light
+  m_Name: TorchLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,9 +45,9 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 90
-  m_InnerSpotAngle: 9
+  m_Range: 6
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -93,6 +94,20 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &684673225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4601627099292998605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d808a6bca73e6d6489c370db9dd11c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  lightSource: {fileID: 4601627099292998607}
 --- !u!1 &4601627099317941936
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +120,7 @@ GameObject:
   - component: {fileID: 4601627099317941939}
   - component: {fileID: 4601627099317941938}
   - component: {fileID: 4601627099317941937}
+  - component: {fileID: 240996045}
   m_Layer: 0
   m_Name: Torch
   m_TagString: Untagged
@@ -158,9 +174,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   available: 1
-  disableWhenOpen:
-  - {fileID: 0}
-  typeMenu: 3
+  interactionSO: {fileID: 0}
 --- !u!65 &4601627099317941937
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -174,6 +188,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 2, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &240996045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4601627099317941936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200cbfc32c7bb434d96d71c1a809f875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemBeingHeld: {fileID: 4601627099317941936}
 --- !u!1001 &4601627097878364783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -291,5 +318,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 5, z: 10}
+  m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 1.1451454, z: 5}

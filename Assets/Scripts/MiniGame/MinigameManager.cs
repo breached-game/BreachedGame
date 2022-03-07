@@ -10,7 +10,6 @@ public class MinigameManager : MonoBehaviour
     private GameObject[] players;
     
     public GameObject UIManager;
-    public GameObject ConsoleLog;
     private string currentText;
 
 
@@ -22,8 +21,6 @@ public class MinigameManager : MonoBehaviour
 
     // Dictionary shape : {Objective name (string) : Reason for failiuew (string)
     private Dictionary<string, string> failedObjectives;
-
-
 
     public void SendObjectiveData(string objectiveName, string objectiveDescription)
     {

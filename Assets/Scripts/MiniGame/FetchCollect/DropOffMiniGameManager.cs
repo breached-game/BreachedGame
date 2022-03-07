@@ -11,16 +11,22 @@ public class DropOffMiniGameManager : MonoBehaviour
     public int numberOfDropOffs = 2;
     private int dropsDone = 0;
 
-    private void Start()
+    public void Reset()
     {
         minigameManager = transform.parent.GetComponent<MinigameManager>();
         minigameManager.SendObjectiveData(minigameName, minigameObjective);
+    }
+    private void Start()
+    {
+        Reset();
     }
 
     public void changeInState(bool droppedOff)
     {
         if (droppedOff) dropsDone++;
         else dropsDone--;
+
+        print(dropsDone);
 
         if(dropsDone == numberOfDropOffs)
         {

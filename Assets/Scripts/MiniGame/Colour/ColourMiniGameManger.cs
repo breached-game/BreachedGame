@@ -15,36 +15,53 @@ public class ColourMiniGameManger : MonoBehaviour
 
     private string failiureReason;
 
-    private void Start()
+    public GameObject combinationDisplay;
+    public Material SuccessColour;
+    public Material FailColour;
+    public Material white;
+    public float interval = 0.3f;
+    public int NumberOfFlashes = 3;
+
+    public void Reset()
     {
         minigameManager = transform.parent.GetComponent<MinigameManager>();
         minigameManager.SendObjectiveData(minigameName, minigameObjective);
     }
-
-    public void sendPressedColour(string colour)
+    private void Start()
     {
-        // Debug.Log("Got colour " + colour);
-        currentColourCombination.Add(colour);
-        //Debug.Log(currentColourCombination + "\n" + correctColourCombination);
-        if (correctColourCombination.Count == currentColourCombination.Count)
-        {
-            checkCombination();
-        }
+        Reset();
+    }
 
+    public void sendPressedColour(string colour, Material mat)
+    {
+        //We check so see if we can add more to the combination
+        if (correctColourCombination.Count != currentColourCombination.Count)
+        {
+            // Debug.Log("Got colour " + colour);
+            currentColourCombination.Add(colour);
+            //Display the new colour added
+            combinationDisplay.transform.GetChild(currentColourCombination.Count - 1).transform.gameObject.GetComponent<MeshRenderer>().material = mat;
+            //Debug.Log(currentColourCombination + "\n" + correctColourCombination);
+            if (correctColourCombination.Count == currentColourCombination.Count)
+            {
+                checkCombination();
+            }
+        }
     }
 
     public void checkCombination()
     {
         if (listAreEqual(currentColourCombination,correctColourCombination))
         {
+            StartCoroutine(FlickerEffect(SuccessColour));
             //print("Correct combination");
-            minigameManager.ObjectiveCompleted(minigameName, minigameObjective); 
+            minigameManager.ObjectiveCompleted(minigameName, minigameObjective);
         }
         else
         {
+            StartCoroutine(FlickerEffect(FailColour));
             print("Incorrect combination");
             failiureReason = "Incorrect Combination";
-            currentColourCombination = new List<string>();
             minigameManager.ObjectiveFailed(minigameName, failiureReason); //Change this 
         }
     }
@@ -57,5 +74,28 @@ public class ColourMiniGameManger : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    private void displayCominationOutcome(Material matOutcome)
+    {
+        for (int i = 0; i < currentColourCombination.Count; i++)
+        {
+            combinationDisplay.transform.GetChild(i).transform.gameObject.GetComponent<MeshRenderer>().material = matOutcome;
+        }
+    }
+
+    IEnumerator FlickerEffect(Material matFlicker)
+    {
+        for (int i = 0; i <= NumberOfFlashes; i++)
+        {
+            displayCominationOutcome(matFlicker);
+            yield return new WaitForSeconds(interval);
+            displayCominationOutcome(white);
+            yield return new WaitForSeconds(interval);
+        }
+        //RESET
+        displayCominationOutcome(white);
+        currentColourCombination = new List<string>();
+        print("All done");
     }
 }

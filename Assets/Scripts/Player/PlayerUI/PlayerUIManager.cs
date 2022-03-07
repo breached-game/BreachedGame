@@ -9,6 +9,8 @@ public class PlayerUIManager : MonoBehaviour
     public GameObject playerHoldingText;
     public GameObject prefabObjectiveName;
     public GameObject prefabObjectiveDescription;
+    public GameObject mainMenu;
+    public GameObject crosshair;
 
     public Color doneObjectTextColour;
     public Color objectTextColour;
@@ -79,4 +81,25 @@ public class PlayerUIManager : MonoBehaviour
         setPosition(objectiveDescriptionUI.GetComponent<RectTransform>());
 
     }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown("escape"))
+        {
+            if (!mainMenu.activeSelf)
+            {
+                mainMenu.SetActive(true);
+                crosshair.SetActive(false);
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                for (int i = 0; i < players.Length; i++)
+                {
+                    if (players[i].GetComponent<NetworkIdentity>().isLocalPlayer)
+                    {
+                        players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<FirstPersonController>().cameraEnabled = false;
+                    }
+                }
+            }
+        }
+    }
+
 }

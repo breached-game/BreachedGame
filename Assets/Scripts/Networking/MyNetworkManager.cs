@@ -20,8 +20,22 @@ public class MyNetworkManager : NetworkManager
         Debug.Log("Connected to Server!");
     }
 
-    public override void OnClientDisconnect(NetworkConnection conn)
+    public override void OnServerDisconnect(NetworkConnection conn)
     {
         Debug.Log("Disconnected from Server!");
+        playerExitsOrDisconnects(conn);
+    }
+
+    void playerExitsOrDisconnects(NetworkConnection conn)
+    {
+        //Remove all objects owned by the player
+        var ownedObjects = new NetworkIdentity[conn.clientOwnedObjects.Count];
+        conn.clientOwnedObjects.CopyTo(ownedObjects);
+        foreach (var networkIdentity in ownedObjects)
+        {
+            networkIdentity.RemoveClientAuthority();
+        }
+        //Delete Player
+        NetworkServer.Destroy(conn.identity.gameObject);
     }
 }

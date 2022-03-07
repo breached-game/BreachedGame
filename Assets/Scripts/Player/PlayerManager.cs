@@ -30,9 +30,6 @@ public class PlayerManager : NetworkBehaviour
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(this.gameObject);
 
-        //Start Animation Control
-        StartCoroutine(animationControll());
-
     }
 
     public void TurnOnAudio()
@@ -69,7 +66,6 @@ public class PlayerManager : NetworkBehaviour
         /*var networkIdentity = wantsAurthority.gameObject.GetComponent<NetworkIdentity>();
         networkIdentity.AssignClientAuthority(identity.connectionToClient);*/
 
-
     }
     [Command]
     public void CmdRemoveAurthority(GameObject wantsRemovedAurthority)
@@ -78,7 +74,7 @@ public class PlayerManager : NetworkBehaviour
         print("Player has removed " + wantsRemovedAurthority.transform.name + " Aurthority");
         /* var networkIdentity = wantsRemovedAurthority.gameObject.GetComponent<NetworkIdentity>();
          networkIdentity.AssignClientAuthority(identity.connectionToClient);
- */
+        */
     }
    
 
@@ -89,6 +85,12 @@ public class PlayerManager : NetworkBehaviour
         if (objectBeingPickedUp.activeInHierarchy)
         {
             UpdatePickUpObjects(this.gameObject, objectBeingPickedUp);
+            GameObject player = this.gameObject;
+            //Runs for everyone so all instances say that this player has this object 
+            player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
+            player.GetComponent<PlayerManager>().updateItemText();
+            objectBeingPickedUp.SetActive(false);
+            player.GetComponent<PlayerManager>().VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
         }
         else print("Player tried to pick up none active gameobject");
     }
@@ -96,46 +98,69 @@ public class PlayerManager : NetworkBehaviour
     void UpdatePickUpObjects(GameObject player, GameObject objectBeingPickedUp)
     {
         //Runs for everyone so all instances say that this player has this object 
-        player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
-        player.GetComponent<PlayerManager>().updateItemText();
+        PlayerManager playerManager = player.GetComponent<PlayerManager>();
+        playerManager.objectPlayerHas = objectBeingPickedUp;
+        if (playerManager.identity.isLocalPlayer)
+        {
+            playerManager.updateItemText();
+        }
         objectBeingPickedUp.SetActive(false);
-        player.GetComponent<PlayerManager>().VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
+        playerManager.VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
     }
     [Command]
     public void CmdDropItem()
     {
-        UpdateDropItem(this.gameObject);
-    }
-    //Code runs on all clients so we need to be accurate about which player this is happening for
-    [ClientRpc]
-    void UpdateDropItem(GameObject player)
-    {
-        GameObject droppedItem = player.GetComponent<PlayerManager>().objectPlayerHas;
+        UpdateDropItem(identity);
+        GameObject player = identity.gameObject;
+        PlayerManager playerManager = identity.gameObject.GetComponent<PlayerManager>();
+        GameObject droppedItem = playerManager.objectPlayerHas;
         //Drop current item
-        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
         droppedItem.SetActive(true);
-        if (player.GetComponent<PlayerManager>().objectPlayerHas.transform.name == "Torch")//Torch is different to generic object.
+        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
+        if (playerManager.objectPlayerHas.transform.name == "Torch")//Torch is different to generic object.
         {
-            player.GetComponent<PlayerManager>().torch.SetActive(false);
+            playerManager.torch.SetActive(false);
         }
-        player.GetComponent<PlayerManager>().objectPlayerHas = null;
+        playerManager.objectPlayerHas = null;
         //Update the item text
-        player.GetComponent<PlayerManager>().updateItemText();
+        playerManager.updateItemText();
         //Visual Effect
-        player.GetComponent<PlayerManager>().VisualEffectOfPlayerDroppingItem();
+        playerManager.VisualEffectOfPlayerDroppingItem();
+    }
+    [ClientRpc]
+    void UpdateDropItem(NetworkIdentity playerID)
+    {
+        PlayerManager playerManager = playerID.gameObject.GetComponent<PlayerManager>();
+        GameObject player = playerID.gameObject;
+        GameObject droppedItem = playerManager.objectPlayerHas;
+        //Drop current item
+        droppedItem.SetActive(true);
+        droppedItem.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1, player.transform.position.z); //Currrently -1 for player height, objects will float
+        if (playerManager.objectPlayerHas.transform.name == "Torch")//Torch is different to generic object.
+        {
+            playerManager.torch.SetActive(false);
+        }
+        playerManager.objectPlayerHas = null;
+        //Update the item text
+        playerManager.updateItemText();
+        //Visual Effect
+        playerManager.VisualEffectOfPlayerDroppingItem();
     }
     #endregion
 
     #region Visual Effects
     void VisualEffectOfPlayerPickingUpItem(GameObject objectPickedUp)
     {
-        PlayerModel.GetComponent<Animator>().Play("Walk_Carry");
-        PlayerModel.GetComponent<Animator>().SetBool("Holding", true);
-        for(int i = 0; i < PlayerCurrentlyHolding.transform.childCount; i++)
+        if (objectPickedUp.name != "Torch")
         {
-            if (PlayerCurrentlyHolding.transform.GetChild(i).gameObject.name == objectPickedUp.GetComponent<ItemPickUp>().itemBeingHeld.name)
+            PlayerModel.GetComponent<Animator>().Play("Walk_Carry");
+            PlayerModel.GetComponent<Animator>().SetBool("Holding", true);
+            for (int i = 0; i < PlayerCurrentlyHolding.transform.childCount; i++)
             {
-                PlayerCurrentlyHolding.transform.GetChild(i).gameObject.SetActive(true);
+                if (PlayerCurrentlyHolding.transform.GetChild(i).gameObject.name == objectPickedUp.GetComponent<ItemPickUp>().itemBeingHeld.name)
+                {
+                    PlayerCurrentlyHolding.transform.GetChild(i).gameObject.SetActive(true);
+                }
             }
         }
     }
@@ -151,6 +176,7 @@ public class PlayerManager : NetworkBehaviour
     #endregion
 
     public float Speed = 4.0f;
+    public float SprintSpeed = 6.0f;
     public float smooth = 5f;
     private float translation;
     private float straffe;
@@ -162,10 +188,20 @@ public class PlayerManager : NetworkBehaviour
         {
             // Input.GetAxis() is used to get the user's input
             // You can furthor set it on Unity. (Edit, Project Settings, Input)
-            translation = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
-            straffe = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
             Vector3 move = new Vector3(translation, 0, straffe);
 
+            if(Input.GetAxisRaw("Sprint") != 0)
+            {
+                translation = Input.GetAxis("Vertical") * SprintSpeed * Time.deltaTime;
+                straffe = Input.GetAxis("Horizontal") * SprintSpeed * Time.deltaTime;
+                PlayerModel.GetComponent<Animator>().SetBool("Sprint", true);
+            }
+            else
+            {
+                translation = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
+                straffe = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
+                PlayerModel.GetComponent<Animator>().SetBool("Sprint", false);
+            }
             _controller.Move(translation *  transform.forward);
             _controller.Move(straffe *  transform.right);
 
@@ -195,6 +231,12 @@ public class PlayerManager : NetworkBehaviour
                 //Update the item text
                 updateItemText();
             }
+
+            //Animation Control
+            if(move == new Vector3(0, 0, 0))
+            {
+                PlayerModel.GetComponent<Animator>().SetBool("Moving", false);
+            } else PlayerModel.GetComponent<Animator>().SetBool("Moving", true);
         }
     }
 
@@ -202,21 +244,11 @@ public class PlayerManager : NetworkBehaviour
     {
         //TERRIBLE PRACTICE
         GameObject UI = GameObject.Find("Canvas/PlayerUI");
-        if (UI == null) Debug.LogError("Player Script cannot access player UI --Andrew's fault");
-        if (objectPlayerHas != null) UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding(objectPlayerHas.transform.name);
-        else UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding("");
-    }
-    IEnumerator animationControll()
-    {
-        while (true)
+        // Andrew's fault
+        if (UI != null)
         {
-            //Animation control
-            Vector3 prevPos = transform.position;
-            yield return new WaitForSeconds(0.5f);
-            Vector3 actualPos = transform.position;
-
-            if (prevPos == actualPos) PlayerModel.GetComponent<Animator>().SetBool("Moving", false);
-            if (prevPos != actualPos) PlayerModel.GetComponent<Animator>().SetBool("Moving", true);
+            if (objectPlayerHas != null) UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding(objectPlayerHas.transform.name);
+            else UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding("");
         }
     }
 }

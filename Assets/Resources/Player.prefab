@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 7243723213497463479}
   - component: {fileID: 7341711085181823647}
   - component: {fileID: 8935006283533123247}
+  - component: {fileID: 2893624347844382583}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -90,6 +91,7 @@ MonoBehaviour:
   objectPlayerHas: {fileID: 0}
   torch: {fileID: 8599462594555413210}
   Speed: 4
+  SprintSpeed: 6
   smooth: 5
 --- !u!114 &1501644772030148387
 MonoBehaviour:
@@ -172,6 +174,22 @@ MonoBehaviour:
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+--- !u!114 &2893624347844382583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465144899986651690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  animator: {fileID: 6553039858245369372}
 --- !u!1 &1270923463409862057
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +706,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: eaf2420e3670b5b40b3476a0d331a6e4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.20900011
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eaf2420e3670b5b40b3476a0d331a6e4,
         type: 3}
@@ -730,6 +748,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterAttempt4
       objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: eaf2420e3670b5b40b3476a0d331a6e4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f869ad9cdc14e10499ac443660e46ee6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaf2420e3670b5b40b3476a0d331a6e4, type: 3}
 --- !u!1 &457091109782114499 stripped

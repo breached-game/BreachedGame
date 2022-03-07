@@ -34,12 +34,7 @@ public class InteractionManager : NetworkBehaviour
                         if (interactable != null && (hit.collider.gameObject == gameObject || hit.collider.gameObject == gameObject.transform.GetChild(0).gameObject))
                         {
                             //Want access to interactable SO
-
-                            
                             interactionSO.RunInteraction(gameObject, other.gameObject);
-                           
-
-                            //Display interaction available
                         }
                     }
                 }
@@ -60,6 +55,7 @@ public class InteractionManager : NetworkBehaviour
             playersInColliderCount--;
             if (playersInColliderCount == 0 && other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
+                //Take Authority Away
                 other.gameObject.GetComponent<PlayerManager>().CmdRemoveAurthority(this.gameObject);
             }
         }
@@ -73,10 +69,9 @@ public class InteractionManager : NetworkBehaviour
                 if(other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
                 {
                     playersInColliderCount++;
+                    //Give Aurthority
                     other.gameObject.GetComponent<PlayerManager>().CmdAssignAurthority(this.gameObject);
-                   
-             
-                    Debug.Log("This object has authority: " +  this.gameObject.GetComponent<NetworkIdentity>().hasAuthority);
+                    //Debug.Log("This object has authority: " +  this.gameObject.GetComponent<NetworkIdentity>().hasAuthority);
                 }
             }
         }
