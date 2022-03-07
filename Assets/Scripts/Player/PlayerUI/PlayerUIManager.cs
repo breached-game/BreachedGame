@@ -53,11 +53,12 @@ public class PlayerUIManager : MonoBehaviour
     private void setPosition(RectTransform UIElement)
     {
         //Get this from parent //hard coded to be lazy
-        float defultx = -100;
-        float defulty = 100;
-        UIElement.localPosition = new Vector3(defultx, defulty - offsetY, 0);
+        float defaultx = -100;
+        float defaulty = 100;
+        UIElement.localPosition = new Vector3(defaultx, defaulty - offsetY, 0);
         UIElements.Add(UIElement.gameObject);
     }
+
     private void createObjectiveBox(string objectiveName, string objectiveDescription, Color colour)
     {
         GameObject objectiveNameUI = Instantiate(prefabObjectiveName, new Vector3(0,0,0), Quaternion.identity);

@@ -9,8 +9,11 @@ public class LauncherUI : MonoBehaviour
     private NetworkManager manager;
     public GameObject status;
     public GameObject networkManager;
+
     public GameObject StartUI;
     public GameObject LobbyUI;
+    public GameObject PlayerUI;
+
     public GameObject MenuCamera;
     public GameObject crosshair;
 
@@ -33,6 +36,14 @@ public class LauncherUI : MonoBehaviour
                 ClientScene.AddPlayer(NetworkClient.connection);
                 StartUI.SetActive(false);
                 LobbyUI.SetActive(true);
+                PlayerUI.SetActive(true);
+
+                //TRASH CODING PRACTICE BELOW
+                int children = PlayerUI.transform.childCount;
+                for (int i = 0; i < children; i++)
+                {
+                    PlayerUI.transform.GetChild(i).gameObject.SetActive(false);
+                }
                 crosshair.SetActive(true);
             }
         }
