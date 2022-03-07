@@ -49,6 +49,12 @@ public class StartGameButton : NetworkBehaviour
         {
             player.transform.position = spawnPoint.transform.position;
             playerUI.SetActive(true);
+            //GARBAGE CODING PRACTICE BELOW
+            int children = playerUI.transform.childCount;
+            for (int i = 0; i < children; i++)
+            {
+                playerUI.transform.GetChild(i).gameObject.SetActive(true);
+            }
             player.GetComponent<PlayerManager>().TurnOnAudio();
         }
         foreach(GameObject item in items)
