@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System.Runtime.InteropServices;
+
 
 public class StartGameButton : NetworkBehaviour
 {
@@ -9,14 +11,14 @@ public class StartGameButton : NetworkBehaviour
     public GameObject[] players;
     public GameObject playerUI;
     public GameObject lights;
+
+
     [Command]
     public void CmdstartGame()
     {
         //If server only items (this might be true in the future, we can enable them all using this command
         //NetworkServer.SpawnObjects();
         updateStartGame();
-        //calls Javascript hello alert function, via VoiceWrapper
-        VoiceWrapper.Hello();
 
     }
     [ClientRpc]
@@ -30,6 +32,9 @@ public class StartGameButton : NetworkBehaviour
             player.transform.position = spawnPoint.transform.position;
             playerUI.SetActive(true);
             player.GetComponent<PlayerManager>().TurnOnAudio();
+            //calls Javascript hello alert function, via VoiceWrapper
+            VoiceWrapper.Hello();
+
         }
     }
 }
