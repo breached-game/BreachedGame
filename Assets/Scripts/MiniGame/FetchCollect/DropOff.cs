@@ -60,7 +60,8 @@ public class DropOff : NetworkBehaviour
         }
     }
 
-    public void FixedUpdate()
+    //This doesn't work as you can't take objects off the platform
+    /*public void FixedUpdate()
     {
         if (itemDropped != null)
         {
@@ -75,5 +76,5 @@ public class DropOff : NetworkBehaviour
                 transform.parent.GetComponent<DropOffMiniGameManager>().changeInState(false);
             }
         }
-    }
+    }*/
 }

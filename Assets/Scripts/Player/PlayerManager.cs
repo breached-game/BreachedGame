@@ -98,13 +98,14 @@ public class PlayerManager : NetworkBehaviour
     void UpdatePickUpObjects(GameObject player, GameObject objectBeingPickedUp)
     {
         //Runs for everyone so all instances say that this player has this object 
-        if (player == this.gameObject)
+        PlayerManager playerManager = player.GetComponent<PlayerManager>();
+        if (playerManager.identity.isLocalPlayer)
         {
-            player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
-            player.GetComponent<PlayerManager>().updateItemText();
+            playerManager.objectPlayerHas = objectBeingPickedUp;
+            playerManager.updateItemText();
         }
         objectBeingPickedUp.SetActive(false);
-        player.GetComponent<PlayerManager>().VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
+        playerManager.VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
     }
     [Command]
     public void CmdDropItem()

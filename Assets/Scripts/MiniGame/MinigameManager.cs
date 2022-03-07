@@ -10,7 +10,6 @@ public class MinigameManager : MonoBehaviour
     private GameObject[] players;
     
     public GameObject UIManager;
-    public GameObject ConsoleLog;
     private string currentText;
 
 
