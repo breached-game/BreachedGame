@@ -99,9 +99,9 @@ public class PlayerManager : NetworkBehaviour
     {
         //Runs for everyone so all instances say that this player has this object 
         PlayerManager playerManager = player.GetComponent<PlayerManager>();
+        playerManager.objectPlayerHas = objectBeingPickedUp;
         if (playerManager.identity.isLocalPlayer)
         {
-            playerManager.objectPlayerHas = objectBeingPickedUp;
             playerManager.updateItemText();
         }
         objectBeingPickedUp.SetActive(false);
