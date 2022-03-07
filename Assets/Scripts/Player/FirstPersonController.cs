@@ -19,6 +19,7 @@ public class FirstPersonController : MonoBehaviour
 
     public int minAngle;
     public int maxAngle;
+    public bool cameraEnabled = true;
 
     private NetworkIdentity identity;
 
@@ -37,19 +38,22 @@ public class FirstPersonController : MonoBehaviour
     {
         if (identity.isLocalPlayer)
         {
-            // md is mosue delta
-            var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-            md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
-            // the interpolated float result between the two float values
-            smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
-            smoothV.y = Mathf.Lerp(smoothV.y, md.y, 1f / smoothing);
-            // incrementally add to the camera look
-            mouseLook += smoothV;
+            if (cameraEnabled)
+            {
+                // md is mosue delta
+                var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+                md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
+                // the interpolated float result between the two float values
+                smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
+                smoothV.y = Mathf.Lerp(smoothV.y, md.y, 1f / smoothing);
+                // incrementally add to the camera look
+                mouseLook += smoothV;
 
-            // vector3.right means the x-axis
-            mouseLook.y = Mathf.Clamp(mouseLook.y, minAngle, maxAngle);
-            transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
-            character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
+                // vector3.right means the x-axis
+                mouseLook.y = Mathf.Clamp(mouseLook.y, minAngle, maxAngle);
+                transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
+                character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
+            }
         }
     }
 }
