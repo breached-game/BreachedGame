@@ -90,6 +90,14 @@ public class PlayerUIManager : MonoBehaviour
             {
                 mainMenu.SetActive(true);
                 crosshair.SetActive(false);
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                for (int i = 0; i < players.Length; i++)
+                {
+                    if (players[i].GetComponent<NetworkIdentity>().isLocalPlayer)
+                    {
+                        players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<FirstPersonController>().cameraEnabled = false;
+                    }
+                }
             }
         }
     }
