@@ -232,7 +232,7 @@ public class PlayerManager : NetworkBehaviour
                 updateItemText();
             }
 
-            //Animation Controll
+            //Animation Control
             if(move == new Vector3(0, 0, 0))
             {
                 PlayerModel.GetComponent<Animator>().SetBool("Moving", false);
