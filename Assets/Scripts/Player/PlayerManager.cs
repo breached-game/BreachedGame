@@ -98,8 +98,11 @@ public class PlayerManager : NetworkBehaviour
     void UpdatePickUpObjects(GameObject player, GameObject objectBeingPickedUp)
     {
         //Runs for everyone so all instances say that this player has this object 
-        player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
-        player.GetComponent<PlayerManager>().updateItemText();
+        if (player == this.gameObject)
+        {
+            player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
+            player.GetComponent<PlayerManager>().updateItemText();
+        }
         objectBeingPickedUp.SetActive(false);
         player.GetComponent<PlayerManager>().VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
     }
