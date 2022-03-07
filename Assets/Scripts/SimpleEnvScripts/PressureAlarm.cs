@@ -5,16 +5,16 @@ using Mirror;
 
 public class PressureAlarm : NetworkBehaviour
 {
-   public GameObject lights;
+    public GameObject lights;
     private bool DISABLE_AFTER_TESTING = false;
-   [Command]
-   public void CmdPressureAlarmPress()
-   {
+    [Command]
+    public void CmdPressureAlarmPress()
+    {
         PressureAlarmPress();
-   }
+    }
     [ClientRpc]
     void PressureAlarmPress()
-   {
+    {
         if (DISABLE_AFTER_TESTING)
         {
             lights.GetComponent<LightManager>().TurnPressureAlarmOn();
@@ -24,5 +24,6 @@ public class PressureAlarm : NetworkBehaviour
         {
             lights.GetComponent<LightManager>().TurnPressureAlarmOff();
             DISABLE_AFTER_TESTING = false;
-        } 
+        }
     }
+}
