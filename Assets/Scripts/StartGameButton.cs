@@ -11,6 +11,7 @@ public class StartGameButton : NetworkBehaviour
     public GameObject lights;
     public List<GameObject> items;
     private List<Vector3> startPositionItems;
+
     //private bool canStartGame = true;
     private void Start()
     {
@@ -43,11 +44,17 @@ public class StartGameButton : NetworkBehaviour
     {
         //Bad practice we should pass players in some other way 
         players = GameObject.FindGameObjectsWithTag("Player");
-        lights.GetComponent<AudioSource>().Play();
+        lights.GetComponent<LightManager>().TurnPressureAlarmOn();
         foreach (GameObject player in players)
         {
             player.transform.position = spawnPoint.transform.position;
             playerUI.SetActive(true);
+            //GARBAGE CODING PRACTICE BELOW
+            int children = playerUI.transform.childCount;
+            for (int i = 0; i < children; i++)
+            {
+                playerUI.transform.GetChild(i).gameObject.SetActive(true);
+            }
             player.GetComponent<PlayerManager>().TurnOnAudio();
         }
         foreach(GameObject item in items)

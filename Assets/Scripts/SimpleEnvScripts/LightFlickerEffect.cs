@@ -22,16 +22,21 @@ public class LightFlickerEffect : MonoBehaviour
     public GameObject actualLight;
     public Material onLight;
     public Material offLight;
+    public bool alarmOn = true;
 
     void Start()
     {
         //Start the coroutine we define below named ExampleCoroutine.
         StartCoroutine(LightFlicker());
     }
+    public void startAlarms()
+    {
+        StartCoroutine(LightFlicker());
+    }
 
     IEnumerator LightFlicker()
     {
-        while (true)
+        while (alarmOn)
         {
             light.intensity = intensity;
             actualLight.GetComponent<Renderer>().material = onLight;
