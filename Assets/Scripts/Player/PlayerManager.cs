@@ -224,9 +224,9 @@ public class PlayerManager : NetworkBehaviour
             //check if we have torch 
             if (objectPlayerHas != null)
             {
-                print(objectPlayerHas.transform.name);
                 if (objectPlayerHas.transform.name == "Torch")
                 {
+                    print("Torch ON");
                     torch.SetActive(true);
                 }
                 //Update the item text
