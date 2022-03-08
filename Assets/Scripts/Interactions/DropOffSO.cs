@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 [CreateAssetMenu(fileName = "InteractionScriptableObject", menuName = "Interactions/DropOff")]
 public class DropOffSO : InteractionSO
 {

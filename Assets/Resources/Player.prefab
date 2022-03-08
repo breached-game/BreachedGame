@@ -558,6 +558,7 @@ MonoBehaviour:
   character: {fileID: 465144899986651690}
   minAngle: -75
   maxAngle: 75
+  cameraEnabled: 1
 --- !u!1 &7078982732997560036
 GameObject:
   m_ObjectHideFlags: 0
