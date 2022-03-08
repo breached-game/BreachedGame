@@ -35,6 +35,13 @@ public class StartGameButton : NetworkBehaviour
             //calls Javascript hello alert function, via VoiceWrapper
             VoiceWrapper.Hello();
 
+            VoiceWrapper.RequestMic();
+
+           // VoiceWrapper.ReturnToPlayer();
         }
+
+
+
     }
+
 }
