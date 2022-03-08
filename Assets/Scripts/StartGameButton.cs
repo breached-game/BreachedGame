@@ -28,7 +28,7 @@ public class StartGameButton : NetworkBehaviour
     public void CmdstartGame()
     {
         //If server only items (this might be true in the future, we can enable them all using this command
-        //NetworkServer.SpawnObjects();
+        NetworkServer.SpawnObjects();
         /*
         int index = 0;
         foreach (GameObject item in items)
