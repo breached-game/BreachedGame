@@ -226,6 +226,7 @@ public class PlayerManager : NetworkBehaviour
             {
                 if (objectPlayerHas.transform.name == "Torch")
                 {
+                    print("Torch ON");
                     torch.SetActive(true);
                 }
                 //Update the item text

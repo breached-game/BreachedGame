@@ -31,7 +31,6 @@ public class PlayerUIManager : MonoBehaviour
             Destroy(UIElement);
         }
         UIElements.Clear();
-
         if (doneObjectives != null)
         {
             foreach (var objective in doneObjectives)
