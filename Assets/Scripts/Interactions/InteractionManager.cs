@@ -15,6 +15,7 @@ public class InteractionManager : NetworkBehaviour
     {
         if (other.gameObject.tag == "Player" && available)
         {
+            Debug.Log(this.gameObject.GetComponent<NetworkIdentity>().netId);
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 //Okay so GetKeyDown actually sucks
