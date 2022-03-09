@@ -8,6 +8,7 @@ mergeInto(LibraryManager.library, {
       navigator.mediaDevices.getUserMedia({video: false, audio: true}).catch( function(err){
           console.log("u got an error:" + err)
       });
+      window.unityInstance.SendMessage('MicManager', 'MicRecieved()');
     },
     
   });
