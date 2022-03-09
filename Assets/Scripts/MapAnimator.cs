@@ -18,7 +18,6 @@ public class MapAnimator : MonoBehaviour
     {
         while (true)
         {
-            print("flash");
             if (flash)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = flashMap;

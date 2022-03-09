@@ -24,7 +24,7 @@ public class LightManager : MonoBehaviour
     {
         for (int i = 0; i < Alarms.transform.childCount; i++)
         {
-            Alarms.transform.GetChild(i).GetComponent<LightFlickerEffect>().alarmOn = true;
+            Alarms.transform.GetChild(i).GetComponent<LightFlickerEffect>().startAlarms();
             Alarms.transform.GetChild(i).GetComponent<AudioSource>().Play();
         }
         for (int i = 0; i < OverheadLights.transform.childCount; i++)

@@ -31,6 +31,7 @@ public class LightFlickerEffect : MonoBehaviour
     }
     public void startAlarms()
     {
+        alarmOn = true;
         StartCoroutine(LightFlicker());
     }
 
