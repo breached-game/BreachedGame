@@ -11,6 +11,7 @@ public class PlayerUIManager : MonoBehaviour
     public GameObject prefabObjectiveDescription;
     public GameObject mainMenu;
     public GameObject crosshair;
+    public MonitorManager monitors;
 
     public Color doneObjectTextColour;
     public Color objectTextColour;
@@ -24,14 +25,13 @@ public class PlayerUIManager : MonoBehaviour
     }
     public void updateObjectiveList(Dictionary<string, string> objectives, Dictionary<string, string> doneObjectives)
     {
-        //Clear UI
-        offsetY = 5;
+        //Removed on screen objectives as they now appear on monitors
+        /*offsetY = 5;
         foreach (GameObject UIElement in UIElements)
         {
             Destroy(UIElement);
         }
         UIElements.Clear();
-
         if (doneObjectives != null)
         {
             foreach (var objective in doneObjectives)
@@ -47,7 +47,8 @@ public class PlayerUIManager : MonoBehaviour
             string objectiveName = objective.Key;
             string objectiveDescription = objective.Value;
             createObjectiveBox(objectiveName, objectiveDescription, objectTextColour);
-        }
+        }*/
+        monitors.UpdateObjectives(objectives, doneObjectives);
     }
 
     private void setPosition(RectTransform UIElement)
