@@ -15,15 +15,13 @@ public class PressureAlarm : NetworkBehaviour
     [ClientRpc]
     void PressureAlarmPress()
     {
-        if (DISABLE_AFTER_TESTING)
-        {
-            lights.GetComponent<LightManager>().TurnPressureAlarmOn();
-            DISABLE_AFTER_TESTING = true;
-        }
-        else
-        {
-            lights.GetComponent<LightManager>().TurnPressureAlarmOff();
-            DISABLE_AFTER_TESTING = false;
-        }
+        lights.GetComponent<LightManager>().TurnPressureAlarmOff();
+        StartCoroutine(AlarmTimer());
+    }
+
+    IEnumerator AlarmTimer()
+    {
+        yield return new WaitForSeconds(10);
+        lights.GetComponent<LightManager>().TurnPressureAlarmOn();
     }
 }
