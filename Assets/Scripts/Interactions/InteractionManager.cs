@@ -15,7 +15,7 @@ public class InteractionManager : NetworkBehaviour
     {
         if (other.gameObject.tag == "Player" && available)
         {
-            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
+            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer && !other.GetComponent<PlayerManager>().disableInteractionsForMinigame)
             {
                 //Okay so GetKeyDown actually sucks
                 //We check to see if the player is already interacting via the animator

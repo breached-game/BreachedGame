@@ -8,6 +8,7 @@ public class ControlRodSO : InteractionSO
     public override void RunInteraction(GameObject interactable, GameObject player)
     {
         Debug.Log("Running interaction SO");
-        player.GetComponent<PlayerManager>().FirstPersonCamera.SetActive(false);
+        interactable.GetComponent<ControlRodTransport>().EnteredController(player);
+        player.GetComponent<PlayerManager>().disableInteractionsForMinigame = true;
     }
 }

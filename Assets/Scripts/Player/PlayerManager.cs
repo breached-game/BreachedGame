@@ -20,6 +20,8 @@ public class PlayerManager : NetworkBehaviour
     public GameObject objectPlayerHas = null;
     public GameObject torch;
 
+    public bool disableInteractionsForMinigame = false;
+
     void Awake()
     {
         _controller = GetComponent<CharacterController>();
