@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class TimerManager : MonoBehaviour
 {
     Slider slider;
-    int increments = 600;
+    int increments = 1200;
     float time;
     public GameObject timerTextObject;
     private Text timerText;
+    public GameObject failScreen;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,18 +32,19 @@ public class TimerManager : MonoBehaviour
     IEnumerator timer()
     {
         float currentTime = 0f;
+        slider.maxValue = time;
         while (currentTime < time)
         {
             if (time - currentTime < 60)
             {
-                Debug.Log(currentTime);
                 timerTextObject.SetActive(true);
                 timerText.text = (Mathf.Round(time-currentTime)).ToString();
             }
-            slider.value += (time / increments)/100;
+            slider.value += (time / increments);
             currentTime += (time / increments);
             yield return new WaitForSeconds(time/increments);
         }
+        failScreen.SetActive(true);
     }
 
 }

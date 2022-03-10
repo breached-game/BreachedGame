@@ -46,7 +46,7 @@ public class StartGameButton : NetworkBehaviour
         //Bad practice we should pass players in some other way 
         players = GameObject.FindGameObjectsWithTag("Player");
         lights.GetComponent<LightManager>().TurnPressureAlarmOn();
-        timer.GetComponent<TimerManager>().startTimer(70);
+        timer.GetComponent<TimerManager>().startTimer(10);
         foreach (GameObject player in players)
         {
             player.transform.position = spawnPoint.transform.position;
