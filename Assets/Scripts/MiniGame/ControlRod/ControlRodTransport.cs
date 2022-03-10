@@ -68,6 +68,6 @@ public class ControlRodTransport : NetworkBehaviour
     [ClientRpc]
     public void CmdUpdateControlRodMovement(Vector3 force)
     {
-        controlRod.GetComponent<Rigidbody>().AddForce(force);
+        controlRod.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
     }
 }
