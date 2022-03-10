@@ -12,7 +12,7 @@ public class ControlRodTransport : NetworkBehaviour
 
     private GameObject currentPlayer = null;
 
-    private int movementStep = 1;
+    public float magnitude;
 
     public void EnteredController(GameObject player)
     {
@@ -27,7 +27,6 @@ public class ControlRodTransport : NetworkBehaviour
                 player.gameObject.GetComponent<PlayerManager>().Speed = 0.0f;
                 controlRodCamera.SetActive(true);
                 controlRodUI.SetActive(true);
-
             }
         }
 
@@ -48,63 +47,27 @@ public class ControlRodTransport : NetworkBehaviour
             playerUI.SetActive(false);
 
             currentPlayer = null;
-               
         }
         
     }
 
 
 
-    public void CallButtonPressed(Vector3Int direction) //Control rod button calls this script. This object has authortiy therefore can call command
+    public void CallButtonPressed(Vector3 direction) //Control rod button calls this script. This object has authortiy therefore can call command
     {
         CmdMoveControlRod(direction);
     }
 
     [Command]
-    public void CmdMoveControlRod(Vector3Int direction)
+    public void CmdMoveControlRod(Vector3 direction)
     {
-        Vector3 newPostion = controlRod.gameObject.transform.position + direction * movementStep;
-        CmdUpdateControlRodMovememt(newPostion);
-        
-
+        Vector3 force = direction * magnitude;
+        CmdUpdateControlRodMovement(force);
     }
+
     [ClientRpc]
-    public void CmdUpdateControlRodMovememt(Vector3 newPos)
+    public void CmdUpdateControlRodMovement(Vector3 force)
     {
-        controlRod.gameObject.transform.position = newPos;
+        controlRod.GetComponent<Rigidbody>().AddForce(force);
     }
-
-
-   /* private void OnTriggerEnter(Collider other)
-    {
-        int numChildren;
-
-        Cursor.lockState = CursorLockMode.None;
-        other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.SetActive(false);
-        //STOPPING PLAYER MOVING WHILE IN CONTROL ROD - MAYBE CHANGE PLAYERMANAGER TO HAVE A BOOL INSTEAD OF SETTING IT AS 0
-        other.gameObject.GetComponent<PlayerManager>().Speed = 0.0f;
-        controlRodCamera.SetActive(true);
-
-        controlRodUI.SetActive(true);
-        numChildren = controlRodUI.transform.childCount;
-        for (int i = 0; i < numChildren; i++)
-        {
-            controlRodUI.transform.GetChild(i).gameObject.SetActive(true);
-        }
-
-        if (gameObject.name == "XMove")
-        {
-            controlRodUI.transform.GetChild(1).gameObject.SetActive(false);
-            controlRodUI.transform.GetChild(2).gameObject.SetActive(false);
-        } else if (gameObject.name == "YMove")
-        {
-            controlRodUI.transform.GetChild(0).gameObject.SetActive(false);
-            controlRodUI.transform.GetChild(2).gameObject.SetActive(false);
-        } else if (gameObject.name == "ZMove")
-        {
-            controlRodUI.transform.GetChild(0).gameObject.SetActive(false);
-            controlRodUI.transform.GetChild(1).gameObject.SetActive(false);
-        }
-    }*/
-
 }
