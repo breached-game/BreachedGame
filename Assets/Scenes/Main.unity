@@ -1855,7 +1855,6 @@ GameObject:
   - component: {fileID: 124804724}
   - component: {fileID: 124804723}
   - component: {fileID: 124804722}
-  - component: {fileID: 124804728}
   - component: {fileID: 124804729}
   m_Layer: 0
   m_Name: WaterPumpItem
@@ -1937,19 +1936,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &124804728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 124804720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73e514247484a864ca4aff32422ef695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waterGrid: {fileID: 1763471340}
 --- !u!114 &124804729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9728,7 +9714,7 @@ MonoBehaviour:
     type: 3}
   mainMenu: {fileID: 977160459}
   crosshair: {fileID: 2070798819}
-  monitors: {fileID: 0}
+  monitors: {fileID: 903007096}
   doneObjectTextColour: {r: 0, g: 0.72156864, b: 0.19049476, a: 1}
   objectTextColour: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &623296606
@@ -13664,6 +13650,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 901611968}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &903007096 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4251060823434547492, guid: 2364341449e720a4bbe45769fda9f18a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4302794149565756109}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cfd457f66efc9146b9fb18e46975cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &908954250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18518,6 +18516,7 @@ GameObject:
   - component: {fileID: 1191814264}
   - component: {fileID: 1191814263}
   - component: {fileID: 1191814262}
+  - component: {fileID: 1191814267}
   m_Layer: 0
   m_Name: WaterPump
   m_TagString: Untagged
@@ -18615,6 +18614,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1191814267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191814260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73e514247484a864ca4aff32422ef695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  waterGrid: {fileID: 1763471340}
 --- !u!1001 &1191964056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21751,6 +21765,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1859a897a2556bb4c8c4ff0544d7c4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlRod: {fileID: 1792795831}
+  minigameName: Stop the meltdown!
+  minigameObjective: Place the control rods at the correct position.
 --- !u!4 &1432905110 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5954820955309995063, guid: 2e93ecf39c54a5345a6e5111c4755838,
