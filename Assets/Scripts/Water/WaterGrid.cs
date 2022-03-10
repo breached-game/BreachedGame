@@ -25,6 +25,7 @@ public class WaterGrid : MonoBehaviour
     public bool run = false;
     public float playerSpeed;
     private bool full = false;
+    private float[] savedSpeeds = new float[2];
 
     void Awake()
     {
@@ -78,17 +79,36 @@ public class WaterGrid : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Vector3Int cellPos = water_grid.LocalToCell(other.gameObject.transform.position - water_grid.transform.position);
-        Vector3Int cellWidth = water_grid.LocalToCell(other.gameObject.transform.localScale / 2);
-        for (int x = cellPos.x - cellWidth.x + 1; x < cellPos.x + cellWidth.x; x++)
+        if (other.gameObject.tag == "Player")
         {
-            for (int z = cellPos.z - cellWidth.z + 1; z < cellPos.z + cellWidth.z; z++)
+            savedSpeeds[0] = other.gameObject.GetComponent<PlayerManager>().Speed;
+            savedSpeeds[1] = other.gameObject.GetComponent<PlayerManager>().SprintSpeed;
+            other.gameObject.GetComponent<PlayerManager>().Speed = playerSpeed;
+            other.gameObject.GetComponent<PlayerManager>().SprintSpeed = playerSpeed;
+        }
+        else
+        {
+            Vector3Int cellPos = water_grid.LocalToCell(other.gameObject.transform.position - water_grid.transform.position);
+            Vector3Int cellWidth = water_grid.LocalToCell(other.gameObject.transform.localScale / 2);
+            for (int x = cellPos.x - cellWidth.x + 1; x < cellPos.x + cellWidth.x; x++)
             {
-                if (x < width && z < depth && x > 0 && z > 0)
+                for (int z = cellPos.z - cellWidth.z + 1; z < cellPos.z + cellWidth.z; z++)
                 {
-                    gridArray[x, z].SetH(2 * (cellWidth.y + cellPos.y));
+                    if (x < width && z < depth && x > 0 && z > 0)
+                    {
+                        gridArray[x, z].SetH(2 * (cellWidth.y + cellPos.y));
+                    }
                 }
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<PlayerManager>().Speed = savedSpeeds[0];
+            other.gameObject.GetComponent<PlayerManager>().SprintSpeed = savedSpeeds[1];
         }
     }
 
