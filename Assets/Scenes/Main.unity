@@ -8580,7 +8580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d101b21f54bb8c408bfe7ac1ea399cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: -1, y: 0, z: 0}
+  direction: {x: 1, y: 0, z: 0}
   controller: {fileID: 1943853722}
 --- !u!1001 &645688621
 PrefabInstance:
@@ -10116,7 +10116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d101b21f54bb8c408bfe7ac1ea399cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 1, y: 0, z: 0}
+  direction: {x: -1, y: 0, z: 0}
   controller: {fileID: 1943853722}
 --- !u!1001 &776440044
 PrefabInstance:
@@ -25780,7 +25780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d101b21f54bb8c408bfe7ac1ea399cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 1}
+  direction: {x: 0, y: 0, z: -1}
   controller: {fileID: 994747201}
 --- !u!4 &1974277080 stripped
 Transform:
@@ -27527,7 +27527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d101b21f54bb8c408bfe7ac1ea399cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: -1}
+  direction: {x: 0, y: 0, z: 1}
   controller: {fileID: 994747201}
 --- !u!1 &2143680409
 GameObject:
