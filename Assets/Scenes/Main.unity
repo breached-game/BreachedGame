@@ -3488,7 +3488,7 @@ GameObject:
   - component: {fileID: 257214220}
   - component: {fileID: 257214219}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: Y_BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3558,7 +3558,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1449329201797106097}
         m_TargetAssemblyTypeName: ControlRodTransport, Assembly-CSharp
         m_MethodName: ExitController
         m_Mode: 1
@@ -5077,7 +5077,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 1, z: 0}
-  controller: {fileID: 0}
+  controller: {fileID: 1449329201797106097}
 --- !u!1 &370657782
 GameObject:
   m_ObjectHideFlags: 0
@@ -8228,7 +8228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 1, y: 0, z: 0}
-  controller: {fileID: 0}
+  controller: {fileID: 1449329201002567300}
 --- !u!1001 &645688621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9567,7 +9567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: -1, y: 0, z: 0}
-  controller: {fileID: 0}
+  controller: {fileID: 1449329201002567300}
 --- !u!1 &765737031 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8416272007918961125, guid: 56456044a8f95c14d8d22c64b2744e6b,
@@ -13614,7 +13614,7 @@ GameObject:
   - component: {fileID: 1079198514}
   - component: {fileID: 1079198513}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: X_BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13684,7 +13684,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1449329201002567300}
         m_TargetAssemblyTypeName: ControlRodTransport, Assembly-CSharp
         m_MethodName: ExitController
         m_Mode: 1
@@ -16194,7 +16194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: -1, z: 0}
-  controller: {fileID: 0}
+  controller: {fileID: 1449329201797106097}
 --- !u!1001 &1265517760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23328,7 +23328,7 @@ GameObject:
   - component: {fileID: 1877907864}
   - component: {fileID: 1877907863}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: Z_BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23398,7 +23398,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1449329200344327940}
         m_TargetAssemblyTypeName: ControlRodTransport, Assembly-CSharp
         m_MethodName: ExitController
         m_Mode: 1
@@ -24481,7 +24481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: -1}
-  controller: {fileID: 0}
+  controller: {fileID: 1449329200344327940}
 --- !u!4 &1974277080 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4100720460585006399, guid: 88393f37724e81346b9ab527aab816a0,
@@ -26094,7 +26094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: 1}
-  controller: {fileID: 0}
+  controller: {fileID: 1449329200344327940}
 --- !u!1 &2140257509 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f7ae8e12c3121774e8921b9c309f3c83,
@@ -33134,7 +33134,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 6, z: 2.8}
+  m_Size: {x: 1.6, y: 6, z: 1.6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &7628183128506656774
 BoxCollider:
@@ -33186,7 +33186,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.6, y: 1, z: 1.6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &7701773618378957430
 BoxCollider:
