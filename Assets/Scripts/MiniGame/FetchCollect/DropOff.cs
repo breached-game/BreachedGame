@@ -10,6 +10,7 @@ public class DropOff : NetworkBehaviour
     public GameObject dropOffPrefab;
     private GameObject itemDropped;
     public bool hasItem;
+    public bool batteryDropOff = false;
     [Command]
     public void CmdDropOff(GameObject player, Vector3 platformPosition)
     {
@@ -52,7 +53,11 @@ public class DropOff : NetworkBehaviour
             Debug.Log("The drop off zone now has the item: " + playerHas.name);
 
             //Tell manager that we have change of state
-            transform.parent.GetComponent<DropOffMiniGameManager>().changeInState(true);
+            if (batteryDropOff == false)
+            {
+                transform.parent.GetComponent<DropOffMiniGameManager>().changeInState(true);
+            }
+            else transform.parent.GetComponent<DropOffBatteries>().changeInState(true);
         }
         else
         {
