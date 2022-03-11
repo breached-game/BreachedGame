@@ -1,24 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class WaterManager : MonoBehaviour
+public class WaterManager : NetworkBehaviour
 {
-    public GameObject waterGrid;
-    
+    public GameObject waterGridObject;
+    private WaterGrid waterGrid;
+
+    private void Start()
+    {
+        waterGrid = waterGridObject.GetComponent<WaterGrid>();
+    }
     public void StartWater()
     {
-        waterGrid.GetComponent<WaterGrid>().run = true;
+        waterGrid.run = true;
     }
     
     public void StopWater()
     {
-        waterGrid.GetComponent<WaterGrid>().run = true;
+        waterGrid.run = true;
     }
 
+    [Command]
+    public void CmdOutflowWater()
+    {
+        OutflowWater();
+    }
+
+    [ClientRpc]
     public void OutflowWater()
     {
-        waterGrid.GetComponent<WaterGrid>().inflowRate = -waterGrid.GetComponent<WaterGrid>().inflowRate;
-        waterGrid.GetComponent<WaterGrid>().playerSpeed = 1;
+        waterGrid.inflowRate = -waterGrid.GetComponent<WaterGrid>().inflowRate;
+        waterGrid.playerSpeed = 1;
     }
 }

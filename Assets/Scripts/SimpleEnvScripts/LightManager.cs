@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +6,10 @@ public class LightManager : MonoBehaviour
 {
     public GameObject Alarms;
     public GameObject OverheadLights;
+    public GameObject FloorLights;
+
+    public Material FloorLightsOn;
+    public Material FloorLightsOff;
 
     public void TurnPressureAlarmOff()
     {
@@ -19,6 +23,10 @@ public class LightManager : MonoBehaviour
             OverheadLights.transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(true);
             OverheadLights.transform.GetChild(i).transform.GetChild(2).gameObject.SetActive(true);
         }
+        for (int i = 0; i < FloorLights.transform.childCount; i++)
+        {
+            FloorLights.transform.GetChild(i).transform.GetComponent<MeshRenderer>().material = FloorLightsOff;
+        }
     }
     public void TurnPressureAlarmOn()
     {
@@ -31,6 +39,10 @@ public class LightManager : MonoBehaviour
         {
             OverheadLights.transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(false);
             OverheadLights.transform.GetChild(i).transform.GetChild(2).gameObject.SetActive(false);
+        }
+        for (int i = 0; i < FloorLights.transform.childCount; i++)
+        {
+            FloorLights.transform.GetChild(i).transform.GetComponent<MeshRenderer>().material = FloorLightsOn;
         }
     }
 }

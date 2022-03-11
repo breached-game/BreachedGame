@@ -10,6 +10,8 @@ public class StartGameButton : NetworkBehaviour
     public GameObject playerUI;
     public GameObject lights;
     public List<GameObject> items;
+    public int GameTime = 500;
+    public GameObject timer;
     private List<Vector3> startPositionItems;
 
     //private bool canStartGame = true;
@@ -45,6 +47,7 @@ public class StartGameButton : NetworkBehaviour
         //Bad practice we should pass players in some other way 
         players = GameObject.FindGameObjectsWithTag("Player");
         lights.GetComponent<LightManager>().TurnPressureAlarmOn();
+        timer.GetComponent<TimerManager>().startTimer(GameTime);
         foreach (GameObject player in players)
         {
             player.transform.position = spawnPoint.transform.position;

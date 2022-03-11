@@ -20,6 +20,8 @@ public class PlayerManager : NetworkBehaviour
     public GameObject objectPlayerHas = null;
     public GameObject torch;
 
+    public bool disableInteractionsForMinigame = false;
+
     void Awake()
     {
         _controller = GetComponent<CharacterController>();
@@ -87,10 +89,11 @@ public class PlayerManager : NetworkBehaviour
             UpdatePickUpObjects(this.gameObject, objectBeingPickedUp);
             GameObject player = this.gameObject;
             //Runs for everyone so all instances say that this player has this object 
-            player.GetComponent<PlayerManager>().objectPlayerHas = objectBeingPickedUp;
-            player.GetComponent<PlayerManager>().updateItemText();
+            PlayerManager playerManager = player.GetComponent<PlayerManager>();
+            playerManager.objectPlayerHas = objectBeingPickedUp;
+            playerManager.updateItemText();
             objectBeingPickedUp.SetActive(false);
-            player.GetComponent<PlayerManager>().VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
+            playerManager.VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
         }
         else print("Player tried to pick up none active gameobject");
     }
@@ -153,8 +156,9 @@ public class PlayerManager : NetworkBehaviour
     {
         if (objectPickedUp.name != "Torch")
         {
-            PlayerModel.GetComponent<Animator>().Play("Walk_Carry");
-            PlayerModel.GetComponent<Animator>().SetBool("Holding", true);
+            Animator playerAni = PlayerModel.GetComponent<Animator>();
+            playerAni.Play("Walk_Carry");
+            playerAni.SetBool("Holding", true);
             for (int i = 0; i < PlayerCurrentlyHolding.transform.childCount; i++)
             {
                 if (PlayerCurrentlyHolding.transform.GetChild(i).gameObject.name == objectPickedUp.GetComponent<ItemPickUp>().itemBeingHeld.name)
@@ -226,7 +230,6 @@ public class PlayerManager : NetworkBehaviour
             {
                 if (objectPlayerHas.transform.name == "Torch")
                 {
-                    print("Torch ON");
                     torch.SetActive(true);
                 }
                 //Update the item text
@@ -245,11 +248,13 @@ public class PlayerManager : NetworkBehaviour
     {
         //TERRIBLE PRACTICE
         GameObject UI = GameObject.Find("Canvas/PlayerUI");
+        PlayerUIManager UIManager;
         // Andrew's fault
         if (UI != null)
         {
-            if (objectPlayerHas != null) UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding(objectPlayerHas.transform.name);
-            else UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding("");
+            UIManager = UI.GetComponent<PlayerUIManager>();
+            if (objectPlayerHas != null) UIManager.UpdatePlayerHolding(objectPlayerHas.transform.name);
+            else UIManager.UpdatePlayerHolding("");
         }
     }
 }

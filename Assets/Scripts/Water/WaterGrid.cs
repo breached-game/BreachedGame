@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
 
 public class WaterGrid : MonoBehaviour
 {
@@ -25,6 +24,10 @@ public class WaterGrid : MonoBehaviour
     public bool run = false;
     public float playerSpeed;
     private bool full = false;
+    private float[] savedSpeeds = new float[2];
+    private List<Vector3> vertices = new List<Vector3>();
+    private List<int> triangles = new List<int>();
+    private Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
 
     void Awake()
     {
@@ -78,18 +81,47 @@ public class WaterGrid : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Vector3Int cellPos = water_grid.LocalToCell(other.gameObject.transform.position - water_grid.transform.position);
-        Vector3Int cellWidth = water_grid.LocalToCell(other.gameObject.transform.localScale / 2);
-        for (int x = cellPos.x - cellWidth.x + 1; x < cellPos.x + cellWidth.x; x++)
+        if (other.gameObject.tag == "Player")
         {
-            for (int z = cellPos.z - cellWidth.z + 1; z < cellPos.z + cellWidth.z; z++)
+            savedSpeeds[0] = other.gameObject.GetComponent<PlayerManager>().Speed;
+            savedSpeeds[1] = other.gameObject.GetComponent<PlayerManager>().SprintSpeed;
+            other.gameObject.GetComponent<PlayerManager>().Speed = playerSpeed;
+            other.gameObject.GetComponent<PlayerManager>().SprintSpeed = playerSpeed;
+        }
+        else
+        {
+            Vector3Int cellPos = water_grid.LocalToCell(other.gameObject.transform.position - water_grid.transform.position);
+            Vector3Int cellWidth = water_grid.LocalToCell(other.gameObject.transform.localScale / 2);
+            for (int x = cellPos.x - cellWidth.x + 1; x < cellPos.x + cellWidth.x; x++)
             {
-                if (x < width && z < depth && x > 0 && z > 0)
+                for (int z = cellPos.z - cellWidth.z + 1; z < cellPos.z + cellWidth.z; z++)
                 {
-                    gridArray[x, z].SetH(2 * (cellWidth.y + cellPos.y));
+                    if (x < width && z < depth && x > 0 && z > 0)
+                    {
+                        gridArray[x, z].SetH(2 * (cellWidth.y + cellPos.y));
+                    }
                 }
             }
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<PlayerManager>().Speed = savedSpeeds[0];
+            other.gameObject.GetComponent<PlayerManager>().SprintSpeed = savedSpeeds[1];
+        }
+    }
+
+    private float SumDictionary(Dictionary<Vector2Int, float> d)
+    {
+        float sum = 0;
+        foreach (var x in d)
+        {
+            sum += x.Value;
+        }
+        return sum;
     }
 
     private float SumInflows(GridVertex currentColumn)
@@ -116,9 +148,9 @@ public class WaterGrid : MonoBehaviour
         float totalHeight;
         float totalFlux;
         int vCount = 0;
-        List<Vector3> vertices = new List<Vector3>();
-        List<int> triangles = new List<int>();
-        Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
+        vertices.Clear();
+        triangles.Clear();
+        tempFlux.Clear();
         Dictionary<Vector2Int, float> currentOutflows;
         GridVertex currentColumn;
 
@@ -173,7 +205,7 @@ public class WaterGrid : MonoBehaviour
                         tempFlux[Vector2Int.up] = 0.0f;
                     }
 
-                    totalFlux = tempFlux.Sum(x => x.Value);
+                    totalFlux = SumDictionary(tempFlux);
 
                     if (totalFlux > 0.0f)
                     {
@@ -202,7 +234,7 @@ public class WaterGrid : MonoBehaviour
                 currentColumn = gridArray[x, z];
                 if (x != 0 & x != width - 1 & z != 0 & z != depth - 1)
                 {
-                    dV = dt * (SumInflows(currentColumn) - currentColumn.GetNewOutflows().Sum(x => x.Value));
+                    dV = dt * (SumInflows(currentColumn) - SumDictionary(currentColumn.GetNewOutflows()));
                     if (currentColumn.Geth() + dV / (dx * dx) + currentColumn.GetH() >= height)
                     {
                         inflow = false;
@@ -236,7 +268,11 @@ public class WaterGrid : MonoBehaviour
                         full = true;
                         if (triangles.Count == 0)
                         {
-                            triangles = columnMesh.triangles.ToList();
+                            //triangles = columnMesh.triangles.ToList();
+                            foreach (var t in columnMesh.triangles)
+                            {
+                                triangles.Add(t);
+                            }
                         }
                     }
                     else

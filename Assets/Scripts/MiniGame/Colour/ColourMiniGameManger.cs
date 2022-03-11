@@ -27,6 +27,7 @@ public class ColourMiniGameManger : MonoBehaviour
         minigameManager = transform.parent.GetComponent<MinigameManager>();
         minigameManager.SendObjectiveData(minigameName, minigameObjective);
     }
+
     private void Start()
     {
         Reset();

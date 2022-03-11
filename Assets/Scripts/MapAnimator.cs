@@ -8,9 +8,11 @@ public class MapAnimator : MonoBehaviour
     public Sprite map;
     private float interval = 0.5f;
     private bool flash = false;
+    private SpriteRenderer mapRenderer;
     // Start is called before the first frame update
     void Start()
     {
+        mapRenderer = gameObject.GetComponent<SpriteRenderer>();
         StartCoroutine(MapFlash());
     }
 
@@ -20,12 +22,12 @@ public class MapAnimator : MonoBehaviour
         {
             if (flash)
             {
-                gameObject.GetComponent<SpriteRenderer>().sprite = flashMap;
+                mapRenderer.sprite = flashMap;
                 flash = false;
             }
             else
             {
-                gameObject.GetComponent<SpriteRenderer>().sprite = map;
+                mapRenderer.sprite = map;
                 flash = true;
             }
             yield return new WaitForSeconds(interval);

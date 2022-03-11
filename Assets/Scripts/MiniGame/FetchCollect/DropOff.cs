@@ -10,6 +10,7 @@ public class DropOff : NetworkBehaviour
     public GameObject dropOffPrefab;
     private GameObject itemDropped;
     public bool hasItem;
+    public bool batteryDropOff = false;
     [Command]
     public void CmdDropOff(GameObject player, Vector3 platformPosition)
     {
@@ -18,12 +19,13 @@ public class DropOff : NetworkBehaviour
     [ClientRpc]
     public void droppingOffItem(GameObject player, Vector3 platformPosition)
     {
-        if(player.GetComponent<PlayerManager>().objectPlayerHas == null)
+        PlayerManager playerManager = player.GetComponent<PlayerManager>();
+        if(playerManager.objectPlayerHas == null)
         {
             print("Player isn't carrying anything");
             return;
         }
-        GameObject playerHas = player.GetComponent<PlayerManager>().objectPlayerHas;
+        GameObject playerHas = playerManager.objectPlayerHas;
         if (playerHas.name == dropOffPrefab.name)
         {
             //if the player has the right item to drop off
@@ -40,23 +42,27 @@ public class DropOff : NetworkBehaviour
             */
 
             //reset carry field
-            player.GetComponent<PlayerManager>().objectPlayerHas = null;
+            playerManager.objectPlayerHas = null;
             //Update player UI
-            player.GetComponent<PlayerManager>().updateItemText();
+            playerManager.updateItemText();
             //Visual Effect
-            player.GetComponent<PlayerManager>().VisualEffectOfPlayerDroppingItem();
+            playerManager.VisualEffectOfPlayerDroppingItem();
 
             hasItem = true;
             itemDropped = playerHas;
             Debug.Log("The drop off zone now has the item: " + playerHas.name);
 
             //Tell manager that we have change of state
-            transform.parent.GetComponent<DropOffMiniGameManager>().changeInState(true);
+            if (batteryDropOff == false)
+            {
+                transform.parent.GetComponent<DropOffMiniGameManager>().changeInState(true);
+            }
+            else transform.parent.GetComponent<DropOffBatteries>().changeInState(true);
         }
         else
         {
             //when player doesn't have right item
-            print("Player does not have " + playerHas + " instead it has " + player.GetComponent<PlayerManager>().objectPlayerHas.name);
+            print("Player does not have " + playerHas + " instead it has " + playerManager.objectPlayerHas.name);
         }
     }
 

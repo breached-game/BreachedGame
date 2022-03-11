@@ -90,6 +90,7 @@ MonoBehaviour:
   PlayerCurrentlyHolding: {fileID: 5854152473159164235}
   objectPlayerHas: {fileID: 0}
   torch: {fileID: 3913837940683992974}
+  disableInteractionsForMinigame: 0
   Speed: 4
   SprintSpeed: 6
   smooth: 5
@@ -530,8 +531,8 @@ Camera:
   m_GameObject: {fileID: 6180585762312476838}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0.067216985, b: 0.1792453, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
