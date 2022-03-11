@@ -17,18 +17,18 @@ public class MicManagerScript : MonoBehaviour
         
     }
 
-    //Message printed when mirphone has been recieved
+    //Message printed when microphone has been recieved
     void MicRecieved() {
-        print("Microphone recieved");
+        print("Microphone permission has been granted");
     }
 
-    //Message printed when mirphone has been rejected
+    //Message printed when microphone has been rejected
     void MicRejeted()
     {
-        print("Microphone rejected");
+        print("Microphone permission has been declined");
     }
 
-    //Message printed when mirphone has been Accepted
+    //Message printed when microphone has been Accepted
     void MicAccepted()
     {
         print("Microphone accepted");
