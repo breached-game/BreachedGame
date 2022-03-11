@@ -33,9 +33,7 @@ public class StartGameButton : NetworkBehaviour
             playerUI.SetActive(true);
             player.GetComponent<PlayerManager>().TurnOnAudio();
             //calls Javascript hello alert function, via VoiceWrapper
-            VoiceWrapper.Hello();
 
-            VoiceWrapper.RequestMic();
 
            // VoiceWrapper.ReturnToPlayer();
         }

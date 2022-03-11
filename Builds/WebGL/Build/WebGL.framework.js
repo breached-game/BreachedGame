@@ -1305,7 +1305,7 @@ function _emscripten_asm_const_id(code, a0) {
  return ASM_CONSTS[code](a0);
 }
 STATIC_BASE = GLOBAL_BASE;
-STATICTOP = STATIC_BASE + 3063280;
+STATICTOP = STATIC_BASE + 3063408;
 __ATINIT__.push({
  func: (function() {
   __GLOBAL__sub_I_AccessibilityScriptingClasses_cpp();
@@ -3371,7 +3371,7 @@ __ATINIT__.push({
   ___emscripten_environ_constructor();
  })
 });
-var STATIC_BUMP = 3063280;
+var STATIC_BUMP = 3063408;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 var tempDoublePtr = STATICTOP;
@@ -4110,6 +4110,15 @@ function _JS_WebRequest_SetResponseHandler(request, arg, onresponse) {
 }
 function _JS_WebRequest_SetTimeout(request, timeout) {
  wr.requestInstances[request].timeout = timeout;
+}
+function _RequestMic() {
+ navigator.mediaDevices.getUserMedia({
+  video: false,
+  audio: true
+ }).catch((function(err) {
+  console.log("u got an error:" + err);
+ }));
+ window.unityInstance.SendMessage("MicManager", "MicRecieved");
 }
 function _Send(index, arrayPtr, offset, length) {
  var webSocket = SimpleWeb.GetWebSocket(index);
@@ -19696,6 +19705,7 @@ Module.asmLibraryArg = {
  "_JS_WebRequest_SetRequestHeader": _JS_WebRequest_SetRequestHeader,
  "_JS_WebRequest_SetResponseHandler": _JS_WebRequest_SetResponseHandler,
  "_JS_WebRequest_SetTimeout": _JS_WebRequest_SetTimeout,
+ "_RequestMic": _RequestMic,
  "_Send": _Send,
  "_SocketClose": _SocketClose,
  "_SocketCreate": _SocketCreate,

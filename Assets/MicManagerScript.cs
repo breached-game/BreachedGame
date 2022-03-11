@@ -7,7 +7,8 @@ public class MicManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        VoiceWrapper.Hello();
+        VoiceWrapper.RequestMic();
     }
 
     // Update is called once per frame
