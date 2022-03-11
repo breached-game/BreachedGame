@@ -6,18 +6,21 @@ public class SwimmingFishCycle : MonoBehaviour
 {
     public GameObject[] patrolPoints;
     public int speed = 5;
+    public int index = 0;
 
     // Update is called once per frame
-    void Start()
+    void Update()
     {
-        for (int i = 0; i < patrolPoints.Length; i++)
+        gameObject.transform.LookAt(patrolPoints[index].transform.position);
+        transform.position += transform.forward * Time.deltaTime * speed;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == patrolPoints[index])
         {
-            gameObject.transform.LookAt(patrolPoints[i].transform);
-            while (patrolPoints[i].transform)
-            {
-                transform.position += Vector3.forward * Time.deltaTime * speed;
-            }
-            if (i == patrolPoints.Length) i = 0;
+            if (index + 1 == patrolPoints.Length) index = 0;
+            else index++;
         }
     }
 }
