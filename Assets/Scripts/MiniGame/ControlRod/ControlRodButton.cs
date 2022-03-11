@@ -6,10 +6,23 @@ public class ControlRodButton : MonoBehaviour
 {
     public Vector3Int direction;
     public ControlRodTransport controller;
-    // Start is called before the first frame update
-    
-    public void SendPressed()
+    private bool isPressed = false;
+
+    public void PressedDown()
     {
-        controller.CallButtonPressed(direction);
+        isPressed = true;
+    }
+
+    public void PressedUp()
+    {
+        isPressed = false;
+    }
+
+    public void Update()
+    {
+        if (isPressed)
+        {
+            controller.CallButtonPressed(direction);
+        }
     }
 }
