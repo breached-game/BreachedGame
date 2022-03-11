@@ -18628,7 +18628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  waterGrid: {fileID: 1763471340}
+  waterGridObject: {fileID: 1763471340}
 --- !u!1001 &1191964056
 PrefabInstance:
   m_ObjectHideFlags: 0

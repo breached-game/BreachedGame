@@ -18,12 +18,13 @@ public class DropOff : NetworkBehaviour
     [ClientRpc]
     public void droppingOffItem(GameObject player, Vector3 platformPosition)
     {
-        if(player.GetComponent<PlayerManager>().objectPlayerHas == null)
+        PlayerManager playerManager = player.GetComponent<PlayerManager>();
+        if(playerManager.objectPlayerHas == null)
         {
             print("Player isn't carrying anything");
             return;
         }
-        GameObject playerHas = player.GetComponent<PlayerManager>().objectPlayerHas;
+        GameObject playerHas = playerManager.objectPlayerHas;
         if (playerHas.name == dropOffPrefab.name)
         {
             //if the player has the right item to drop off
@@ -40,11 +41,11 @@ public class DropOff : NetworkBehaviour
             */
 
             //reset carry field
-            player.GetComponent<PlayerManager>().objectPlayerHas = null;
+            playerManager.objectPlayerHas = null;
             //Update player UI
-            player.GetComponent<PlayerManager>().updateItemText();
+            playerManager.updateItemText();
             //Visual Effect
-            player.GetComponent<PlayerManager>().VisualEffectOfPlayerDroppingItem();
+            playerManager.VisualEffectOfPlayerDroppingItem();
 
             hasItem = true;
             itemDropped = playerHas;
@@ -56,7 +57,7 @@ public class DropOff : NetworkBehaviour
         else
         {
             //when player doesn't have right item
-            print("Player does not have " + playerHas + " instead it has " + player.GetComponent<PlayerManager>().objectPlayerHas.name);
+            print("Player does not have " + playerHas + " instead it has " + playerManager.objectPlayerHas.name);
         }
     }
 

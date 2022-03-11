@@ -248,11 +248,13 @@ public class PlayerManager : NetworkBehaviour
     {
         //TERRIBLE PRACTICE
         GameObject UI = GameObject.Find("Canvas/PlayerUI");
+        PlayerUIManager UIManager;
         // Andrew's fault
         if (UI != null)
         {
-            if (objectPlayerHas != null) UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding(objectPlayerHas.transform.name);
-            else UI.GetComponent<PlayerUIManager>().UpdatePlayerHolding("");
+            UIManager = UI.GetComponent<PlayerUIManager>();
+            if (objectPlayerHas != null) UIManager.UpdatePlayerHolding(objectPlayerHas.transform.name);
+            else UIManager.UpdatePlayerHolding("");
         }
     }
 }

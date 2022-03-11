@@ -26,6 +26,9 @@ public class WaterGrid : MonoBehaviour
     public float playerSpeed;
     private bool full = false;
     private float[] savedSpeeds = new float[2];
+    private List<Vector3> vertices = new List<Vector3>();
+    private List<int> triangles = new List<int>();
+    private Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
 
     void Awake()
     {
@@ -112,6 +115,16 @@ public class WaterGrid : MonoBehaviour
         }
     }
 
+    private float SumDictionary(Dictionary<Vector2Int, float> d)
+    {
+        float sum = 0;
+        foreach (var x in d)
+        {
+            sum += x.Value;
+        }
+        return sum;
+    }
+
     private float SumInflows(GridVertex currentColumn)
     {
         float iR = 0.0f;
@@ -136,9 +149,9 @@ public class WaterGrid : MonoBehaviour
         float totalHeight;
         float totalFlux;
         int vCount = 0;
-        List<Vector3> vertices = new List<Vector3>();
-        List<int> triangles = new List<int>();
-        Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
+        vertices.Clear();
+        triangles.Clear();
+        tempFlux.Clear();
         Dictionary<Vector2Int, float> currentOutflows;
         GridVertex currentColumn;
 
@@ -193,7 +206,7 @@ public class WaterGrid : MonoBehaviour
                         tempFlux[Vector2Int.up] = 0.0f;
                     }
 
-                    totalFlux = tempFlux.Sum(x => x.Value);
+                    totalFlux = SumDictionary(tempFlux);
 
                     if (totalFlux > 0.0f)
                     {
@@ -222,7 +235,7 @@ public class WaterGrid : MonoBehaviour
                 currentColumn = gridArray[x, z];
                 if (x != 0 & x != width - 1 & z != 0 & z != depth - 1)
                 {
-                    dV = dt * (SumInflows(currentColumn) - currentColumn.GetNewOutflows().Sum(x => x.Value));
+                    dV = dt * (SumInflows(currentColumn) - SumDictionary(currentColumn.GetNewOutflows()));
                     if (currentColumn.Geth() + dV / (dx * dx) + currentColumn.GetH() >= height)
                     {
                         inflow = false;

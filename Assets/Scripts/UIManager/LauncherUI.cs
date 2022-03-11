@@ -135,5 +135,6 @@ public class LauncherUI : MonoBehaviour
         {
                 manager.StopServer();
         }
+        Application.Quit();
     }
 }
