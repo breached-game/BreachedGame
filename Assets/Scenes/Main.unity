@@ -325,6 +325,7 @@ GameObject:
   - component: {fileID: 13581353}
   - component: {fileID: 13581352}
   - component: {fileID: 13581351}
+  - component: {fileID: 13581354}
   m_Layer: 5
   m_Name: BackWards Button
   m_TagString: Untagged
@@ -396,19 +397,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 13581352}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2128729655}
-        m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
-        m_MethodName: SendPressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &13581352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,6 +436,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13581349}
   m_CullTransparentMesh: 1
+--- !u!114 &13581354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13581349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2128729655}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2128729655}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &22528007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6866,6 +6900,7 @@ GameObject:
   - component: {fileID: 495738903}
   - component: {fileID: 495738902}
   - component: {fileID: 495738901}
+  - component: {fileID: 495738904}
   m_Layer: 5
   m_Name: Up Button
   m_TagString: Untagged
@@ -6937,19 +6972,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 495738902}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 370023501}
-        m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
-        m_MethodName: SendPressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &495738902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6988,6 +7011,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 495738899}
   m_CullTransparentMesh: 1
+--- !u!114 &495738904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495738899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 370023501}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 370023501}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &495749507
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8546,7 +8614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d101b21f54bb8c408bfe7ac1ea399cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: -1, y: 0, z: 0}
+  direction: {x: 1, y: 0, z: 0}
   controller: {fileID: 1943853722}
 --- !u!1001 &645688621
 PrefabInstance:
@@ -10044,7 +10112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d101b21f54bb8c408bfe7ac1ea399cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 1, y: 0, z: 0}
+  direction: {x: -1, y: 0, z: 0}
   controller: {fileID: 1943853722}
 --- !u!1 &765737031 stripped
 GameObject:
@@ -17104,6 +17172,7 @@ GameObject:
   - component: {fileID: 1248447858}
   - component: {fileID: 1248447857}
   - component: {fileID: 1248447856}
+  - component: {fileID: 1248447859}
   m_Layer: 5
   m_Name: Down Button
   m_TagString: Untagged
@@ -17175,19 +17244,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1248447857}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1255231456}
-        m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
-        m_MethodName: SendPressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1248447857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17226,6 +17283,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248447854}
   m_CullTransparentMesh: 1
+--- !u!114 &1248447859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248447854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1255231456}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1255231456}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1255231454
 GameObject:
   m_ObjectHideFlags: 0
@@ -21430,6 +21532,7 @@ GameObject:
   - component: {fileID: 1600368568}
   - component: {fileID: 1600368567}
   - component: {fileID: 1600368566}
+  - component: {fileID: 1600368569}
   m_Layer: 5
   m_Name: ForwardButton
   m_TagString: Untagged
@@ -21502,9 +21605,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1970379839}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
-        m_MethodName: SendPressed
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21513,7 +21616,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
 --- !u!114 &1600368567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21552,6 +21655,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600368564}
   m_CullTransparentMesh: 1
+--- !u!114 &1600368569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600368564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1970379839}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1970379839}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &1611045082 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6834152299661830320, guid: 8821009d22d0730418e26490ef80404c,
@@ -21750,6 +21898,7 @@ GameObject:
   - component: {fileID: 1634088766}
   - component: {fileID: 1634088765}
   - component: {fileID: 1634088764}
+  - component: {fileID: 1634088767}
   m_Layer: 5
   m_Name: Left Button
   m_TagString: Untagged
@@ -21821,19 +21970,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1634088765}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 632430351}
-        m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
-        m_MethodName: SendPressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1634088765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21872,6 +22009,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634088762}
   m_CullTransparentMesh: 1
+--- !u!114 &1634088767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634088762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 632430351}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 632430351}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1635625640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26047,7 +26229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d101b21f54bb8c408bfe7ac1ea399cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 1}
+  direction: {x: 0, y: 0, z: -1}
   controller: {fileID: 994747201}
 --- !u!4 &1974277080 stripped
 Transform:
@@ -27281,6 +27463,7 @@ GameObject:
   - component: {fileID: 2084594087}
   - component: {fileID: 2084594086}
   - component: {fileID: 2084594085}
+  - component: {fileID: 2084594088}
   m_Layer: 5
   m_Name: Right Button
   m_TagString: Untagged
@@ -27352,19 +27535,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2084594086}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 764042277}
-        m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
-        m_MethodName: SendPressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2084594086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27403,6 +27574,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084594083}
   m_CullTransparentMesh: 1
+--- !u!114 &2084594088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084594083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 764042277}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 764042277}
+          m_TargetAssemblyTypeName: ControlRodButton, Assembly-CSharp
+          m_MethodName: PressedUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &2085796445 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 16127562306e4044b9b3da626c7c03a5,
@@ -27632,7 +27848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d101b21f54bb8c408bfe7ac1ea399cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: -1}
+  direction: {x: 0, y: 0, z: 1}
   controller: {fileID: 994747201}
 --- !u!1 &2140257509 stripped
 GameObject:
