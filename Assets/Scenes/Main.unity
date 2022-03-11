@@ -1825,6 +1825,7 @@ MonoBehaviour:
   itemToBeDroppedOff: Battery
   dropOffPrefab: {fileID: 939414486}
   hasItem: 0
+  batteryDropOff: 1
 --- !u!65 &141281115
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15554,6 +15555,7 @@ MonoBehaviour:
   itemToBeDroppedOff: WaterPump
   dropOffPrefab: {fileID: 124804720}
   hasItem: 0
+  batteryDropOff: 0
 --- !u!65 &1191814263
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17759,6 +17761,7 @@ MonoBehaviour:
   itemToBeDroppedOff: Battery
   dropOffPrefab: {fileID: 231579192}
   hasItem: 0
+  batteryDropOff: 1
 --- !u!65 &1361078884
 BoxCollider:
   m_ObjectHideFlags: 0
