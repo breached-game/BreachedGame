@@ -4300,7 +4300,7 @@ MonoBehaviour:
   lights: {fileID: 115665232}
   items:
   - {fileID: 1751390856}
-  - {fileID: 0}
+  - {fileID: 231579192}
   - {fileID: 939414486}
   - {fileID: 124804720}
   GameTime: 500
@@ -17757,7 +17757,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   itemToBeDroppedOff: Battery
-  dropOffPrefab: {fileID: 0}
+  dropOffPrefab: {fileID: 231579192}
   hasItem: 0
 --- !u!65 &1361078884
 BoxCollider:
@@ -30028,7 +30028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 3595348785
   serverOnly: 0
-  m_AssetId: 0a5213ea042859a4daec4c86b964606a
+  m_AssetId: 
   hasSpawned: 0
 --- !u!114 &3170615401174405782
 MonoBehaviour:
@@ -30044,7 +30044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 225234400
   serverOnly: 0
-  m_AssetId: 0a5213ea042859a4daec4c86b964606a
+  m_AssetId: 
   hasSpawned: 0
 --- !u!114 &3170615402569813411
 MonoBehaviour:
@@ -30060,7 +30060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 3907184444
   serverOnly: 0
-  m_AssetId: 0a5213ea042859a4daec4c86b964606a
+  m_AssetId: 
   hasSpawned: 0
 --- !u!33 &3276755317097851941
 MeshFilter:
