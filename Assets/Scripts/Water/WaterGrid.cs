@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
 
 public class WaterGrid : MonoBehaviour
 {
@@ -269,7 +268,11 @@ public class WaterGrid : MonoBehaviour
                         full = true;
                         if (triangles.Count == 0)
                         {
-                            triangles = columnMesh.triangles.ToList();
+                            //triangles = columnMesh.triangles.ToList();
+                            foreach (var t in columnMesh.triangles)
+                            {
+                                triangles.Add(t);
+                            }
                         }
                     }
                     else
