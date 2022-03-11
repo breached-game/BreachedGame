@@ -27251,9 +27251,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   controlRodCamera: {fileID: 1658316730352143167}
-  controlRodUI: {fileID: 0}
+  controlRodUI: {fileID: 1019831678}
   controlRod: {fileID: 1658316729792552662}
-  playerUI: {fileID: 0}
+  playerUI: {fileID: 623296603}
   magnitude: 1
 --- !u!114 &1449329201002567300
 MonoBehaviour:
@@ -27270,9 +27270,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   controlRodCamera: {fileID: 1658316730352143167}
-  controlRodUI: {fileID: 0}
+  controlRodUI: {fileID: 261677346}
   controlRod: {fileID: 1658316729792552662}
-  playerUI: {fileID: 0}
+  playerUI: {fileID: 623296603}
   magnitude: 1
 --- !u!114 &1449329201797106097
 MonoBehaviour:
@@ -27289,9 +27289,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   controlRodCamera: {fileID: 1658316730352143167}
-  controlRodUI: {fileID: 0}
+  controlRodUI: {fileID: 745493375}
   controlRod: {fileID: 1658316729792552662}
-  playerUI: {fileID: 0}
+  playerUI: {fileID: 623296603}
   magnitude: 1
 --- !u!1 &1618788576901413005
 GameObject:
@@ -33134,7 +33134,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 4, z: 2.4}
+  m_Size: {x: 1.6, y: 6, z: 2.8}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &7628183128506656774
 BoxCollider:
@@ -33147,7 +33147,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 4, z: 2.4}
+  m_Size: {x: 1.6, y: 6, z: 2.8}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &7628183129435944755
 BoxCollider:
@@ -33160,7 +33160,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 4, z: 2.4}
+  m_Size: {x: 1.6, y: 6, z: 2.8}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &7701773616905436483
 BoxCollider:
