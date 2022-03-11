@@ -8,6 +8,8 @@ public class DropOffMiniGameManager : MonoBehaviour
     public string minigameObjective;
     private MinigameManager minigameManager;
 
+    public GameObject ItemDroppedOff;
+
     public int numberOfDropOffs = 2;
     private int dropsDone = 0;
 
@@ -15,6 +17,7 @@ public class DropOffMiniGameManager : MonoBehaviour
     {
         minigameManager = transform.parent.GetComponent<MinigameManager>();
         minigameManager.SendObjectiveData(minigameName, minigameObjective);
+        ItemDroppedOff.SetActive(false);
     }
     private void Start()
     {
@@ -31,6 +34,11 @@ public class DropOffMiniGameManager : MonoBehaviour
         if(dropsDone == numberOfDropOffs)
         {
             minigameManager.ObjectiveCompleted(minigameName, minigameObjective);
+            visualEffect();
         }
+    }
+    private void visualEffect()
+    {
+        ItemDroppedOff.SetActive(true);
     }
 }
