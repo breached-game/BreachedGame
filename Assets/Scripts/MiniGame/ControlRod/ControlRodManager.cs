@@ -12,6 +12,13 @@ public class ControlRodManager : MonoBehaviour
     public string minigameName;
     public string minigameObjective;
 
+    public string controlRodTouchedFail;
+
+    public GameObject X_controller;
+    public GameObject Y_controller;
+    public GameObject Z_controller;
+
+
     void Start()
     {
         controlRodPos = controlRod.transform.position;
@@ -24,11 +31,14 @@ public class ControlRodManager : MonoBehaviour
         print("Success");
         controlRod.transform.position = controlRodPos;
         minigameManager.ObjectiveCompleted(minigameName, minigameObjective);
+        X_controller.GetComponent<ControlRodTransport>().ExitController();
+        Y_controller.GetComponent<ControlRodTransport>().ExitController();
+        Z_controller.GetComponent<ControlRodTransport>().ExitController();
     }
 
     public void Failure()
     {
         controlRod.transform.position = controlRodPos;
-        minigameManager.ObjectiveFailed(minigameName, minigameObjective);
+        minigameManager.ObjectiveFailed(minigameName, controlRodTouchedFail);
     }
 }

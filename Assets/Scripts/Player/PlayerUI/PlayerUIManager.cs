@@ -13,6 +13,9 @@ public class PlayerUIManager : MonoBehaviour
     public GameObject crosshair;
     public MonitorManager monitors;
 
+
+  
+
     public Color doneObjectTextColour;
     public Color objectTextColour;
 
@@ -82,6 +85,9 @@ public class PlayerUIManager : MonoBehaviour
         setPosition(objectiveDescriptionUI.GetComponent<RectTransform>());
 
     }
+
+ 
+
 
     public void Update()
     {

@@ -18,7 +18,7 @@ public class ControlRodTransport : NetworkBehaviour
     {
         if (currentPlayer == null)
         {
-            currentPlayer = player;
+           CmdSendCurrentPlayer(player);
             if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 Cursor.lockState = CursorLockMode.None;
@@ -46,7 +46,7 @@ public class ControlRodTransport : NetworkBehaviour
             controlRodUI.SetActive(false);
             playerUI.SetActive(false);
 
-            currentPlayer = null;
+            CmdSendCurrentPlayer(null);
         }
         
     }
@@ -57,6 +57,18 @@ public class ControlRodTransport : NetworkBehaviour
     {
         CmdMoveControlRod(direction);
     }
+
+    [Command] 
+    public void CmdSendCurrentPlayer(GameObject player)
+    {
+        CmdUpdateCurrentPlayer(player);
+    }
+    [ClientRpc]
+    public void CmdUpdateCurrentPlayer(GameObject player)
+    {
+        currentPlayer = player;
+    }
+
 
     [Command]
     public void CmdMoveControlRod(Vector3 direction)
