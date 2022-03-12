@@ -36,7 +36,7 @@ public class ControlRodTransport : NetworkBehaviour
     public void ExitController()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        if (!isServer)
+        if (!isServer || currentPlayer == null)
         {
             if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
             {

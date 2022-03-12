@@ -14,9 +14,8 @@ public class ControlRodManager : MonoBehaviour
 
     public string controlRodTouchedFail;
 
-    public GameObject X_controller;
-    public GameObject Y_controller;
-    public GameObject Z_controller;
+
+    public GameObject ControlRodHoleOnSucces;
 
 
     void Start()
@@ -28,12 +27,10 @@ public class ControlRodManager : MonoBehaviour
         
     public void Success()
     {
-        print("Success");
-        controlRod.transform.position = controlRodPos;
+        ControlRodHoleOnSucces.SetActive(true);
+        controlRod.GetComponent<MeshRenderer>().enabled = false;
+        controlRod.GetComponent<CapsuleCollider>().enabled = false;
         minigameManager.ObjectiveCompleted(minigameName, minigameObjective);
-        X_controller.GetComponent<ControlRodTransport>().ExitController();
-        Y_controller.GetComponent<ControlRodTransport>().ExitController();
-        Z_controller.GetComponent<ControlRodTransport>().ExitController();
     }
 
     public void Failure()
