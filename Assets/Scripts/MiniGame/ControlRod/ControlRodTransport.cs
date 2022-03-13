@@ -11,7 +11,7 @@ public class ControlRodTransport : NetworkBehaviour
     public GameObject playerUI;
 
     [SyncVar]
-    private GameObject currentPlayer = null;
+    public GameObject currentPlayer = null;
 
     public float magnitude;
 
@@ -19,7 +19,6 @@ public class ControlRodTransport : NetworkBehaviour
     {
         if (currentPlayer == null)
         {
-           currentPlayer = player;
            CmdSendCurrentPlayer(player);
             if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
@@ -41,7 +40,7 @@ public class ControlRodTransport : NetworkBehaviour
     public void ExitController()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        if (!isServer || currentPlayer == null)
+        if (!isServer)
         {
             if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
