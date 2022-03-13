@@ -10,6 +10,7 @@ public class ControlRodTransport : NetworkBehaviour
     public GameObject controlRod;
     public GameObject playerUI;
 
+    [SyncVar]
     private GameObject currentPlayer = null;
 
     public float magnitude;
@@ -29,6 +30,10 @@ public class ControlRodTransport : NetworkBehaviour
                 controlRodCamera.SetActive(true);
                 controlRodUI.SetActive(true);
             }
+        }
+        else
+        {
+            print("Controller occupied by another player");
         }
 
     }
@@ -64,13 +69,13 @@ public class ControlRodTransport : NetworkBehaviour
     [Command] 
     public void CmdSendCurrentPlayer(GameObject player)
     {
-        CmdUpdateCurrentPlayer(player);
+        currentPlayer = player;
     }
-    [ClientRpc]
+    /*[ClientRpc]
     public void CmdUpdateCurrentPlayer(GameObject player)
     {
         currentPlayer = player;
-    }
+    }*/
 
 
     [Command]
