@@ -3155,7 +3155,7 @@ PrefabInstance:
     - target: {fileID: 5907955863293442394, guid: 8ad05a1b2bc874b4eb42e26921a5c402,
         type: 3}
       propertyPath: m_Name
-      value: Battery (1)
+      value: Battery
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ad05a1b2bc874b4eb42e26921a5c402, type: 3}
