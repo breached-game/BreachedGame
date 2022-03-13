@@ -10,7 +10,14 @@ public class ControlRodManager : MonoBehaviour
     private Vector3 controlRodPos;
 
     public string minigameName;
+    [TextArea]
     public string minigameObjective;
+
+    public string controlRodTouchedFail;
+
+
+    public GameObject ControlRodHoleOnSucces;
+
 
     void Start()
     {
@@ -21,14 +28,15 @@ public class ControlRodManager : MonoBehaviour
         
     public void Success()
     {
-        print("Success");
-        controlRod.transform.position = controlRodPos;
+        ControlRodHoleOnSucces.SetActive(true);
+        controlRod.GetComponent<MeshRenderer>().enabled = false;
+        controlRod.GetComponent<CapsuleCollider>().enabled = false;
         minigameManager.ObjectiveCompleted(minigameName, minigameObjective);
     }
 
     public void Failure()
     {
         controlRod.transform.position = controlRodPos;
-        minigameManager.ObjectiveFailed(minigameName, minigameObjective);
+        minigameManager.ObjectiveFailed(minigameName, controlRodTouchedFail);
     }
 }

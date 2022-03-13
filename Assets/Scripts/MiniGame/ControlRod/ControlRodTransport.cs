@@ -18,7 +18,8 @@ public class ControlRodTransport : NetworkBehaviour
     {
         if (currentPlayer == null)
         {
-            currentPlayer = player;
+           currentPlayer = player;
+           CmdSendCurrentPlayer(player);
             if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 Cursor.lockState = CursorLockMode.None;
@@ -35,18 +36,20 @@ public class ControlRodTransport : NetworkBehaviour
     public void ExitController()
     {
         Cursor.lockState = CursorLockMode.Locked;
-       
-        if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
+        if (!isServer || currentPlayer == null)
         {
-            currentPlayer.GetComponent<PlayerManager>().FirstPersonCamera.SetActive(true);
-            //TRASH CODING PRACTICE INBUILT SPEED
-            currentPlayer.GetComponent<PlayerManager>().Speed = 4.0f;
-            currentPlayer.GetComponent<PlayerManager>().disableInteractionsForMinigame = false;
-            controlRodCamera.SetActive(false);
-            controlRodUI.SetActive(false);
-            playerUI.SetActive(false);
+            if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                currentPlayer.GetComponent<PlayerManager>().FirstPersonCamera.SetActive(true);
+                //TRASH CODING PRACTICE INBUILT SPEED
+                currentPlayer.GetComponent<PlayerManager>().Speed = 4.0f;
+                currentPlayer.GetComponent<PlayerManager>().disableInteractionsForMinigame = false;
+                controlRodCamera.SetActive(false);
+                controlRodUI.SetActive(false);
+                playerUI.SetActive(false);
 
-            currentPlayer = null;
+                CmdSendCurrentPlayer(null);
+            }
         }
         
     }
@@ -57,6 +60,18 @@ public class ControlRodTransport : NetworkBehaviour
     {
         CmdMoveControlRod(direction);
     }
+
+    [Command] 
+    public void CmdSendCurrentPlayer(GameObject player)
+    {
+        CmdUpdateCurrentPlayer(player);
+    }
+    [ClientRpc]
+    public void CmdUpdateCurrentPlayer(GameObject player)
+    {
+        currentPlayer = player;
+    }
+
 
     [Command]
     public void CmdMoveControlRod(Vector3 direction)

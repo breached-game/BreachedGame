@@ -11,6 +11,7 @@ public class ColourMiniGameManger : MonoBehaviour
     private MinigameManager minigameManager;
 
     public string minigameName;
+    [TextArea]
     public string minigameObjective;
 
     private string failiureReason;

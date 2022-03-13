@@ -5,6 +5,7 @@ using UnityEngine;
 public class DropOffBatteries : MonoBehaviour
 {
     public string minigameName;
+    [TextArea]
     public string minigameObjective;
     private MinigameManager minigameManager;
 

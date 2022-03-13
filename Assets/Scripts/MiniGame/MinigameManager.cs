@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using System.Collections;
+using UnityEngine.UI;
 
 public class MinigameManager : MonoBehaviour
 {
@@ -10,7 +11,12 @@ public class MinigameManager : MonoBehaviour
     private GameObject[] players;
     
     public GameObject UIManager;
-    private string currentText;
+
+
+    public GameObject ObjectiveStatusUI;
+    public Text ObjectiveStatusDisplay;
+    public Text FailiureReasonDisplay;
+    public int objectiveStatusPopUpTime;
 
 
     // Dictionary shape : {Objective name (string) : Instructions (string) 
@@ -39,11 +45,45 @@ public class MinigameManager : MonoBehaviour
         doneObjectives.Add(objectiveName, objectiveDescription);
         CheckWon();
         UpdateObjectivesPlayerUI();
+        ShowSuccess(objectiveName);
     }
 
     public void ObjectiveFailed(string objectiveName, string reasonForFailiure)
     {
         //Outputs failiure (and reason?) to player canvas
+
+        ShowFail(objectiveName, reasonForFailiure);
+
+    }
+    private string successText = "Objective Completed: ";
+    private string failText = "Objective Failed: ";
+
+    public void ShowSuccess(string objectiveName)
+    {
+        FailiureReasonDisplay.enabled = false;
+
+        ObjectiveStatusDisplay.color = Color.green;
+        ObjectiveStatusDisplay.text = successText + objectiveName;
+        StartCoroutine(TextDisplayTime());
+    }
+
+    public void ShowFail(string objectiveName, string failiureReason)
+    {
+        FailiureReasonDisplay.enabled = true;
+
+        ObjectiveStatusDisplay.color = Color.red;
+        ObjectiveStatusDisplay.text = failText + objectiveName;
+
+        FailiureReasonDisplay.color = Color.red;
+        FailiureReasonDisplay.text = failiureReason;
+        StartCoroutine(TextDisplayTime());
+    }
+
+    IEnumerator TextDisplayTime()
+    {
+        ObjectiveStatusUI.SetActive(true);
+        yield return new WaitForSeconds(objectiveStatusPopUpTime);
+        ObjectiveStatusUI.SetActive(false);
 
     }
 
