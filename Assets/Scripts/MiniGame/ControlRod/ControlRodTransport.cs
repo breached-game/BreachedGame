@@ -19,9 +19,9 @@ public class ControlRodTransport : NetworkBehaviour
     {
         if (currentPlayer == null)
         {
-           CmdSendCurrentPlayer(player);
-            if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
+                CmdSendCurrentPlayer(player);
                 Cursor.lockState = CursorLockMode.None;
                 player.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.SetActive(false);
                 //STOPPING PLAYER MOVING WHILE IN CONTROL ROD - MAYBE CHANGE PLAYERMANAGER TO HAVE A BOOL INSTEAD OF SETTING IT AS 0
