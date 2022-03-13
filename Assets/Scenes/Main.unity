@@ -1918,7 +1918,7 @@ MonoBehaviour:
   itemToBeDroppedOff: Battery
   dropOffPrefab: {fileID: 939414486}
   hasItem: 0
-  batteryDropOff: 0
+  batteryDropOff: 1
 --- !u!65 &141281115
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18833,7 +18833,7 @@ MonoBehaviour:
   itemToBeDroppedOff: Battery
   dropOffPrefab: {fileID: 231579192}
   hasItem: 0
-  batteryDropOff: 0
+  batteryDropOff: 1
 --- !u!65 &1361078884
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28800,6 +28800,7 @@ MonoBehaviour:
   controlRodUI: {fileID: 1019831678}
   controlRod: {fileID: 1658316729792552662}
   playerUI: {fileID: 623296603}
+  currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!114 &1449329201002567300
 MonoBehaviour:
@@ -28819,6 +28820,7 @@ MonoBehaviour:
   controlRodUI: {fileID: 261677346}
   controlRod: {fileID: 1658316729792552662}
   playerUI: {fileID: 623296603}
+  currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!114 &1449329201797106097
 MonoBehaviour:
@@ -28838,6 +28840,7 @@ MonoBehaviour:
   controlRodUI: {fileID: 745493375}
   controlRod: {fileID: 1658316729792552662}
   playerUI: {fileID: 623296603}
+  currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!1 &1618788576901413005
 GameObject:
