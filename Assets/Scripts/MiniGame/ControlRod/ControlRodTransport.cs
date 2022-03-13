@@ -10,7 +10,8 @@ public class ControlRodTransport : NetworkBehaviour
     public GameObject controlRod;
     public GameObject playerUI;
 
-    private GameObject currentPlayer = null;
+    [SyncVar]
+    public GameObject currentPlayer = null;
 
     public float magnitude;
 
@@ -18,10 +19,9 @@ public class ControlRodTransport : NetworkBehaviour
     {
         if (currentPlayer == null)
         {
-           currentPlayer = player;
-           CmdSendCurrentPlayer(player);
-            if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
+                CmdSendCurrentPlayer(player);
                 Cursor.lockState = CursorLockMode.None;
                 player.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.SetActive(false);
                 //STOPPING PLAYER MOVING WHILE IN CONTROL ROD - MAYBE CHANGE PLAYERMANAGER TO HAVE A BOOL INSTEAD OF SETTING IT AS 0
@@ -30,13 +30,17 @@ public class ControlRodTransport : NetworkBehaviour
                 controlRodUI.SetActive(true);
             }
         }
+        else
+        {
+            print("Controller occupied by another player");
+        }
 
     }
 
     public void ExitController()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        if (!isServer || currentPlayer == null)
+        if (!isServer)
         {
             if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
@@ -64,13 +68,13 @@ public class ControlRodTransport : NetworkBehaviour
     [Command] 
     public void CmdSendCurrentPlayer(GameObject player)
     {
-        CmdUpdateCurrentPlayer(player);
+        currentPlayer = player;
     }
-    [ClientRpc]
+    /*[ClientRpc]
     public void CmdUpdateCurrentPlayer(GameObject player)
     {
         currentPlayer = player;
-    }
+    }*/
 
 
     [Command]

@@ -55,7 +55,7 @@ public class DropOff : NetworkBehaviour
             //Tell manager that we have change of state
             if (batteryDropOff == false)
             {
-                transform.parent.GetComponent<DropOffBatteries>().changeInState(true);
+                transform.parent.GetComponent<DropOffMiniGameManager>().changeInState(true);
             }
             else transform.parent.GetComponent<DropOffBatteries>().changeInState(true);
         }

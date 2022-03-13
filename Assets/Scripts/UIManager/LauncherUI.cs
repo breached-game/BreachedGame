@@ -10,7 +10,6 @@ public class LauncherUI : MonoBehaviour
     public GameObject status;
     public GameObject networkManager;
 
-    public GameObject StartUI;
     public GameObject LobbyUI;
     public GameObject PlayerUI;
 
@@ -29,12 +28,11 @@ public class LauncherUI : MonoBehaviour
         StatusLabels();
 
         //Start player disable UI
-        if (NetworkClient.isConnected && StartUI.activeSelf)
+        if (NetworkClient.isConnected)
         {
             if (ClientScene.localPlayer == null)
             {
                 ClientScene.AddPlayer(NetworkClient.connection);
-                StartUI.SetActive(false);
                 LobbyUI.SetActive(true);
                 PlayerUI.SetActive(true);
 
