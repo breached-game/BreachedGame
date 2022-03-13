@@ -5,6 +5,7 @@ using UnityEngine;
 public class DropOffMiniGameManager : MonoBehaviour
 {
     public string minigameName;
+    [TextArea]
     public string minigameObjective;
     private MinigameManager minigameManager;
 

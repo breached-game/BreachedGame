@@ -10,6 +10,7 @@ public class ControlRodManager : MonoBehaviour
     private Vector3 controlRodPos;
 
     public string minigameName;
+    [TextArea]
     public string minigameObjective;
 
     public string controlRodTouchedFail;
