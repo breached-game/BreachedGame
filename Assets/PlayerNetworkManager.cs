@@ -13,11 +13,16 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
 
     #region 
-
-    [Command]
-    public void CmdMoveControlRod(Vector3 direction, float magnitude, GameObject controlRod)
+    public void MoveControlRod(Vector3 direction, float magnitude, GameObject controlRod)
     {
         Vector3 force = direction * magnitude;
+        CmdMoveControlRod(force, controlRod);
+    }
+
+
+    [Command]
+    public void CmdMoveControlRod(Vector3 force, GameObject controlRod)
+    {
         CmdUpdateControlRodMovement(force, controlRod);
     }
 
@@ -27,6 +32,10 @@ public class PlayerNetworkManager : NetworkBehaviour
         controlRod.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
     }
 
+    public void SendCurrentPlayer(GameObject player, GameObject controlRodController) 
+    {
+        CmdSendCurrentPlayer(player, controlRodController);
+    }
 
     [Command]
 

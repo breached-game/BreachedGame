@@ -29,7 +29,7 @@ public class ControlRodTransport : NetworkBehaviour
             {
                 playerManager = player.GetComponent<PlayerManager>();
                 playerNetworkManager = player.GetComponent<PlayerNetworkManager>();
-                playerNetworkManager.CmdSendCurrentPlayer(player, this.gameObject);
+                playerNetworkManager.SendCurrentPlayer(player, this.gameObject);
 
                 Cursor.lockState = CursorLockMode.None;
                 playerManager.FirstPersonCamera.SetActive(false);
@@ -63,7 +63,7 @@ public class ControlRodTransport : NetworkBehaviour
                 controlRodUI.SetActive(false);
                 playerUI.SetActive(false);
 
-                playerNetworkManager.CmdSendCurrentPlayer(null, this.gameObject);
+                playerNetworkManager.SendCurrentPlayer(null, this.gameObject);
             }
         }
         
@@ -73,7 +73,7 @@ public class ControlRodTransport : NetworkBehaviour
 
     public void CallButtonPressed(Vector3 direction) //Control rod button calls this script. This object has authortiy therefore can call command
     {
-        playerNetworkManager.CmdMoveControlRod(direction, magnitude, controlRod);
+        playerNetworkManager.MoveControlRod(direction, magnitude, controlRod);
     }
 
   
