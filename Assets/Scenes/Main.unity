@@ -1910,7 +1910,6 @@ GameObject:
   m_Component:
   - component: {fileID: 115665233}
   - component: {fileID: 115665234}
-  - component: {fileID: 115665235}
   m_Layer: 0
   m_Name: Lights
   m_TagString: Untagged
@@ -1952,22 +1951,6 @@ MonoBehaviour:
   FloorLights: {fileID: 1942742717}
   FloorLightsOn: {fileID: 2100000, guid: 29bc1b21a8b38e140897d44898db73fc, type: 2}
   FloorLightsOff: {fileID: 2100000, guid: 1fdf9df22e6b5d2449a65a344a7f80a5, type: 2}
---- !u!114 &115665235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 115665232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 854020530
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!1 &124804720
 GameObject:
   m_ObjectHideFlags: 0
@@ -11114,7 +11097,6 @@ GameObject:
   - component: {fileID: 623296604}
   - component: {fileID: 623296605}
   - component: {fileID: 623296607}
-  - component: {fileID: 623296606}
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -11164,22 +11146,6 @@ MonoBehaviour:
   monitors: {fileID: 903007096}
   doneObjectTextColour: {r: 0, g: 0.72156864, b: 0.19049476, a: 1}
   objectTextColour: {r: 1, g: 1, b: 1, a: 1}
---- !u!114 &623296606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 623296603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 2375197496
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!222 &623296607
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16732,7 +16698,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 999782382}
-  - component: {fileID: 999782383}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -16754,22 +16719,6 @@ Transform:
   m_Father: {fileID: 1074578905}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &999782383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999782381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 2396929177
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!1001 &1002557390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39429,7 +39378,6 @@ GameObject:
   - component: {fileID: 2007926857607928349}
   - component: {fileID: 2007926857607928350}
   - component: {fileID: 2007926857607928351}
-  - component: {fileID: 2007926857607928352}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -39524,22 +39472,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerTextObject: {fileID: 1279682401003124114}
   failScreen: {fileID: 164655035}
---- !u!114 &2007926857607928352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2007926857607928348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 2909900512
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!1 &2007926857699473865
 GameObject:
   m_ObjectHideFlags: 0

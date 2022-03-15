@@ -25,8 +25,33 @@ public class StartGameButton : NetworkBehaviour
             }
         }*/
     }
+
     public void StartGame(GameObject player)
     {
-        player.GetComponent<PlayerNetworkManager>().StartGame(lights, timer, playerUI, spawnPoint, GameTime, items.ToArray());
+        player.GetComponent<PlayerNetworkManager>().StartGame(this.gameObject);
+    }
+
+    public void UpdateStartGame()
+    {
+        //Bad practice we should pass players in some other way 
+        players = GameObject.FindGameObjectsWithTag("Player");
+        lights.GetComponent<LightManager>().TurnPressureAlarmOn();
+        timer.GetComponent<TimerManager>().startTimer(GameTime);
+        foreach (GameObject player in players)
+        {
+            player.transform.position = spawnPoint.transform.position;
+            playerUI.SetActive(true);
+            //GARBAGE CODING PRACTICE BELOW
+            int children = playerUI.transform.childCount;
+            for (int i = 0; i < children; i++)
+            {
+                playerUI.transform.GetChild(i).gameObject.SetActive(true);
+            }
+            player.GetComponent<PlayerManager>().TurnOnAudio();
+        }
+        foreach(GameObject item in items)
+        {
+            item.SetActive(true);
+        }
     }
 }

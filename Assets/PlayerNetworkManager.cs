@@ -54,42 +54,22 @@ public class PlayerNetworkManager : NetworkBehaviour
     #endregion
 
     #region:StartButton
-    public void StartGame(GameObject lights, GameObject timer, GameObject playerUI, GameObject spawnPoint, int gameTime, GameObject[] items)
+    public void StartGame(GameObject startButton)
     {
-        CmdStartGame(lights, timer, playerUI, spawnPoint, gameTime, items);
+        CmdStartGame(startButton);
     }
 
     [Command]
-    public void CmdStartGame(GameObject lights, GameObject timer, GameObject playerUI, GameObject spawnPoint, int gameTime, GameObject[] items)
+    public void CmdStartGame(GameObject startButton)
     {
         NetworkServer.SpawnObjects();
-        updateStartGame(lights, timer, playerUI, spawnPoint, gameTime, items);
+        CallUpdateStartGame(startButton);
     }
 
     [ClientRpc]
-    void updateStartGame(GameObject lights, GameObject timer, GameObject playerUI, GameObject spawnPoint, int gameTime, GameObject[] items)
+    void CallUpdateStartGame(GameObject startButton)
     {
-        GameObject[] players;
-        //Bad practice we should pass players in some other way 
-        players = GameObject.FindGameObjectsWithTag("Player");
-        lights.GetComponent<LightManager>().TurnPressureAlarmOn();
-        timer.GetComponent<TimerManager>().startTimer(gameTime);
-        foreach (GameObject player in players)
-        {
-            player.transform.position = spawnPoint.transform.position;
-            playerUI.SetActive(true);
-            //GARBAGE CODING PRACTICE BELOW
-            int children = playerUI.transform.childCount;
-            for (int i = 0; i < children; i++)
-            {
-                playerUI.transform.GetChild(i).gameObject.SetActive(true);
-            }
-            player.GetComponent<PlayerManager>().TurnOnAudio();
-        }
-        foreach (GameObject item in items)
-        {
-            item.SetActive(true);
-        }
+        startButton.GetComponent<StartGameButton>().UpdateStartGame();
     }
     #endregion
 
