@@ -23,7 +23,7 @@ public class MicManagerScript : MonoBehaviour
     }
 
     //Message printed when microphone has been rejected
-    void MicRejeted()
+    void MicRejected()
     {
         print("Microphone permission has been declined");
     }
@@ -31,6 +31,6 @@ public class MicManagerScript : MonoBehaviour
     //Message printed when microphone has been Accepted
     void MicAccepted()
     {
-        print("Microphone accepted");
+        print("Microphone permission has been granted");
     }
 }
