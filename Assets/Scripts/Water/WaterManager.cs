@@ -19,16 +19,8 @@ public class WaterManager : NetworkBehaviour
     
     public void StopWater()
     {
-        waterGrid.run = true;
+        waterGrid.run = false;
     }
-
-    [Command]
-    public void CmdOutflowWater()
-    {
-        OutflowWater();
-    }
-
-    [ClientRpc]
     public void OutflowWater()
     {
         waterGrid.inflowRate = -waterGrid.GetComponent<WaterGrid>().inflowRate;

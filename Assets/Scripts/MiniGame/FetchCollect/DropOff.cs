@@ -11,13 +11,7 @@ public class DropOff : NetworkBehaviour
     private GameObject itemDropped;
     public bool hasItem;
     public bool batteryDropOff = false;
-    [Command]
-    public void CmdDropOff(GameObject player, Vector3 platformPosition)
-    {
-        droppingOffItem(player, platformPosition);
-    }
-    [ClientRpc]
-    public void droppingOffItem(GameObject player, Vector3 platformPosition)
+    public void DroppingOffItem(GameObject player)
     {
         PlayerManager playerManager = player.GetComponent<PlayerManager>();
         if(playerManager.objectPlayerHas == null)

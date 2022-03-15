@@ -89,6 +89,40 @@ public class PlayerNetworkManager : NetworkBehaviour
         pressureAlarm.GetComponent<PressureAlarm>().PressureAlarmPress();
     }
     #endregion
+    #region:DropOff
+    public void DropOff(GameObject interactable)
+    {
+        CmdDropOff(interactable);
+    }
+    [Command]
+    public void CmdDropOff(GameObject interactable)
+    {
+        CallDroppingOffItem(interactable);
+    }
+
+    [ClientRpc]
+    public void CallDroppingOffItem(GameObject interactable)
+    {
+        interactable.GetComponent<DropOff>().DroppingOffItem(this.gameObject);
+    }
+    #endregion
+    #region:Water
+    public void OutflowWater(GameObject waterPump)
+    {
+        CmdOutflowWater(waterPump);
+    }
+    [Command]
+    public void CmdOutflowWater(GameObject waterPump)
+    {
+        CallOutflowWater(waterPump);
+    }
+
+    [ClientRpc]
+    public void CallOutflowWater(GameObject waterPump)
+    {
+        waterPump.GetComponent<WaterManager>().OutflowWater();
+    }
+    #endregion
 
 
 

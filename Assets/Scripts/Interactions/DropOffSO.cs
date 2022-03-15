@@ -9,9 +9,9 @@ public class DropOffSO : InteractionSO
     {
         if (player.GetComponent<PlayerManager>().objectPlayerHas.name == "WaterPumpItem")
         {
-            interactable.GetComponent<WaterManager>().CmdOutflowWater();
+            player.GetComponent<PlayerNetworkManager>().OutflowWater(interactable);
         }
         Debug.Log("Try to drop off");
-        interactable.GetComponent<DropOff>().CmdDropOff(player, interactable.transform.position);
+        player.GetComponent<PlayerNetworkManager>().DropOff(interactable);
     }
 }
