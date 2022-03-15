@@ -22,24 +22,24 @@ mergeInto(LibraryManager.library, {
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
         .getUserMedia(constraints)
-        .then((stream) => {
+        .then(function (stream) {
           localStream = stream;
           console.log("Got MediaStream:", stream);
           window.unityInstance.SendMessage("MicManager", "MicRecieved");
         })
-        .catch((errorHandler) => {
+        .catch(function (errorHandler) {
           console.error("Error getting the mic.", errorHandler);
           window.unityInstance.SendMessage("MicManager", "MicRejected");
         })
 
         // set up websocket and message all existing clients
-        .then(() => {
+        .then(function () {
           //serverConnection = new WebSocket('wss://' + window.location.hostname + ':' + WS_PORT);
           serverConnection = new WebSocket(
             "wss://breached-webrtc.icedcoffee.dev"
           ); //may need to add port
           serverConnection.onmessage = gotMessageFromServer;
-          serverConnection.onopen = (event) => {
+          serverConnection.onopen = function (event) {
             serverConnection.send(
               JSON.stringify({
                 displayName: localDisplayName,
@@ -49,7 +49,7 @@ mergeInto(LibraryManager.library, {
             );
           };
         })
-        .catch((errorHandler) => {
+        .catch(function (errorHandler) {
           console.error("Error setting up websocket connection.", errorHandler);
         });
     } else {
@@ -94,7 +94,9 @@ mergeInto(LibraryManager.library, {
           if (signal.sdp.type == "offer") {
             peerConnections[peerUuid].pc
               .createAnswer()
-              .then((description) => createdDescription(description, peerUuid))
+              .then(function (description) {
+                createdDescription(description, peerUuid);
+              })
               .catch(errorHandler);
           }
         })
@@ -113,18 +115,23 @@ mergeInto(LibraryManager.library, {
       displayName: displayName,
       pc: new RTCPeerConnection(peerConnectionConfig),
     };
-    peerConnections[peerUuid].pc.onicecandidate = (event) =>
+    peerConnections[peerUuid].pc.onicecandidate = function (event) {
       gotIceCandidate(event, peerUuid);
-    peerConnections[peerUuid].pc.ontrack = (event) =>
+    };
+    peerConnections[peerUuid].pc.ontrack = function (event) {
       gotRemoteStream(event, peerUuid);
-    peerConnections[peerUuid].pc.oniceconnectionstatechange = (event) =>
+    };
+    peerConnections[peerUuid].pc.oniceconnectionstatechange = function (event) {
       checkPeerDisconnect(event, peerUuid);
+    };
     peerConnections[peerUuid].pc.addStream(localStream);
 
     if (initCall) {
       peerConnections[peerUuid].pc
         .createOffer()
-        .then((description) => createdDescription(description, peerUuid))
+        .then(function (description) {
+          createdDescription(description, peerUuid);
+        })
         .catch(errorHandler);
     }
   },
