@@ -10,7 +10,7 @@ public class PickUpSO : InteractionSO
         if (Player.GetComponent<PlayerManager>().objectPlayerHas == null)
         {
             Debug.Log("Picked up " + interactable.name);
-            Player.GetComponent<PlayerManager>().CmdPickUpObject(interactable);
+            Player.GetComponent<PlayerManager>().CallCmdPickupObject(interactable);
         }
         else
         {

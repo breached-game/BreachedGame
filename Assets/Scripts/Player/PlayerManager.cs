@@ -78,6 +78,11 @@ public class PlayerManager : NetworkBehaviour
          networkIdentity.AssignClientAuthority(identity.connectionToClient);
         */
     }
+
+    public void CallCmdPickupObject(GameObject objectBeingPickedUp)
+    {
+        CmdPickUpObject(objectBeingPickedUp);
+    }
    
 
     [Command]

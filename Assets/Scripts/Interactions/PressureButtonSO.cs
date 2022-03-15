@@ -8,7 +8,7 @@ public class PressureButtonSO : InteractionSO
     {
         if (interactable.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            interactable.GetComponent<PressureAlarm>().CmdPressureAlarmPress();
+            player.GetComponent<PlayerNetworkManager>().PressureAlarmPress(interactable);
             interactable.transform.GetChild(0).GetComponent<Animator>().Play("Click");
         }
     }

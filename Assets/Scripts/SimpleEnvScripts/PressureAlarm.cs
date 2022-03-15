@@ -6,13 +6,7 @@ using Mirror;
 public class PressureAlarm : NetworkBehaviour
 {
     public GameObject lights;
-    [Command]
-    public void CmdPressureAlarmPress()
-    {
-        PressureAlarmPress();
-    }
-    [ClientRpc]
-    void PressureAlarmPress()
+    public void PressureAlarmPress()
     {
         lights.GetComponent<LightManager>().TurnPressureAlarmOff();
         StartCoroutine(AlarmTimer());

@@ -73,5 +73,24 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    #region:PressureButton
+    public void PressureAlarmPress(GameObject pressureAlarm)
+    {
+        CmdPressureAlarmPress(pressureAlarm);
+    }
+    [Command]
+    public void CmdPressureAlarmPress(GameObject pressureAlarm)
+    {
+        CallPressureAlarmPress(pressureAlarm);
+    }
+    [ClientRpc]
+    void CallPressureAlarmPress(GameObject pressureAlarm)
+    {
+        pressureAlarm.GetComponent<PressureAlarm>().PressureAlarmPress();
+    }
+    #endregion
+
+
+
 
 }
