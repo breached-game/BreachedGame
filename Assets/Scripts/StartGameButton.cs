@@ -25,44 +25,8 @@ public class StartGameButton : NetworkBehaviour
             }
         }*/
     }
-
-    [Command]
-    public void CmdstartGame()
+    public void StartGame(GameObject player)
     {
-        //If server only items (this might be true in the future, we can enable them all using this command
-        NetworkServer.SpawnObjects();
-        /*
-        int index = 0;
-        foreach (GameObject item in items)
-        {
-            item.transform.position = startPositionItems[index];
-            index++;
-        }
-        */
-        updateStartGame();
-    }
-    [ClientRpc]
-    void updateStartGame()
-    {
-        //Bad practice we should pass players in some other way 
-        players = GameObject.FindGameObjectsWithTag("Player");
-        lights.GetComponent<LightManager>().TurnPressureAlarmOn();
-        timer.GetComponent<TimerManager>().startTimer(GameTime);
-        foreach (GameObject player in players)
-        {
-            player.transform.position = spawnPoint.transform.position;
-            playerUI.SetActive(true);
-            //GARBAGE CODING PRACTICE BELOW
-            int children = playerUI.transform.childCount;
-            for (int i = 0; i < children; i++)
-            {
-                playerUI.transform.GetChild(i).gameObject.SetActive(true);
-            }
-            player.GetComponent<PlayerManager>().TurnOnAudio();
-        }
-        foreach(GameObject item in items)
-        {
-            item.SetActive(true);
-        }
+        player.GetComponent<PlayerNetworkManager>().StartGame(lights, timer, playerUI, spawnPoint, GameTime, items.ToArray());
     }
 }
