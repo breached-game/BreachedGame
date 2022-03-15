@@ -8,7 +8,7 @@ public class StartButtonSO : InteractionSO
     {
         if (interactable.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            interactable.GetComponent<StartGameButton>().CmdstartGame();
+            interactable.GetComponent<StartGameButton>().StartGame(player);
             interactable.transform.GetChild(0).GetComponent<Animator>().Play("Click");
         }
     }

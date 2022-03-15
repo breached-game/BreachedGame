@@ -12,7 +12,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         networkIdentity = GetComponent<NetworkIdentity>();
     }
 
-    #region 
+    #region:ControlRod
     public void MoveControlRod(Vector3 direction, float magnitude, GameObject controlRod)
     {
         Vector3 force = direction * magnitude;
@@ -53,6 +53,45 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #endregion
 
+    #region:StartButton
+    public void StartGame(GameObject lights, GameObject timer, GameObject playerUI, GameObject spawnPoint, int gameTime, GameObject[] items)
+    {
+        CmdStartGame(lights, timer, playerUI, spawnPoint, gameTime, items);
+    }
+
+    [Command]
+    public void CmdStartGame(GameObject lights, GameObject timer, GameObject playerUI, GameObject spawnPoint, int gameTime, GameObject[] items)
+    {
+        NetworkServer.SpawnObjects();
+        updateStartGame(lights, timer, playerUI, spawnPoint, gameTime, items);
+    }
+
+    [ClientRpc]
+    void updateStartGame(GameObject lights, GameObject timer, GameObject playerUI, GameObject spawnPoint, int gameTime, GameObject[] items)
+    {
+        GameObject[] players;
+        //Bad practice we should pass players in some other way 
+        players = GameObject.FindGameObjectsWithTag("Player");
+        lights.GetComponent<LightManager>().TurnPressureAlarmOn();
+        timer.GetComponent<TimerManager>().startTimer(gameTime);
+        foreach (GameObject player in players)
+        {
+            player.transform.position = spawnPoint.transform.position;
+            playerUI.SetActive(true);
+            //GARBAGE CODING PRACTICE BELOW
+            int children = playerUI.transform.childCount;
+            for (int i = 0; i < children; i++)
+            {
+                playerUI.transform.GetChild(i).gameObject.SetActive(true);
+            }
+            player.GetComponent<PlayerManager>().TurnOnAudio();
+        }
+        foreach (GameObject item in items)
+        {
+            item.SetActive(true);
+        }
+    }
+    #endregion
 
 
 }
