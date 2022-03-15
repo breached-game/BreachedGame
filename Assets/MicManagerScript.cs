@@ -5,10 +5,10 @@ using UnityEngine;
 public class MicManagerScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    public void OnConnection()
     {
         VoiceWrapper.Hello();
-        VoiceWrapper.RequestMic();
+        VoiceWrapper.start();
     }
 
     // Update is called once per frame

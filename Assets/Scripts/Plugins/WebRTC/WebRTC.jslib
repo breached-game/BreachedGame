@@ -1,13 +1,16 @@
 //from https://www.dmcinfo.com/latest-thinking/blog/id/9852/multi-user-video-chat-with-webrtc
 // check if have to import WebSocket stuff
 mergeInto(LibraryManager.library, {
+  Hello: function () {
+    window.alert("Hello world");
+  },
   // set up local video stream
   start: function () {
     //need to find a way to assign each client a unique ID - could use players network identity. Something like ...
 
     localUuid = window.unityInstance.SendMessage(
       "NetworkManager",
-      "GetCurrentID"
+      "GetNetworkIdetity"
     );
     localDisplayName = localUuid; //should have a better name here
 
