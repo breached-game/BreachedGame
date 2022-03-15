@@ -92,6 +92,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     #region:DropOff
     public void DropOff(GameObject interactable)
     {
+        Debug.Log("dropping off");
         CmdDropOff(interactable);
     }
     [Command]
