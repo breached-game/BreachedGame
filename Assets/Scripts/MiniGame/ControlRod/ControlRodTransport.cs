@@ -13,6 +13,9 @@ public class ControlRodTransport : NetworkBehaviour
     public GameObject playerPos;
     private Vector3 prePlayerPos;
 
+    private PlayerManager playerManager;
+    private PlayerNetworkManager playerNetworkManager;
+
     [SyncVar]
     public GameObject currentPlayer = null;
 
@@ -24,12 +27,15 @@ public class ControlRodTransport : NetworkBehaviour
         {
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                CmdSendCurrentPlayer(player);
+                playerManager = player.GetComponent<PlayerManager>();
+                playerNetworkManager = player.GetComponent<PlayerNetworkManager>();
+                playerNetworkManager.CmdSendCurrentPlayer(player, this.gameObject);
+
                 Cursor.lockState = CursorLockMode.None;
-                player.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.SetActive(false);
+                playerManager.FirstPersonCamera.SetActive(false);
                 VisualEffectOfBeingInTheMiniGame(player);
                 //STOPPING PLAYER MOVING WHILE IN CONTROL ROD - MAYBE CHANGE PLAYERMANAGER TO HAVE A BOOL INSTEAD OF SETTING IT AS 0
-                player.gameObject.GetComponent<PlayerManager>().Speed = 0.0f;
+                playerManager.Speed = 0.0f;
                 controlRodCamera.SetActive(true);
                 controlRodUI.SetActive(true);
             }
@@ -48,16 +54,16 @@ public class ControlRodTransport : NetworkBehaviour
         {
             if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                currentPlayer.GetComponent<PlayerManager>().FirstPersonCamera.SetActive(true);
+                playerManager.FirstPersonCamera.SetActive(true);
                 VisualEffectOfLeavingAMiniGame(currentPlayer);
                 //TRASH CODING PRACTICE INBUILT SPEED
-                currentPlayer.GetComponent<PlayerManager>().Speed = 4.0f;
-                currentPlayer.GetComponent<PlayerManager>().disableInteractionsForMinigame = false;
+                playerManager.Speed = 4.0f;
+                playerManager.disableInteractionsForMinigame = false;
                 controlRodCamera.SetActive(false);
                 controlRodUI.SetActive(false);
                 playerUI.SetActive(false);
 
-                CmdSendCurrentPlayer(null);
+                playerNetworkManager.CmdSendCurrentPlayer(null, this.gameObject);
             }
         }
         
@@ -67,27 +73,10 @@ public class ControlRodTransport : NetworkBehaviour
 
     public void CallButtonPressed(Vector3 direction) //Control rod button calls this script. This object has authortiy therefore can call command
     {
-        CmdMoveControlRod(direction);
+        playerNetworkManager.CmdMoveControlRod(direction, magnitude, controlRod);
     }
 
-    [Command] 
-    public void CmdSendCurrentPlayer(GameObject player)
-    {
-        currentPlayer = player;
-    }
-
-    [Command]
-    public void CmdMoveControlRod(Vector3 direction)
-    {
-        Vector3 force = direction * magnitude;
-        CmdUpdateControlRodMovement(force);
-    }
-
-    [ClientRpc]
-    public void CmdUpdateControlRodMovement(Vector3 force)
-    {
-        controlRod.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
-    }
+  
     //Visual effects
     public void VisualEffectOfBeingInTheMiniGame(GameObject player)
     {
