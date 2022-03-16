@@ -11,7 +11,7 @@ public class ColourMiniGameButtonSO : InteractionSO
         if (interactable.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             Debug.Log("Calling CmdButtonPressed");
-            interactable.GetComponent<ColourMiniGameButton>().CmdButtonPressed();
+            player.GetComponent<PlayerNetworkManager>().ButtonPressed(interactable);
 
         }
     }

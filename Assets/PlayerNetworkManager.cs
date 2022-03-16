@@ -89,6 +89,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         pressureAlarm.GetComponent<PressureAlarm>().PressureAlarmPress();
     }
     #endregion
+
     #region:DropOff
     public void DropOff(GameObject interactable)
     {
@@ -107,6 +108,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         interactable.GetComponent<DropOff>().DroppingOffItem(this.gameObject);
     }
     #endregion
+
     #region:Water
     public void OutflowWater(GameObject waterPump)
     {
@@ -125,7 +127,27 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    #region:ColourButtons
+    public void ButtonPressed(GameObject button)
+    {
+        CmdButtonPressed(button);
+    }
 
+    [Command]
+    public void CmdButtonPressed(GameObject button)
+    {
+        CallUpdateAllButtonPresses(button);
+        //button.transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour, mat);
+        print("We syncing the button y'all");
+        button.transform.GetChild(0).GetComponent<Animator>().Play("Click");
+    }
+
+    [ClientRpc]
+    public void CallUpdateAllButtonPresses(GameObject button)
+    {
+        button.GetComponent<ColourMiniGameButton>().UpdateAllButtonPresses();
+    }
+    #endregion
 
 
 }
