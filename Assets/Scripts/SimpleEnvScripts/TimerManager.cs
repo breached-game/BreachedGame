@@ -20,6 +20,7 @@ public class TimerManager : MonoBehaviour
 
     public void startTimer(float arg_time)
     {
+        Debug.Log("timer started");
         slider.value = 0;
         this.gameObject.SetActive(true);
         slider.maxValue = arg_time;

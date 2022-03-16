@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.UI;
 
 public class PlayerNetworkManager : NetworkBehaviour
 {
@@ -13,13 +14,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     float time = 300f;
     int increments = 2000;
 
-    public GameObject Timer;
+    private GameObject Timer;
     private TimerManager timerManager;
-
-    private void Start()
-    {
-        timerManager = Timer.GetComponent<TimerManager>();
-    }
 
     private NetworkIdentity networkIdentity;
     // Pass in the gameobject, data, 
@@ -73,6 +69,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void StartGame(GameObject startButton)
     {
         CmdStartGame(startButton);
+        Timer = startButton.GetComponent<StartGameButton>().timer;
+        timerManager = Timer.GetComponent<TimerManager>();
     }
 
     [Command]
@@ -171,16 +169,18 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         masterTime = 0f;
         while (masterTime < time) {
+            UpdateTime();
             masterTime += (time / increments);
             yield return new WaitForSeconds(time / increments);
         }
-
     }
 
-    private void Update()
+    [ClientRpc]
+    private void UpdateTime()
     {
-        if (isLocalPlayer && timerStarted)
+        if (timerStarted)
         {
+            Debug.Log("Time: " + masterTime);
             timerManager.UpdateTimer(masterTime, time, increments);
         }
     }
