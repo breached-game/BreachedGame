@@ -57,6 +57,8 @@ public class PlayerManager : NetworkBehaviour
         }
     }
     #region Player Sync
+    // Legacy Authority Code
+    /*
     [Command]
     public void CmdAssignAurthority(GameObject wantsAurthority)
     {
@@ -66,9 +68,11 @@ public class PlayerManager : NetworkBehaviour
 
 
         /*var networkIdentity = wantsAurthority.gameObject.GetComponent<NetworkIdentity>();
-        networkIdentity.AssignClientAuthority(identity.connectionToClient);*/
+        networkIdentity.AssignClientAuthority(identity.connectionToClient);
 
     }
+    */
+    /*
     [Command]
     public void CmdRemoveAurthority(GameObject wantsRemovedAurthority)
     {
@@ -76,8 +80,8 @@ public class PlayerManager : NetworkBehaviour
         print("Player has removed " + wantsRemovedAurthority.transform.name + " Aurthority");
         /* var networkIdentity = wantsRemovedAurthority.gameObject.GetComponent<NetworkIdentity>();
          networkIdentity.AssignClientAuthority(identity.connectionToClient);
-        */
     }
+    */
 
     public void CallCmdPickupObject(GameObject objectBeingPickedUp)
     {

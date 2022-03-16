@@ -41,8 +41,8 @@ public class InteractionManager : NetworkBehaviour
             } 
         } 
     }
-
-    //Assign authority 
+    /*
+    // Legacy Authority Code
     int playersInColliderCount = 0;
 
     private void OnTriggerExit(Collider other)
@@ -76,4 +76,5 @@ public class InteractionManager : NetworkBehaviour
             }
         }
     }
+    */
 }
