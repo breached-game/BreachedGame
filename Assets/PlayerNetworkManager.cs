@@ -165,6 +165,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    #region:Timer
     IEnumerator masterTimer()
     {
         masterTime = 0f;
@@ -180,8 +181,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         if (timerStarted)
         {
-            Debug.Log("Time: " + masterTime);
             timerManager.UpdateTimer(masterTime, time, increments);
         }
     }
+    #endregion
 }

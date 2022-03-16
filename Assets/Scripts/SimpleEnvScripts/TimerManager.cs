@@ -20,7 +20,6 @@ public class TimerManager : MonoBehaviour
 
     public void startTimer(float arg_time)
     {
-        Debug.Log("timer started");
         slider.value = 0;
         this.gameObject.SetActive(true);
         slider.maxValue = arg_time;
@@ -28,6 +27,11 @@ public class TimerManager : MonoBehaviour
 
     public void UpdateTimer(float currentTime, float time, int increments)
     {
+        if (currentTime > time)
+        {
+            failScreen.SetActive(true);
+            return;
+        }
         if (time - currentTime < 60)
         {
             timerTextObject.SetActive(true);
