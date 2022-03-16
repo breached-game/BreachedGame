@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class TimerManager : MonoBehaviour
 {
     Slider slider;
-    int increments = 1200;
-    float time;
     public GameObject timerTextObject;
     private Text timerText;
     public GameObject failScreen;
@@ -22,29 +20,19 @@ public class TimerManager : MonoBehaviour
 
     public void startTimer(float arg_time)
     {
-        time = arg_time;
         slider.value = 0;
         this.gameObject.SetActive(true);
-        slider.
-        StartCoroutine(timer());
+        slider.maxValue = arg_time;
     }
 
-    IEnumerator timer()
+    public void UpdateTimer(float currentTime, float time, int increments)
     {
-        float currentTime = 0f;
-        slider.maxValue = time;
-        while (currentTime < time)
+        if (time - currentTime < 60)
         {
-            if (time - currentTime < 60)
-            {
-                timerTextObject.SetActive(true);
-                timerText.text = (Mathf.Round(time-currentTime)).ToString();
-            }
-            slider.value += (time / increments);
-            currentTime += (time / increments);
-            yield return new WaitForSeconds(time/increments);
+            timerTextObject.SetActive(true);
+            timerText.text = (Mathf.Round(time - currentTime)).ToString();
         }
-        failScreen.SetActive(true);
+        slider.value += (time / increments);
     }
 
 }

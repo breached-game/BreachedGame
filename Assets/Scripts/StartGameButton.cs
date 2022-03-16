@@ -10,7 +10,7 @@ public class StartGameButton : NetworkBehaviour
     public GameObject playerUI;
     public GameObject lights;
     public List<GameObject> items;
-    public int GameTime = 500;
+    public int GameTime = 300;
     public GameObject timer;
     private List<Vector3> startPositionItems;
 

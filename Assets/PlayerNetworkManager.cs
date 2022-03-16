@@ -5,6 +5,22 @@ using Mirror;
 
 public class PlayerNetworkManager : NetworkBehaviour
 {
+    [SyncVar]
+    private float masterTime;
+    [SyncVar]
+    bool timerStarted = false;
+
+    float time = 300f;
+    int increments = 2000;
+
+    public GameObject Timer;
+    private TimerManager timerManager;
+
+    private void Start()
+    {
+        timerManager = Timer.GetComponent<TimerManager>();
+    }
+
     private NetworkIdentity networkIdentity;
     // Pass in the gameobject, data, 
      void Awake()
@@ -64,6 +80,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         NetworkServer.SpawnObjects();
         CallUpdateStartGame(startButton);
+        StartCoroutine(masterTimer());
+        timerStarted = true;
     }
 
     [ClientRpc]
@@ -149,5 +167,21 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    IEnumerator masterTimer()
+    {
+        masterTime = 0f;
+        while (masterTime < time) {
+            masterTime += (time / increments);
+            yield return new WaitForSeconds(time / increments);
+        }
 
+    }
+
+    private void Update()
+    {
+        if (isLocalPlayer && timerStarted)
+        {
+            timerManager.UpdateTimer(masterTime, time, increments);
+        }
+    }
 }
