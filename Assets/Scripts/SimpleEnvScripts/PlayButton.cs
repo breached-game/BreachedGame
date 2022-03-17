@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class PlayButton : MonoBehaviour
+public class PlayButton : NetworkBehaviour
 {
     public Material MouseOnColour;
     private Material preMat;
@@ -13,7 +13,10 @@ public class PlayButton : MonoBehaviour
     private void Start()
     {
         preMat = GetComponent<MeshRenderer>().material;
-        myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
+        if (!isServer)
+        {
+            myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
+        }
     }
     private void OnMouseEnter()
     {
