@@ -69,8 +69,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void StartGame(GameObject startButton)
     {
         CmdStartGame(startButton);
-        Timer = startButton.GetComponent<StartGameButton>().timer;
-        timerManager = Timer.GetComponent<TimerManager>();
     }
 
     [Command]
@@ -86,6 +84,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     void CallUpdateStartGame(GameObject startButton)
     {
         startButton.GetComponent<StartGameButton>().UpdateStartGame();
+        Timer = startButton.GetComponent<StartGameButton>().timer;
+        timerManager = Timer.GetComponent<TimerManager>();
     }
     #endregion
 
