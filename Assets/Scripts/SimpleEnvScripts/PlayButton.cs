@@ -17,6 +17,7 @@ public class PlayButton : MonoBehaviour
         {
             myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
         }
+        else { print("no network manager"); }
     }
     private void OnMouseEnter()
     {
@@ -28,7 +29,7 @@ public class PlayButton : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        myNetworkManager.ServerChangeScene("Lobby");
+        //myNetworkManager.ServerChangeScene("Lobby");
         if (!NetworkClient.active)
         {
             myNetworkManager.StartClient();
