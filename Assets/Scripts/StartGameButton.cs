@@ -42,17 +42,17 @@ public class StartGameButton : NetworkBehaviour
         players = GameObject.FindGameObjectsWithTag("Player");
         lights.GetComponent<LightManager>().TurnPressureAlarmOn();
         timer.GetComponent<TimerManager>().startTimer(GameTime);
-        foreach (GameObject player in players)
+        for(int i =0; i < players.Length; i++)
         {
-            player.transform.position = spawnPoint.transform.position;
+            players[i].transform.position = spawnPoint.transform.GetChild(i).transform.position;
             playerUI.SetActive(true);
             //GARBAGE CODING PRACTICE BELOW
             int children = playerUI.transform.childCount;
-            for (int i = 0; i < children; i++)
+            for (int a = 0; a < children; a++)
             {
-                playerUI.transform.GetChild(i).gameObject.SetActive(true);
+                playerUI.transform.GetChild(a).gameObject.SetActive(true);
             }
-            player.GetComponent<PlayerManager>().TurnOnAudio();
+            players[i].GetComponent<PlayerManager>().TurnOnAudio();
         }
         foreach(GameObject item in items)
         {
