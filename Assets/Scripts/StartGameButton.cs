@@ -24,7 +24,7 @@ public class StartGameButton : NetworkBehaviour
     {
         if (!isServer)
         {
-            networkManager = GameObject.Find("DontDestroyOnLoad/NetworkManager");
+            networkManager = GameObject.Find("NetworkManager");
             myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
         }
     }
