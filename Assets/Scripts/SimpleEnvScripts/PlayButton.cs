@@ -13,7 +13,10 @@ public class PlayButton : MonoBehaviour
     private void Start()
     {
         preMat = GetComponent<MeshRenderer>().material;
-        myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
+        if (!(networkManager == null))
+        {
+            myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
+        }
     }
     private void OnMouseEnter()
     {
