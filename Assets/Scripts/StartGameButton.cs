@@ -16,6 +16,7 @@ public class StartGameButton : NetworkBehaviour
     private GameObject networkManager;
     private MyNetworkManager myNetworkManager;
 
+
     //private bool canStartGame = true;
     private void Start()
     {
