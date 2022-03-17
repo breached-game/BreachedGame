@@ -13,7 +13,7 @@ public class LauncherUI : MonoBehaviour
     public GameObject LobbyUI;
     public GameObject PlayerUI;
 
-    public GameObject MenuCamera;
+    //public GameObject MenuCamera;
     public GameObject crosshair;
 
     // Start is called before the first frame update
@@ -48,7 +48,7 @@ public class LauncherUI : MonoBehaviour
 
         if (LobbyUI.activeSelf)
         {
-            MenuCamera.SetActive(false);
+            //MenuCamera.SetActive(false);
             LobbyUI.GetComponent<Text>().text = countObjects() + "/" + GameObject.Find("NetworkManager").GetComponent<MyNetworkManager>().maxConnections;
         }
     }

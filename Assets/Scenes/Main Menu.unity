@@ -10831,7 +10831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MouseOnColour: {fileID: 2100000, guid: 9e151f094e05f754195f4b43281632a9, type: 2}
-  networkManager: {fileID: 0}
+  networkManager: {fileID: 284226482}
 --- !u!65 &1750556002
 BoxCollider:
   m_ObjectHideFlags: 0
