@@ -5433,17 +5433,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  spawnPoint: {fileID: 999782381}
-  players: []
-  playerUI: {fileID: 623296603}
-  lights: {fileID: 115665232}
-  items:
-  - {fileID: 1751390856}
-  - {fileID: 231579192}
-  - {fileID: 939414486}
-  - {fileID: 124804720}
-  GameTime: 500
-  timer: {fileID: 2007926857607928348}
 --- !u!1001 &315343353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6636,7 +6625,6 @@ MonoBehaviour:
   networkManager: {fileID: 207291378}
   LobbyUI: {fileID: 1651574855}
   PlayerUI: {fileID: 623296603}
-  MenuCamera: {fileID: 963194225}
   crosshair: {fileID: 2070798819}
 --- !u!114 &370657784
 MonoBehaviour:
@@ -10763,8 +10751,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d216cac8a3c5343b15b637bd7b0964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Canvas: {fileID: 370657782}
+  syncMode: 0
+  syncInterval: 0.1
   MouseOnColour: {fileID: 2100000, guid: 9e151f094e05f754195f4b43281632a9, type: 2}
+  networkManager: {fileID: 0}
 --- !u!65 &566348125
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10778,6 +10768,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.01601177, y: 0.009719999, z: 0.0026}
   m_Center: {x: -0.008405885, y: 0.0022599977, z: 0.000000029667616}
+--- !u!114 &566348126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566348122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3724445819
+  serverOnly: 0
+  m_AssetId: b7b56fe23a71c494ebb4f86e7177fff3
+  hasSpawned: 0
 --- !u!1001 &592711421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30823,12 +30829,6 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1751390856 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3549473544568696393, guid: ee8a3c428d492d94b8166cd13ccecc5f,
-    type: 3}
-  m_PrefabInstance: {fileID: 3549473546315887809}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1751390863 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3549473544568696398, guid: ee8a3c428d492d94b8166cd13ccecc5f,

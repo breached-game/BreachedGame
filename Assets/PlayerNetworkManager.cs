@@ -66,25 +66,25 @@ public class PlayerNetworkManager : NetworkBehaviour
     #endregion
 
     #region:StartButton
-    public void StartGame(GameObject startButton)
+    public void StartGame(GameObject setupObject)
     {
-        CmdStartGame(startButton);
+        CmdStartGame(setupObject);
     }
 
     [Command]
-    public void CmdStartGame(GameObject startButton)
+    public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
-        CallUpdateStartGame(startButton);
         StartCoroutine(masterTimer());
         timerStarted = true;
+        CallUpdateStartGame(setupObject);
     }
 
     [ClientRpc]
-    void CallUpdateStartGame(GameObject startButton)
+    void CallUpdateStartGame(GameObject setupObject)
     {
-        startButton.GetComponent<StartGameButton>().UpdateStartGame();
-        Timer = startButton.GetComponent<StartGameButton>().timer;
+        //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
+        Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
     }
     #endregion

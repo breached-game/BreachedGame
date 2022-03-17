@@ -5,6 +5,7 @@ using Mirror;
 
 public class StartGameButton : NetworkBehaviour
 {
+    /*
     public GameObject spawnPoint;
     public GameObject[] players;
     public GameObject playerUI;
@@ -13,24 +14,28 @@ public class StartGameButton : NetworkBehaviour
     public int GameTime = 300;
     public GameObject timer;
     private List<Vector3> startPositionItems;
+    */
+    private GameObject networkManager;
+    private MyNetworkManager myNetworkManager;
+
 
     //private bool canStartGame = true;
     private void Start()
     {
-       /* if (isServer)
+        if (!isServer)
         {
-            foreach(GameObject item in items)
-            {
-                startPositionItems.Add(item.transform.position);
-            }
-        }*/
+            networkManager = GameObject.Find("DontDestroyOnLoad/NetworkManager");
+            myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
+        }
     }
 
     public void StartGame(GameObject player)
     {
-        player.GetComponent<PlayerNetworkManager>().StartGame(this.gameObject);
+        //player.GetComponent<PlayerNetworkManager>().StartGame(this.gameObject);
+        myNetworkManager.ServerChangeScene("Submarine");
     }
 
+    /*
     public void UpdateStartGame()
     {
         //Bad practice we should pass players in some other way 
@@ -54,4 +59,5 @@ public class StartGameButton : NetworkBehaviour
             item.SetActive(true);
         }
     }
+    */
 }
