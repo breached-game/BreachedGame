@@ -28,6 +28,7 @@ public class MyNetworkManager : NetworkManager
 
     void playerExitsOrDisconnects(NetworkConnection conn)
     {
+        /*
         //Remove all objects owned by the player
         var ownedObjects = new NetworkIdentity[conn.clientOwnedObjects.Count];
         conn.clientOwnedObjects.CopyTo(ownedObjects);
@@ -35,6 +36,7 @@ public class MyNetworkManager : NetworkManager
         {
             networkIdentity.RemoveClientAuthority();
         }
+        */
         //Delete Player
         NetworkServer.Destroy(conn.identity.gameObject);
     }
