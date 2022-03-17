@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class PlayButton : MonoBehaviour
 {
-    public GameObject Canvas;
     public Material MouseOnColour;
     private Material preMat;
+    public GameObject networkManager;
+    private MyNetworkManager myNetworkManager;
 
     private void Start()
     {
         preMat = GetComponent<MeshRenderer>().material;
+        myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
     }
     private void OnMouseEnter()
     {
@@ -22,6 +25,11 @@ public class PlayButton : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        Canvas.GetComponent<LauncherUI>().StartButtonClient();
+        myNetworkManager.ServerChangeScene("Lobby");
+        if (!NetworkClient.active)
+        {
+            myNetworkManager.StartClient();
+        }
+        else print("Trying to connect when already connected");
     }
 }
