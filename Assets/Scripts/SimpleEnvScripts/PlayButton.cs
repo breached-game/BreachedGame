@@ -29,7 +29,7 @@ public class PlayButton : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        //myNetworkManager.ServerChangeScene("Lobby");
+        myNetworkManager.ServerChangeScene("Lobby");
         if (!NetworkClient.active)
         {
             myNetworkManager.StartClient();

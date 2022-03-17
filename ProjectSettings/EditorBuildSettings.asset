@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Submarine.unity
     guid: 9f44a336664f5294e83f9418ac3d9ed2
   - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 0e1c14549faff6b45807fd387ab383cd
   m_configObjects: {}
