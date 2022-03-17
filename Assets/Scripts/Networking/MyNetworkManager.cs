@@ -20,7 +20,7 @@ public class MyNetworkManager : NetworkManager
     {
         currentNetworkConnection = conn;
         Debug.Log("Connected to Server!");
-        GameObject.Find("MicManager").GetComponent<MicManagerScript>().OnConnection();
+        //GameObject.Find("MicManager").GetComponent<MicManagerScript>().OnConnection();
     }
 
     public override void OnClientDisconnect(NetworkConnection conn)
@@ -28,9 +28,10 @@ public class MyNetworkManager : NetworkManager
         Debug.Log("Disconnected from Server!");
     }
 
-    public uint GetNetworkIdetity()
+    public uint GetNetworkIdentity()
     {
-        Debug.Log("Got Network Identiy");
-        return currentNetworkConnection.identity.netId;
+        Debug.Log("Network Id being sent" + currentNetworkConnection.identity.netId);
+        //return currentNetworkConnection.identity.netId;
+        return 1;
     }
 }

@@ -3434,7 +3434,7 @@ function _Disconnect(index) {
  SimpleWeb.RemoveSocket(index);
 }
 function _Hello() {
- window.alert("Hello, world!");
+ window.alert("Hello world");
 }
 function _IsConnected(index) {
  var webSocket = SimpleWeb.GetWebSocket(index);
@@ -4110,15 +4110,6 @@ function _JS_WebRequest_SetResponseHandler(request, arg, onresponse) {
 }
 function _JS_WebRequest_SetTimeout(request, timeout) {
  wr.requestInstances[request].timeout = timeout;
-}
-function _RequestMic() {
- navigator.mediaDevices.getUserMedia({
-  video: false,
-  audio: true
- }).catch((function(err) {
-  console.log("u got an error:" + err);
- }));
- window.unityInstance.SendMessage("MicManager", "MicRecieved");
 }
 function _Send(index, arrayPtr, offset, length) {
  var webSocket = SimpleWeb.GetWebSocket(index);
@@ -14550,6 +14541,40 @@ function _sigemptyset(set) {
  HEAP32[set >> 2] = 0;
  return 0;
 }
+function _start() {
+ console.log("Before getting the network manager");
+ localUuid = window.unityInstance.SendMessage("NetworkManager", "GetNetworkIdetity");
+ console.log("Network Identity = " + localUuid);
+ localDisplayName = localUuid;
+ var constraints = {
+  video: false,
+  audio: true
+ };
+ if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia(constraints).then((function(stream) {
+   localStream = stream;
+   console.log("Got MediaStream:", stream);
+   window.unityInstance.SendMessage("MicManager", "MicRecieved");
+  })).catch((function(errorHandler) {
+   console.error("Error getting the mic.", errorHandler);
+   window.unityInstance.SendMessage("MicManager", "MicRejected");
+  })).then((function() {
+   serverConnection = new WebSocket("wss://breached-webrtc.icedcoffee.dev:8888");
+   serverConnection.onmessage = gotMessageFromServer;
+   serverConnection.onopen = (function(event) {
+    serverConnection.send(JSON.stringify({
+     displayName: localDisplayName,
+     uuid: localUuid,
+     dest: "all"
+    }));
+   });
+  })).catch((function(errorHandler) {
+   console.error("Error setting up websocket connection.", errorHandler);
+  }));
+ } else {
+  alert("Your browser does not support getUserMedia API");
+ }
+}
 function __isLeapYear(year) {
  return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
 }
@@ -19705,7 +19730,6 @@ Module.asmLibraryArg = {
  "_JS_WebRequest_SetRequestHeader": _JS_WebRequest_SetRequestHeader,
  "_JS_WebRequest_SetResponseHandler": _JS_WebRequest_SetResponseHandler,
  "_JS_WebRequest_SetTimeout": _JS_WebRequest_SetTimeout,
- "_RequestMic": _RequestMic,
  "_Send": _Send,
  "_SocketClose": _SocketClose,
  "_SocketCreate": _SocketCreate,
@@ -20067,6 +20091,7 @@ Module.asmLibraryArg = {
  "_setenv": _setenv,
  "_sigaction": _sigaction,
  "_sigemptyset": _sigemptyset,
+ "_start": _start,
  "_strftime": _strftime,
  "_sysconf": _sysconf,
  "_time": _time,
