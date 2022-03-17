@@ -4630,8 +4630,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a0a7aaf948ba94b8b7f2ea51263f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: {fileID: 0}
-  crosshair: {fileID: 0}
+  mainMenu: {fileID: 1633500876}
+  crosshair: {fileID: 781016542}
 --- !u!4 &1136770983
 Transform:
   m_ObjectHideFlags: 0
