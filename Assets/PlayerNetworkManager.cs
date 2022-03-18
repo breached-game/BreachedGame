@@ -86,6 +86,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdStartGame(GameObject setupObject)
     {
+        print("start game command");
         NetworkServer.SpawnObjects();
         CallUpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
