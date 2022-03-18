@@ -19,7 +19,7 @@ public class LauncherUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        manager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+        manager = GameObject.Find("NetworkManager").GetComponent<MyNetworkManager>();
     }
 
     // Update is called once per frame
@@ -118,21 +118,11 @@ public class LauncherUI : MonoBehaviour
 
     public void StopButtons()
     {
-        // stop host if host mode
-        if (NetworkServer.active && NetworkClient.isConnected)
-        {
-                manager.StopHost();
-        }
         // stop client if client-only
-        else if (NetworkClient.isConnected)
+        if (NetworkClient.isConnected)
         {
                 manager.StopClient();
         }
-        // stop server if server-only
-        else if (NetworkServer.active)
-        {
-                manager.StopServer();
-        }
-        Application.Quit();
+        //Application.Quit();
     }
 }
