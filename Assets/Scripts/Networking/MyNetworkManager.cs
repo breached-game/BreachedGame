@@ -38,6 +38,7 @@ public class MyNetworkManager : NetworkManager
         }
         */
         //Delete Player
+        conn.identity.gameObject.GetComponent<PlayerNetworkManager>().checkPlayers();
         NetworkServer.Destroy(conn.identity.gameObject);
     }
 

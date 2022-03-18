@@ -35,17 +35,27 @@ public class PlayerNetworkManager : NetworkBehaviour
         myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
     }
 
+    public void checkPlayers()
+    {
+        if (NetworkServer.connections.Count == 0)
+        {
+            CmdChangeScene("Lobby");
+        }
+    }
+
     public void ChangeToSub()
     {
         starter = true;
-        CmdChangeToSub();
+        CmdChangeScene("Submarine");
     }
 
+    #region:SceneChange
     [Command]
-    public void CmdChangeToSub()
+    public void CmdChangeScene(string scene)
     {
-        myNetworkManager.ServerChangeScene("Submarine");
+        myNetworkManager.ServerChangeScene(scene);
     }
+    #endregion
 
     #region:ControlRod
     public void MoveControlRod(Vector3 direction, float magnitude, GameObject controlRod)
@@ -103,8 +113,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         print("start game command");
         print(NetworkServer.SpawnObjects());
-        //CallUpdateStartGame(setupObject);
-        //StartCoroutine(masterTimer());
+        CallUpdateStartGame(setupObject);
+        StartCoroutine(masterTimer());
         timerStarted = true;
     }
 
