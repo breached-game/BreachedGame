@@ -14,8 +14,9 @@ public class Setup : MonoBehaviour
     public GameObject timer;
     private List<Vector3> startPositionItems;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        Debug.Log("game started");
         bool firstPlayer = true;
         //Bad practice we should pass players in some other way 
         players = GameObject.FindGameObjectsWithTag("Player");

@@ -1773,7 +1773,7 @@ MonoBehaviour:
   autoStartServerBuild: 1
   showDebugMessages: 0
   serverTickRate: 30
-  offlineScene: Assets/Scenes/Main Menu.unity
+  offlineScene: Assets/Scenes/MainMenu.unity
   onlineScene: Assets/Scenes/Lobby.unity
   transport: {fileID: 284226483}
   networkAddress: breached.icedcoffee.dev

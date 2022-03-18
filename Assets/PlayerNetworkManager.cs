@@ -17,11 +17,23 @@ public class PlayerNetworkManager : NetworkBehaviour
     private GameObject Timer;
     private TimerManager timerManager;
 
+    private GameObject networkManager;
+    private MyNetworkManager myNetworkManager;
+
     private NetworkIdentity networkIdentity;
     // Pass in the gameobject, data, 
      void Awake()
     {
         networkIdentity = GetComponent<NetworkIdentity>();
+    }
+
+    void Start()
+    {
+        if (!isServer)
+        {
+            networkManager = GameObject.Find("NetworkManager");
+            myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
+        }
     }
 
     #region:ControlRod
@@ -75,9 +87,9 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
+        CallUpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
         timerStarted = true;
-        CallUpdateStartGame(setupObject);
     }
 
     [ClientRpc]

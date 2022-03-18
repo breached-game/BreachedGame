@@ -10,7 +10,7 @@ public class TimerManager : MonoBehaviour
     private Text timerText;
     public GameObject failScreen;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         slider = this.gameObject.GetComponent<Slider>();
         this.gameObject.SetActive(false);
