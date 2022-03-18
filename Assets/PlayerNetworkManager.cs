@@ -29,11 +29,8 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     void Start()
     {
-        if (!isServer)
-        {
             networkManager = GameObject.Find("NetworkManager");
             myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
-        }
     }
 
     #region:ControlRod
