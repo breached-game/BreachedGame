@@ -35,14 +35,6 @@ public class PlayerNetworkManager : NetworkBehaviour
         myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
     }
 
-    public void checkPlayers()
-    {
-        if (NetworkServer.connections.Count == 0)
-        {
-            CmdChangeScene("Lobby");
-        }
-    }
-
     public void ChangeToSub()
     {
         starter = true;

@@ -38,8 +38,11 @@ public class MyNetworkManager : NetworkManager
         }
         */
         //Delete Player
-        conn.identity.gameObject.GetComponent<PlayerNetworkManager>().checkPlayers();
         NetworkServer.Destroy(conn.identity.gameObject);
+        if (NetworkServer.connections.Count == 0)
+        {
+            this.ServerChangeScene("Lobby");
+        }
     }
 
     public override void OnServerSceneChanged(string sceneName)
