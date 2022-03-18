@@ -17,18 +17,12 @@ public class Setup : MonoBehaviour
     void Awake()
     {
         Debug.Log("game started");
-        bool firstPlayer = true;
         //Bad practice we should pass players in some other way 
         players = GameObject.FindGameObjectsWithTag("Player");
         lights.GetComponent<LightManager>().TurnPressureAlarmOn();
         timer.GetComponent<TimerManager>().startTimer(GameTime);
         foreach (GameObject player in players)
         {
-            if (firstPlayer)
-            {
-                player.GetComponent<PlayerNetworkManager>().StartGame(this.gameObject);
-                firstPlayer = false;
-            }
             player.transform.position = spawnPoint.transform.position;
             playerUI.SetActive(true);
             //GARBAGE CODING PRACTICE BELOW
@@ -39,6 +33,12 @@ public class Setup : MonoBehaviour
             }
             player.GetComponent<PlayerManager>().TurnOnAudio();
         }
+    }
+    void Start()
+    {
+        lights.GetComponent<LightManager>().TurnPressureAlarmOn();
+        timer.GetComponent<TimerManager>().startTimer(GameTime);
+        players[0].GetComponent<PlayerNetworkManager>().StartGame(this.gameObject);
         foreach (GameObject item in items)
         {
             item.SetActive(true);
