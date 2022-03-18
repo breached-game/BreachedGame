@@ -5,15 +5,15 @@ using System;
 
 public class WaterGrid : MonoBehaviour
 {
-    private Grid water_grid;
-    private GridVertex[,] gridArray;
+    public Grid water_grid;
+    public GridVertex[,] gridArray;
     private float[,] terrain;
     public int width = 60;
     public int height = 60;
     public int depth = 60;
     private bool inflow;
     private float dx;
-    private float cellSize;
+    public float cellSize;
     public float inflowRate;
     public float gravity;
     public float dt = 0.05f;
