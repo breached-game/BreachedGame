@@ -44,4 +44,8 @@ public class Setup : MonoBehaviour
             item.SetActive(true);
         }
     }
+    private void Start()
+    {
+        Debug.Log("start");
+    }
 }

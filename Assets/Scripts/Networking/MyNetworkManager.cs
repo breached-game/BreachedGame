@@ -40,4 +40,10 @@ public class MyNetworkManager : NetworkManager
         //Delete Player
         NetworkServer.Destroy(conn.identity.gameObject);
     }
+
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        base.OnServerSceneChanged(sceneName);
+        print("Scene changed to " + sceneName);
+    }
 }
