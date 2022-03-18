@@ -11,11 +11,11 @@ public class VoiceWrapper : MonoBehaviour
     [DllImport("__Internal")]
     public static extern void start();
 
-    [DllImport("__Internal")]
-    public static extern void gotMessageFromServer();
+    //[DllImport("__Internal")]
+    //public static extern void gotMessageFromServer();
     
-    [DllImport("__Internal")]
-    public static extern void setUpPeer();
+    //[DllImport("__Internal")]
+    //public static extern void setUpPeer();
 
     //    [DllImport("__Internal")]
     //    public static extern void ReturnToPlayer();
