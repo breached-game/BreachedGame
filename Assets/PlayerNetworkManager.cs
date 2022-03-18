@@ -29,8 +29,19 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     void Start()
     {
-            networkManager = GameObject.Find("NetworkManager");
-            myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
+        networkManager = GameObject.Find("NetworkManager");
+        myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
+    }
+
+    public void ChangeToSub()
+    {
+        CmdChangeToSub();
+    }
+
+    [Command]
+    public void CmdChangeToSub()
+    {
+        myNetworkManager.ServerChangeScene("Submarine");
     }
 
     #region:ControlRod

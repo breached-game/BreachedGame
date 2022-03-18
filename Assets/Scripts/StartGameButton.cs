@@ -31,8 +31,7 @@ public class StartGameButton : NetworkBehaviour
 
     public void StartGame(GameObject player)
     {
-        //player.GetComponent<PlayerNetworkManager>().StartGame(this.gameObject);
-        myNetworkManager.ServerChangeScene("Submarine");
+        player.GetComponent<PlayerNetworkManager>().ChangeToSub();
     }
 
     /*
