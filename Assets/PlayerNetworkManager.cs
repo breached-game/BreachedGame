@@ -14,6 +14,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     float time = 300f;
     int increments = 2000;
 
+    private bool starter = false;
+
     private GameObject Timer;
     private TimerManager timerManager;
 
@@ -35,6 +37,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void ChangeToSub()
     {
+        starter = true;
         CmdChangeToSub();
     }
 
@@ -88,7 +91,11 @@ public class PlayerNetworkManager : NetworkBehaviour
     #region:StartButton
     public void StartGame(GameObject setupObject)
     {
-        CmdStartGame(setupObject);
+        if (starter)
+        {
+            CmdStartGame(setupObject);
+            starter = false;
+        }
     }
 
     [Command]
