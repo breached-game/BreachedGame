@@ -46,10 +46,12 @@ public class DoorSwitchManagers : MonoBehaviour
             if (currentDoorState[i] == 0)
             {
                 // close doors[i]
+                transform.gameObject.transform.GetChild(i).gameObject.SetActive(false);
             }
             else
             {
                 // open doors[i]
+                transform.gameObject.transform.GetChild(i).gameObject.SetActive(true);
             }
 
         }

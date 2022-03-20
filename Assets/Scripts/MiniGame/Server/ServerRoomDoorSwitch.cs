@@ -8,14 +8,17 @@ public class ServerRoomDoorSwitch : MonoBehaviour
     private int currentValue = 0;
     public int switchID;
 
-    public void OnLeverUp() 
+    //Send to network
+    public void OnLeverChange(GameObject player) 
     {
-        currentValue = 0;
-        SendCurrentState();
+        player.GetComponent<PlayerNetworkManager>().OnLeverUp(gameObject);
     }
-    public void OnLeverDown() 
+
+    //Recieved for all players via network manager 
+    public void UpdateOnLeverChange()
     {
-        currentValue = 1;
+        if (currentValue == 1) currentValue = 0;
+        else currentValue = 1;
         SendCurrentState();
     }
 
@@ -23,7 +26,4 @@ public class ServerRoomDoorSwitch : MonoBehaviour
     {
         doorSwitchManager.GetComponent<DoorSwitchManagers>().RecieveNewSwitchState(switchID, currentValue);
     }
-
-
-
 }

@@ -24,7 +24,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     private NetworkIdentity networkIdentity;
     // Pass in the gameobject, data, 
-     void Awake()
+    void Awake()
     {
         networkIdentity = GetComponent<NetworkIdentity>();
     }
@@ -215,4 +215,22 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    #region:ServerDoors
+
+    public void OnLeverUp(GameObject lever)
+    {
+        CmdOnLeverUp(lever);
+    }
+    [Command]
+    public void CmdOnLeverUp(GameObject lever)
+    {
+        CallUpdateAllOnLeverUp(lever);
+    }
+    [ClientRpc]
+    public void CallUpdateAllOnLeverUp(GameObject lever)
+    {
+        lever.GetComponent<ServerRoomDoorSwitch>().UpdateOnLeverChange();
+    }
+
+    #endregion
 }
