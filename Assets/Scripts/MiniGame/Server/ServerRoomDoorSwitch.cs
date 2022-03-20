@@ -17,8 +17,16 @@ public class ServerRoomDoorSwitch : MonoBehaviour
     //Recieved for all players via network manager 
     public void UpdateOnLeverChange()
     {
-        if (currentValue == 1) currentValue = 0;
-        else currentValue = 1;
+        if (currentValue == 1)
+        {
+            currentValue = 0;
+            transform.GetChild(0).GetComponent<Animator>().Play("Off");
+        }
+        else
+        {
+            currentValue = 1;
+            transform.GetChild(0).GetComponent<Animator>().Play("On");
+        }
         SendCurrentState();
     }
 

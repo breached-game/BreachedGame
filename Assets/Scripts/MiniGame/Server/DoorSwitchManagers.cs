@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorSwitchManagers : MonoBehaviour
 {
    
-    private List<GameObject> doors;
+    private List<GameObject> doors =new List<GameObject>();
 
     private Vector3Int currentSwitchState;
     private List<int>  currentDoorState;
@@ -25,9 +25,9 @@ public class DoorSwitchManagers : MonoBehaviour
     {
         currentSwitchState = new Vector3Int(0, 0, 0);
         currentDoorState = combinationToDoor[currentSwitchState];
-        foreach (Transform child in transform)
+        for(int i = 0; i < this.gameObject.transform.childCount; i++)
         {
-            doors.Add(child.gameObject);
+            doors.Add(transform.GetChild(i).gameObject);
         }
         UpdateDoors();
     }
@@ -43,15 +43,20 @@ public class DoorSwitchManagers : MonoBehaviour
     {
         for (int i = 0; i < currentDoorState.Count; i++)
         {
+            Animator aniDoor = transform.GetChild(i).GetComponent<Animator>();
             if (currentDoorState[i] == 0)
             {
-                // close doors[i]
-                transform.gameObject.transform.GetChild(i).gameObject.SetActive(false);
+                if (aniDoor.GetCurrentAnimatorStateInfo(0).IsName("Closed"))
+                {
+                    aniDoor.GetComponent<Animator>().Play("Closed");
+                }
             }
             else
             {
-                // open doors[i]
-                transform.gameObject.transform.GetChild(i).gameObject.SetActive(true);
+                if (aniDoor.GetCurrentAnimatorStateInfo(0).IsName("Open"))
+                {
+                    aniDoor.GetComponent<Animator>().Play("Open");
+                }
             }
 
         }
