@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorSwitchManagers : MonoBehaviour
 {
    
-    public List<GameObject> doors;
+    private List<GameObject> doors;
 
     private Vector3Int currentSwitchState;
     private List<int>  currentDoorState;
