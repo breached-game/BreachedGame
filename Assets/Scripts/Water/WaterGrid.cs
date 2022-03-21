@@ -28,6 +28,7 @@ public class WaterGrid : MonoBehaviour
     private List<Vector3> vertices = new List<Vector3>();
     private List<int> triangles = new List<int>();
     private Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
+    public Transform particleSystem;
 
     void Awake()
     {
@@ -76,6 +77,7 @@ public class WaterGrid : MonoBehaviour
             zInflow = inflowLocations[i][2];
 
             gridArray[xInflow, zInflow].Seth(yInflow);
+            Instantiate(particleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(inflowLocations[i][0], 0, inflowLocations[i][2])), Quaternion.Euler(new Vector3(-90, 0, 0)));
         }
     }
 
