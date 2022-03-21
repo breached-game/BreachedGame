@@ -12436,7 +12436,7 @@ MonoBehaviour:
   controlRodUI: {fileID: 1891082609}
   controlRod: {fileID: 1212675507}
   playerUI: {fileID: 1636883686}
-  playerPos: {fileID: 0}
+  playerPos: {fileID: 465995127}
   currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!65 &604787083
