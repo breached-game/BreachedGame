@@ -12,7 +12,7 @@ public class Setup : MonoBehaviour
     public List<GameObject> items;
     public int GameTime = 300;
     public GameObject timer;
-    private List<Vector3> startPositionItems;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +26,9 @@ public class Setup : MonoBehaviour
         {
             if (firstPlayer)
             {
-                player.GetComponent<PlayerNetworkManager>().StartGame(this.gameObject);
+                PlayerNetworkManager playerManager = player.GetComponent<PlayerNetworkManager>();
+                playerManager.StartGame(this.gameObject);
+                playerManager.AssignSkin();
                 firstPlayer = false;
             }
             player.transform.position = spawnPoint.transform.position;
@@ -38,10 +40,6 @@ public class Setup : MonoBehaviour
                 playerUI.transform.GetChild(i).gameObject.SetActive(true);
             }
             player.GetComponent<PlayerManager>().TurnOnAudio();
-        }
-        foreach (GameObject item in items)
-        {
-            item.SetActive(true);
         }
     }
 }

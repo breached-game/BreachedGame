@@ -6,20 +6,7 @@ using Mirror;
 
 public class NameTagManager : NetworkBehaviour
 {
-    [SyncVar] public string playerName;
-    private GameObject nameTag;
-    private NetworkIdentity identity;
+    public GameObject nameTag;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        identity = GetComponent<NetworkIdentity>();
-        if (identity.isLocalPlayer) { return; }
-        else
-        {
-            playerName = PlayerPrefs.GetString("PlayerName");
-            SetName();
-        }
-    }
-    private void SetName() => nameTag.transform.GetComponent<TextMeshProUGUI>().text = playerName;
+    public void SetName(string name) => nameTag.transform.GetComponent<TextMeshProUGUI>().text = name;
 }

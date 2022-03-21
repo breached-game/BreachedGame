@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerName: 
+  nameTag: {fileID: 1270923463409862057}
 --- !u!136 &4862732181643822166
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -206,7 +206,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  Timer: {fileID: 8914208378216083883, guid: bf67faa4f5be8b44690cc062a76abe9e, type: 3}
+  playerMats:
+  - {fileID: 2100000, guid: 0be8b0fa11242ee438d10da030302be8, type: 2}
+  - {fileID: 2100000, guid: 6eebc9624bb03ef4bbe46c1c9bf31971, type: 2}
+  - {fileID: 2100000, guid: e6f77d092b0c18b49b212525383da569, type: 2}
+  - {fileID: 2100000, guid: 20626af38d0b4b245aa813fe48171868, type: 2}
 --- !u!1 &1270923463409862057
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2543290255893378826
 RectTransform:
   m_ObjectHideFlags: 0

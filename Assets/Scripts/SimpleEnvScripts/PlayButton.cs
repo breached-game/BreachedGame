@@ -8,6 +8,7 @@ public class PlayButton : MonoBehaviour
     public Material MouseOnColour;
     private Material preMat;
     public GameObject networkManager;
+    public GameObject nameManager;
     private MyNetworkManager myNetworkManager;
 
     private void Start()
@@ -32,6 +33,7 @@ public class PlayButton : MonoBehaviour
         //myNetworkManager.ServerChangeScene("Lobby");
         if (!NetworkClient.active)
         {
+            PlayerPrefs.SetString("Name", nameManager.GetComponent<TypeInNameMainMenui>().name);
             myNetworkManager.StartClient();
         }
         else print("Trying to connect when already connected");
