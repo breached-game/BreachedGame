@@ -23,6 +23,11 @@ public class PlayerNetworkManager : NetworkBehaviour
     private MyNetworkManager myNetworkManager;
 
     private NetworkIdentity networkIdentity;
+
+    private FirstPersonController cameraController;
+
+    private GameObject alarms;
+    private PressureAlarm alarmManager;
     // Pass in the gameobject, data, 
     void Awake()
     {
@@ -33,6 +38,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         networkManager = GameObject.Find("NetworkManager");
         myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
+        cameraController = gameObject.GetComponentInChildren<FirstPersonController>();
     }
 
     public void ChangeToSub()
@@ -86,8 +92,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         controlRodController.gameObject.GetComponent<ControlRodTransport>().currentPlayer = player;
     }
-
-
     #endregion
 
     #region:StartButton
@@ -107,6 +111,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         CallUpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
         timerStarted = true;
+        StartCoroutine(AlarmTimer());
     }
 
     [ClientRpc]
@@ -115,6 +120,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
+        alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
     }
     #endregion
 
@@ -131,7 +137,38 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     void CallPressureAlarmPress(GameObject pressureAlarm)
     {
-        pressureAlarm.GetComponent<PressureAlarm>().PressureAlarmPress();
+        pressureAlarm.GetComponent<PressureAlarm>().StopAlarm();
+    }
+    #endregion
+
+    #region:PressureAlarm
+    IEnumerator AlarmTimer()
+    {
+        float wait = 0f;
+        float duration = 0f;
+        while (true)
+        {
+            wait = Random.Range(20, 30);
+            yield return new WaitForSeconds(wait);
+            duration = Random.Range(2, 5);
+            TurnAlarmOn();
+            yield return new WaitForSeconds(duration);
+            TurnAlarmOff();
+        }
+    }
+
+    [ClientRpc]
+    void TurnAlarmOn()
+    {
+        cameraController.StartShake();
+        alarmManager.StartAlarm();
+    }
+
+    [ClientRpc]
+    void TurnAlarmOff()
+    {
+        cameraController.StopShake();
+        alarmManager.StopAlarm();
     }
     #endregion
 

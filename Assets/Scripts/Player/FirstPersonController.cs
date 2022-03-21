@@ -20,6 +20,11 @@ public class FirstPersonController : MonoBehaviour
     public int minAngle;
     public int maxAngle;
     public bool cameraEnabled = true;
+    private bool shaking = false;
+
+    private float originalSpeed;
+    private float originalSprintSpeed;
+    
 
     private NetworkIdentity identity;
 
@@ -33,12 +38,45 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
+    public void StartShake()
+    {
+        shaking = true;
+        originalSpeed = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed;
+        originalSprintSpeed = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed;
+        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed = 0.5f;
+        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed = 0.5f;
+        StartCoroutine(Shake());
+    }
+
+    IEnumerator Shake()
+    {
+        Quaternion originalRotation = transform.rotation;
+        float x;
+        float y;
+        while (shaking)
+        {
+            transform.rotation = originalRotation;
+            x = Random.Range(-5f, 5f);
+            y = Random.Range(-5f, 5f);
+            transform.rotation = Quaternion.Euler(x + originalRotation.eulerAngles.x, y + originalRotation.eulerAngles.y, originalRotation.eulerAngles.z);
+            yield return new WaitForSeconds(0.01f);
+        }
+        transform.rotation = originalRotation;
+    }
+
+    public void StopShake()
+    {
+        shaking = false;
+        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed = originalSpeed;
+        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed = originalSprintSpeed;
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (identity.isLocalPlayer)
         {
-            if (cameraEnabled)
+            if (cameraEnabled && !shaking)
             {
                 // md is mosue delta
                 var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));

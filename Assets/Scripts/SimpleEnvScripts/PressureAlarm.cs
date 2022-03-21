@@ -6,15 +6,14 @@ using Mirror;
 public class PressureAlarm : NetworkBehaviour
 {
     public GameObject lights;
-    public void PressureAlarmPress()
+
+    public void StartAlarm()
     {
-        lights.GetComponent<LightManager>().TurnPressureAlarmOff();
-        StartCoroutine(AlarmTimer());
+        lights.GetComponent<LightManager>().TurnPressureAlarmOn();
     }
 
-    IEnumerator AlarmTimer()
+    public void StopAlarm()
     {
-        yield return new WaitForSeconds(30);
-        lights.GetComponent<LightManager>().TurnPressureAlarmOn();
+        lights.GetComponent<LightManager>().TurnPressureAlarmOff();
     }
 }

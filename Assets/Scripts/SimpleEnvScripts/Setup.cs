@@ -12,6 +12,7 @@ public class Setup : MonoBehaviour
     public List<GameObject> items;
     public int GameTime = 300;
     public GameObject timer;
+    public GameObject alarms;
 
     // Start is called before the first frame update
     void Start()
