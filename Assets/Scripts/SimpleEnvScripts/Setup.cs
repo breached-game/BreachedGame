@@ -21,7 +21,7 @@ public class Setup : MonoBehaviour
         bool firstPlayer = true;
         //Bad practice we should pass players in some other way 
         players = GameObject.FindGameObjectsWithTag("Player");
-        lights.GetComponent<LightManager>().TurnPressureAlarmOn();
+        //lights.GetComponent<LightManager>().TurnPressureAlarmOn();
         timer.GetComponent<TimerManager>().startTimer(GameTime);
         foreach (GameObject player in players)
         {
