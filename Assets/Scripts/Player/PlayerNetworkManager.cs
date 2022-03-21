@@ -153,9 +153,9 @@ public class PlayerNetworkManager : NetworkBehaviour
             duration = Random.Range(5, 10);
             TurnAlarmOn();
             yield return new WaitForSeconds(1);
-            cameraController.StartShake();
+            ShakeCameraOn();
             yield return new WaitForSeconds(duration);
-            cameraController.StopShake();
+            ShakeCameraOff();
             yield return new WaitForSeconds(1);
             TurnAlarmOff();
         }
@@ -172,6 +172,18 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         alarmManager.StopAlarm();
     }
+
+    [ClientRpc]
+    void ShakeCameraOn()
+    {
+        cameraController.StartShake();
+    }
+
+    [ClientRpc]
+    void ShakeCameraOff()
+    {
+        cameraController.StopShake();
+    }    
     #endregion
 
     #region:DropOff
