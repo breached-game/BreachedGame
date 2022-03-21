@@ -254,7 +254,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         foreach (GameObject player in players)
         {
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer) CmdSetName(player, PlayerPrefs.GetString("Name"));
-            player.GetComponent<PlayerManager>().PlayerModel.GetComponent<MeshRenderer>().material = playerMats[i];
+            player.GetComponent<PlayerManager>().PlayerModel.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = playerMats[i];
             i++;
         }
     }
