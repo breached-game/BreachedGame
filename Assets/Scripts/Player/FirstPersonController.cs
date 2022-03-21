@@ -43,8 +43,8 @@ public class FirstPersonController : MonoBehaviour
         shaking = true;
         originalSpeed = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed;
         originalSprintSpeed = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed;
-        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed = 0.5f;
-        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed = 0.5f;
+        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed = 1f;
+        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed = 1f;
         StartCoroutine(Shake());
     }
 
