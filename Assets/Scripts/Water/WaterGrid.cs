@@ -29,6 +29,7 @@ public class WaterGrid : MonoBehaviour
     private List<int> triangles = new List<int>();
     private Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
     public Transform particleSystem;
+    private Vector3Int playerGridPos;
 
     void Awake()
     {
@@ -85,10 +86,7 @@ public class WaterGrid : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            savedSpeeds[0] = other.gameObject.GetComponent<PlayerManager>().Speed;
-            savedSpeeds[1] = other.gameObject.GetComponent<PlayerManager>().SprintSpeed;
-            other.gameObject.GetComponent<PlayerManager>().Speed = playerSpeed;
-            other.gameObject.GetComponent<PlayerManager>().SprintSpeed = playerSpeed;
+            StartCoroutine(CheckPlayerPos(other.gameObject));
         }
         else
         {
@@ -107,12 +105,39 @@ public class WaterGrid : MonoBehaviour
         }
     }
 
+    IEnumerator CheckPlayerPos(GameObject player)
+    {
+        PlayerManager playerManager = player.GetComponent<PlayerManager>();
+        savedSpeeds[0] = playerManager.defaultSpeed;
+        savedSpeeds[1] = playerManager.defaultSprintSpeed;
+        while (true) {
+            playerGridPos = water_grid.LocalToCell(player.transform.position - water_grid.transform.position);
+            if (!(playerGridPos.x < 0 || playerGridPos.x > width || playerGridPos.z < 0 || playerGridPos.z > depth))
+            {
+                print(playerGridPos);
+                if (gridArray[playerGridPos.x, playerGridPos.z].Geth() > 0)
+                {
+                    playerManager.Speed = playerSpeed;
+                    playerManager.SprintSpeed = playerSpeed;
+                }
+                else
+                {
+                    playerManager.Speed = savedSpeeds[0];
+                    playerManager.SprintSpeed = savedSpeeds[1];
+                }
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
+        PlayerManager playerManager = other.gameObject.GetComponent<PlayerManager>();
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerManager>().Speed = savedSpeeds[0];
-            other.gameObject.GetComponent<PlayerManager>().SprintSpeed = savedSpeeds[1];
+            StopCoroutine(CheckPlayerPos(other.gameObject));
+            playerManager.Speed = savedSpeeds[0];
+            playerManager.SprintSpeed = savedSpeeds[1];
         }
     }
 

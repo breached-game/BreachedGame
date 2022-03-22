@@ -56,8 +56,8 @@ public class FirstPersonController : MonoBehaviour
         while (shaking)
         {
             transform.rotation = originalRotation;
-            x = Random.Range(-5f, 5f);
-            y = Random.Range(-5f, 5f);
+            x = Random.Range(-3f, 3f);
+            y = Random.Range(-3f, 3f);
             transform.rotation = Quaternion.Euler(x + originalRotation.eulerAngles.x, y + originalRotation.eulerAngles.y, originalRotation.eulerAngles.z);
             yield return new WaitForSeconds(0.01f);
         }

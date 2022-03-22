@@ -22,6 +22,9 @@ public class PlayerManager : NetworkBehaviour
 
     public bool disableInteractionsForMinigame = false;
 
+    public float defaultSpeed;
+    public float defaultSprintSpeed;
+
     void Awake()
     {
         _controller = GetComponent<CharacterController>();
@@ -31,7 +34,8 @@ public class PlayerManager : NetworkBehaviour
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(this.gameObject);
-
+        defaultSpeed = Speed;
+        defaultSprintSpeed = SprintSpeed;
     }
 
     public void TurnOnAudio()

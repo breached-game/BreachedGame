@@ -150,7 +150,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         {
             wait = Random.Range(20, 30);
             yield return new WaitForSeconds(wait);
-            duration = Random.Range(5, 10);
+            duration = Random.Range(3, 7);
             TurnAlarmOn();
             yield return new WaitForSeconds(1);
             ShakeCameraOn();
