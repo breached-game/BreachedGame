@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -36998,7 +36998,7 @@ MonoBehaviour:
   - {x: 5, y: 25, z: 5}
   run: 0
   playerSpeed: 3
-  particleSystem: {fileID: 1312577820116191301, guid: 786380df32e18904d8ebf9ff75515d42,
+  particleSystem: {fileID: 4434907143542138, guid: 3d19250bdd4e0df4c8da855e85a8d70b,
     type: 3}
 --- !u!4 &1807476031
 Transform:
