@@ -35,8 +35,6 @@ public class Floater : MonoBehaviour
         float waveHeight = gridArray[cellPos.x, cellPos.z].GetVertexPosition().y;
         if (localPosition.y - waterGrid.transform.position.y < waveHeight)
         {
-            print("Wave height: " + waveHeight);
-            print("Y Position: " + localPosition.y);
             float displacementMultiplier = Mathf.Clamp01((waveHeight - localPosition.y) / depthBeforeSubmerged) * displacementAmount;
             rigidBody.AddForceAtPosition(new Vector3(0f, Mathf.Abs(Physics.gravity.y) * displacementMultiplier, 0f), localPosition, ForceMode.Acceleration);
             rigidBody.AddForce(displacementMultiplier * -rigidBody.velocity * waterDrag * Time.fixedDeltaTime, ForceMode.VelocityChange);
