@@ -114,7 +114,6 @@ public class WaterGrid : MonoBehaviour
             playerGridPos = water_grid.LocalToCell(player.transform.position - water_grid.transform.position);
             if (!(playerGridPos.x < 0 || playerGridPos.x > width || playerGridPos.z < 0 || playerGridPos.z > depth))
             {
-                print(playerGridPos);
                 if (gridArray[playerGridPos.x, playerGridPos.z].Geth() > 0)
                 {
                     playerManager.Speed = playerSpeed;
