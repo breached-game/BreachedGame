@@ -116,6 +116,10 @@ public class PlayerNetworkManager : NetworkBehaviour
         timerStarted = true;
         StartCoroutine(AlarmTimer());
         GetColourCombo(5);
+        while (colourManager == null)
+        {
+        }
+        SetColourCombination();
     }
 
     private void GetColourCombo(int l)
