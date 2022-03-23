@@ -138,6 +138,9 @@ public class PlayerNetworkManager : NetworkBehaviour
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
+        setupObject.GetComponent<Setup>().correctColourCombination = correctColourCombination;
+        print("Server Colour combo: " + correctColourCombination);
+        print("Colour combo: " + setupObject.GetComponent<Setup>().correctColourCombination);
     }
     #endregion
 
@@ -249,11 +252,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdButtonPressed(GameObject button)
     {
-        if (firstButton)
-        {
-            firstButton = false;
-            UpdateColourCombo(button);
-        }
         CallUpdateAllButtonPresses(button);
         //button.transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour, mat);
         print("We syncing the button y'all");
@@ -264,13 +262,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CallUpdateAllButtonPresses(GameObject button)
     {
         button.GetComponent<ColourMiniGameButton>().UpdateAllButtonPresses();
-    }
-
-    [ClientRpc]
-    public void UpdateColourCombo(GameObject button)
-    {
-        button.transform.parent.GetComponent<ColourMiniGameManger>().correctColourCombination = correctColourCombination;
-        print("Colour combo: " + correctColourCombination);
     }
     #endregion
 

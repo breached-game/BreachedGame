@@ -23,6 +23,8 @@ public class ColourMiniGameManger : MonoBehaviour
     public float interval = 0.3f;
     public int NumberOfFlashes = 3;
 
+    public GameObject setupObject;
+
     public void Reset()
     {
         minigameManager = transform.parent.GetComponent<MinigameManager>();
@@ -31,7 +33,12 @@ public class ColourMiniGameManger : MonoBehaviour
 
     private void Start()
     {
+        Setup setup = setupObject.GetComponent<Setup>();
         Reset();
+        while (setup.correctColourCombination.Count == 0)
+        {
+        }
+        correctColourCombination = setupObject.GetComponent<Setup>().correctColourCombination;
     }
 
     public void sendPressedColour(string colour, Material mat)
