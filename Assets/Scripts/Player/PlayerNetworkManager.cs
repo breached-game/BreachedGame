@@ -121,7 +121,19 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
-        GetColourCombo(5);
+        string[] colours = new string[] { "red", "green", "blue" };
+        correctColourCombination = new List<string>();
+        int r;
+        r = Random.Range(0, colours.Length - 1);
+        colour1 = colours[r];
+        r = Random.Range(0, colours.Length - 1);
+        colour2 = colours[r];
+        r = Random.Range(0, colours.Length - 1);
+        colour3 = colours[r];
+        r = Random.Range(0, colours.Length - 1);
+        colour4 = colours[r];
+        r = Random.Range(0, colours.Length - 1);
+        colour5 = colours[r];
         print(colour1 + colour3);
         CallUpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
