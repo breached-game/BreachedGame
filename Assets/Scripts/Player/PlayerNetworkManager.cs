@@ -10,6 +10,16 @@ public class PlayerNetworkManager : NetworkBehaviour
     private float masterTime;
     [SyncVar]
     bool timerStarted = false;
+    [SyncVar]
+    private string colour1;
+    [SyncVar]
+    private string colour2;
+    [SyncVar]
+    private string colour3;
+    [SyncVar]
+    private string colour4;
+    [SyncVar]
+    private string colour5;
 
     float time = 300f;
     int increments = 2000;
@@ -30,8 +40,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     private PressureAlarm alarmManager;
 
     private List<string> correctColourCombination;
-    [SyncVar]
-    private string colour1, colour2, colour3, colour4, colour5;
     private ColourMiniGameManger colourManager;
     // Pass in the gameobject, data, 
     void Awake()
@@ -114,6 +122,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         NetworkServer.SpawnObjects();
         GetColourCombo(5);
+        print(colour1 + colour3);
         CallUpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
         timerStarted = true;
