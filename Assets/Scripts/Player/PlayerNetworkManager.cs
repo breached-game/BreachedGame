@@ -28,6 +28,9 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     private GameObject alarms;
     private PressureAlarm alarmManager;
+
+    private List<string> correctColourCombination;
+    private bool firstButton;
     // Pass in the gameobject, data, 
     void Awake()
     {
@@ -41,17 +44,17 @@ public class PlayerNetworkManager : NetworkBehaviour
         cameraController = gameObject.GetComponentInChildren<FirstPersonController>();
     }
 
-    public void ChangeToSub()
-    {
-        starter = true;
-        CmdChangeScene("Submarine");
-    }
-
     #region:SceneChange
     [Command]
     public void CmdChangeScene(string scene)
     {
         myNetworkManager.ServerChangeScene(scene);
+    }
+
+    public void ChangeToSub()
+    {
+        starter = true;
+        CmdChangeScene("Submarine");
     }
     #endregion
 
@@ -112,6 +115,20 @@ public class PlayerNetworkManager : NetworkBehaviour
         StartCoroutine(masterTimer());
         timerStarted = true;
         StartCoroutine(AlarmTimer());
+        firstButton = true;
+        GetColourCombo(5);
+    }
+
+    private void GetColourCombo(int l)
+    {
+        correctColourCombination = new List<string>();
+        string[] colours = new string[] { "red", "blue", "green" };
+        int r;
+        for (int i = 0; i < l; i++)
+        {
+            r = Random.Range(0, colours.Length - 1);
+            correctColourCombination.Add(colours[r]);
+        }
     }
 
     [ClientRpc]
@@ -232,6 +249,11 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdButtonPressed(GameObject button)
     {
+        if (firstButton)
+        {
+            firstButton = false;
+            UpdateColourCombo(button);
+        }
         CallUpdateAllButtonPresses(button);
         //button.transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour, mat);
         print("We syncing the button y'all");
@@ -242,6 +264,13 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CallUpdateAllButtonPresses(GameObject button)
     {
         button.GetComponent<ColourMiniGameButton>().UpdateAllButtonPresses();
+    }
+
+    [ClientRpc]
+    public void UpdateColourCombo(GameObject button)
+    {
+        button.transform.parent.GetComponent<ColourMiniGameManger>().correctColourCombination = correctColourCombination;
+        print("Colour combo: " + correctColourCombination);
     }
     #endregion
 
