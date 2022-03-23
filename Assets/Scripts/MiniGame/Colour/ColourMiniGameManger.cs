@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 
 public class ColourMiniGameManger : MonoBehaviour
@@ -22,6 +23,7 @@ public class ColourMiniGameManger : MonoBehaviour
     public Material white;
     public float interval = 0.3f;
     public int NumberOfFlashes = 3;
+    public GameObject[] players;
 
     public void Reset()
     {
@@ -32,6 +34,15 @@ public class ColourMiniGameManger : MonoBehaviour
     private void Start()
     {
         Reset();
+        players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            PlayerNetworkManager playerManager = player.GetComponent<PlayerNetworkManager>();
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                playerManager.SetColourManager(gameObject);
+            }
+        }
     }
 
     public void sendPressedColour(string colour, Material mat)

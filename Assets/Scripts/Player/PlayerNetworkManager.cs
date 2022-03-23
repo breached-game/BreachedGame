@@ -30,7 +30,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     private PressureAlarm alarmManager;
 
     private List<string> correctColourCombination;
-    private bool firstButton;
+    private ColourMiniGameManger colourManager;
     // Pass in the gameobject, data, 
     void Awake()
     {
@@ -115,7 +115,6 @@ public class PlayerNetworkManager : NetworkBehaviour
         StartCoroutine(masterTimer());
         timerStarted = true;
         StartCoroutine(AlarmTimer());
-        firstButton = true;
         GetColourCombo(5);
     }
 
@@ -241,6 +240,24 @@ public class PlayerNetworkManager : NetworkBehaviour
     #endregion
 
     #region:ColourButtons
+    public void SetColourManager(GameObject colourMiniGame)
+    {
+        CmdSetColourManager(colourMiniGame);
+    }
+
+    [Command] 
+    public void CmdSetColourManager(GameObject colourMiniGame)
+    {
+        colourManager = colourMiniGame.GetComponent<ColourMiniGameManger>();
+    }
+
+    [ClientRpc]
+    public void SetColourCombination()
+    {
+        colourManager.correctColourCombination = correctColourCombination;
+        print("Combo: " + correctColourCombination);
+    }
+
     public void ButtonPressed(GameObject button)
     {
         CmdButtonPressed(button);
@@ -249,11 +266,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdButtonPressed(GameObject button)
     {
-        if (firstButton)
-        {
-            firstButton = false;
-            UpdateColourCombo(button);
-        }
         CallUpdateAllButtonPresses(button);
         //button.transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour, mat);
         print("We syncing the button y'all");
@@ -264,13 +276,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CallUpdateAllButtonPresses(GameObject button)
     {
         button.GetComponent<ColourMiniGameButton>().UpdateAllButtonPresses();
-    }
-
-    [ClientRpc]
-    public void UpdateColourCombo(GameObject button)
-    {
-        button.transform.parent.GetComponent<ColourMiniGameManger>().correctColourCombination = correctColourCombination;
-        print("Colour combo: " + correctColourCombination);
     }
     #endregion
 
