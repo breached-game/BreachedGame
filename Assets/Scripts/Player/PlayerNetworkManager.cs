@@ -240,15 +240,15 @@ public class PlayerNetworkManager : NetworkBehaviour
     #endregion
 
     #region:ColourButtons
-    public void SetColourManager(GameObject colourButton)
+    public void SetColourManager(GameObject colourMiniGame)
     {
-        CmdSetColourManager(colourButton);
+        CmdSetColourManager(colourMiniGame);
     }
 
     [Command] 
-    public void CmdSetColourManager(GameObject colourButton)
+    public void CmdSetColourManager(GameObject colourMiniGame)
     {
-        colourManager = colourButton.transform.parent.GetComponent<ColourMiniGameManger>();
+        colourManager = colourMiniGame.GetComponent<ColourMiniGameManger>();
     }
 
     [ClientRpc]

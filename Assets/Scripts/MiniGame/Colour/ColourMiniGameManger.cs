@@ -40,7 +40,7 @@ public class ColourMiniGameManger : MonoBehaviour
             PlayerNetworkManager playerManager = player.GetComponent<PlayerNetworkManager>();
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                playerManager.SetColourManager(gameObject.transform.GetChild(0).gameObject);
+                playerManager.SetColourManager(gameObject);
             }
         }
     }
