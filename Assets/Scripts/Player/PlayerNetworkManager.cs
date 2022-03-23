@@ -30,6 +30,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     private PressureAlarm alarmManager;
 
     private List<string> correctColourCombination;
+    [SyncVar]
+    private string colour1, colour2, colour3, colour4, colour5;
     private ColourMiniGameManger colourManager;
     // Pass in the gameobject, data, 
     void Awake()
@@ -120,14 +122,19 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     private void GetColourCombo(int l)
     {
+        string[] colours = new string[] { "red", "green", "blue" };
         correctColourCombination = new List<string>();
-        string[] colours = new string[] { "red", "blue", "green" };
         int r;
-        for (int i = 0; i < l; i++)
-        {
-            r = Random.Range(0, colours.Length - 1);
-            correctColourCombination.Add(colours[r]);
-        }
+        r = Random.Range(0, colours.Length - 1);
+        colour1 = colours[r];
+        r = Random.Range(0, colours.Length - 1);
+        colour2 = colours[r];
+        r = Random.Range(0, colours.Length - 1);
+        colour3 = colours[r];
+        r = Random.Range(0, colours.Length - 1);
+        colour4 = colours[r];
+        r = Random.Range(0, colours.Length - 1);
+        colour5 = colours[r];
     }
 
     [ClientRpc]
@@ -137,7 +144,8 @@ public class PlayerNetworkManager : NetworkBehaviour
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
-        setupObject.GetComponent<Setup>().SetColourCombo(correctColourCombination);
+        print(colour1);
+        setupObject.GetComponent<Setup>().SetColourCombo(new List<string> { colour1, colour2, colour3, colour4, colour5});
     }
     #endregion
 
