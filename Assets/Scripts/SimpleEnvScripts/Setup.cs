@@ -13,7 +13,6 @@ public class Setup : MonoBehaviour
     public int GameTime = 300;
     public GameObject timer;
     public GameObject alarms;
-    public List<string> correctColourCombination;
 
     // Start is called before the first frame update
     void Start()
