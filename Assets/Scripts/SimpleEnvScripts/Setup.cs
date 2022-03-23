@@ -13,6 +13,7 @@ public class Setup : MonoBehaviour
     public int GameTime = 300;
     public GameObject timer;
     public GameObject alarms;
+    public GameObject colourManager;
 
     // Start is called before the first frame update
     void Start()
@@ -42,5 +43,12 @@ public class Setup : MonoBehaviour
             }
             player.GetComponent<PlayerManager>().TurnOnAudio();
         }
+    }
+
+    public void SetColourCombo(List<string> combination)
+    {
+        print("setting colour combo");
+        print(combination);
+        colourManager.GetComponent<ColourMiniGameManger>().correctColourCombination = combination;
     }
 }

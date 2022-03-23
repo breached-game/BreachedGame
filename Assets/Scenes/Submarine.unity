@@ -6297,6 +6297,7 @@ MonoBehaviour:
   white: {fileID: 2100000, guid: dfb2df479007a6149808e159b0726955, type: 2}
   interval: 0.5
   NumberOfFlashes: 3
+  players: []
 --- !u!1 &294369132
 GameObject:
   m_ObjectHideFlags: 0
@@ -20469,6 +20470,7 @@ MonoBehaviour:
   GameTime: 300
   timer: {fileID: 764042194}
   alarms: {fileID: 836301987}
+  colourManager: {fileID: 293587934}
 --- !u!1001 &982254614
 PrefabInstance:
   m_ObjectHideFlags: 0

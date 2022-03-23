@@ -34,15 +34,6 @@ public class ColourMiniGameManger : MonoBehaviour
     private void Start()
     {
         Reset();
-        players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players)
-        {
-            PlayerNetworkManager playerManager = player.GetComponent<PlayerNetworkManager>();
-            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                playerManager.SetColourManager(gameObject);
-            }
-        }
     }
 
     public void sendPressedColour(string colour, Material mat)

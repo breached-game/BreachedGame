@@ -111,11 +111,11 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
+        GetColourCombo(5);
         CallUpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
         timerStarted = true;
         StartCoroutine(AlarmTimer());
-        GetColourCombo(5);
     }
 
     private void GetColourCombo(int l)
@@ -137,6 +137,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
+        setupObject.GetComponent<Setup>().SetColourCombo(correctColourCombination);
     }
     #endregion
 
@@ -240,24 +241,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     #endregion
 
     #region:ColourButtons
-    public void SetColourManager(GameObject colourMiniGame)
-    {
-        CmdSetColourManager(colourMiniGame);
-    }
-
-    [Command] 
-    public void CmdSetColourManager(GameObject colourMiniGame)
-    {
-        colourManager = colourMiniGame.GetComponent<ColourMiniGameManger>();
-    }
-
-    [ClientRpc]
-    public void SetColourCombination()
-    {
-        colourManager.correctColourCombination = correctColourCombination;
-        print("Combo: " + correctColourCombination);
-    }
-
     public void ButtonPressed(GameObject button)
     {
         CmdButtonPressed(button);
