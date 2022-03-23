@@ -11,15 +11,15 @@ public class PlayerNetworkManager : NetworkBehaviour
     [SyncVar]
     bool timerStarted = false;
     [SyncVar]
-    private string colour1;
+    private int colour1;
     [SyncVar]
-    private string colour2;
+    private int colour2;
     [SyncVar]
-    private string colour3;
+    private int colour3;
     [SyncVar]
-    private string colour4;
+    private int colour4;
     [SyncVar]
-    private string colour5;
+    private int colour5;
 
     float time = 300f;
     int increments = 2000;
@@ -41,6 +41,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     private List<string> correctColourCombination;
     private ColourMiniGameManger colourManager;
+    string[] colours = new string[] { "red", "green", "blue" };
     // Pass in the gameobject, data, 
     void Awake()
     {
@@ -121,41 +122,23 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
-        string[] colours = new string[] { "red", "green", "blue" };
         correctColourCombination = new List<string>();
         int r;
         r = Random.Range(0, colours.Length - 1);
-        colour1 = colours[r];
+        colour1 = r;
         r = Random.Range(0, colours.Length - 1);
-        colour2 = colours[r];
+        colour2 = r;
         r = Random.Range(0, colours.Length - 1);
-        colour3 = colours[r];
+        colour3 = r;
         r = Random.Range(0, colours.Length - 1);
-        colour4 = colours[r];
+        colour4 = r;
         r = Random.Range(0, colours.Length - 1);
-        colour5 = colours[r];
+        colour5 = r;
         print(colour1 + colour3);
         CallUpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
         timerStarted = true;
         StartCoroutine(AlarmTimer());
-    }
-
-    private void GetColourCombo(int l)
-    {
-        string[] colours = new string[] { "red", "green", "blue" };
-        correctColourCombination = new List<string>();
-        int r;
-        r = Random.Range(0, colours.Length - 1);
-        colour1 = colours[r];
-        r = Random.Range(0, colours.Length - 1);
-        colour2 = colours[r];
-        r = Random.Range(0, colours.Length - 1);
-        colour3 = colours[r];
-        r = Random.Range(0, colours.Length - 1);
-        colour4 = colours[r];
-        r = Random.Range(0, colours.Length - 1);
-        colour5 = colours[r];
     }
 
     [ClientRpc]
@@ -166,7 +149,9 @@ public class PlayerNetworkManager : NetworkBehaviour
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
         print(colour1);
-        setupObject.GetComponent<Setup>().SetColourCombo(new List<string> { colour1, colour2, colour3, colour4, colour5});
+        print(timerStarted);
+        print(masterTime);
+        setupObject.GetComponent<Setup>().SetColourCombo(new List<string> { colours[colour1], colours[colour2], colours[colour3], colours[colour4], colours[colour5] });
     }
     #endregion
 
