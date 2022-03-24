@@ -115,12 +115,11 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
-        setupManager = setupObject.GetComponent<Setup>();
-        SetColourCombo();
+        CallUpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
         timerStarted = true;
         StartCoroutine(AlarmTimer());
-        CallUpdateStartGame(setupObject);
+        SetColourCombo();
     }
 
     private void SetColourCombo()
@@ -137,6 +136,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     void CallUpdateStartGame(GameObject setupObject)
     {
         //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
+        setupManager = setupObject.GetComponent<Setup>();
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
