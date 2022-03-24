@@ -21,7 +21,7 @@ public class WaterGrid : MonoBehaviour
     public float dt = 0.05f;
     public Mesh columnMesh;
     private MeshFilter meshFilter;
-    public Vector3Int[] inflowLocations;
+    public GameObject[] inflowLocations;
     private BoxCollider boxCollider;
     public bool run = false;
     public float playerSpeed;
@@ -84,15 +84,18 @@ public class WaterGrid : MonoBehaviour
         int yInflow;
         int zInflow;
         int inflowLocationsSize = inflowLocations.Length;
+        Vector3Int breachPosition;
 
         for (int i = 0; i < inflowLocationsSize; i++)
         {
-            xInflow = inflowLocations[i][0];
-            yInflow = inflowLocations[i][1];
-            zInflow = inflowLocations[i][2];
+            breachPosition = water_grid.LocalToCell(inflowLocations[i].transform.position - water_grid.transform.position);
+
+            xInflow = breachPosition.x;
+            yInflow = breachPosition.y;
+            zInflow = breachPosition.z;
 
             gridArray[xInflow, zInflow].Seth(yInflow);
-            Instantiate(waterParticleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(inflowLocations[i][0], 0, inflowLocations[i][2])), Quaternion.Euler(new Vector3(0, 0, 180)));
+            Instantiate(waterParticleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180)));
         }
     }
 
@@ -207,6 +210,7 @@ public class WaterGrid : MonoBehaviour
         tempFlux.Clear();
         Dictionary<Vector2Int, float> currentOutflows;
         GridVertex currentColumn;
+        Vector3Int breachPosition;
 
         int xInflow;
         int zInflow;
@@ -215,8 +219,11 @@ public class WaterGrid : MonoBehaviour
         {
             for (int i = 0; i < inflowLocationsSize; i++)
             {
-                xInflow = inflowLocations[i][0];
-                zInflow = inflowLocations[i][2];
+                breachPosition = water_grid.LocalToCell(inflowLocations[i].transform.position - water_grid.transform.position);
+
+                xInflow = breachPosition.x;
+                zInflow = breachPosition.z;
+
                 gridArray[xInflow, zInflow].Seth(gridArray[xInflow, zInflow].Geth() + inflowRate * dt);
             }
         }
