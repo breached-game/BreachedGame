@@ -251,13 +251,11 @@ public class PlayerNetworkManager : NetworkBehaviour
             case SyncListString.Operation.OP_ADD:
                 // index is where it was added into the list
                 // newItem is the new item
-                print("Combo update");
                 if (ColourCombo.Count == comboLength)
                 {
                     List<string> correctColourCombo = new List<string>();
                     foreach (var colour in ColourCombo)
                     {
-                        print(colour);
                         correctColourCombo.Add(colour);
                     }
                     setupManager.SetColourCombo(correctColourCombo);
@@ -292,7 +290,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         CallUpdateAllButtonPresses(button);
         //button.transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour, mat);
-        print("We syncing the button y'all");
         button.transform.GetChild(0).GetComponent<Animator>().Play("Click");
     }
 

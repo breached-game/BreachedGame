@@ -18,7 +18,6 @@ public class Setup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("game started");
         bool firstPlayer = true;
         //Bad practice we should pass players in some other way 
         players = GameObject.FindGameObjectsWithTag("Player");
@@ -47,8 +46,6 @@ public class Setup : MonoBehaviour
 
     public void SetColourCombo(List<string> combination)
     {
-        print("setting colour combo");
-        print(combination);
         colourManager.GetComponent<ColourMiniGameManger>().correctColourCombination = combination;
     }
 }
