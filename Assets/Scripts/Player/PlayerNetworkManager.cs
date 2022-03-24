@@ -10,8 +10,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     private float masterTime;
     [SyncVar]
     bool timerStarted = false;
-    [SyncVar]
-    int colour = 0;
+    SyncListString colourCombo = new SyncListString();
 
     float time = 300f;
     int increments = 2000;
@@ -31,9 +30,10 @@ public class PlayerNetworkManager : NetworkBehaviour
     private GameObject alarms;
     private PressureAlarm alarmManager;
 
-    private List<string> correctColourCombination;
-    private ColourMiniGameManger colourManager;
     string[] colours = new string[] { "red", "green", "blue" };
+    private Setup setupManager;
+    private int comboLength = 5;
+
     // Pass in the gameobject, data, 
     void Awake()
     {
@@ -45,6 +45,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         networkManager = GameObject.Find("NetworkManager");
         myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
         cameraController = gameObject.GetComponentInChildren<FirstPersonController>();
+        colourCombo.Callback += onComboUpdated;
     }
 
     #region:SceneChange
@@ -113,13 +114,23 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdStartGame(GameObject setupObject)
     {
+        setupManager = setupObject.GetComponent<Setup>();
+        SetColourCombo();
         NetworkServer.SpawnObjects();
-        correctColourCombination = new List<string>();
-        colour = 2;
         StartCoroutine(masterTimer());
         timerStarted = true;
         StartCoroutine(AlarmTimer());
         CallUpdateStartGame(setupObject);
+    }
+
+    private void SetColourCombo()
+    {
+        int r;
+        for (int i = 0; i < comboLength; i++)
+        {
+            r = Random.Range(0, colours.Length - 1);
+            colourCombo.Add(colours[r]);
+        }
     }
 
     [ClientRpc]
@@ -129,8 +140,6 @@ public class PlayerNetworkManager : NetworkBehaviour
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
-        print(colour);
-        setupObject.GetComponent<Setup>().SetColourCombo(new List<string> { colours[colour], colours[colour], colours[colour], colours[colour], colours[colour] });
     }
     #endregion
 
@@ -234,6 +243,22 @@ public class PlayerNetworkManager : NetworkBehaviour
     #endregion
 
     #region:ColourButtons
+    
+    void onComboUpdated(SyncListString.Operation op, int index, string oldColour, string newColour)
+    {
+        print("Combo update");
+        if (colourCombo.Count == comboLength)
+        {
+            List<string> correctColourCombo = new List<string>();
+            foreach (var colour in colourCombo)
+            {
+                print(colour);
+                correctColourCombo.Add(colour);
+            }
+            setupManager.SetColourCombo(correctColourCombo);
+        }
+    }
+
     public void ButtonPressed(GameObject button)
     {
         CmdButtonPressed(button);
