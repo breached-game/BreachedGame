@@ -346,30 +346,21 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdAssignSkin()
     {
-        CallUpdateAssignSkin();
-    }
-    [ClientRpc]
-    public void CallUpdateAssignSkin()
-    {
         //Bad practice we should pass players in some other way 
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         int i = 0;
         foreach (GameObject player in players)
         {
-            if (player.GetComponent<NetworkIdentity>().isLocalPlayer) CmdSetName(player, PlayerPrefs.GetString("Name"));
-            player.GetComponent<PlayerManager>().PlayerModel.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = playerMats[i];
+            CallUpdateSetName(player, PlayerPrefs.GetString("Name"), playerMats[i]);
             i++;
         }
     }
-    [Command]
-    public void CmdSetName(GameObject player, string name)
-    {
-        CallUpdateSetName(player, name);
-    }
+
     [ClientRpc]
-    public void CallUpdateSetName(GameObject player, string name)
+    public void CallUpdateSetName(GameObject player, string name, Material mat)
     {
         player.GetComponent<NameTagManager>().SetName(name);
+        player.GetComponent<PlayerManager>().PlayerModel.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = mat;
     }
     #endregion
 }
