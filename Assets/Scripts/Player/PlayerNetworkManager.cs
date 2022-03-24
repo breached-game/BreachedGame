@@ -10,7 +10,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     private float masterTime;
     [SyncVar]
     bool timerStarted = false;
-    SyncListString colourCombo = new SyncListString();
+    SyncListString ColourCombo = new SyncListString();
 
     float time = 300f;
     int increments = 2000;
@@ -45,7 +45,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         networkManager = GameObject.Find("NetworkManager");
         myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
         cameraController = gameObject.GetComponentInChildren<FirstPersonController>();
-        colourCombo.Callback += onComboUpdated;
+        ColourCombo.Callback += onComboUpdated;
     }
 
     #region:SceneChange
@@ -114,9 +114,9 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdStartGame(GameObject setupObject)
     {
+        NetworkServer.SpawnObjects();
         setupManager = setupObject.GetComponent<Setup>();
         SetColourCombo();
-        NetworkServer.SpawnObjects();
         StartCoroutine(masterTimer());
         timerStarted = true;
         StartCoroutine(AlarmTimer());
@@ -129,7 +129,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         for (int i = 0; i < comboLength; i++)
         {
             r = Random.Range(0, colours.Length - 1);
-            colourCombo.Add(colours[r]);
+            ColourCombo.Add(colours[r]);
         }
     }
 
@@ -246,16 +246,39 @@ public class PlayerNetworkManager : NetworkBehaviour
     
     void onComboUpdated(SyncListString.Operation op, int index, string oldColour, string newColour)
     {
-        print("Combo update");
-        if (colourCombo.Count == comboLength)
+        switch (op)
         {
-            List<string> correctColourCombo = new List<string>();
-            foreach (var colour in colourCombo)
-            {
-                print(colour);
-                correctColourCombo.Add(colour);
-            }
-            setupManager.SetColourCombo(correctColourCombo);
+            case SyncListString.Operation.OP_ADD:
+                // index is where it was added into the list
+                // newItem is the new item
+                print("Combo update");
+                if (ColourCombo.Count == comboLength)
+                {
+                    List<string> correctColourCombo = new List<string>();
+                    foreach (var colour in ColourCombo)
+                    {
+                        print(colour);
+                        correctColourCombo.Add(colour);
+                    }
+                    setupManager.SetColourCombo(correctColourCombo);
+                }
+                break;
+            case SyncListString.Operation.OP_INSERT:
+                // index is where it was inserted into the list
+                // newItem is the new item
+                break;
+            case SyncListString.Operation.OP_REMOVEAT:
+                // index is where it was removed from the list
+                // oldItem is the item that was removed
+                break;
+            case SyncListString.Operation.OP_SET:
+                // index is of the item that was changed
+                // oldItem is the previous value for the item at the index
+                // newItem is the new value for the item at the index
+                break;
+            case SyncListString.Operation.OP_CLEAR:
+                // list got cleared
+                break;
         }
     }
 
