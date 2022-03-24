@@ -78,7 +78,7 @@ public class WaterGrid : MonoBehaviour
             zInflow = inflowLocations[i][2];
 
             gridArray[xInflow, zInflow].Seth(yInflow);
-            Instantiate(particleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(inflowLocations[i][0], 0, inflowLocations[i][2])), Quaternion.Euler(new Vector3(0, 0, 90)));
+            Instantiate(particleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(inflowLocations[i][0], 0, inflowLocations[i][2])), Quaternion.Euler(new Vector3(0, 0, 180)));
         }
     }
 
