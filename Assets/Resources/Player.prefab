@@ -92,6 +92,8 @@ MonoBehaviour:
   objectPlayerHas: {fileID: 0}
   torch: {fileID: 3913837940683992974}
   disableInteractionsForMinigame: 0
+  defaultSpeed: 0
+  defaultSprintSpeed: 0
   Speed: 4
   SprintSpeed: 6
   smooth: 5
@@ -567,7 +569,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 50
   orthographic: 0
   orthographic size: 5
   m_Depth: 0

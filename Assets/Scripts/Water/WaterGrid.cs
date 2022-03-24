@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
+using Mirror;
 
 public class WaterGrid : MonoBehaviour
 {
@@ -30,9 +32,21 @@ public class WaterGrid : MonoBehaviour
     private Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
     public Transform particleSystem;
     private Vector3Int playerGridPos;
+    public GameObject underwaterOverlay;
+    public GameObject waterDrops;
+    public GameObject[] players;
+    private GameObject firstPersonCamera;
 
     void Awake()
     {
+        players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                firstPersonCamera = player.GetComponent<PlayerManager>().FirstPersonCamera;
+            }
+        }
         boxCollider = gameObject.AddComponent<BoxCollider>();
         meshFilter = gameObject.GetComponent<MeshFilter>();
         meshFilter.mesh = columnMesh = new Mesh();
@@ -108,21 +122,35 @@ public class WaterGrid : MonoBehaviour
     IEnumerator CheckPlayerPos(GameObject player)
     {
         PlayerManager playerManager = player.GetComponent<PlayerManager>();
+        float waterHeight;
         savedSpeeds[0] = playerManager.defaultSpeed;
         savedSpeeds[1] = playerManager.defaultSprintSpeed;
         while (true) {
             playerGridPos = water_grid.LocalToCell(player.transform.position - water_grid.transform.position);
             if (!(playerGridPos.x < 0 || playerGridPos.x > width || playerGridPos.z < 0 || playerGridPos.z > depth))
             {
-                if (gridArray[playerGridPos.x, playerGridPos.z].Geth() > 0)
+                waterHeight = gridArray[playerGridPos.x, playerGridPos.z].GetVertexPosition().y;
+                if (waterHeight > 0)
                 {
                     playerManager.Speed = playerSpeed;
                     playerManager.SprintSpeed = playerSpeed;
+                    if (firstPersonCamera.transform.position.y < waterHeight + transform.position.y)
+                    {
+                        underwaterOverlay.SetActive(true);
+                        waterDrops.SetActive(true);
+                    }
+                    else
+                    {
+                        underwaterOverlay.SetActive(false);
+                        waterDrops.SetActive(false);
+                    }
                 }
                 else
                 {
                     playerManager.Speed = savedSpeeds[0];
                     playerManager.SprintSpeed = savedSpeeds[1];
+                    underwaterOverlay.SetActive(false);
+                    waterDrops.SetActive(false);
                 }
             }
             yield return new WaitForSeconds(0.1f);
