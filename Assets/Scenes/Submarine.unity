@@ -37178,7 +37178,7 @@ MonoBehaviour:
   - {x: 5, y: 48, z: 5}
   run: 0
   playerSpeed: 3
-  particleSystem: {fileID: 4434907143542138, guid: 3d19250bdd4e0df4c8da855e85a8d70b,
+  waterParticleSystem: {fileID: 4434907143542138, guid: 3d19250bdd4e0df4c8da855e85a8d70b,
     type: 3}
   underwaterOverlay: {fileID: 1459200905}
   waterDrops: {fileID: 337050297}
