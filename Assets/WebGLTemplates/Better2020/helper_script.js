@@ -74,3 +74,58 @@ function setUpPeer(peerUuid, displayName, initCall = false) {
       .catch(errorHandler);
   }
 }
+
+// New imported function
+function checkPeerDisconnect(event, peerUuid) {
+  var state = peerConnections[peerUuid].pc.iceConnectionState;
+  console.log(`connection with peer ${peerUuid} ${state}`);
+  if (state === "failed" || state === "closed" || state === "disconnected") {
+    delete peerConnections[peerUuid];
+    //document.getElementById('videos').removeChild(document.getElementById('remoteVideo_' + peerUuid));7
+    //We need to handle voice here in unity
+  }
+}
+
+function gotRemoteStream(event, peerUuid) {
+  console.log(`got remote stream, peer ${peerUuid}`);
+  //assign stream to new HTML video element
+  //var vidElement = document.createElement('video');
+  //vidElement.setAttribute('autoplay', '');
+  //vidElement.setAttribute('muted', '');
+  //vidElement.srcObject = event.streams[0];
+
+  //var vidContainer = document.createElement('div');
+  //vidContainer.setAttribute('id', 'remoteVideo_' + peerUuid);
+  //vidContainer.setAttribute('class', 'videoContainer');
+  //vidContainer.appendChild(vidElement);
+  //vidContainer.appendChild(makeLabel(peerConnections[peerUuid].displayName));
+
+  //document.getElementById('videos').appendChild(vidContainer);
+  // something like UnityInstance.SendMessage(MicManager,initiliase_other_player_voice,event.streams[0])
+  // or
+  // deal with audio in javascript and play outloud
+}
+
+function gotIceCandidate(event, peerUuid) {
+  if (event.candidate != null) {
+    serverConnection.send(
+      JSON.stringify({ ice: event.candidate, uuid: localUuid, dest: peerUuid })
+    );
+  }
+}
+
+function createdDescription(description, peerUuid) {
+  console.log(`got description, peer ${peerUuid}`);
+  peerConnections[peerUuid].pc
+    .setLocalDescription(description)
+    .then(function () {
+      serverConnection.send(
+        JSON.stringify({
+          sdp: peerConnections[peerUuid].pc.localDescription,
+          uuid: localUuid,
+          dest: peerUuid,
+        })
+      );
+    })
+    .catch(errorHandler);
+}

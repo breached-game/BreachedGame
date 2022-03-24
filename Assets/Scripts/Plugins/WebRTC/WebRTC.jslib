@@ -52,7 +52,7 @@ mergeInto(LibraryManager.library, {
         .then(function () {
           //serverConnection = new WebSocket('wss://' + window.location.hostname + ':' + WS_PORT);
           serverConnection = new WebSocket(
-            "wss://breached-webrtc.icedcoffee.dev"
+            "wss://breached-webrtc.icedcoffee.dev:7777"
           ); //may need to add port
           serverConnection.onmessage = gotMessageFromServer;
           serverConnection.onopen = function (event) {
