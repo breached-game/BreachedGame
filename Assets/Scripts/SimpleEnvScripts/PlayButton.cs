@@ -33,7 +33,7 @@ public class PlayButton : MonoBehaviour
         //myNetworkManager.ServerChangeScene("Lobby");
         if (!NetworkClient.active)
         {
-            PlayerPrefs.SetString("Name", nameManager.GetComponent<TypeInNameMainMenui>().name);
+            PlayerPrefs.SetString("Name", nameManager.GetComponent<TypeInNameMainMenui>().playerName);
             myNetworkManager.StartClient();
         }
         else print("Trying to connect when already connected");
