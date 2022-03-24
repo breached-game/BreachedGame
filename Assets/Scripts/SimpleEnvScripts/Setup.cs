@@ -29,7 +29,6 @@ public class Setup : MonoBehaviour
             {
                 PlayerNetworkManager playerManager = player.GetComponent<PlayerNetworkManager>();
                 playerManager.StartGame(this.gameObject);
-                playerManager.AssignSkin();
                 firstPlayer = false;
             }
             player.transform.position = spawnPoint.transform.position;

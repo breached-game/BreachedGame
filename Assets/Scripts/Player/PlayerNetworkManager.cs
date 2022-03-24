@@ -108,6 +108,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         {
             CmdStartGame(setupObject);
             starter = false;
+            CmdAssignSkin();
         }
     }
 
@@ -342,10 +343,6 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #region:Assign Players Skins and Names
     public List<Material> playerMats;
-    public void AssignSkin()
-    {
-        CmdAssignSkin();
-    }
     [Command]
     public void CmdAssignSkin()
     {
