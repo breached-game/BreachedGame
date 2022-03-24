@@ -344,6 +344,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #region:Assign Players Skins and Names
     public List<Material> playerMats;
+    private Dictionary<GameObject, string> playerNames;
     [Command]
     public void CmdAssignSkin()
     {
@@ -352,9 +353,28 @@ public class PlayerNetworkManager : NetworkBehaviour
         int i = 0;
         foreach (GameObject player in players)
         {
-            CallUpdateSetName(player, PlayerPrefs.GetString("Name"), i);
+            SetNameOnServer(player);
+        }
+        foreach (var pair in playerNames)
+        {
+            CallUpdateSetName(pair.Key, pair.Value, i);
             i++;
         }
+    }
+
+    [ClientRpc]
+    public void SetNameOnServer(GameObject player)
+    {
+        if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+        {
+            CmdSetNameOnServer(player, PlayerPrefs.GetString("Name"));
+        }
+    }
+
+    [Command]
+    public void CmdSetNameOnServer(GameObject player, string name)
+    {
+        playerNames.Add(player, name);
     }
 
     [ClientRpc]
