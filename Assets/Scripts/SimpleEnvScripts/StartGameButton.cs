@@ -18,6 +18,8 @@ public class StartGameButton : NetworkBehaviour
     private GameObject networkManager;
     private MyNetworkManager myNetworkManager;
 
+    private GameObject[] players;
+
 
     //private bool canStartGame = true;
     private void Start()
@@ -26,6 +28,14 @@ public class StartGameButton : NetworkBehaviour
         {
             networkManager = GameObject.Find("NetworkManager");
             myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
+            players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in players)
+            {
+                if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+                {
+                    player.GetComponent<PlayerNetworkManager>().SetPlayerName(player, PlayerPrefs.GetString("Name"));
+                }
+            }
         }
     }
 

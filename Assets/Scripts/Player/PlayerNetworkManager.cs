@@ -344,15 +344,25 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #region:Assign Players Skins and Names
     public List<Material> playerMats;
+    public Dictionary<GameObject, string> playerNames;
+    public void SetPlayerName(GameObject player, string name)
+    {
+        CmdSetPlayerName(player, name);
+    }
+    [Command]
+    public void CmdSetPlayerName(GameObject player, string name)
+    {
+        playerNames.Add(player, name);
+    }
+
     [Command]
     public void CmdAssignSkin()
     {
         //Bad practice we should pass players in some other way 
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         int i = 0;
-        foreach (GameObject player in players)
+        foreach (var pair in playerNames)
         {
-            CallUpdateSetName(player, PlayerPrefs.GetString("Name"), i);
+            CallUpdateSetName(pair.Key, pair.Value, i);
             i++;
         }
     }
