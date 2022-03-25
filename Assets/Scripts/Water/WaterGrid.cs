@@ -32,10 +32,10 @@ public class WaterGrid : MonoBehaviour
     private Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
     public Transform waterParticleSystem;
     private Vector3Int playerGridPos;
-    public GameObject underwaterOverlay;
     public GameObject waterDrops;
     public GameObject[] players;
     private GameObject firstPersonCamera;
+    private FogEffects fogController; 
 
     void Awake()
     {
@@ -45,6 +45,7 @@ public class WaterGrid : MonoBehaviour
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 firstPersonCamera = player.GetComponent<PlayerManager>().FirstPersonCamera;
+                fogController = firstPersonCamera.GetComponent<FogEffects>();
             }
         }
         boxCollider = gameObject.AddComponent<BoxCollider>();
@@ -141,12 +142,12 @@ public class WaterGrid : MonoBehaviour
                         playerManager.SprintSpeed = playerSpeed;
                         if (firstPersonCamera.transform.position.y < waterHeight + transform.position.y)
                         {
-                            underwaterOverlay.SetActive(true);
+                            fogController.fog = true;
                             waterDrops.SetActive(true);
                         }
                         else
                         {
-                            underwaterOverlay.SetActive(false);
+                            fogController.fog = false;
                             waterDrops.SetActive(false);
                         }
                     }
@@ -154,7 +155,7 @@ public class WaterGrid : MonoBehaviour
                     {
                         playerManager.Speed = savedSpeeds[0];
                         playerManager.SprintSpeed = savedSpeeds[1];
-                        underwaterOverlay.SetActive(false);
+                        fogController.fog = false;
                         waterDrops.SetActive(false);
                     }
                 }
@@ -162,7 +163,7 @@ public class WaterGrid : MonoBehaviour
                 {
                     playerManager.Speed = savedSpeeds[0];
                     playerManager.SprintSpeed = savedSpeeds[1];
-                    underwaterOverlay.SetActive(false);
+                    fogController.fog = false;
                     waterDrops.SetActive(false);
                 }
             }
