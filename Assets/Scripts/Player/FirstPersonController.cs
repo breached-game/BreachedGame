@@ -40,12 +40,15 @@ public class FirstPersonController : MonoBehaviour
 
     public void StartShake()
     {
-        shaking = true;
-        originalSpeed = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed;
-        originalSprintSpeed = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed;
-        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed = 1f;
-        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed = 1f;
-        StartCoroutine(Shake());
+        if (gameObject.activeSelf)
+        {
+            shaking = true;
+            originalSpeed = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed;
+            originalSprintSpeed = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed;
+            gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed = 1f;
+            gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed = 1f;
+            StartCoroutine(Shake());
+        }
     }
 
     IEnumerator Shake()

@@ -132,23 +132,33 @@ public class WaterGrid : MonoBehaviour
             playerGridPos = water_grid.LocalToCell(player.transform.position - water_grid.transform.position);
             if (!(playerGridPos.x < 0 || playerGridPos.x > width || playerGridPos.z < 0 || playerGridPos.z > depth))
             {
-                waterHeight = gridArray[playerGridPos.x, playerGridPos.z].GetVertexPosition().y;
-                if (waterHeight > 0)
+                try
                 {
-                    playerManager.Speed = playerSpeed;
-                    playerManager.SprintSpeed = playerSpeed;
-                    if (firstPersonCamera.transform.position.y < waterHeight + transform.position.y)
+                    waterHeight = gridArray[playerGridPos.x, playerGridPos.z].GetVertexPosition().y;
+                    if (waterHeight > 0)
                     {
-                        underwaterOverlay.SetActive(true);
-                        waterDrops.SetActive(true);
+                        playerManager.Speed = playerSpeed;
+                        playerManager.SprintSpeed = playerSpeed;
+                        if (firstPersonCamera.transform.position.y < waterHeight + transform.position.y)
+                        {
+                            underwaterOverlay.SetActive(true);
+                            waterDrops.SetActive(true);
+                        }
+                        else
+                        {
+                            underwaterOverlay.SetActive(false);
+                            waterDrops.SetActive(false);
+                        }
                     }
                     else
                     {
+                        playerManager.Speed = savedSpeeds[0];
+                        playerManager.SprintSpeed = savedSpeeds[1];
                         underwaterOverlay.SetActive(false);
                         waterDrops.SetActive(false);
                     }
                 }
-                else
+                catch (IndexOutOfRangeException)
                 {
                     playerManager.Speed = savedSpeeds[0];
                     playerManager.SprintSpeed = savedSpeeds[1];
