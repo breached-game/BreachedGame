@@ -350,36 +350,33 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         //Bad practice we should pass players in some other way 
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        int i = 0;
+        int m = 0;
         foreach (GameObject player in players)
         {
-            SetNameOnServer(player);
-        }
-        foreach (var pair in playerNames)
-        {
-            CallUpdateSetName(pair.Key, pair.Value, i);
-            i++;
+            SetNameOnServer(player, m);
+            m++;
         }
     }
 
     [ClientRpc]
-    public void SetNameOnServer(GameObject player)
+    public void SetNameOnServer(GameObject player, int m)
     {
         if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
         {
-            CmdSetNameOnServer(player, PlayerPrefs.GetString("Name"));
+            CmdSetNameOnServer(player, PlayerPrefs.GetString("Name"), m);
         }
     }
 
     [Command]
-    public void CmdSetNameOnServer(GameObject player, string name)
+    public void CmdSetNameOnServer(GameObject player, string name, int m)
     {
-        playerNames.Add(player, name);
+        CallUpdateSetName(player, name, m);
     }
 
     [ClientRpc]
     public void CallUpdateSetName(GameObject player, string name, int m)
     {
+        print("Player: " + name);
         player.GetComponent<NameTagManager>().SetName(name);
         player.GetComponent<PlayerManager>().PlayerModel.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = playerMats[m];
     }
