@@ -34,6 +34,8 @@ public class DoorSwitchManagers : MonoBehaviour
 
     public void RecieveNewSwitchState(int switchID, int value)
     {
+        // Need to client rpc the update to the doors !!! 
+        print(currentSwitchState);
         currentSwitchState[switchID] = value;
         currentDoorState = combinationToDoor[currentSwitchState];
         UpdateDoors();
@@ -41,44 +43,48 @@ public class DoorSwitchManagers : MonoBehaviour
 
     public void UpdateDoors()
     {
+        for(int i = 0; i<currentDoorState.Count; i++)
+        {
+            bool active;
+            if(currentDoorState[i] == 0)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
+
+            
+            doors[i].GetComponent<MeshRenderer>().enabled = active;
+            doors[i].GetComponent<BoxCollider>().enabled = active;
+
+
+        }
+
+        /*print(currentDoorState.Contains(1));
         for (int i = 0; i < currentDoorState.Count; i++)
         {
-            Animator aniDoor = transform.GetChild(i).GetComponent<Animator>();
-            if (currentDoorState[i] == 0)
+            Animator aniDoor = doors[i].GetComponent<Animator>();
+            if (currentDoorState[i] == 0) 
             {
                 if (aniDoor.GetCurrentAnimatorStateInfo(0).IsName("Closed"))
                 {
                     aniDoor.GetComponent<Animator>().Play("Closed");
+                    // aniDoor.GetComponent<Animator>().Play("Open");
                 }
             }
-            else
+            else 
             {
                 if (aniDoor.GetCurrentAnimatorStateInfo(0).IsName("Open"))
                 {
+                   // aniDoor.GetComponent<Animator>().Play("Closed");
                     aniDoor.GetComponent<Animator>().Play("Open");
                 }
             }
 
-        }
+        }*/
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    // 8 combinations, 3 need to open single door. Others need to troll
-    // 3 switches, either 0 or 1
-
-
-
-
 
 }
