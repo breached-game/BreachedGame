@@ -194,10 +194,10 @@ public class WaterGrid : MonoBehaviour
 
     private float SumInflows(GridVertex currentColumn)
     {
-        float iR = 0.0f;
-        float iL = 0.0f;
-        float iT = 0.0f;
-        float iB = 0.0f;
+        float iR;
+        float iL;
+        float iT;
+        float iB;
         Vector2Int pos = currentColumn.GetPos();
         iL = gridArray[pos.x - 1, pos.y].GetNewOutflows()[Vector2Int.right];
         iR = gridArray[pos.x + 1, pos.y].GetNewOutflows()[Vector2Int.left];
@@ -298,6 +298,7 @@ public class WaterGrid : MonoBehaviour
                 currentColumn.SetNewOutflows(tempFlux);
             }
         }
+        GC.Collect();
         int vertexCount = columnMesh.vertexCount;
         for (int x = 0; x < width; x++)
         {
@@ -340,7 +341,6 @@ public class WaterGrid : MonoBehaviour
                         full = true;
                         if (triangles.Count == 0)
                         {
-                            //triangles = columnMesh.triangles.ToList();
                             foreach (var t in columnMesh.triangles)
                             {
                                 triangles.Add(t);
@@ -354,6 +354,7 @@ public class WaterGrid : MonoBehaviour
                 }
             }
         }
+        GC.Collect();
         columnMesh.Clear();
         columnMesh.SetVertices(vertices);
         columnMesh.SetTriangles(triangles, 0);

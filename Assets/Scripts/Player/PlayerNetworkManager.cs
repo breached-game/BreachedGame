@@ -252,14 +252,17 @@ public class PlayerNetworkManager : NetworkBehaviour
             case SyncListString.Operation.OP_ADD:
                 // index is where it was added into the list
                 // newItem is the new item
-                if (ColourCombo.Count == comboLength)
+                if (!isServer)
                 {
-                    List<string> correctColourCombo = new List<string>();
-                    foreach (var colour in ColourCombo)
+                    if (ColourCombo.Count == comboLength)
                     {
-                        correctColourCombo.Add(colour);
+                        List<string> correctColourCombo = new List<string>();
+                        foreach (var colour in ColourCombo)
+                        {
+                            correctColourCombo.Add(colour);
+                        }
+                        setupManager.SetColourCombo(correctColourCombo);
                     }
-                    setupManager.SetColourCombo(correctColourCombo);
                 }
                 break;
             case SyncListString.Operation.OP_INSERT:
