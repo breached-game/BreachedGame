@@ -354,7 +354,6 @@ public class WaterGrid : MonoBehaviour
                 }
             }
         }
-        GC.Collect();
         columnMesh.Clear();
         columnMesh.SetVertices(vertices);
         columnMesh.SetTriangles(triangles, 0);
