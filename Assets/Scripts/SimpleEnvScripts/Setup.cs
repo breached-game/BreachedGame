@@ -23,6 +23,7 @@ public class Setup : MonoBehaviour
         players = GameObject.FindGameObjectsWithTag("Player");
         //lights.GetComponent<LightManager>().TurnPressureAlarmOn();
         timer.GetComponent<TimerManager>().startTimer(GameTime);
+        lights.GetComponent<LightManager>().TurnPressureAlarmOff();
         foreach (GameObject player in players)
         {
             if (firstPlayer)

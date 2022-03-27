@@ -14,6 +14,7 @@ public class MinigameManager : MonoBehaviour
 
 
     public GameObject ObjectiveStatusUI;
+    public GameObject ObjectiveCompleteGif;
     public Text ObjectiveStatusDisplay;
     public Text FailiureReasonDisplay;
     public int objectiveStatusPopUpTime;
@@ -60,11 +61,9 @@ public class MinigameManager : MonoBehaviour
 
     public void ShowSuccess(string objectiveName)
     {
-        FailiureReasonDisplay.enabled = false;
-
-        ObjectiveStatusDisplay.color = Color.green;
-        ObjectiveStatusDisplay.text = successText + objectiveName;
+        ObjectiveCompleteGif.SetActive(true);
         StartCoroutine(TextDisplayTime());
+        ObjectiveCompleteGif.GetComponent<UISpritesAnimation>().Play();
     }
 
     public void ShowFail(string objectiveName, string failiureReason)
