@@ -298,7 +298,6 @@ public class WaterGrid : MonoBehaviour
                 currentColumn.SetNewOutflows(tempFlux);
             }
         }
-        GC.Collect();
         int vertexCount = columnMesh.vertexCount;
         for (int x = 0; x < width; x++)
         {
