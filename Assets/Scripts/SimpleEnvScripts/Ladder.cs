@@ -10,7 +10,7 @@ public class Ladder : MonoBehaviour
     {
         player.transform.position = climbPos.transform.position;
         Animator playerAni = player.GetComponent<Animator>();
-        playerAni.SetBool("Ladder", true);
         playerAni.Play("StartClimbing");
+        playerAni.SetBool("Ladder", true);      
     }
 }
