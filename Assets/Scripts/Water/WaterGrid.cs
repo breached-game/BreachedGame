@@ -110,6 +110,14 @@ public class WaterGrid : MonoBehaviour
         {
             Vector3Int cellPos = water_grid.LocalToCell(other.gameObject.transform.position - water_grid.transform.position);
             Vector3Int cellWidth = water_grid.LocalToCell(other.gameObject.transform.localScale / 2);
+            if (cellWidth.x < 1)
+            {
+                cellWidth.x = 1;
+            }
+            if (cellWidth.z < 1)
+            {
+                cellWidth.z = 1;
+            }
             for (int x = cellPos.x - cellWidth.x + 1; x < cellPos.x + cellWidth.x; x++)
             {
                 for (int z = cellPos.z - cellWidth.z + 1; z < cellPos.z + cellWidth.z; z++)
