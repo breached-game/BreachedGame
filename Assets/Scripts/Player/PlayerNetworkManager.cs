@@ -373,6 +373,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdSetNameOnServer(GameObject player, string name, int m)
     {
+        print("Player: " + name);
         CallUpdateSetName(player, name, m);
     }
 
