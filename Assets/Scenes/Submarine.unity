@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -44689,6 +44689,8 @@ GameObject:
   - component: {fileID: 7942236555069501624}
   - component: {fileID: 7942236555069501623}
   - component: {fileID: 7942236555069501622}
+  - component: {fileID: 7942236555069501625}
+  - component: {fileID: 7942236555069501626}
   m_Layer: 0
   m_Name: Ladder
   m_TagString: Untagged
@@ -44742,6 +44744,32 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: 098d44cb3721e4d4fab9495f9d2b302f, type: 2}
+--- !u!65 &7942236555069501625
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942236555069501621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1698312, y: 0.14422083, z: 0.019999994}
+  m_Center: {x: 0.048623674, y: 0.05711049, z: -0.0000000012180862}
+--- !u!65 &7942236555069501626
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942236555069501621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.111954756, y: 0.019999998, z: 0.019999994}
+  m_Center: {x: 0.04597738, y: -0.00000023841858, z: -9.313226e-10}
 --- !u!23 &7948775370072791398
 MeshRenderer:
   m_ObjectHideFlags: 0
