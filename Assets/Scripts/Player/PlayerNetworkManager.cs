@@ -343,6 +343,27 @@ public class PlayerNetworkManager : NetworkBehaviour
         lever.GetComponent<ServerRoomDoorSwitch>().UpdateOnLeverChange();
     }
 
+    public void ServerButtonPressed(GameObject button)
+    {
+        CmdServerButtonPressed(button);
+    }
+
+    [Command]
+    public void CmdServerButtonPressed(GameObject button)
+    {
+        CallUpdateServerButtonPressed(button);
+        //button.transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour, mat);
+        button.transform.GetChild(0).GetComponent<Animator>().Play("Click");
+    }
+
+    [ClientRpc]
+    public void CallUpdateServerButtonPressed(GameObject button)
+    {
+        button.GetComponent<ResetServerButton>().ResetButtonPressed();
+    }
+
+
+
     #endregion
 
     #region:Assign Players Skins and Names
