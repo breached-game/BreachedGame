@@ -106,7 +106,7 @@ public class WaterGrid : MonoBehaviour
         {
             StartCoroutine(CheckPlayerPos(other.gameObject));
         }
-        else
+        else if (other.gameObject.tag != "Floater")
         {
             Vector3Int cellPos = water_grid.LocalToCell(other.gameObject.transform.position - water_grid.transform.position);
             Vector3Int cellWidth = water_grid.LocalToCell(other.gameObject.transform.localScale / 2);

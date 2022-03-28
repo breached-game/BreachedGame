@@ -11,7 +11,7 @@ public class Floater : MonoBehaviour
     private GridVertex[,] gridArray;
     
     private float depthBeforeSubmerged = 3f;
-    private float displacementAmount = 0.2f;
+    private float displacementAmount = 1f;
     public int floaterCount;
     public float waterDrag = 0.99f;
     public float waterAngularDrag = 0.5f;
