@@ -22,6 +22,7 @@ public class WaterGrid : MonoBehaviour
     public Mesh columnMesh;
     private MeshFilter meshFilter;
     public GameObject[] inflowLocations;
+    private int randomIndex;
     private BoxCollider boxCollider;
     public bool run = false;
     public float playerSpeed;
@@ -39,6 +40,10 @@ public class WaterGrid : MonoBehaviour
 
     void Awake()
     {
+        int inflowLocationsSize = inflowLocations.Length;
+        System.Random rnd = new System.Random();
+        randomIndex = rnd.Next(0, inflowLocationsSize);
+
         players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
@@ -84,20 +89,18 @@ public class WaterGrid : MonoBehaviour
         int xInflow;
         int yInflow;
         int zInflow;
-        int inflowLocationsSize = inflowLocations.Length;
+
         Vector3Int breachPosition;
 
-        for (int i = 0; i < inflowLocationsSize; i++)
-        {
-            breachPosition = water_grid.LocalToCell(inflowLocations[i].transform.position - water_grid.transform.position);
+        breachPosition = water_grid.LocalToCell(inflowLocations[randomIndex].transform.position - water_grid.transform.position);
 
-            xInflow = breachPosition.x;
-            yInflow = breachPosition.y;
-            zInflow = breachPosition.z;
 
-            gridArray[xInflow, zInflow].Seth(yInflow);
-            Instantiate(waterParticleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180)));
-        }
+        xInflow = breachPosition.x;
+        yInflow = breachPosition.y;
+        zInflow = breachPosition.z;
+
+        gridArray[xInflow, zInflow].Seth(yInflow);
+        Instantiate(waterParticleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180)));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -236,15 +239,12 @@ public class WaterGrid : MonoBehaviour
         int inflowLocationsSize = inflowLocations.Length;
         if (inflow)
         {
-            for (int i = 0; i < inflowLocationsSize; i++)
-            {
-                breachPosition = water_grid.LocalToCell(inflowLocations[i].transform.position - water_grid.transform.position);
+            breachPosition = water_grid.LocalToCell(inflowLocations[randomIndex].transform.position - water_grid.transform.position);
 
-                xInflow = breachPosition.x;
-                zInflow = breachPosition.z;
+            xInflow = breachPosition.x;
+            zInflow = breachPosition.z;
 
-                gridArray[xInflow, zInflow].Seth(gridArray[xInflow, zInflow].Geth() + inflowRate * dt);
-            }
+            gridArray[xInflow, zInflow].Seth(gridArray[xInflow, zInflow].Geth() + inflowRate * dt);
         }
 
 
