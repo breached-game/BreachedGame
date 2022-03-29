@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using Mirror;
 
 public class SettingsMenu : MonoBehaviour
@@ -12,6 +14,7 @@ public class SettingsMenu : MonoBehaviour
     public GameObject Logo;
     public GameObject Sensitivity;
     public GameObject crosshair;
+    public GameObject brightness;
 
     private void Start()
     {
@@ -29,6 +32,9 @@ public class SettingsMenu : MonoBehaviour
         RectTransform SensitivityTransform = Sensitivity.GetComponent<RectTransform>();
         SensitivityTransform.sizeDelta = new Vector2(mainMenuTransform.rect.width / 2, mainMenuTransform.rect.height / 16);
         SensitivityTransform.localPosition = new Vector3(0, -1 * mainMenuTransform.rect.height / 32, 0);
+        RectTransform brightnessTransform = brightness.GetComponent<RectTransform>();
+        brightnessTransform.sizeDelta = new Vector2(mainMenuTransform.rect.width / 2, mainMenuTransform.rect.height / 16);
+        brightnessTransform.localPosition = new Vector3(0, -1 * mainMenuTransform.rect.height / 7, 0);
     }
     //HARD CODED TRY TO FIND PLAYER FROM ALL PLAYERS - LOOK FOR BETTER SOLUTION
     public void SetMouseSensitivity(float sensitivity)
@@ -39,6 +45,18 @@ public class SettingsMenu : MonoBehaviour
             if (players[i].GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<FirstPersonController>().sensitivity = sensitivity;
+            }
+        }
+    }
+
+    public void SetBrightness(float brightness)
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<Volume>().profile.components[0].parameters[0].SetValue(new FloatParameter(brightness));
             }
         }
     }
