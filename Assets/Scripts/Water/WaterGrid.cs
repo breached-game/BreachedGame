@@ -198,7 +198,7 @@ public class WaterGrid : MonoBehaviour
         {
             for (int z = 0; z < depth; z++)
             {
-                if (gridArray[x, z].Geth() > 0f)
+                if (gridArray[x, z].Geth() > 0.1f)
                 {
                     return false;
                 }
