@@ -13,7 +13,7 @@ public class InteractionManager : NetworkBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        print("interacting");
+        //print("interacting");
         if (other.gameObject.tag == "Player" && available)
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer && !other.GetComponent<PlayerManager>().disableInteractionsForMinigame)
