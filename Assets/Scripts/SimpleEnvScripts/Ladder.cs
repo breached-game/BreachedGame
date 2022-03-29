@@ -12,7 +12,6 @@ public class Ladder : MonoBehaviour
 
     public void ClimbLadder(GameObject player)
     {
-        print("Started climbing");
         playerAni = player.GetComponent<PlayerManager>().PlayerModel.GetComponent<Animator>();
         playerAni.Play("StartClimbing");
         originalPos = player.transform.position;
@@ -34,7 +33,6 @@ public class Ladder : MonoBehaviour
         while (t <= 1)
         {
             player.transform.position = Vector3.Lerp(startPos, stopPos, t);
-            print("moved to " + player.transform.position);
             yield return new WaitForSeconds(0.01f);
             t += 0.01f;
         }
