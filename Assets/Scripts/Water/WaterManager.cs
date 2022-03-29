@@ -21,9 +21,10 @@ public class WaterManager : NetworkBehaviour
     {
         waterGrid.run = false;
     }
+
     public void OutflowWater()
     {
         waterGrid.inflowRate = -waterGrid.GetComponent<WaterGrid>().inflowRate;
-        waterGrid.playerSpeed = 1;
+        waterGrid.pump = true;
     }
 }

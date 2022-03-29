@@ -36,7 +36,8 @@ public class WaterGrid : MonoBehaviour
     public GameObject waterDrops;
     public GameObject[] players;
     private GameObject firstPersonCamera;
-    private FogEffects fogController; 
+    private FogEffects fogController;
+    public bool pump = false;
 
     void Awake()
     {
@@ -178,8 +179,32 @@ public class WaterGrid : MonoBehaviour
                     waterDrops.SetActive(false);
                 }
             }
+            if (pump)
+            {
+                bool empty = Loop();
+                if (empty)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
+
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    private bool Loop()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < depth; z++)
+            {
+                if (gridArray[x, z].Geth() > 0f)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private void OnTriggerExit(Collider other)
