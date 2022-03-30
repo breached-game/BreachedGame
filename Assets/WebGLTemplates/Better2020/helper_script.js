@@ -1,6 +1,21 @@
 // Whenever a new message is received, we check if it’s intended for us and whether it’s
+//from https://www.dmcinfo.com/latest-thinking/blog/id/9852/multi-user-video-chat-with-webrtc
 // for setting a new peer or initiating the connection.
 // SDP stands for Session Description Protocol.
+
+// key is uuid, values are peer connection object and user defined display name string
+var peerConnections = {};
+
+const peerConnectionConfig = {
+  iceServers: [
+    {
+      urls: "turn:breached-coturn.icedcoffee.dev:7777",
+      username: "test123",
+      credential: "test",
+    },
+    //{ urls: "stun:stun.services.mozilla.com" },
+  ],
+};
 function gotMessageFromServer(message) {
   var signal = JSON.parse(message.data);
   var peerUuid = signal.uuid;
@@ -81,29 +96,18 @@ function checkPeerDisconnect(event, peerUuid) {
   console.log(`connection with peer ${peerUuid} ${state}`);
   if (state === "failed" || state === "closed" || state === "disconnected") {
     delete peerConnections[peerUuid];
-    //document.getElementById('videos').removeChild(document.getElementById('remoteVideo_' + peerUuid));7
-    //We need to handle voice here in unity
+    //start();
   }
 }
 
 function gotRemoteStream(event, peerUuid) {
   console.log(`got remote stream, peer ${peerUuid}`);
-  //assign stream to new HTML video element
-  //var vidElement = document.createElement('video');
-  //vidElement.setAttribute('autoplay', '');
-  //vidElement.setAttribute('muted', '');
-  //vidElement.srcObject = event.streams[0];
-
-  //var vidContainer = document.createElement('div');
-  //vidContainer.setAttribute('id', 'remoteVideo_' + peerUuid);
-  //vidContainer.setAttribute('class', 'videoContainer');
-  //vidContainer.appendChild(vidElement);
-  //vidContainer.appendChild(makeLabel(peerConnections[peerUuid].displayName));
-
-  //document.getElementById('videos').appendChild(vidContainer);
-  // something like UnityInstance.SendMessage(MicManager,initiliase_other_player_voice,event.streams[0])
-  // or
-  // deal with audio in javascript and play outloud
+  console.log(event.streams[0]);
+  var audioElement = document.createElement("audio");
+  audioElement.setAttribute("autoplay", "");
+  audioElement.setAttribute("id", peerUuid);
+  audioElement.srcObject = event.streams[0];
+  document.getElementsByTagName("body")[0].appendChild(audioElement);
 }
 
 function gotIceCandidate(event, peerUuid) {
@@ -129,3 +133,30 @@ function createdDescription(description, peerUuid) {
     })
     .catch(errorHandler);
 }
+
+function errorHandler(error) {
+  console.log(error);
+}
+
+//Mute Mic button (Need to change button reference)
+// function muteMic() {
+//   console.log(
+//     "Initial microphone state: enabled = " +
+//       localStream.getAudioTracks()[0].enabled
+//   );
+//   if (localStream.getAudioTracks()[0].enabled == false) {
+//     document.getElementById("MicButton").val = "Mute Microphone";
+//     localStream.getAudioTracks()[0].enabled = true;
+//     console.log("Microphone Unmuted:");
+//     console.log(
+//       "Microphone state: enabled = " + localStream.getAudioTracks()[0].enabled
+//     );
+//   } else {
+//     document.getElementById("MicButton").val = "Unmute Microphone";
+//     localStream.getAudioTracks()[0].enabled = false;
+//     console.log("Microphone Muted:");
+//     console.log(
+//       "Microphone state: enabled = " + localStream.getAudioTracks()[0].enabled
+//     );
+//   }
+// }

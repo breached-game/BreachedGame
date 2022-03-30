@@ -5,14 +5,6 @@ var localUuid;
 var localDisplayName;
 var localStream;
 var serverConnection;
-var peerConnections = {}; // key is uuid, values are peer connection object and user defined display name string
-
-const peerConnectionConfig = {
-  iceServers: [
-    { urls: "stun:stun.stunprotocol.org:3478" },
-    { urls: "stun:stun.l.google.com:19302" },
-  ],
-};
 
 mergeInto(LibraryManager.library, {
   Hello: function () {
@@ -20,13 +12,15 @@ mergeInto(LibraryManager.library, {
   },
 
   // set up local video stream
+  // set up local video stream
   start: function () {
     //need to find a way to assign each client a unique ID - could use players network identity. Something like ...
     console.log("Before getting the network manager");
-    localUuid = window.unityInstance.SendMessage(
-      "NetworkManager",
-      "GetNetworkIdentity"
-    );
+    localUuid = "_" + Math.random().toString(36).substring(2, 11);
+    //localUuid = window.unityInstance.SendMessage(
+    //"NetworkManager",
+    //"GetNetworkIdentity"
+    //);
     console.log("Network Identity = " + localUuid);
     localDisplayName = localUuid; //should have a better name here
 
@@ -41,11 +35,11 @@ mergeInto(LibraryManager.library, {
         .then(function (stream) {
           localStream = stream;
           console.log("Got MediaStream:", stream);
-          window.unityInstance.SendMessage("MicManager", "MicRecieved");
+          //window.unityInstance.SendMessage("MicManager", "MicRecieved");
         })
         .catch(function (errorHandler) {
           console.error("Error getting the mic.", errorHandler);
-          window.unityInstance.SendMessage("MicManager", "MicRejected");
+          //window.unityInstance.SendMessage("MicManager", "MicRejected");
         })
 
         // set up websocket and message all existing clients
