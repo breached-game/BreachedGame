@@ -22,6 +22,7 @@ public class WaterGrid : MonoBehaviour
     public Mesh columnMesh;
     private MeshFilter meshFilter;
     public GameObject[] inflowLocations;
+    private List<Vector3Int> outflowLocations = new List<Vector3Int>();
     private int randomIndex;
     private BoxCollider boxCollider;
     public bool run = false;
@@ -37,7 +38,7 @@ public class WaterGrid : MonoBehaviour
     public GameObject[] players;
     private GameObject firstPersonCamera;
     private FogEffects fogController;
-    public bool pump = false;
+    public bool waterFix = false;
 
     void Awake()
     {
@@ -179,7 +180,7 @@ public class WaterGrid : MonoBehaviour
                     waterDrops.SetActive(false);
                 }
             }
-            if (pump)
+            if (waterFix)
             {
                 bool empty = Loop();
                 if (empty)
@@ -205,6 +206,11 @@ public class WaterGrid : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void AddWaterPump(Vector3 position)
+    {
+        outflowLocations.Add(water_grid.LocalToCell(position - water_grid.transform.position));
     }
 
     private void OnTriggerExit(Collider other)
@@ -261,6 +267,8 @@ public class WaterGrid : MonoBehaviour
 
         int xInflow;
         int zInflow;
+        int xOutflow;
+        int zOutflow;
         int inflowLocationsSize = inflowLocations.Length;
         if (inflow)
         {
@@ -270,6 +278,14 @@ public class WaterGrid : MonoBehaviour
             zInflow = breachPosition.z;
 
             gridArray[xInflow, zInflow].Seth(gridArray[xInflow, zInflow].Geth() + inflowRate * dt);
+
+            for (int i = 0; i < outflowLocations.Count; i++)
+            {
+                xOutflow = outflowLocations[i].x;
+                zOutflow = outflowLocations[i].z;
+
+                gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - inflowRate * dt);
+            }
         }
 
 

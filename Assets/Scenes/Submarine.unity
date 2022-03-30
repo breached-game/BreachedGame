@@ -14927,7 +14927,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 956932230}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: -1}
-  m_LocalPosition: {x: -19.771736, y: -0.7301672, z: 2}
+  m_LocalPosition: {x: -19.771736, y: -0.7301672, z: -5.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 550056568}
@@ -15009,7 +15009,7 @@ MonoBehaviour:
   water_grid: {fileID: 0}
   width: 56
   height: 34
-  depth: 48
+  depth: 65
   cellSize: 0
   inflowRate: 50
   gravity: 4

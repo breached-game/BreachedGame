@@ -24,7 +24,7 @@ public class WaterManager : NetworkBehaviour
 
     public void OutflowWater()
     {
-        waterGrid.inflowRate = -waterGrid.GetComponent<WaterGrid>().inflowRate;
-        waterGrid.pump = true;
+        waterGrid.AddWaterPump(transform.position);
+        waterGrid.waterFix = true;
     }
 }
