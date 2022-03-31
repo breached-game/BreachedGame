@@ -63,7 +63,7 @@ public class WaterGrid : MonoBehaviour
         water_grid = gameObject.GetComponent<Grid>();
         boxCollider.center = water_grid.CellToLocal(new Vector3Int(width / 2, height / 2, depth / 2));
         cellSize = water_grid.cellSize[0];
-        boxCollider.size = (new Vector3(width, height, depth) * cellSize);
+        boxCollider.size = (new Vector3(width/2, height/2, depth/2) * cellSize);
         boxCollider.isTrigger = true;
         //boxCollider.size /= 2;
         dx = cellSize;

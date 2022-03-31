@@ -28564,7 +28564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   water_grid: {fileID: 0}
   width: 56
-  height: 34
+  height: 10
   depth: 37
   cellSize: 0
   inflowRate: 50
