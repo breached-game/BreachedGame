@@ -22,6 +22,7 @@ public class WaterGrid : MonoBehaviour
     public Mesh columnMesh;
     private MeshFilter meshFilter;
     public GameObject[] inflowLocations;
+    private List<Vector3Int> outflowLocations = new List<Vector3Int>();
     private int randomIndex;
     private BoxCollider boxCollider;
     public bool run = false;
@@ -36,7 +37,8 @@ public class WaterGrid : MonoBehaviour
     public GameObject waterDrops;
     public GameObject[] players;
     private GameObject firstPersonCamera;
-    private FogEffects fogController; 
+    private FogEffects fogController;
+    public bool waterFix = false;
 
     void Awake()
     {
@@ -61,7 +63,7 @@ public class WaterGrid : MonoBehaviour
         water_grid = gameObject.GetComponent<Grid>();
         boxCollider.center = water_grid.CellToLocal(new Vector3Int(width / 2, height / 2, depth / 2));
         cellSize = water_grid.cellSize[0];
-        boxCollider.size = (new Vector3(width, height, depth) * cellSize);
+        boxCollider.size = (new Vector3(width/2, height/2, depth/2) * cellSize);
         boxCollider.isTrigger = true;
         //boxCollider.size /= 2;
         dx = cellSize;
@@ -178,8 +180,37 @@ public class WaterGrid : MonoBehaviour
                     waterDrops.SetActive(false);
                 }
             }
+            if (waterFix)
+            {
+                bool empty = Loop();
+                if (empty)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
+
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    private bool Loop()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < depth; z++)
+            {
+                if (gridArray[x, z].Geth() > 0.1f)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void AddWaterPump(Vector3 position)
+    {
+        outflowLocations.Add(water_grid.LocalToCell(position - water_grid.transform.position));
     }
 
     private void OnTriggerExit(Collider other)
@@ -236,6 +267,8 @@ public class WaterGrid : MonoBehaviour
 
         int xInflow;
         int zInflow;
+        int xOutflow;
+        int zOutflow;
         int inflowLocationsSize = inflowLocations.Length;
         if (inflow)
         {
@@ -245,6 +278,14 @@ public class WaterGrid : MonoBehaviour
             zInflow = breachPosition.z;
 
             gridArray[xInflow, zInflow].Seth(gridArray[xInflow, zInflow].Geth() + inflowRate * dt);
+
+            for (int i = 0; i < outflowLocations.Count; i++)
+            {
+                xOutflow = outflowLocations[i].x;
+                zOutflow = outflowLocations[i].z;
+
+                gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - inflowRate * dt);
+            }
         }
 
 

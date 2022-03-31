@@ -38,6 +38,7 @@ public class DropOffMiniGameManager : MonoBehaviour
             visualEffect();
         }
     }
+
     private void visualEffect()
     {
         ItemDroppedOff.SetActive(true);
