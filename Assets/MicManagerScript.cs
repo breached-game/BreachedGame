@@ -7,9 +7,10 @@ public class MicManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("About to call hello function");
-        VoiceWrapper.Hello();
-        Debug.Log("finsihed calling hello function");
+        // removed hello testing call as gave error abort on stack trace. 
+        //Debug.Log("About to call hello function");
+        //VoiceWrapper.Hello();
+        //Debug.Log("finsihed calling hello function");
         Debug.Log("About to call start function");
         VoiceWrapper.start();
         Debug.Log("finsihed calling start function");
