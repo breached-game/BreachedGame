@@ -265,8 +265,8 @@ public class WaterGrid : MonoBehaviour
         GridVertex currentColumn;
         Vector3Int breachPosition;
 
-        int xInflow;
-        int zInflow;
+        int xInflow=0;
+        int zInflow=0;
         int xOutflow;
         int zOutflow;
         int inflowLocationsSize = inflowLocations.Length;
@@ -356,9 +356,9 @@ public class WaterGrid : MonoBehaviour
                 if (x != 0 & x != width - 1 & z != 0 & z != depth - 1)
                 {
                     dV = dt * (SumInflows(currentColumn) - SumDictionary(currentColumn.GetNewOutflows()));
-                    if (currentColumn.Geth() + dV / (dx * dx) + currentColumn.GetH() >= height)
+                    if (currentColumn.Geth() + dV / (dx * dx) + currentColumn.GetH() >= height && x != xInflow && z != zInflow)
                     {
-                        inflow = false;
+                        //inflow = false;
                         currentColumn.SetNewh(height - currentColumn.GetH() - 1);
                     }
                     else
