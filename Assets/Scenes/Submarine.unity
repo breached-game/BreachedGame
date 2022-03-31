@@ -6197,6 +6197,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterPump (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74c00e0e4b74fb44cb1ae624b2b183a5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7071182760956848314, guid: 74c00e0e4b74fb44cb1ae624b2b183a5,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -11940,6 +11945,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WaterPump (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74c00e0e4b74fb44cb1ae624b2b183a5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7071182760956848314, guid: 74c00e0e4b74fb44cb1ae624b2b183a5,
         type: 3}
@@ -22237,6 +22247,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterPump
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74c00e0e4b74fb44cb1ae624b2b183a5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7202271454713460447, guid: 74c00e0e4b74fb44cb1ae624b2b183a5,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -23392,6 +23407,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WaterPump
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74c00e0e4b74fb44cb1ae624b2b183a5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7202271454713460447, guid: 74c00e0e4b74fb44cb1ae624b2b183a5,
         type: 3}
