@@ -22,7 +22,6 @@ public class MonitorManager : MonoBehaviour
         int monitorCount = 1;
         foreach (var o in objectives)
         {
-            print(objectiveMonitorManager);
             switch (o.Key)
             {
                 case "Engine needs backup power":
