@@ -4518,7 +4518,8 @@ MonoBehaviour:
   minigameObjective: '- Grab water pump from store
 
     - Place into the water'
-  ItemDroppedOff: {fileID: 349412093}
+  ItemDroppedOff: {fileID: 919132149155446097, guid: 74c00e0e4b74fb44cb1ae624b2b183a5,
+    type: 3}
   numberOfDropOffs: 2
 --- !u!1 &281096662
 GameObject:
