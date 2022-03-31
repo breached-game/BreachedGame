@@ -58,6 +58,15 @@ mergeInto(LibraryManager.library, {
               })
             );
           };
+
+          //attempt at Reconnect
+          serverConnection.onclose =  ws.onclose = function(e) {
+            console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+            setTimeout(function() {
+              start();
+            }, 1000);
+          };
+
         })
         .catch(function (errorHandler) {
           console.error("Error setting up websocket connection.", errorHandler);
