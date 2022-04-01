@@ -139,24 +139,22 @@ function errorHandler(error) {
 }
 
 //Mute Mic button (Need to change button reference)
-// function muteMic() {
-//   console.log(
-//     "Initial microphone state: enabled = " +
-//       localStream.getAudioTracks()[0].enabled
-//   );
-//   if (localStream.getAudioTracks()[0].enabled == false) {
-//     document.getElementById("MicButton").val = "Mute Microphone";
-//     localStream.getAudioTracks()[0].enabled = true;
-//     console.log("Microphone Unmuted:");
-//     console.log(
-//       "Microphone state: enabled = " + localStream.getAudioTracks()[0].enabled
-//     );
-//   } else {
-//     document.getElementById("MicButton").val = "Unmute Microphone";
-//     localStream.getAudioTracks()[0].enabled = false;
-//     console.log("Microphone Muted:");
-//     console.log(
-//       "Microphone state: enabled = " + localStream.getAudioTracks()[0].enabled
-//     );
-//   }
-// }
+function muteMic() {
+  console.log(
+    "Initial microphone state: enabled = " +
+      localStream.getAudioTracks()[0].enabled
+  );
+  if (localStream.getAudioTracks()[0].enabled == false) {
+    localStream.getAudioTracks()[0].enabled = true;
+    console.log("Microphone Unmuted:");
+    console.log(
+      "Microphone state: enabled = " + localStream.getAudioTracks()[0].enabled
+    );
+  } else {
+    localStream.getAudioTracks()[0].enabled = false;
+    console.log("Microphone Muted:");
+    console.log(
+      "Microphone state: enabled = " + localStream.getAudioTracks()[0].enabled
+    );
+  }
+}
