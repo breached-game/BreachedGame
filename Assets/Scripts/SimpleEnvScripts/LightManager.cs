@@ -22,6 +22,7 @@ public class LightManager : MonoBehaviour
         {
             OverheadLights.transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(true);
             OverheadLights.transform.GetChild(i).transform.GetChild(2).gameObject.SetActive(true);
+            OverheadLights.transform.GetChild(i).transform.GetChild(3).gameObject.SetActive(true);
         }
         for (int i = 0; i < FloorLights.transform.childCount; i++)
         {
@@ -39,6 +40,7 @@ public class LightManager : MonoBehaviour
         {
             OverheadLights.transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(false);
             OverheadLights.transform.GetChild(i).transform.GetChild(2).gameObject.SetActive(false);
+            OverheadLights.transform.GetChild(i).transform.GetChild(3).gameObject.SetActive(true);
         }
         for (int i = 0; i < FloorLights.transform.childCount; i++)
         {

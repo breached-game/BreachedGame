@@ -46,6 +46,8 @@ public class Setup : MonoBehaviour
 
     public void SetColourCombo(List<string> combination)
     {
-        colourManager.GetComponent<ColourMiniGameManger>().correctColourCombination = combination;
+        ColourMiniGameManger colourMinigameManager = colourManager.GetComponent<ColourMiniGameManger>();
+        colourMinigameManager.correctColourCombination = combination;
+        colourMinigameManager.DisplayCombinations();
     }
 }
