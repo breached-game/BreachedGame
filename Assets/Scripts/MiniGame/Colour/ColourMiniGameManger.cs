@@ -25,15 +25,42 @@ public class ColourMiniGameManger : MonoBehaviour
     public int NumberOfFlashes = 3;
     public GameObject[] players;
 
+    public Material red;
+    public Material blue;
+    public Material green;
+
+    public GameObject combinationDisplayParent;
+
     public void Reset()
     {
         minigameManager = transform.parent.GetComponent<MinigameManager>();
         minigameManager.SendObjectiveData(minigameName, minigameObjective);
     }
 
+    public void DisplayCombinations()
+    {
+        int count = 0;
+        Material mat = red;
+        foreach(Transform child in combinationDisplayParent.transform)
+        {
+            var combination_i = correctColourCombination[count];
+            if      (combination_i == "red")  {mat = red;}
+            else if (combination_i == "blue") {mat = blue;}
+            else if (combination_i == "green"){mat = green;}
+            else
+            {
+                print("Error no colour " + combination_i);
+            }
+
+            child.transform.gameObject.GetComponent<MeshRenderer>().material = mat;
+            count += 1;
+        }
+    }
+
     private void Start()
     {
         Reset();
+        DisplayCombinations();
     }
 
     public void sendPressedColour(string colour, Material mat)
