@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MicManagerScript : MonoBehaviour
 {
+    void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     // Start is called before the first frame update
     void Start()
     {
