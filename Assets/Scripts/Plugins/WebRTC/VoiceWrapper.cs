@@ -10,4 +10,7 @@ public class VoiceWrapper : MonoBehaviour
 
     [DllImport("__Internal")]
     public static extern void start();
+    
+    [DllImport("__Internal")]
+    public static extern void muteMic();
 }
