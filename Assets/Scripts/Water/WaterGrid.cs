@@ -31,6 +31,7 @@ public class WaterGrid : MonoBehaviour
     private float[] savedSpeeds = new float[2];
     private List<Vector3> vertices = new List<Vector3>();
     private List<int> triangles = new List<int>();
+    private List<Vector2> uvs = new List<Vector2>();
     private Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
     public Transform waterParticleSystem;
     private Vector3Int playerGridPos;
@@ -39,6 +40,7 @@ public class WaterGrid : MonoBehaviour
     private GameObject firstPersonCamera;
     private FogEffects fogController;
     public bool waterFix = false;
+    private Vector3Int breachPosition = new Vector3Int();
 
     void Awake()
     {
@@ -63,7 +65,7 @@ public class WaterGrid : MonoBehaviour
         water_grid = gameObject.GetComponent<Grid>();
         boxCollider.center = water_grid.CellToLocal(new Vector3Int(width / 2, height / 2, depth / 2));
         cellSize = water_grid.cellSize[0];
-        boxCollider.size = (new Vector3(width/2, height/2, depth/2) * cellSize);
+        boxCollider.size = (new Vector3(width, height, depth) * cellSize);
         boxCollider.isTrigger = true;
         //boxCollider.size /= 2;
         dx = cellSize;
@@ -92,8 +94,6 @@ public class WaterGrid : MonoBehaviour
         int yInflow;
         int zInflow;
 
-        Vector3Int breachPosition;
-
         breachPosition = water_grid.LocalToCell(inflowLocations[randomIndex].transform.position - water_grid.transform.position);
 
 
@@ -102,7 +102,7 @@ public class WaterGrid : MonoBehaviour
         zInflow = breachPosition.z;
 
         gridArray[xInflow, zInflow].Seth(yInflow);
-        Instantiate(waterParticleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180)));
+        //Instantiate(waterParticleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180)));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -258,12 +258,13 @@ public class WaterGrid : MonoBehaviour
         float totalHeight;
         float totalFlux;
         int vCount = 0;
+        Vector3Int inflowPosition = water_grid.LocalToCell(inflowLocations[randomIndex].transform.position - water_grid.transform.position);
         vertices.Clear();
         triangles.Clear();
         tempFlux.Clear();
+        uvs.Clear();
         Dictionary<Vector2Int, float> currentOutflows;
         GridVertex currentColumn;
-        Vector3Int breachPosition;
 
         int xInflow=0;
         int zInflow=0;
@@ -369,7 +370,12 @@ public class WaterGrid : MonoBehaviour
                 }
                 if (currentColumn.isVertex)
                 {
-                    vertices.Add(currentColumn.GetVertexPosition());
+                    if (inflowPosition.x == x && inflowPosition.z == z)
+                    {
+                        vertices.Add(new Vector3(currentColumn.GetVertexPosition().x, gridArray[x - 2, z].GetVertexPosition().y, currentColumn.GetVertexPosition().z));
+                    }
+                    else { vertices.Add(currentColumn.GetVertexPosition()); }
+                    uvs.Add(new Vector2(currentColumn.GetVertexPosition().x, currentColumn.GetVertexPosition().z));
                     currentColumn.vertex = vCount;
                     vCount++;
                     if (x != 0 & z != 0 & !full)
@@ -405,7 +411,9 @@ public class WaterGrid : MonoBehaviour
         columnMesh.Clear();
         columnMesh.SetVertices(vertices);
         columnMesh.SetTriangles(triangles, 0);
+        columnMesh.SetUVs(0,uvs);
         columnMesh.RecalculateNormals();
+        columnMesh.RecalculateTangents();
         columnMesh.Optimize();
     }
 }

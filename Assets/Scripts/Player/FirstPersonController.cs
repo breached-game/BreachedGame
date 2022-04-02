@@ -16,6 +16,8 @@ public class FirstPersonController : MonoBehaviour
     private Vector2 mouseLook;
     // smooth the mouse moving
     private Vector2 smoothV;
+    // Used for slowing the camera during shaking
+    private float actualSensitivity;
 
     public int minAngle;
     public int maxAngle;
@@ -24,6 +26,8 @@ public class FirstPersonController : MonoBehaviour
 
     private float originalSpeed;
     private float originalSprintSpeed;
+
+    private Quaternion currentRotation;
     
 
     private NetworkIdentity identity;
@@ -47,7 +51,7 @@ public class FirstPersonController : MonoBehaviour
             originalSprintSpeed = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed;
             gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed = 1f;
             gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed = 1f;
-            StartCoroutine(Shake());
+            //StartCoroutine(Shake());
         }
     }
 
@@ -58,10 +62,10 @@ public class FirstPersonController : MonoBehaviour
         float y;
         while (shaking)
         {
-            transform.rotation = originalRotation;
+            transform.rotation = currentRotation;
             x = Random.Range(-3f, 3f);
             y = Random.Range(-3f, 3f);
-            transform.rotation = Quaternion.Euler(x + originalRotation.eulerAngles.x, y + originalRotation.eulerAngles.y, originalRotation.eulerAngles.z);
+            transform.rotation = Quaternion.Euler(x + currentRotation.eulerAngles.x, y + currentRotation.eulerAngles.y, currentRotation.eulerAngles.z);
             yield return new WaitForSeconds(0.01f);
         }
         transform.rotation = originalRotation;
@@ -79,21 +83,33 @@ public class FirstPersonController : MonoBehaviour
     {
         if (identity.isLocalPlayer)
         {
-            if (cameraEnabled && !shaking)
+            if (cameraEnabled)
             {
+                if (shaking) { actualSensitivity = sensitivity/5; }
+                else{ actualSensitivity = sensitivity; }
                 // md is mosue delta
                 var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-                md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
+                md = Vector2.Scale(md, new Vector2(actualSensitivity * smoothing, actualSensitivity * smoothing));
                 // the interpolated float result between the two float values
                 smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
                 smoothV.y = Mathf.Lerp(smoothV.y, md.y, 1f / smoothing);
                 // incrementally add to the camera look
                 mouseLook += smoothV;
-
                 // vector3.right means the x-axis
                 mouseLook.y = Mathf.Clamp(mouseLook.y, minAngle, maxAngle);
-                transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
-                character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
+                if (shaking)
+                {
+                    float x = Random.Range(-3f, 3f);
+                    float y = Random.Range(-3f, 3f);
+                    currentRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
+                    transform.localRotation = Quaternion.Euler(x + currentRotation.eulerAngles.x, y + currentRotation.eulerAngles.y, currentRotation.eulerAngles.z);
+                    character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
+                }
+                else
+                {
+                    transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
+                    character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
+                }
             }
         }
     }
