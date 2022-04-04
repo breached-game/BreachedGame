@@ -102,7 +102,7 @@ public class WaterGrid : MonoBehaviour
         zInflow = breachPosition.z;
 
         gridArray[xInflow, zInflow].Seth(yInflow);
-        //Instantiate(waterParticleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180)));
+        Instantiate(waterParticleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180)));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -216,6 +216,8 @@ public class WaterGrid : MonoBehaviour
     public void RemoveWaterPump(Vector3 position)
     {
         outflowLocations.Remove(water_grid.LocalToCell(position - water_grid.transform.position));
+        print(outflowLocations.Count);
+        print("CHECKKKK");
     }
 
     private void OnTriggerExit(Collider other)
