@@ -244,21 +244,18 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void CallRemovePump(GameObject waterPump)
     {
-        Debug.Log("CHECK ONE");
         CmdRemovePump(waterPump);
     }
 
     [Command]
     public void CmdRemovePump(GameObject waterPump)
     {
-        print("CHECK TWO");
         CallRemoveAllPump(waterPump);
     }
 
     [ClientRpc]
     public void CallRemoveAllPump(GameObject waterPump)
     {
-        print("CHECK THREE");
         waterPump.GetComponent<WaterManager>().RemovePump();
     }
     #endregion
