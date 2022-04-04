@@ -14,6 +14,7 @@ public class PickUpSO : InteractionSO
             
             if (interactable.transform.name == "WaterPumpItem")
             {
+                Debug.Log("CHECK ZERO");
                 Player.GetComponent<PlayerNetworkManager>().CallRemovePump(interactable);
             }
         }

@@ -58,6 +58,7 @@ public class WaterManager : NetworkBehaviour
 
     public void RemovePump()
     {
+        print("CHECK FOUR");
         Vector3Int waterPumpGridPosition;
 
         for (int i = 0; i < waterGridObjects.Length; i++)
@@ -72,6 +73,7 @@ public class WaterManager : NetworkBehaviour
                     {
                         if (waterPumpGridPosition.z >= 0 & waterPumpGridPosition.z < waterGrids[i].depth)
                         {
+                            print("CHECK FIVE");
                             waterGrids[i].RemoveWaterPump(transform.position);
                             transform.GetChild(0).GetComponent<Animator>().enabled = false;
                         }
