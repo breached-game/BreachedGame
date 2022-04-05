@@ -8,6 +8,9 @@ public class ServerDoorScript : MonoBehaviour
     private float doorMoveTime = 1f;
 
     private Transform doorTransform;
+
+    //Not the actual door, used to prevent players running through mid animation
+    public GameObject doorColliderObject;
     private BoxCollider doorCollider;
 
     private Vector3 closedDoorPos;
@@ -18,7 +21,7 @@ public class ServerDoorScript : MonoBehaviour
     public void Start()
     {
         doorTransform = gameObject.GetComponent<Transform>();
-        doorCollider = gameObject.GetComponent<BoxCollider>();
+        doorCollider  = doorColliderObject.GetComponent<BoxCollider>();
         closedDoorPos = doorTransform.localPosition;
 
     }
