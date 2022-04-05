@@ -46,13 +46,13 @@ public class DoorSwitchManagers : MonoBehaviour
         for(int i = 0; i<currentDoorState.Count; i++)
         {
       
-            if(currentDoorState[i] == 0)
+            if(currentDoorState[i] == 0) //Should be closed
             {
 
                 StartCoroutine(doors[i].GetComponent<ServerDoorScript>().CloseDoor());
                 
             }
-            else
+            else   //Should be open
             {
                 StartCoroutine(doors[i].GetComponent<ServerDoorScript>().OpenDoor());
             }
