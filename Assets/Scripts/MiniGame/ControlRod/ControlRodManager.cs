@@ -15,8 +15,11 @@ public class ControlRodManager : MonoBehaviour
 
     public string controlRodTouchedFail;
 
+    public GameObject FailColliders;
     public BoxCollider ReactorCollider;
     public GameObject ControlRodHoleOnSucces;
+
+
 
 
     void Start()
@@ -28,6 +31,7 @@ public class ControlRodManager : MonoBehaviour
         
     public void Success()
     {
+        FailColliders.SetActive(false);
         ControlRodHoleOnSucces.SetActive(true);
         controlRod.GetComponent<MeshRenderer>().enabled = false;
         controlRod.GetComponent<CapsuleCollider>().enabled = false;
