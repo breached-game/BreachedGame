@@ -3423,7 +3423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &129124956
 Transform:
   m_ObjectHideFlags: 0
@@ -3434,8 +3434,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1841779048}
+  m_Children: []
   m_Father: {fileID: 415543279}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3455,7 +3454,7 @@ MonoBehaviour:
   minigameObjective: '- Grab wood
 
     - Stop water coming through with wood'
-  ItemDroppedOff: {fileID: 1841779047}
+  ItemDroppedOff: {fileID: 0}
   numberOfDropOffs: 1
 --- !u!114 &129124958
 MonoBehaviour:
@@ -38609,18 +38608,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836888725}
   m_Mesh: {fileID: 4493585093827132993, guid: 5f4589cb051a45e4c8848bf40ddf9a78, type: 3}
---- !u!1 &1841779047 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 492345793349554549, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-    type: 3}
-  m_PrefabInstance: {fileID: 492345791793676306}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1841779048 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-    type: 3}
-  m_PrefabInstance: {fileID: 492345791793676306}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1846922988
 GameObject:
   m_ObjectHideFlags: 0
@@ -46521,80 +46508,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &492345791793676306
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 129124956}
-    m_Modifications:
-    - target: {fileID: 492345793349554549, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_Name
-      value: Wood
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -21.78
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554554, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492345793349554559, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-        type: 3}
-      propertyPath: sceneId
-      value: 4021939890
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0857e8ce1e470f64fb92e3f108a72fc4, type: 3}
 --- !u!1 &500373632163423468 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4adb0d7229477634485ce76ce13aa3aa,
