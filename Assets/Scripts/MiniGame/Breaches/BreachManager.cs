@@ -11,7 +11,7 @@ public class BreachManager : MonoBehaviour
         int numBreaches = 0;
         for (int i = 0; i < waterGrids.Length; i++)
         {
-            if (waterGrids[i].active)
+            if (waterGrids[i].activeSelf)
             {
                 numBreaches++;
             }

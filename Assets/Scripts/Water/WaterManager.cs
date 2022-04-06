@@ -38,7 +38,7 @@ public class WaterManager : NetworkBehaviour
         Vector3Int waterPumpGridPosition;
         for (int i = 0; i < waterGridObjects.Length; i++)
         {
-            if (waterGridObjects[i].active)
+            if (waterGridObjects[i].activeSelf)
             {
                 waterPumpGridPosition = waterGrids[i].water_grid.LocalToCell(transform.position - waterGrids[i].water_grid.transform.position);
                 if (waterPumpGridPosition.x >= 0 & waterPumpGridPosition.x < waterGrids[i].width)
@@ -63,7 +63,7 @@ public class WaterManager : NetworkBehaviour
 
         for (int i = 0; i < waterGridObjects.Length; i++)
         {
-            if (waterGridObjects[i].active)
+            if (waterGridObjects[i].activeSelf)
             {
                 waterPumpGridPosition = waterGrids[i].water_grid.LocalToCell(transform.position - waterGrids[i].water_grid.transform.position);
                 print(waterPumpGridPosition);
