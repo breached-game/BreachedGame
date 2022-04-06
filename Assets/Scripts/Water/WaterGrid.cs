@@ -107,7 +107,7 @@ public class WaterGrid : MonoBehaviour
         gridArray[xInflow, zInflow].Seth(yInflow);
         Instantiate(waterParticleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180)));
         
-        breach = Instantiate(breachPrefab, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180))).gameObject;
+        //breach = Instantiate(breachPrefab, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180))).gameObject;
     }
 
     private void OnTriggerEnter(Collider other)
