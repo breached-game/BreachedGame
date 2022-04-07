@@ -156,6 +156,11 @@ public class PlayerManager : NetworkBehaviour
         {
             playerManager.torch.SetActive(false);
         }
+
+        if (playerManager.objectPlayerHas.transform.name == "WaterPumpItem")
+        {
+            gameObject.GetComponent<PlayerNetworkManager>().Pump(playerManager.objectPlayerHas);
+        }
         playerManager.objectPlayerHas = null;
         //Update the item text
         playerManager.updateItemText();
