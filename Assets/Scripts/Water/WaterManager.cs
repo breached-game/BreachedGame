@@ -41,6 +41,7 @@ public class WaterManager : NetworkBehaviour
             if (waterGridObjects[i].active)
             {
                 waterPumpGridPosition = waterGrids[i].water_grid.LocalToCell(transform.position - waterGrids[i].water_grid.transform.position);
+                print(waterPumpGridPosition);
                 if (waterPumpGridPosition.x >= 0 & waterPumpGridPosition.x < waterGrids[i].width)
                 {
                     if (waterPumpGridPosition.y >= 0 & waterPumpGridPosition.y < waterGrids[i].height)
