@@ -8,21 +8,17 @@ public class ServerDoorScript : MonoBehaviour
     private float doorMoveTime = 1f;
 
     private Transform doorTransform;
-
-    //Not the actual door, used to prevent players running through mid animation
-    public GameObject doorColliderObject;
     private BoxCollider doorCollider;
 
     private Vector3 closedDoorPos;
     public Vector3 openDoorPos;
 
-    private bool closed = true;
 
 
     public void Start()
     {
         doorTransform = gameObject.GetComponent<Transform>();
-        doorCollider  = doorColliderObject.GetComponent<BoxCollider>();
+        doorCollider = gameObject.GetComponent<BoxCollider>();
         closedDoorPos = doorTransform.localPosition;
 
     }
@@ -30,12 +26,7 @@ public class ServerDoorScript : MonoBehaviour
 
     public IEnumerator OpenDoor()
     {
-        if (!closed)
-        {
-            yield break;
-        }
-
-        closed = false;
+        print("Opening Door");
         float current_t = 0f;
         Vector3 distanceToMove  = openDoorPos - closedDoorPos ;
   
@@ -52,13 +43,8 @@ public class ServerDoorScript : MonoBehaviour
 
     public IEnumerator CloseDoor()
     {
-        if (closed)
-        {
-            yield break;
-        }
-
+        print("Closing Door");
         doorCollider.enabled = true;
-        closed = true;
         float current_t = 0f;
         Vector3 distanceToMove = closedDoorPos - openDoorPos;
 

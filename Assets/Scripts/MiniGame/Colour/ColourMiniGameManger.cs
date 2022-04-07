@@ -4,8 +4,7 @@ using UnityEngine;
 using Mirror;
 
 
-
-public class ColourMiniGameManger : NetworkBehaviour
+public class ColourMiniGameManger : MonoBehaviour
 {
     public List<string> correctColourCombination; // Can make this private and randomly generated -> Laterbase
     private List<string> currentColourCombination = new List<string>();
@@ -30,57 +29,7 @@ public class ColourMiniGameManger : NetworkBehaviour
     public Material blue;
     public Material green;
 
-    
-
-    public int minStartTime;
-    public int maxStartTime;
-
-    public bool began = false;
-
-
-
     public GameObject combinationDisplayParent;
-
-    /*
-    [Server]
-    public void SelectStartTime()
-    {
-        int randomStartTime = Random.Range(minStartTime, maxStartTime);
-        print("Colour minigame begins at " + randomStartTime);
-        StartCoroutine(CheckIfTimeToStart(randomStartTime));
-    }
-    */
-
-    [ClientRpc]
-    public void StartMinigame()
-    {
-        Begin();
-    }
-
-    public IEnumerator CheckIfTimeToStart(int randomStartTime) 
-    {
-        float current_t = 0f;
-        while (current_t < randomStartTime)
-        {
-            current_t += Time.deltaTime;
-            yield return null;
-        }
-        StartMinigame();
-    }
-
-    private void Start()
-    {
-        if (isServer)
-        {
-            //SelectStartTime();
-        }
-    }
-
-    private void Begin()
-    {
-        Reset();
-        began = false;
-    }
 
     public void Reset()
     {
@@ -108,9 +57,14 @@ public class ColourMiniGameManger : NetworkBehaviour
         }
     }
 
+    private void Start()
+    {
+        Reset();
+        DisplayCombinations();
+    }
+
     public void sendPressedColour(string colour, Material mat)
     {
-
         //We check so see if we can add more to the combination
         if (correctColourCombination.Count != currentColourCombination.Count)
         {
