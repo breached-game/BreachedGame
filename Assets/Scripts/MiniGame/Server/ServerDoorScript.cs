@@ -16,7 +16,6 @@ public class ServerDoorScript : MonoBehaviour
     private Vector3 closedDoorPos;
     public Vector3 openDoorPos;
 
-    private bool closed = true;
 
 
     public void Start()
@@ -30,12 +29,7 @@ public class ServerDoorScript : MonoBehaviour
 
     public IEnumerator OpenDoor()
     {
-        if (!closed)
-        {
-            yield break;
-        }
-
-        closed = false;
+        print("Opening Door");
         float current_t = 0f;
         Vector3 distanceToMove  = openDoorPos - closedDoorPos ;
   
@@ -52,13 +46,8 @@ public class ServerDoorScript : MonoBehaviour
 
     public IEnumerator CloseDoor()
     {
-        if (closed)
-        {
-            yield break;
-        }
-
+        print("Closing Door");
         doorCollider.enabled = true;
-        closed = true;
         float current_t = 0f;
         Vector3 distanceToMove = closedDoorPos - openDoorPos;
 
