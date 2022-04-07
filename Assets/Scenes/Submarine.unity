@@ -20281,7 +20281,6 @@ MonoBehaviour:
     - Care
     is needed to not touch the reactor'
   controlRodTouchedFail: The Control Rod hit something. Try again!
-  FailColliders: {fileID: 612215744}
   ReactorCollider: {fileID: 294369136}
   ControlRodHoleOnSucces: {fileID: 751580576}
 --- !u!1001 &870997845
