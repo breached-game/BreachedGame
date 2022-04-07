@@ -40,6 +40,7 @@ public class WaterGrid : MonoBehaviour
     private GameObject firstPersonCamera;
     private FogEffects fogController;
     public bool waterFix = false;
+    private Vector3Int breachPosition = new Vector3Int();
 
     void Awake()
     {
@@ -92,8 +93,6 @@ public class WaterGrid : MonoBehaviour
         int xInflow;
         int yInflow;
         int zInflow;
-
-        Vector3Int breachPosition;
 
         breachPosition = water_grid.LocalToCell(inflowLocations[randomIndex].transform.position - water_grid.transform.position);
 
@@ -259,13 +258,13 @@ public class WaterGrid : MonoBehaviour
         float totalHeight;
         float totalFlux;
         int vCount = 0;
+        Vector3Int inflowPosition = water_grid.LocalToCell(inflowLocations[randomIndex].transform.position - water_grid.transform.position);
         vertices.Clear();
         triangles.Clear();
         tempFlux.Clear();
         uvs.Clear();
         Dictionary<Vector2Int, float> currentOutflows;
         GridVertex currentColumn;
-        Vector3Int breachPosition;
 
         int xInflow=0;
         int zInflow=0;
@@ -371,7 +370,11 @@ public class WaterGrid : MonoBehaviour
                 }
                 if (currentColumn.isVertex)
                 {
-                    vertices.Add(currentColumn.GetVertexPosition());
+                    if (inflowPosition.x == x && inflowPosition.z == z)
+                    {
+                        vertices.Add(new Vector3(currentColumn.GetVertexPosition().x, gridArray[x - 2, z].GetVertexPosition().y, currentColumn.GetVertexPosition().z));
+                    }
+                    else { vertices.Add(currentColumn.GetVertexPosition()); }
                     uvs.Add(new Vector2(currentColumn.GetVertexPosition().x, currentColumn.GetVertexPosition().z));
                     currentColumn.vertex = vCount;
                     vCount++;
