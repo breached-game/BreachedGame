@@ -35,8 +35,7 @@ public class ColourMiniGameManger : NetworkBehaviour
     public int minStartTime;
     public int maxStartTime;
 
-    public bool began = false;
-
+    private int StartTime;
 
 
     public GameObject combinationDisplayParent;
@@ -45,26 +44,22 @@ public class ColourMiniGameManger : NetworkBehaviour
     public void SelectStartTime()
     {
         int randomStartTime = Random.Range(minStartTime, maxStartTime);
-        print("Colour minigame begins at " + randomStartTime);
-        StartCoroutine(CheckIfTimeToStart(randomStartTime));
+        SendClientsStartTime(randomStartTime);
     }
 
     [ClientRpc]
-    public void StartMinigame()
+    public void SendClientsStartTime(int randomStartTime)
     {
-        Begin();
+        StartTime = randomStartTime;
+        //checkIfTimeToStart();
     }
 
-    public IEnumerator CheckIfTimeToStart(int randomStartTime) 
-    {
-        float current_t = 0f;
-        while (current_t < randomStartTime)
-        {
-            current_t += Time.deltaTime;
-            yield return null;
-        }
-        StartMinigame();
-    }
+    //IEnumerator checkIfTimeToStart() 
+    //{ 
+
+
+
+   // }
 
     private void Start()
     {
@@ -77,7 +72,6 @@ public class ColourMiniGameManger : NetworkBehaviour
     private void Begin()
     {
         Reset();
-        began = false;
     }
 
     public void Reset()

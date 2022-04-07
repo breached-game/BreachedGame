@@ -7246,9 +7246,8 @@ MonoBehaviour:
   red: {fileID: 2100000, guid: fd9b5d3c764000f4ab0442252c9b1999, type: 2}
   blue: {fileID: 2100000, guid: c64cb8f8daded88458533df235ed89e4, type: 2}
   green: {fileID: 2100000, guid: 9e151f094e05f754195f4b43281632a9, type: 2}
-  minStartTime: 45
-  maxStartTime: 60
-  began: 0
+  minStartTime: 0
+  maxStartTime: 0
   combinationDisplayParent: {fileID: 65733739}
 --- !u!114 &293587937
 MonoBehaviour:
