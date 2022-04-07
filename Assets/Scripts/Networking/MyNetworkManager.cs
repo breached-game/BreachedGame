@@ -38,9 +38,8 @@ public class MyNetworkManager : NetworkManager
         }
         */
         //Delete Player
-        print("Removing player");
         NetworkServer.DestroyPlayerForConnection(conn);
-        NetworkServer.Destroy(conn.identity.gameObject);
+        //NetworkServer.Destroy(conn.identity.gameObject);
         if (NetworkServer.connections.Count == 0)
         {
             this.ServerChangeScene("Lobby");
