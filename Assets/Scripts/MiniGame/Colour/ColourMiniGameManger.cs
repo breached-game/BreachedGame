@@ -70,7 +70,7 @@ public class ColourMiniGameManger : NetworkBehaviour
     {
         if (isServer)
         {
-            //SelectStartTime();
+            SelectStartTime();
         }
     }
 
