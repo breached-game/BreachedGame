@@ -7,21 +7,25 @@ public class MyNetworkManager : NetworkManager
 {
     public override void OnStartServer()
     {
+        base.OnStartServer();
         Debug.Log("Server Started!");
     }
 
     public override void OnStopServer()
     {
+        base.OnStopServer();
         Debug.Log("Server Stopped!");
     }
 
     public override void OnClientConnect(NetworkConnection conn)
     {
+        base.OnClientConnect(conn);
         Debug.Log("Connected to Server!");
     }
 
     public override void OnServerDisconnect(NetworkConnection conn)
     {
+        base.OnServerDisconnect(conn);
         Debug.Log("Disconnected from Server!");
         playerExitsOrDisconnects(conn);
     }
@@ -38,7 +42,7 @@ public class MyNetworkManager : NetworkManager
         }
         */
         //Delete Player
-        NetworkServer.Destroy(conn.identity.gameObject);
+        //NetworkServer.Destroy(conn.identity.gameObject);
         if (NetworkServer.connections.Count == 0)
         {
             this.ServerChangeScene("Lobby");

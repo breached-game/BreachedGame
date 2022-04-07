@@ -45,45 +45,22 @@ public class DoorSwitchManagers : MonoBehaviour
     {
         for(int i = 0; i<currentDoorState.Count; i++)
         {
-            bool active;
-            if(currentDoorState[i] == 0)
+      
+            if(currentDoorState[i] == 0) //Should be closed
             {
-                active = true;
+
+                StartCoroutine(doors[i].GetComponent<ServerDoorScript>().CloseDoor());
+                
             }
-            else
+            else   //Should be open
             {
-                active = false;
+                StartCoroutine(doors[i].GetComponent<ServerDoorScript>().OpenDoor());
             }
 
-            
-            doors[i].GetComponent<MeshRenderer>().enabled = active;
-            doors[i].GetComponent<BoxCollider>().enabled = active;
+ 
 
 
         }
-
-        /*print(currentDoorState.Contains(1));
-        for (int i = 0; i < currentDoorState.Count; i++)
-        {
-            Animator aniDoor = doors[i].GetComponent<Animator>();
-            if (currentDoorState[i] == 0) 
-            {
-                if (aniDoor.GetCurrentAnimatorStateInfo(0).IsName("Closed"))
-                {
-                    aniDoor.GetComponent<Animator>().Play("Closed");
-                    // aniDoor.GetComponent<Animator>().Play("Open");
-                }
-            }
-            else 
-            {
-                if (aniDoor.GetCurrentAnimatorStateInfo(0).IsName("Open"))
-                {
-                   // aniDoor.GetComponent<Animator>().Play("Closed");
-                    aniDoor.GetComponent<Animator>().Play("Open");
-                }
-            }
-
-        }*/
 
     }
 

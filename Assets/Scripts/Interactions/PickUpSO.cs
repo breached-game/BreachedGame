@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 [CreateAssetMenu(fileName = "InteractionScriptableObject", menuName = "Interactions/PickUp")]
 public class PickUpSO : InteractionSO
 {
@@ -11,6 +12,12 @@ public class PickUpSO : InteractionSO
         {
             Debug.Log("Picked up " + interactable.name);
             Player.GetComponent<PlayerManager>().CallCmdPickupObject(interactable);
+            
+            if (interactable.transform.name == "WaterPumpItem")
+            {
+                Debug.Log("CHECK ZERO");
+                Player.GetComponent<PlayerNetworkManager>().CallRemovePump(interactable);
+            }
         }
         else
         {
