@@ -41,6 +41,7 @@ public class ColourMiniGameManger : NetworkBehaviour
 
     public GameObject combinationDisplayParent;
 
+    /*
     [Server]
     public void SelectStartTime()
     {
@@ -48,6 +49,7 @@ public class ColourMiniGameManger : NetworkBehaviour
         print("Colour minigame begins at " + randomStartTime);
         StartCoroutine(CheckIfTimeToStart(randomStartTime));
     }
+    */
 
     [ClientRpc]
     public void StartMinigame()
