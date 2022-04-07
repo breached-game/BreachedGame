@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1580,7 +1580,6 @@ GameObject:
   - component: {fileID: 64322987}
   - component: {fileID: 64322989}
   - component: {fileID: 64322988}
-  - component: {fileID: 64322990}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1651,19 +1650,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64322986}
   m_Mesh: {fileID: -5495902117074765545, guid: eed051a51986c764591bbc525378a2c3, type: 3}
---- !u!65 &64322990
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64322986}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.02000001, y: 0.04, z: 0.05}
-  m_Center: {x: 0.000000010244548, y: 0.000000014901161, z: -0.0000000018626451}
 --- !u!1 &65733739
 GameObject:
   m_ObjectHideFlags: 0
@@ -6852,7 +6838,6 @@ GameObject:
   m_Component:
   - component: {fileID: 293587935}
   - component: {fileID: 293587936}
-  - component: {fileID: 293587937}
   m_Layer: 0
   m_Name: ColourMiniGameManager
   m_TagString: Untagged
@@ -6891,8 +6876,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafdbabd4fcda4949972361ac3f812f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   correctColourCombination:
   - blue
   - green
@@ -6916,25 +6899,7 @@ MonoBehaviour:
   red: {fileID: 2100000, guid: fd9b5d3c764000f4ab0442252c9b1999, type: 2}
   blue: {fileID: 2100000, guid: c64cb8f8daded88458533df235ed89e4, type: 2}
   green: {fileID: 2100000, guid: 9e151f094e05f754195f4b43281632a9, type: 2}
-  minStartTime: 0
-  maxStartTime: 0
   combinationDisplayParent: {fileID: 65733739}
---- !u!114 &293587937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 293587934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 3417410861
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!1 &294369132
 GameObject:
   m_ObjectHideFlags: 0
@@ -6946,7 +6911,6 @@ GameObject:
   - component: {fileID: 294369133}
   - component: {fileID: 294369135}
   - component: {fileID: 294369134}
-  - component: {fileID: 294369136}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -7017,19 +6981,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294369132}
   m_Mesh: {fileID: 2534964839176971238, guid: 2cad6f3e87b12f44986127c15e22e74f, type: 3}
---- !u!65 &294369136
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 294369132}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.04, y: 0.03, z: 0.02}
-  m_Center: {x: 0, y: -4.656613e-10, z: 0.0000000037252903}
 --- !u!1 &294618884
 GameObject:
   m_ObjectHideFlags: 0
@@ -8975,7 +8926,7 @@ MonoBehaviour:
   playerUI: {fileID: 1636883686}
   playerPos: {fileID: 1326359985}
   currentPlayer: {fileID: 0}
-  magnitude: 10
+  magnitude: 1
 --- !u!4 &378052622
 Transform:
   m_ObjectHideFlags: 0
@@ -17390,50 +17341,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752115445}
   m_CullTransparentMesh: 1
---- !u!1 &755466859
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 755466860}
-  - component: {fileID: 755466861}
-  m_Layer: 0
-  m_Name: ColliderToStopRobotArm
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &755466860
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 755466859}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 15, z: 1}
-  m_Children: []
-  m_Father: {fileID: 870447198}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &755466861
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 755466859}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &757805653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20256,7 +20163,6 @@ Transform:
   - {fileID: 1291686649}
   - {fileID: 612215745}
   - {fileID: 1317465549}
-  - {fileID: 755466860}
   m_Father: {fileID: 415543279}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20281,7 +20187,6 @@ MonoBehaviour:
     - Care
     is needed to not touch the reactor'
   controlRodTouchedFail: The Control Rod hit something. Try again!
-  ReactorCollider: {fileID: 294369136}
   ControlRodHoleOnSucces: {fileID: 751580576}
 --- !u!1001 &870997845
 PrefabInstance:

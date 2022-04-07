@@ -15,7 +15,7 @@ public class ControlRodManager : MonoBehaviour
 
     public string controlRodTouchedFail;
 
-    public BoxCollider ReactorCollider;
+
     public GameObject ControlRodHoleOnSucces;
 
 
@@ -31,7 +31,6 @@ public class ControlRodManager : MonoBehaviour
         ControlRodHoleOnSucces.SetActive(true);
         controlRod.GetComponent<MeshRenderer>().enabled = false;
         controlRod.GetComponent<CapsuleCollider>().enabled = false;
-        ReactorCollider.enabled = true;
         minigameManager.ObjectiveCompleted(minigameName, minigameObjective);
     }
 
