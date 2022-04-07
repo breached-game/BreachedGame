@@ -34,8 +34,6 @@ public class WaterGrid : MonoBehaviour
     private List<Vector2> uvs = new List<Vector2>();
     private Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
     public Transform waterParticleSystem;
-    public Transform breachPrefab;
-    public GameObject breach;
     private Vector3Int playerGridPos;
     public GameObject waterDrops;
     public GameObject[] players;
@@ -43,7 +41,6 @@ public class WaterGrid : MonoBehaviour
     private FogEffects fogController;
     public bool waterFix = false;
     private Vector3Int breachPosition = new Vector3Int();
-
 
     void Awake()
     {
@@ -106,8 +103,6 @@ public class WaterGrid : MonoBehaviour
 
         gridArray[xInflow, zInflow].Seth(yInflow);
         Instantiate(waterParticleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180)));
-        
-        breach = Instantiate(breachPrefab, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180))).gameObject;
     }
 
     private void OnTriggerEnter(Collider other)
