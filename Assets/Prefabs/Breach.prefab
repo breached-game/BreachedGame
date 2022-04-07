@@ -45,7 +45,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 4, y: 2, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3616979721925393411
 MonoBehaviour:
@@ -94,7 +94,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   itemToBeDroppedOff: Wood
-  dropOffPrefab: {fileID: 492345793349554549, guid: 0857e8ce1e470f64fb92e3f108a72fc4,
-    type: 3}
+  dropOffPrefab: {fileID: 0}
   hasItem: 0
   batteryDropOff: 0
