@@ -213,11 +213,6 @@ public class WaterGrid : MonoBehaviour
         outflowLocations.Add(water_grid.LocalToCell(position - water_grid.transform.position));
     }
 
-    public void RemoveWaterPump(Vector3 position)
-    {
-        outflowLocations.Remove(water_grid.LocalToCell(position - water_grid.transform.position));
-    }
-
     private void OnTriggerExit(Collider other)
     {
         PlayerManager playerManager = other.gameObject.GetComponent<PlayerManager>();
