@@ -910,6 +910,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02027476, y: 0.02067302, z: 0.020673014}
   m_Center: {x: -0.00013737196, y: -7.809114e-18, z: -0.00000023841858}
+--- !u!114 &45626886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45626883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d0a7c11598cb148880bc6d7ee52f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDoorPos: {x: 0, y: 6.2, z: -18}
 --- !u!1001 &46403625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14714,6 +14727,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02027476, y: 0.02067302, z: 0.020673014}
   m_Center: {x: -0.00013737196, y: -7.809114e-18, z: -0.00000023841858}
+--- !u!114 &633047978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633047975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d0a7c11598cb148880bc6d7ee52f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDoorPos: {x: 0, y: 6.2, z: -13}
 --- !u!1001 &633170063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29567,6 +29593,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1373559201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373559198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d0a7c11598cb148880bc6d7ee52f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDoorPos: {x: 0, y: 6.2, z: 2}
 --- !u!1001 &1380946397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31344,6 +31383,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02027476, y: 0.02067302, z: 0.020673014}
   m_Center: {x: -0.00013737196, y: -7.809114e-18, z: -0.00000023841858}
+--- !u!114 &1495738656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495738653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d0a7c11598cb148880bc6d7ee52f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDoorPos: {x: 0, y: 6.2, z: -8}
 --- !u!1001 &1496083685
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38610,6 +38662,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02027476, y: 0.02067302, z: 0.020673014}
   m_Center: {x: -0.00013737196, y: -7.809114e-18, z: -0.00000023841858}
+--- !u!114 &1877309538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877309535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d0a7c11598cb148880bc6d7ee52f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDoorPos: {x: 0, y: 6.2, z: -3}
 --- !u!1001 &1878845295
 PrefabInstance:
   m_ObjectHideFlags: 0
