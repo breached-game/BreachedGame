@@ -111,7 +111,7 @@ jobs:
       - name: ssh into code
         uses: appleboy/ssh-action@master
         with:
-          host: 34.142.71.62
+          host: 34.142.47.219
           username: danielsavidge
           key: ${{ secrets.SSH_KEY }}
           script: |
