@@ -218,6 +218,11 @@ public class WaterGrid : MonoBehaviour
         outflowLocations.Remove(water_grid.LocalToCell(position - water_grid.transform.position));
     }
 
+    public void StopBreach()
+    {
+        inflow = false;
+    }
+
     private void OnTriggerExit(Collider other)
     {
         PlayerManager playerManager = other.gameObject.GetComponent<PlayerManager>();
@@ -271,8 +276,8 @@ public class WaterGrid : MonoBehaviour
         Dictionary<Vector2Int, float> currentOutflows;
         GridVertex currentColumn;
 
-        int xInflow=0;
-        int zInflow=0;
+        int xInflow = 0;
+        int zInflow = 0;
         int xOutflow;
         int zOutflow;
         int inflowLocationsSize = inflowLocations.Length;

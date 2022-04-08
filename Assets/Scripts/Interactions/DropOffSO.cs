@@ -7,9 +7,9 @@ public class DropOffSO : InteractionSO
 {
     public override void RunInteraction(GameObject interactable, GameObject player)
     {
-        if (player.GetComponent<PlayerManager>().objectPlayerHas.name == "WaterPumpItem")
+        if (player.GetComponent<PlayerManager>().objectPlayerHas.name == "Wood")
         {
-            ///player.GetComponent<PlayerNetworkManager>().OutflowWater(interactable);
+            player.GetComponent<PlayerNetworkManager>().StopBreach(interactable);
         }
         Debug.Log("Try to drop off");
         player.GetComponent<PlayerNetworkManager>().DropOff(interactable);

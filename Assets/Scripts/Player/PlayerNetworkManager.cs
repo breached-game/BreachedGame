@@ -253,6 +253,26 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #endregion
 
+    #region Breach
+    public void StopBreach(GameObject breach)
+    {
+        CmdStopBreach(breach);
+    }
+
+    [Command]
+    public void CmdStopBreach(GameObject breach)
+    {
+        StopAllBreaches(breach);
+    }
+
+    [ClientRpc]
+    public void StopAllBreaches(GameObject breach)
+    {
+        breach.GetComponent<WaterManager>().StopBreach();
+    }
+
+    #endregion
+
     #region:ColourButtons
 
     void onComboUpdated(SyncListString.Operation op, int index, string oldColour, string newColour)

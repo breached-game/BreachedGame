@@ -20,9 +20,26 @@ public class WaterManager : NetworkBehaviour
         //waterGrid.run = true;
     }
     
-    public void StopWater()
+    public void StopBreach()
     {
-        //waterGrid.run = false;
+        Vector3Int breachPosition;
+        for (int i = 0; i < waterGridObjects.Length; i++)
+        {
+            if (waterGridObjects[i].activeSelf)
+            {
+                breachPosition = waterGrids[i].water_grid.LocalToCell(transform.position - waterGrids[i].water_grid.transform.position);
+                if (breachPosition.x >= 0 & breachPosition.x < waterGrids[i].width)
+                {
+                    if (breachPosition.y >= 0 & breachPosition.y < waterGrids[i].height)
+                    {
+                        if (breachPosition.z >= 0 & breachPosition.z < waterGrids[i].depth)
+                        {
+                            waterGrids[i].StopBreach();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void AddPump()
