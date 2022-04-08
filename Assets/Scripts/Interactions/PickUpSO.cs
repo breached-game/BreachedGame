@@ -11,6 +11,11 @@ public class PickUpSO : InteractionSO
         {
             Debug.Log("Picked up " + interactable.name);
             Player.GetComponent<PlayerManager>().CallCmdPickupObject(interactable);
+
+            if (interactable.transform.name == "WaterPumpItem")
+            {
+                Player.GetComponent<PlayerNetworkManager>().CallRemoveWaterPump(interactable);
+            }
         }
         else
         {

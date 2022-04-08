@@ -234,7 +234,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     #endregion
 
     #region:Water
-    public void OutflowWater(GameObject waterPump)
+    public void Pump(GameObject waterPump)
     {
         CmdOutflowWater(waterPump);
     }
@@ -247,8 +247,26 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     public void CallOutflowWater(GameObject waterPump)
     {
-        waterPump.GetComponent<WaterManager>().OutflowWater();
+        waterPump.GetComponent<WaterManager>().AddPump();
     }
+
+    public void CallRemoveWaterPump(GameObject waterPump)
+    {
+        CmdRemoveWaterPump(waterPump);
+    }
+
+    [Command]
+    public void CmdRemoveWaterPump(GameObject waterPump)
+    {
+        CallRemoveAllWaterPump(waterPump);
+    }
+
+    [ClientRpc]
+    public void CallRemoveAllWaterPump(GameObject waterPump)
+    {
+        waterPump.GetComponent<WaterManager>().RemovePump();
+    }
+
     #endregion
 
     #region:ColourButtons
