@@ -25,7 +25,6 @@ public class CommandManager : MonoBehaviour
         rectTransform.position = new Vector2(Screen.width / 6, Screen.height / 8);
         if (!typing && messages.Count != 0)
         {
-            print("typing");
             typing = true;
             msg = (string)messages.Dequeue();
             StartCoroutine(TypeMessage(msg));

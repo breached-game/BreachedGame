@@ -57,7 +57,15 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void ChangeToSub()
     {
+        float time = 15;
         starter = true;
+        CmdChangeScene("Orientation");
+        StartCoroutine(OrientationTime(time));
+    }
+
+    IEnumerator OrientationTime(float time)
+    {
+        yield return new WaitForSeconds(time);
         CmdChangeScene("Submarine");
     }
     #endregion
