@@ -11,6 +11,7 @@ public class OrientationSetup : MonoBehaviour
     public GameObject lights;
     public GameObject commandObject;
     private CommandManager commandLine;
+    public GameObject networkCommand;
 
     // Start is called before the first frame update
     void Start()
@@ -31,12 +32,19 @@ public class OrientationSetup : MonoBehaviour
                 playerUI.transform.GetChild(i).gameObject.SetActive(true);
             }
             player.GetComponent<PlayerManager>().TurnOnAudio();
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                player.GetComponent<PlayerNetworkManager>().WriteCommand(networkCommand, "test");
+            }
         }
         CaptainIntro();
     }
 
     private void CaptainIntro()
     {
-        commandLine.QueueMessage("Welcome to your orientation time");
+        commandLine.QueueMessage("Welcome to the night shift on HMS Coronation", true);
+        commandLine.QueueMessage("We have a dangerous area ahead of us which is going to need some careful navigating", true);
+        commandLine.QueueMessage("What's going on? You all look half asleep, wandering around like headless chickens!", true);
+        commandLine.QueueMessage("You've got one minute to have a stroll around the sub and wake yourselves up for the shift ahead", true);
     }
 }

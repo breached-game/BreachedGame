@@ -374,6 +374,23 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #endregion
 
+    #region:CommandLine
+    public void WriteCommand(GameObject commandNetwork, string msg, bool captain = false)
+    {
+        CmdWriteCommand(commandNetwork, msg, captain);
+    }
+    [Command]
+    public void CmdWriteCommand(GameObject commandNetwork, string msg, bool captain)
+    {
+        CallNetworkQueueMessage(commandNetwork, msg, captain);
+    }
+    [ClientRpc]
+    public void CallNetworkQueueMessage(GameObject commandNetwork, string msg, bool captain)
+    {
+        commandNetwork.GetComponent<CommandNetworkManager>().QueueNetworkMessage(msg, captain);
+    }
+    #endregion
+
     #region:Assign Players Skins and Names
     public List<Material> playerMats;
     private Dictionary<GameObject, string> playerNames;

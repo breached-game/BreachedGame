@@ -6660,6 +6660,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a26a45bad3fa820489c256553c2eae4b, type: 3}
+--- !u!1 &323501366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 323501369}
+  - component: {fileID: 323501368}
+  - component: {fileID: 323501367}
+  m_Layer: 0
+  m_Name: CommandNetwork
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &323501367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323501366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e87e8d85efc304eab03b3aec848a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commandObject: {fileID: 620290711}
+--- !u!114 &323501368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323501366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 915144580
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!4 &323501369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323501366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2101276, y: 159.33073, z: -2.1844947}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &326708556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13526,6 +13587,7 @@ MonoBehaviour:
   playerUI: {fileID: 1474919505}
   lights: {fileID: 426058794}
   commandObject: {fileID: 620290711}
+  networkCommand: {fileID: 323501366}
 --- !u!1001 &585345742
 PrefabInstance:
   m_ObjectHideFlags: 0
