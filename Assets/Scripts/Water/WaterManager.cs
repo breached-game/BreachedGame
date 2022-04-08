@@ -40,6 +40,7 @@ public class WaterManager : NetworkBehaviour
                         if (waterPumpGridPosition.z >= 0 & waterPumpGridPosition.z < waterGrids[i].depth)
                         {
                             waterGrids[i].AddWaterPump(transform.position);
+                            print("CHECK");
                             transform.GetChild(0).GetComponent<Animator>().enabled = true;
                         }
                     }
