@@ -124,10 +124,6 @@ public class PlayerManager : NetworkBehaviour
         objectBeingPickedUp.SetActive(false);
         playerManager.VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
 
-        if (objectBeingPickedUp.transform.name == "WaterPumpItem")
-        {
-            objectBeingPickedUp.GetComponent<WaterManager>().AddPump();
-        }
     }
     [Command]
     public void CmdDropItem()
@@ -162,11 +158,17 @@ public class PlayerManager : NetworkBehaviour
         {
             playerManager.torch.SetActive(false);
         }
+
         playerManager.objectPlayerHas = null;
         //Update the item text
         playerManager.updateItemText();
         //Visual Effect
         playerManager.VisualEffectOfPlayerDroppingItem();
+
+        if (droppedItem.transform.name == "WaterPumpItem")
+        {
+            droppedItem.GetComponent<WaterManager>().AddPump();
+        }
     }
     #endregion
 
