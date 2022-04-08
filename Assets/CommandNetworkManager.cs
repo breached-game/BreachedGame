@@ -7,7 +7,7 @@ public class CommandNetworkManager : MonoBehaviour
     public GameObject commandObject;
     private CommandManager commandManager;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         commandManager = commandObject.GetComponent<CommandManager>();
     }

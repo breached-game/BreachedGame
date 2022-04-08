@@ -66,10 +66,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     IEnumerator OrientationTime(float time)
     {
         yield return new WaitForSeconds(time);
-        if (NetworkServer.connections.Count != 0)
-        {
-            CmdChangeScene("Submarine");
-        }
+        CmdChangeScene("Submarine");
     }
     #endregion
 
@@ -378,6 +375,20 @@ public class PlayerNetworkManager : NetworkBehaviour
     #endregion
 
     #region:CommandLine
+
+    public void SpawnCommandLine(GameObject commandNetwork)
+    {
+        CmdSpawnCommandLine(commandNetwork);
+    }
+    [Command]
+    public void CmdSpawnCommandLine(GameObject commandNetwork)
+    {
+        if (!commandNetwork.GetComponent<NetworkIdentity>().isActiveAndEnabled)
+        {
+            NetworkServer.Spawn(commandNetwork);
+        }
+        NetworkServer.Spawn(commandNetwork);
+    }
     public void WriteCommand(GameObject commandNetwork, string msg, bool captain = false)
     {
         CmdWriteCommand(commandNetwork, msg, captain);

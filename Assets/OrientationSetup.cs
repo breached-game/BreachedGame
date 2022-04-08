@@ -43,6 +43,7 @@ public class OrientationSetup : MonoBehaviour
         {
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
+                player.GetComponent<PlayerNetworkManager>().SpawnCommandLine(networkCommand);
                 print("sending test");
                 player.GetComponent<PlayerNetworkManager>().WriteCommand(networkCommand, "test");
             }
