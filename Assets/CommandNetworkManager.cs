@@ -14,6 +14,7 @@ public class CommandNetworkManager : MonoBehaviour
 
     public void QueueNetworkMessage(string msg, bool captain)
     {
+        print("Msg");
         commandManager.QueueMessage(msg, captain);
     }
 }

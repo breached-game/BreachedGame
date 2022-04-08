@@ -66,7 +66,10 @@ public class PlayerNetworkManager : NetworkBehaviour
     IEnumerator OrientationTime(float time)
     {
         yield return new WaitForSeconds(time);
-        CmdChangeScene("Submarine");
+        if (NetworkServer.connections.Count != 0)
+        {
+            CmdChangeScene("Submarine");
+        }
     }
     #endregion
 
@@ -382,11 +385,13 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdWriteCommand(GameObject commandNetwork, string msg, bool captain)
     {
+        print("command");
         CallNetworkQueueMessage(commandNetwork, msg, captain);
     }
     [ClientRpc]
     public void CallNetworkQueueMessage(GameObject commandNetwork, string msg, bool captain)
     {
+        print("message");
         commandNetwork.GetComponent<CommandNetworkManager>().QueueNetworkMessage(msg, captain);
     }
     #endregion
