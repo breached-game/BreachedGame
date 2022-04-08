@@ -234,22 +234,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     #endregion
 
     #region:Water
-    public void Pump(GameObject waterPump)
-    {
-        CmdOutflowWater(waterPump);
-    }
-    [Command]
-    public void CmdOutflowWater(GameObject waterPump)
-    {
-        CallOutflowWater(waterPump);
-    }
-
-    [ClientRpc]
-    public void CallOutflowWater(GameObject waterPump)
-    {
-        waterPump.GetComponent<WaterManager>().AddPump();
-    }
-
     public void CallRemoveWaterPump(GameObject waterPump)
     {
         CmdRemoveWaterPump(waterPump);

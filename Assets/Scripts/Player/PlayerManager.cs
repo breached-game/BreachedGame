@@ -115,6 +115,7 @@ public class PlayerManager : NetworkBehaviour
     {
         //Runs for everyone so all instances say that this player has this object 
         PlayerManager playerManager = player.GetComponent<PlayerManager>();
+
         playerManager.objectPlayerHas = objectBeingPickedUp;
         if (playerManager.identity.isLocalPlayer)
         {
@@ -122,6 +123,11 @@ public class PlayerManager : NetworkBehaviour
         }
         objectBeingPickedUp.SetActive(false);
         playerManager.VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
+
+        if (objectBeingPickedUp.transform.name == "WaterPumpItem")
+        {
+            objectBeingPickedUp.GetComponent<WaterManager>().AddPump();
+        }
     }
     [Command]
     public void CmdDropItem()
