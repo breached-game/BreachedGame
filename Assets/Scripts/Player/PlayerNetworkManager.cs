@@ -109,6 +109,26 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    #region:Periscope
+    public void PeriscopeSendCurrentPlayer(GameObject player, GameObject controlRodController)
+    {
+        CmdPeriscopeSendCurrentPlayer(player, controlRodController);
+    }
+
+    [Command]
+
+    public void CmdPeriscopeSendCurrentPlayer(GameObject player, GameObject controlRodController)
+    {
+        PeriscopeSetCurrentPlayer(player, controlRodController);
+    }
+
+    [ClientRpc]
+    public void PeriscopeSetCurrentPlayer(GameObject player, GameObject controlRodController)
+    {
+        controlRodController.gameObject.GetComponent<PeriscopeView>().currentPlayer = player;
+    }
+    #endregion
+
     #region:StartButton
     public void StartGame(GameObject setupObject)
     {

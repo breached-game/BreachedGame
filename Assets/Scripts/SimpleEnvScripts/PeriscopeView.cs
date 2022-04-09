@@ -20,7 +20,7 @@ public class PeriscopeView : NetworkBehaviour
             {
                 playerManager = player.GetComponent<PlayerManager>();
                 playerNetworkManager = player.GetComponent<PlayerNetworkManager>();
-                playerNetworkManager.SendCurrentPlayer(player, this.gameObject);
+                playerNetworkManager.PeriscopeSendCurrentPlayer(player, this.gameObject);
 
                 Cursor.lockState = CursorLockMode.None;
                 playerManager.FirstPersonCamera.SetActive(false);
@@ -52,7 +52,7 @@ public class PeriscopeView : NetworkBehaviour
                 pericopeUI.SetActive(false);
                 playerUI.SetActive(true);
 
-                playerNetworkManager.SendCurrentPlayer(null, this.gameObject);
+                playerNetworkManager.PeriscopeSendCurrentPlayer(null, this.gameObject);
             }
         }
 
