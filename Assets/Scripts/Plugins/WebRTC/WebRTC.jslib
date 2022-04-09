@@ -6,34 +6,56 @@ var localDisplayName;
 var localStream;
 var serverConnection;
 
+var inWater;
+var microphone
+//node constructors
+var AudioContext;
+var context;
+var destination;
+var biquadFilter;
+
 mergeInto(LibraryManager.library, {
   Hello: function () {
     window.alert("Hello world");
   },
 
   // set up local video stream
-  // set up local video stream
   start: function () {
-    //need to find a way to assign each client a unique ID - could use players network identity. Something like ...
-    console.log("Before getting the network manager");
     localUuid = "_" + Math.random().toString(36).substring(2, 11);
-    //localUuid = window.unityInstance.SendMessage(
-    //"NetworkManager",
-    //"GetNetworkIdentity"
-    //);
+    inWater = false;
+
     console.log("Network Identity = " + localUuid);
-    localDisplayName = localUuid; //should have a better name here
+    localDisplayName = localUuid; //could have a better name here
 
     var constraints = {
       video: false,
       audio: true,
     };
 
+    AudioContext = window.AudioContext || window.webkitAudioContext;
+    context = new AudioContext();
+    destination = context.createMediaStreamDestination();
+    biquadFilter = context.createBiquadFilter();
+
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
         .getUserMedia(constraints)
         .then(function (stream) {
-          localStream = stream;
+          if (inWater == true) {
+            console.log("in water so starting call stuff")
+            microphone = context.createMediaStreamSource(stream);
+            //setting values of the filter (causes muffled mic sound)
+            biquadFilter.type = "lowpass";
+            biquadFilter.frequency.value = 300;
+            //connect filter and microphone to destination
+            microphone.connect(biquadFilter);
+            biquadFilter.connect(destination);
+            //assign destination to local stream
+            localStream = destination.stream;
+          } else {
+            //standard stream
+            localStream = stream;
+          }
           console.log("Got MediaStream:", stream);
           //window.unityInstance.SendMessage("MicManager", "MicRecieved");
         })
@@ -41,7 +63,6 @@ mergeInto(LibraryManager.library, {
           console.error("Error getting the mic.", errorHandler);
           //window.unityInstance.SendMessage("MicManager", "MicRejected");
         })
-
         // set up websocket and message all existing clients
         .then(function () {
           //serverConnection = new WebSocket('wss://' + window.location.hostname + ':' + WS_PORT);
@@ -98,4 +119,31 @@ mergeInto(LibraryManager.library, {
       );
     }
   },
+
+  waterMic: function(){
+    if (inWater == false) {
+      biquadFilter.type = "lowpass";
+      biquadFilter.frequency.value = 300;
+      microphone.disconnect();
+      microphone.connect(biquadFilter);
+      biquadFilter.connect(destination);
+
+      localStream = destination.stream;
+
+      inWater = true;
+      console.log("New water state = " + inWater);
+    } else {
+      // biquadFilter = context.createBiquadFilter();
+      // biquadFilter.type = "allpass"
+      microphone.disconnect();
+      // microphone.connect(biquadFilter);
+      // biquadFilter.connect(destination);
+      microphone.connect(destination);
+
+      localStream = destination.stream;
+
+      inWater = false;
+      console.log("New water state = " + inWater);
+    }
+  }
 });

@@ -35,13 +35,16 @@ public class MuteButtonManager : MonoBehaviour
         {
             print("unmuted");
             actualImage.sprite = unmuted;
-            VoiceWrapper.muteMic();
+            //VoiceWrapper.muteMic();
+            VoiceWrapper.waterMic();
         }
         else
         {
             print("muted");
             actualImage.sprite = muted;
-            VoiceWrapper.muteMic();
+            //VoiceWrapper.muteMic();
+            VoiceWrapper.waterMic();
+
         }
     }
 }
