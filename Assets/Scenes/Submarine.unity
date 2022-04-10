@@ -2640,7 +2640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 85834824}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.385206, y: 2.43, z: -41.357464}
+  m_LocalPosition: {x: -15.93, y: 2.43, z: -43.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1839010394}
@@ -5819,7 +5819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3bb0ab6171e5842aeba34341210455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minigameName: Fix Breach in the Kitchen
+  minigameName: Fix breach in the Kitchen
   minigameObjective: Grab wood and fix the breaches!
   ItemDroppedOff: {fileID: 657172703}
   numberOfDropOffs: 1
@@ -6575,8 +6575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3bb0ab6171e5842aeba34341210455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minigameName: Fix Breach
-  minigameObjective: Grab wood and fix the breach!
+  minigameName: Fix breach in storage room
+  minigameObjective: Grab wood and fix the breaches!
   ItemDroppedOff: {fileID: 1839010393}
   numberOfDropOffs: 1
   active: 0
@@ -18921,7 +18921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &657172704
 Transform:
   m_ObjectHideFlags: 0
@@ -25119,7 +25119,7 @@ MonoBehaviour:
   columnMesh: {fileID: 3636839361221879802, guid: 625475178c1df744986134d0dfa5e7e9,
     type: 3}
   inflowLocations:
-  - {fileID: 0}
+  - {fileID: 85834824}
   run: 0
   playerSpeed: 3
   waterParticleSystem: {fileID: 4434907143542138, guid: 3d19250bdd4e0df4c8da855e85a8d70b,
@@ -27179,7 +27179,7 @@ MonoBehaviour:
   columnMesh: {fileID: 3636839361221879802, guid: 625475178c1df744986134d0dfa5e7e9,
     type: 3}
   inflowLocations:
-  - {fileID: 0}
+  - {fileID: 1867509688}
   run: 0
   playerSpeed: 3
   waterParticleSystem: {fileID: 4434907143542138, guid: 3d19250bdd4e0df4c8da855e85a8d70b,
@@ -47679,7 +47679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1839010394
 Transform:
   m_ObjectHideFlags: 0
@@ -48457,11 +48457,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3bb0ab6171e5842aeba34341210455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minigameName: Fix Breach
+  minigameName: Fix breach below control room
   minigameObjective: Grab wood and fix the breaches!
   ItemDroppedOff: {fileID: 366587552}
   numberOfDropOffs: 1
-  active: 0
+  active: 1
 --- !u!1001 &1873662067
 PrefabInstance:
   m_ObjectHideFlags: 0
