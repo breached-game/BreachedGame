@@ -2622,9 +2622,10 @@ GameObject:
   m_Component:
   - component: {fileID: 85834825}
   - component: {fileID: 85834829}
-  - component: {fileID: 85834828}
-  - component: {fileID: 85834827}
   - component: {fileID: 85834826}
+  - component: {fileID: 85834827}
+  - component: {fileID: 85834828}
+  - component: {fileID: 85834830}
   m_Layer: 0
   m_Name: BreachPoint_2
   m_TagString: Untagged
@@ -2689,7 +2690,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 85834824}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4, y: 2, z: 4}
@@ -2710,6 +2711,24 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &85834830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85834824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73e514247484a864ca4aff32422ef695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  waterGridObjects:
+  - {fileID: 1807476026}
+  - {fileID: 876189721}
+  - {fileID: 956932230}
 --- !u!1 &86503571
 GameObject:
   m_ObjectHideFlags: 0
@@ -5836,7 +5855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f54818b4d7667d4fa5dce0ebf62afb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterGridTimer: 60
+  waterGridTimer: 30
   waterGrid: {fileID: 956932230}
 --- !u!1001 &207834371
 PrefabInstance:
@@ -6592,7 +6611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f54818b4d7667d4fa5dce0ebf62afb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterGridTimer: 30
+  waterGridTimer: 600
   waterGrid: {fileID: 876189721}
 --- !u!1001 &243825160
 PrefabInstance:
@@ -48243,9 +48262,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1867509689}
   - component: {fileID: 1867509693}
-  - component: {fileID: 1867509692}
-  - component: {fileID: 1867509691}
   - component: {fileID: 1867509690}
+  - component: {fileID: 1867509691}
+  - component: {fileID: 1867509692}
+  - component: {fileID: 1867509694}
   m_Layer: 0
   m_Name: BreachPoint_3
   m_TagString: Untagged
@@ -48331,6 +48351,24 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &1867509694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867509688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73e514247484a864ca4aff32422ef695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  waterGridObjects:
+  - {fileID: 1807476026}
+  - {fileID: 876189721}
+  - {fileID: 956932230}
 --- !u!1 &1871341468
 GameObject:
   m_ObjectHideFlags: 0
