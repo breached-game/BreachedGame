@@ -221,6 +221,7 @@ public class WaterGrid : MonoBehaviour
     public void StopBreach()
     {
         inflow = false;
+        print("CHECK");
     }
 
     private void OnTriggerExit(Collider other)
@@ -289,14 +290,14 @@ public class WaterGrid : MonoBehaviour
             zInflow = breachPosition.z;
 
             gridArray[xInflow, zInflow].Seth(gridArray[xInflow, zInflow].Geth() + inflowRate * dt);
+        }
 
-            for (int i = 0; i < outflowLocations.Count; i++)
-            {
-                xOutflow = outflowLocations[i].x;
-                zOutflow = outflowLocations[i].z;
+        for (int i = 0; i < outflowLocations.Count; i++)
+        {
+            xOutflow = outflowLocations[i].x;
+            zOutflow = outflowLocations[i].z;
 
-                gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - inflowRate * dt);
-            }
+            gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - inflowRate * dt);
         }
 
 
