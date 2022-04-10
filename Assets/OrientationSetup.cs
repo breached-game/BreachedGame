@@ -35,6 +35,7 @@ public class OrientationSetup : MonoBehaviour
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 playerNetworkManager = player.GetComponent<PlayerNetworkManager>();
+                playerNetworkManager.StartOrientation();
             }
         }
         playerNetworkManager.WriteCommand(networkCommand, "hello", true);

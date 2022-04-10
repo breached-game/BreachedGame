@@ -129,6 +129,18 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    #region:Orientation
+    public void StartOrientation()
+    {
+        CmdStartOrientation();
+    }
+    [Command]
+    public void CmdStartOrientation()
+    {
+        NetworkServer.SpawnObjects();
+    }
+    #endregion
+
     #region:StartButton
     public void StartGame(GameObject setupObject)
     {
@@ -433,17 +445,18 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     public void WriteCommand(GameObject commandNetwork, string msg, bool captain = false)
     {
-        CmdWriteCommand(msg, captain);
+        CmdWriteCommand(commandNetwork, msg, captain);
     }
     [Command]
-    public void CmdWriteCommand(string msg, bool captain)
+    public void CmdWriteCommand(GameObject commandNetwork, string msg, bool captain)
     {
         print("command");
-        CallNetworkQueueMessage(msg, captain);
+        CallNetworkQueueMessage(commandNetwork, msg, captain);
     }
     [ClientRpc]
-    public void CallNetworkQueueMessage(string msg, bool captain)
+    public void CallNetworkQueueMessage(GameObject commandNetwork,string msg, bool captain)
     {
+        commandNetwork.GetComponent<CommandNetworkManager>().QueueNetworkMessage(msg, captain);
         print("message");
     }
     #endregion
