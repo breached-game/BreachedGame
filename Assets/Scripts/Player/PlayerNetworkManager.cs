@@ -433,19 +433,18 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     public void WriteCommand(GameObject commandNetwork, string msg, bool captain = false)
     {
-        CmdWriteCommand(commandNetwork, msg, captain);
+        CmdWriteCommand(msg, captain);
     }
     [Command]
-    public void CmdWriteCommand(GameObject commandNetwork, string msg, bool captain)
+    public void CmdWriteCommand(string msg, bool captain)
     {
         print("command");
-        CallNetworkQueueMessage(commandNetwork, msg, captain);
+        CallNetworkQueueMessage(msg, captain);
     }
     [ClientRpc]
-    public void CallNetworkQueueMessage(GameObject commandNetwork, string msg, bool captain)
+    public void CallNetworkQueueMessage(string msg, bool captain)
     {
         print("message");
-        commandNetwork.GetComponent<CommandNetworkManager>().QueueNetworkMessage(msg, captain);
     }
     #endregion
 
