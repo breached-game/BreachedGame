@@ -7,12 +7,15 @@ var localStream;
 var serverConnection;
 
 var inWater;
-var microphone
+var microphone;
 //node constructors
 var AudioContext;
 var context;
 var destination;
 var biquadFilter;
+//bubble sound variables
+var merger;
+var source;
 
 mergeInto(LibraryManager.library, {
   Hello: function () {
@@ -35,26 +38,58 @@ mergeInto(LibraryManager.library, {
     AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext();
     destination = context.createMediaStreamDestination();
+    merger = context.createChannelMerger(2);
+
     biquadFilter = context.createBiquadFilter();
+    biquadFilter.type = "lowpass";
+    biquadFilter.frequency.value = 300;
+
+    //loading in sound stuff
+    var audioBuffer;
+    const request = new XMLHttpRequest();
+    request.open("GET", "/bubbles.wav", true);
+    request.responseType = "arraybuffer";
+    console.log("before load function");
+    // request.onload = function () {
+    //   audioBuffer = context.decodeAudioData(request.response);
+    //   console.log("inside load function");
+    // };
+    request.onload = function() {
+      console.log("inside load function");
+      context.decodeAudioData(request.response, function(buffer) {
+        audioBuffer = buffer;
+      });
+    };
+
+    console.log("after load function");
+    request.send();
+    source = context.createBufferSource();
+    source.buffer = audioBuffer;
 
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
         .getUserMedia(constraints)
         .then(function (stream) {
+
           if (inWater == true) {
-            console.log("in water so starting call stuff")
-            microphone = context.createMediaStreamSource(stream);
             //setting values of the filter (causes muffled mic sound)
-            biquadFilter.type = "lowpass";
-            biquadFilter.frequency.value = 300;
+
+            microphone = context.createMediaStreamSource(stream);
             //connect filter and microphone to destination
-            microphone.connect(biquadFilter);
+            //microphone.connect(biquadFilter);
+            microphone.connect(merger,0,0);
+            source.connect(merger,0,1);
+            merger.connect(biquadFilter);
             biquadFilter.connect(destination);
+
             //assign destination to local stream
             localStream = destination.stream;
           } else {
+            microphone = context.createMediaStreamSource(stream);
+            microphone.connect(destination);
+
             //standard stream
-            localStream = stream;
+            localStream = destination.stream;
           }
           console.log("Got MediaStream:", stream);
           //window.unityInstance.SendMessage("MicManager", "MicRecieved");
@@ -122,10 +157,15 @@ mergeInto(LibraryManager.library, {
 
   waterMic: function(){
     if (inWater == false) {
-      biquadFilter.type = "lowpass";
-      biquadFilter.frequency.value = 300;
+
       microphone.disconnect();
-      microphone.connect(biquadFilter);
+      //destination.disconnect(); //this may be over kill
+      //biquadFilter.disconnect();
+      //microphone.connect(biquadFilter);
+
+      microphone.connect(merger,0,0);
+      source.connect(merger,0,1);
+      merger.connect(biquadFilter);
       biquadFilter.connect(destination);
 
       localStream = destination.stream;
@@ -133,11 +173,18 @@ mergeInto(LibraryManager.library, {
       inWater = true;
       console.log("New water state = " + inWater);
     } else {
+
+      microphone.disconnect();
+      source.disconnect();
+      biquadFilter.disconnect();
+      merger.disconnect();
+
+      //destination.disconnect();
       // biquadFilter = context.createBiquadFilter();
       // biquadFilter.type = "allpass"
-      microphone.disconnect();
       // microphone.connect(biquadFilter);
       // biquadFilter.connect(destination);
+
       microphone.connect(destination);
 
       localStream = destination.stream;
