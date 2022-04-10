@@ -29,7 +29,7 @@ public class DoorSwitchManagers : MonoBehaviour
         {
             doors.Add(transform.GetChild(i).gameObject);
         }
-        UpdateDoors();
+        //UpdateDoors();
     }
 
     public void RecieveNewSwitchState(int switchID, int value)
@@ -45,8 +45,10 @@ public class DoorSwitchManagers : MonoBehaviour
     {
         for(int i = 0; i<currentDoorState.Count; i++)
         {
-      
-            if(currentDoorState[i] == 0)
+            //print(doors[i]);
+            //print(currentDoorState[i]);
+
+            if (currentDoorState[i] == 0)
             {
 
                 StartCoroutine(doors[i].GetComponent<ServerDoorScript>().CloseDoor());
