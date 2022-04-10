@@ -2641,7 +2641,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 85834824}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.93, y: 2.43, z: -43.25}
+  m_LocalPosition: {x: -15.93, y: 2.06, z: -43.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1839010394}
@@ -5838,7 +5838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3bb0ab6171e5842aeba34341210455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minigameName: Fix breach in the Kitchen
+  minigameName: Fix breach in the kitchen
   minigameObjective: Grab wood and fix the breaches!
   ItemDroppedOff: {fileID: 657172703}
   numberOfDropOffs: 1
@@ -5855,7 +5855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f54818b4d7667d4fa5dce0ebf62afb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterGridTimer: 30
+  waterGridTimer: 600
   waterGrid: {fileID: 956932230}
 --- !u!1001 &207834371
 PrefabInstance:
@@ -6611,7 +6611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f54818b4d7667d4fa5dce0ebf62afb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterGridTimer: 600
+  waterGridTimer: 30
   waterGrid: {fileID: 876189721}
 --- !u!1001 &243825160
 PrefabInstance:
@@ -48281,7 +48281,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1867509688}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.235207, y: 3.6859305, z: -7.6274624}
+  m_LocalPosition: {x: -16.235207, y: 3.02, z: -7.6274624}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 657172704}
