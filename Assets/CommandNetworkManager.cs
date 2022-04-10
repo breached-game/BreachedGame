@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class CommandNetworkManager : MonoBehaviour
+public class CommandNetworkManager : NetworkBehaviour
 {
     public GameObject commandObject;
     private CommandManager commandManager;

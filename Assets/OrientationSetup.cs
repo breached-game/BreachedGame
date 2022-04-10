@@ -12,7 +12,7 @@ public class OrientationSetup : MonoBehaviour
     public GameObject commandObject;
     private CommandManager commandLine;
     public GameObject networkCommand;
-
+    private PlayerNetworkManager playerNetworkManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,8 +32,12 @@ public class OrientationSetup : MonoBehaviour
             }
             player.GetComponent<PlayerManager>().TurnOnAudio();
             player.transform.position = spawnPoint.transform.position;
-
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                playerNetworkManager = player.GetComponent<PlayerNetworkManager>();
+            }
         }
+        playerNetworkManager.WriteCommand(networkCommand, "hello", true);
         CaptainIntro();
     }
 
