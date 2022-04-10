@@ -18,6 +18,7 @@ public class MinigameManager : MonoBehaviour
     public Text ObjectiveStatusDisplay;
     public Text FailiureReasonDisplay;
     public int objectiveStatusPopUpTime;
+    public GameObject commandNetwork;
 
 
     // Dictionary shape : {Objective name (string) : Instructions (string) 
@@ -47,6 +48,7 @@ public class MinigameManager : MonoBehaviour
         CheckWon();
         UpdateObjectivesPlayerUI();
         ShowSuccess(objectiveName);
+        commandNetwork.GetComponent<CommandNetworkManager>().SendNetworkMessage("Well done you managed to " + objectiveName, true);
     }
 
     public void ObjectiveFailed(string objectiveName, string reasonForFailiure)
