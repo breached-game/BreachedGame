@@ -221,7 +221,6 @@ public class WaterGrid : MonoBehaviour
     public void StopBreach()
     {
         inflow = false;
-        print("CHECK");
     }
 
     private void OnTriggerExit(Collider other)

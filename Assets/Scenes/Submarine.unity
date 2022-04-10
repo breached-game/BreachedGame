@@ -35525,6 +35525,7 @@ GameObject:
   - component: {fileID: 1364285460}
   - component: {fileID: 1364285462}
   - component: {fileID: 1364285461}
+  - component: {fileID: 1364285463}
   m_Layer: 0
   m_Name: Wood
   m_TagString: Untagged
@@ -35619,6 +35620,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1364285463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364285456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73e514247484a864ca4aff32422ef695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  waterGridObjects:
+  - {fileID: 1807476026}
+  - {fileID: 876189721}
+  - {fileID: 956932230}
 --- !u!1 &1366142179
 GameObject:
   m_ObjectHideFlags: 0
