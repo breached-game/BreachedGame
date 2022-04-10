@@ -182,10 +182,12 @@ public class WaterGrid : MonoBehaviour
             }
             if (waterFix)
             {
-                bool empty = Loop();
-                if (empty)
-                {
-                    gameObject.SetActive(false);
+                if (gridArray[width/2, depth/2].Geth() < 0.5f) {
+                    bool empty = Loop();
+                    if (empty)
+                    {
+                        gameObject.SetActive(false);
+                    }
                 }
             }
 
@@ -211,11 +213,13 @@ public class WaterGrid : MonoBehaviour
     public void AddWaterPump(Vector3 position)
     {
         outflowLocations.Add(water_grid.LocalToCell(position - water_grid.transform.position));
+        waterFix = true;
     }
 
     public void RemoveWaterPump(Vector3 position)
     {
         outflowLocations.Remove(water_grid.LocalToCell(position - water_grid.transform.position));
+        waterFix = false;
     }
 
     public void StopBreach()
