@@ -58,6 +58,7 @@ public class MinigameManager : MonoBehaviour
         ShowFail(objectiveName, reasonForFailiure);
 
     }
+    private string successText = "Objective Completed: ";
     private string failText = "Objective Failed: ";
 
     public void ShowSuccess(string objectiveName)
