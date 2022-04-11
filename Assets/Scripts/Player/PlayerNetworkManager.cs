@@ -55,16 +55,6 @@ public class PlayerNetworkManager : NetworkBehaviour
         myNetworkManager.ServerChangeScene(scene);
     }
 
-    public void ChangeToVictory()
-    {
-        CmdChangeScene("EndGameWin");
-    }
-
-    public void ChangeToLose()
-    {
-        CmdChangeScene("EndGameLose");
-    }
-
     public void ChangeToSub()
     {
         float time = 15;
@@ -386,7 +376,6 @@ public class PlayerNetworkManager : NetworkBehaviour
             masterTime += (time / increments);
             yield return new WaitForSeconds(time / increments);
         }
-        ChangeToLose();
     }
 
     [ClientRpc]

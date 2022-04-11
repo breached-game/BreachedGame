@@ -156,7 +156,6 @@ public class WaterGrid : MonoBehaviour
                         if (!muffle)
                         {
                             VoiceWrapper.waterMic();
-                            muffle = true;
                         }
                         playerManager.Speed = playerSpeed;
                         playerManager.SprintSpeed = playerSpeed;
@@ -177,7 +176,6 @@ public class WaterGrid : MonoBehaviour
                         if (muffle)
                         {
                             VoiceWrapper.waterMic();
-                            muffle = false;
                         }
                         playerManager.Speed = savedSpeeds[0];
                         playerManager.SprintSpeed = savedSpeeds[1];
