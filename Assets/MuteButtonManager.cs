@@ -22,7 +22,7 @@ public class MuteButtonManager : MonoBehaviour
     void Update()
     {
         rectTransform.sizeDelta = new Vector2(size, size);
-        rectTransform.localPosition = new Vector3(Screen.width/2 - size/2, Screen.height/2 - size/2);
+        rectTransform.localPosition = new Vector3(Screen.width / 2 - size / 2, Screen.height / 2 - size / 2);
         if (Input.GetKeyDown(KeyCode.M))
         {
             ChangeState();
