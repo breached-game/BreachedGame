@@ -386,7 +386,7 @@ public class PlayerNetworkManager : NetworkBehaviour
             masterTime += (time / increments);
             yield return new WaitForSeconds(time / increments);
         }
-        myNetworkManager.ServerChangeScene("EndGameLose");
+        ChangeToLose();
     }
 
     [ClientRpc]
