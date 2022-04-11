@@ -12,13 +12,13 @@ public class MinigameManager : MonoBehaviour
     
     public GameObject UIManager;
 
-
+    private bool endgame = false;
     public GameObject ObjectiveStatusUI;
     public GameObject ObjectiveCompleteGif;
     public Text ObjectiveStatusDisplay;
     public Text FailiureReasonDisplay;
     public int objectiveStatusPopUpTime;
-    public GameObject commandNetwork;
+    public GameObject commandLine;
 
 
     // Dictionary shape : {Objective name (string) : Instructions (string) 
@@ -48,7 +48,7 @@ public class MinigameManager : MonoBehaviour
         CheckWon();
         UpdateObjectivesPlayerUI();
         ShowSuccess(objectiveName);
-        commandNetwork.GetComponent<CommandNetworkManager>().SendNetworkMessage("Well done you managed to " + objectiveName, true);
+        commandLine.GetComponent<CommandManager>().QueueMessage("Well done you solved one problem: " + objectiveName, true);
     }
 
     public void ObjectiveFailed(string objectiveName, string reasonForFailiure)
