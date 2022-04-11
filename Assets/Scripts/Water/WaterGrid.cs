@@ -167,7 +167,7 @@ public class WaterGrid : MonoBehaviour
                             fogController.fog = false;
                             waterDrops.SetActive(false);
                         }
-                        if (!muffle)
+                        if (!muffle && Application.platform == RuntimePlatform.WebGLPlayer)
                         {
                             VoiceWrapper.waterMic();
                             muffle = true;
@@ -180,7 +180,7 @@ public class WaterGrid : MonoBehaviour
                         playerManager.SprintSpeed = savedSpeeds[1];
                         fogController.fog = false;
                         waterDrops.SetActive(false);
-                        if (muffle)
+                        if (muffle && Application.platform == RuntimePlatform.WebGLPlayer)
                         {
                             VoiceWrapper.waterMic();
                             muffle = false;
@@ -250,7 +250,11 @@ public class WaterGrid : MonoBehaviour
             StopCoroutine(CheckPlayerPos(other.gameObject));
             playerManager.Speed = savedSpeeds[0];
             playerManager.SprintSpeed = savedSpeeds[1];
-            VoiceWrapper.waterMic();
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                VoiceWrapper.waterMic();
+            }
+            
         }
     }
 
