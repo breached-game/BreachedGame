@@ -41,6 +41,7 @@ public class WaterGrid : MonoBehaviour
     private FogEffects fogController;
     public bool waterFix = false;
     private Vector3Int breachPosition = new Vector3Int();
+    private bool muffle = false;
 
     void Awake()
     {
@@ -152,7 +153,10 @@ public class WaterGrid : MonoBehaviour
                     if (waterHeight > 0)
                     {
                         // put water muffle on here
-                        VoiceWrapper.waterMic();
+                        if (!muffle)
+                        {
+                            VoiceWrapper.waterMic();
+                        }
                         playerManager.Speed = playerSpeed;
                         playerManager.SprintSpeed = playerSpeed;
                         if (firstPersonCamera.transform.position.y < waterHeight + transform.position.y)
@@ -169,7 +173,10 @@ public class WaterGrid : MonoBehaviour
                     else
                     {
                         // put water muffle off here
-                        VoiceWrapper.waterMic();
+                        if (muffle)
+                        {
+                            VoiceWrapper.waterMic();
+                        }
                         playerManager.Speed = savedSpeeds[0];
                         playerManager.SprintSpeed = savedSpeeds[1];
                         fogController.fog = false;
