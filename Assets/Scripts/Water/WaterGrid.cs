@@ -152,6 +152,7 @@ public class WaterGrid : MonoBehaviour
                     if (waterHeight > 0)
                     {
                         // put water muffle on here
+                        VoiceWrapper.waterMic();
                         playerManager.Speed = playerSpeed;
                         playerManager.SprintSpeed = playerSpeed;
                         if (firstPersonCamera.transform.position.y < waterHeight + transform.position.y)
@@ -168,6 +169,7 @@ public class WaterGrid : MonoBehaviour
                     else
                     {
                         // put water muffle off here
+                        VoiceWrapper.waterMic();
                         playerManager.Speed = savedSpeeds[0];
                         playerManager.SprintSpeed = savedSpeeds[1];
                         fogController.fog = false;
