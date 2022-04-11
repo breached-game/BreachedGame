@@ -12,7 +12,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     bool timerStarted = false;
     SyncListString ColourCombo = new SyncListString();
 
-    float time = 10f;
+    float time = 300f;
     int increments = 2000;
 
     private bool starter = false;
@@ -57,11 +57,13 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void ChangeToVictory()
     {
+        DestroyAllPlayers();
         CmdChangeScene("EndGameWin");
     }
 
     public void ChangeToLose()
     {
+        DestroyAllPlayers();
         CmdChangeScene("EndGameLose");
     }
 

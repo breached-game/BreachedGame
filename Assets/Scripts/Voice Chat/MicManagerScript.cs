@@ -15,9 +15,10 @@ public class MicManagerScript : MonoBehaviour
         //Debug.Log("About to call hello function");
         //VoiceWrapper.Hello();
         //Debug.Log("finsihed calling hello function");
-        Debug.Log("About to call start function");
-        VoiceWrapper.start();
-        Debug.Log("finsihed calling start function");
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            VoiceWrapper.start();
+        }
     }
 
     // Update is called once per frame

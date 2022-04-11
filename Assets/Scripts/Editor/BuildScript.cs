@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using System.IO.Compression;
+
 
 public class BuildScript
 {
@@ -39,6 +41,7 @@ public class BuildScript
         Console.WriteLine("Building Server (Linux)...");
         BuildPipeline.BuildPlayer(buildPlayerOptions);
         Console.WriteLine("Built Server (Linux).");
+        File.Delete("Builds/Linux/Server.zip");
     }
 
 
