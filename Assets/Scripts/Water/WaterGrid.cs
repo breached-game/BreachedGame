@@ -136,7 +136,6 @@ public class WaterGrid : MonoBehaviour
             }
         }
     }
-
     IEnumerator CheckPlayerPos(GameObject player)
     {
         PlayerManager playerManager = player.GetComponent<PlayerManager>();
@@ -248,6 +247,7 @@ public class WaterGrid : MonoBehaviour
             StopCoroutine(CheckPlayerPos(other.gameObject));
             playerManager.Speed = savedSpeeds[0];
             playerManager.SprintSpeed = savedSpeeds[1];
+            VoiceWrapper.waterMic();
         }
     }
 
