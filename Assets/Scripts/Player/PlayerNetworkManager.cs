@@ -12,7 +12,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     bool timerStarted = false;
     SyncListString ColourCombo = new SyncListString();
 
-    float time = 300f;
+    float time = 10f;
     int increments = 2000;
 
     private bool starter = false;
@@ -386,6 +386,7 @@ public class PlayerNetworkManager : NetworkBehaviour
             masterTime += (time / increments);
             yield return new WaitForSeconds(time / increments);
         }
+        DestroyAllPlayers();
         myNetworkManager.ServerChangeScene("EndGameLose");
     }
 
@@ -527,6 +528,18 @@ public class PlayerNetworkManager : NetworkBehaviour
         print("Player: " + name);
         player.GetComponent<NameTagManager>().SetName(name);
         player.GetComponent<PlayerManager>().PlayerModel.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = playerMats[m];
+    }
+    #endregion
+
+    #region EndGameScenes
+    [ClientRpc]
+    public void DestroyAllPlayers()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            Destroy(player);
+        }
     }
     #endregion
 }
