@@ -87,6 +87,14 @@ public class ColourMiniGameManger : MonoBehaviour
             StartCoroutine(FlickerEffect(SuccessColour));
             //print("Correct combination");
             minigameManager.ObjectiveCompleted(minigameName, minigameObjective);
+            players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in players)
+            {
+                if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+                {
+                    player.GetComponent<PlayerNetworkManager>().ChangeToVictory();
+                }
+            }
         }
         else
         {
