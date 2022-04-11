@@ -110,10 +110,7 @@ public class WaterGrid : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                StartCoroutine(CheckPlayerPos(other.gameObject));
-            }
+            StartCoroutine(CheckPlayerPos(other.gameObject));
         }
         else if (other.gameObject.tag != "Floater")
         {
@@ -155,6 +152,11 @@ public class WaterGrid : MonoBehaviour
                     if (waterHeight > 0)
                     {
                         // put water muffle on here
+                        if (!muffle)
+                        {
+                            VoiceWrapper.waterMic();
+                            muffle = true;
+                        }
                         playerManager.Speed = playerSpeed;
                         playerManager.SprintSpeed = playerSpeed;
                         if (firstPersonCamera.transform.position.y < waterHeight + transform.position.y)
@@ -167,24 +169,19 @@ public class WaterGrid : MonoBehaviour
                             fogController.fog = false;
                             waterDrops.SetActive(false);
                         }
-                        if (!muffle)
-                        {
-                            VoiceWrapper.waterMic();
-                            muffle = true;
-                        }
                     }
                     else
                     {
                         // put water muffle off here
-                        playerManager.Speed = savedSpeeds[0];
-                        playerManager.SprintSpeed = savedSpeeds[1];
-                        fogController.fog = false;
-                        waterDrops.SetActive(false);
                         if (muffle)
                         {
                             VoiceWrapper.waterMic();
                             muffle = false;
                         }
+                        playerManager.Speed = savedSpeeds[0];
+                        playerManager.SprintSpeed = savedSpeeds[1];
+                        fogController.fog = false;
+                        waterDrops.SetActive(false);
                     }
                 }
                 catch (IndexOutOfRangeException)
