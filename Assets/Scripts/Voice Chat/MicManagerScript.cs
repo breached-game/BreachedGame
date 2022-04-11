@@ -16,10 +16,7 @@ public class MicManagerScript : MonoBehaviour
         //VoiceWrapper.Hello();
         //Debug.Log("finsihed calling hello function");
         Debug.Log("About to call start function");
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            VoiceWrapper.start();
-        }
+        VoiceWrapper.start();
         Debug.Log("finsihed calling start function");
     }
 
