@@ -65,6 +65,7 @@ public class OrientationSetup : MonoBehaviour
     }
     private void CaptainIntro()
     {
+        networkCommand.GetComponent<CommandNetworkManager>().SendNetworkMessage("Hello", true);
         commandLine.QueueMessage("Welcome to the night shift on HMS Coronation", true);
         commandLine.QueueMessage("We have a dangerous area ahead of us which is going to need some careful navigating", true);
         commandLine.QueueMessage("What's going on? You all look half asleep, wandering around like headless chickens!", true);
