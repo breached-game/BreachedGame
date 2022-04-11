@@ -17,10 +17,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Submarine.unity
     guid: 9f44a336664f5294e83f9418ac3d9ed2
-  - enabled: 1
-    path: Assets/Scenes/EndGameWin.unity
-    guid: c4a7124a97f58d04db9e1e9cafa2945d
-  - enabled: 1
-    path: Assets/Scenes/EndGameLose.unity
-    guid: f9cccc810e2157b49989351f17e63ec9
   m_configObjects: {}

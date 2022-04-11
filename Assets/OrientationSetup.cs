@@ -55,12 +55,9 @@ public class OrientationSetup : MonoBehaviour
     }
     private void Update()
     {
-        if (localPlayer != null)
+        if (localPlayer.transform.position.y<0)
         {
-            if (localPlayer.transform.position.y < 0)
-            {
-                localPlayer.transform.position = spawnPoint.transform.position;
-            }
+            localPlayer.transform.position = spawnPoint.transform.position;
         }
     }
     private void CaptainIntro()
