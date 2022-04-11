@@ -55,14 +55,16 @@ public class OrientationSetup : MonoBehaviour
     }
     private void Update()
     {
-        if (localPlayer.transform.position.y<0)
+        if (localPlayer != null)
         {
-            localPlayer.transform.position = spawnPoint.transform.position;
+            if (localPlayer.transform.position.y < 0)
+            {
+                localPlayer.transform.position = spawnPoint.transform.position;
+            }
         }
     }
     private void CaptainIntro()
     {
-        networkCommand.GetComponent<CommandNetworkManager>().SendNetworkMessage("Hello", true);
         commandLine.QueueMessage("Welcome to the night shift on HMS Coronation", true);
         commandLine.QueueMessage("We have a dangerous area ahead of us which is going to need some careful navigating", true);
         commandLine.QueueMessage("What's going on? You all look half asleep, wandering around like headless chickens!", true);

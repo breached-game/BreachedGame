@@ -55,6 +55,18 @@ public class PlayerNetworkManager : NetworkBehaviour
         myNetworkManager.ServerChangeScene(scene);
     }
 
+    public void ChangeToVictory()
+    {
+        DestroyAllPlayers();
+        CmdChangeScene("EndGameWin");
+    }
+
+    public void ChangeToLose()
+    {
+        DestroyAllPlayers();
+        CmdChangeScene("EndGameLose");
+    }
+
     public void ChangeToSub()
     {
         float time = 15;
@@ -376,6 +388,8 @@ public class PlayerNetworkManager : NetworkBehaviour
             masterTime += (time / increments);
             yield return new WaitForSeconds(time / increments);
         }
+        DestroyAllPlayers();
+        myNetworkManager.ServerChangeScene("EndGameLose");
     }
 
     [ClientRpc]
@@ -516,6 +530,18 @@ public class PlayerNetworkManager : NetworkBehaviour
         print("Player: " + name);
         player.GetComponent<NameTagManager>().SetName(name);
         player.GetComponent<PlayerManager>().PlayerModel.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = playerMats[m];
+    }
+    #endregion
+
+    #region EndGameScenes
+    [ClientRpc]
+    public void DestroyAllPlayers()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            Destroy(player);
+        }
     }
     #endregion
 }

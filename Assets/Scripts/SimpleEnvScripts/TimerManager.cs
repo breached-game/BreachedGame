@@ -27,11 +27,6 @@ public class TimerManager : MonoBehaviour
 
     public void UpdateTimer(float currentTime, float time, int increments)
     {
-        if (currentTime > time)
-        {
-            failScreen.SetActive(true);
-            return;
-        }
         if (time - currentTime < 60)
         {
             timerTextObject.SetActive(true);

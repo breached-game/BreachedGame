@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using System.IO.Compression;
+
 
 public class BuildScript
 {
@@ -31,7 +33,7 @@ public class BuildScript
     public static void BuildLinuxServer()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/Scenes/MainMenu.unity" , "Assets/Scenes/Lobby.unity", "Assets/Scenes/Orientation.unity", "Assets/Scenes/Submarine.unity" };
+        buildPlayerOptions.scenes = new[] {"Assets/Scenes/MainMenu.unity" , "Assets/Scenes/Lobby.unity", "Assets/Scenes/Orientation.unity", "Assets/Scenes/Submarine.unity", "Assets/Scenes/EndGameWin.unity", "Assets/Scenes/EndGameLose.unity"};
         buildPlayerOptions.locationPathName = "Builds/Linux/Server/Server.x86_64";
         buildPlayerOptions.target = BuildTarget.StandaloneLinux64;
         buildPlayerOptions.options = BuildOptions.CompressWithLz4HC | BuildOptions.EnableHeadlessMode;
@@ -39,6 +41,7 @@ public class BuildScript
         Console.WriteLine("Building Server (Linux)...");
         BuildPipeline.BuildPlayer(buildPlayerOptions);
         Console.WriteLine("Built Server (Linux).");
+        File.Delete("Builds/Linux/Server.zip");
     }
 
 
