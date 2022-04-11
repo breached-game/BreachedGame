@@ -40,6 +40,7 @@ public class Ladder : MonoBehaviour
         if (startPos == bottomPos.transform.position)
         {
             player.transform.position = topStopPos.transform.position;
+            player.GetComponent<PlayerManager>().ResetSpeed();
         }
         else
         {

@@ -115,6 +115,7 @@ public class PlayerManager : NetworkBehaviour
     {
         //Runs for everyone so all instances say that this player has this object 
         PlayerManager playerManager = player.GetComponent<PlayerManager>();
+
         playerManager.objectPlayerHas = objectBeingPickedUp;
         if (playerManager.identity.isLocalPlayer)
         {
@@ -122,6 +123,7 @@ public class PlayerManager : NetworkBehaviour
         }
         objectBeingPickedUp.SetActive(false);
         playerManager.VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
+
     }
     [Command]
     public void CmdDropItem()
@@ -156,11 +158,17 @@ public class PlayerManager : NetworkBehaviour
         {
             playerManager.torch.SetActive(false);
         }
+
         playerManager.objectPlayerHas = null;
         //Update the item text
         playerManager.updateItemText();
         //Visual Effect
         playerManager.VisualEffectOfPlayerDroppingItem();
+
+        if (droppedItem.transform.name == "WaterPumpItem")
+        {
+            droppedItem.GetComponent<WaterManager>().AddPump();
+        }
     }
     #endregion
 
@@ -198,6 +206,11 @@ public class PlayerManager : NetworkBehaviour
     private float translation;
     private float straffe;
 
+    public void ResetSpeed()
+    {
+        Speed = defaultSpeed;
+        SprintSpeed = defaultSprintSpeed;
+    }
 
     void Update()
     {

@@ -151,6 +151,8 @@ public class WaterGrid : MonoBehaviour
                     waterHeight = gridArray[playerGridPos.x, playerGridPos.z].GetVertexPosition().y;
                     if (waterHeight > 0)
                     {
+                        // put water muffle on here
+                        VoiceWrapper.waterMic();
                         playerManager.Speed = playerSpeed;
                         playerManager.SprintSpeed = playerSpeed;
                         if (firstPersonCamera.transform.position.y < waterHeight + transform.position.y)
@@ -166,6 +168,8 @@ public class WaterGrid : MonoBehaviour
                     }
                     else
                     {
+                        // put water muffle off here
+                        VoiceWrapper.waterMic();
                         playerManager.Speed = savedSpeeds[0];
                         playerManager.SprintSpeed = savedSpeeds[1];
                         fogController.fog = false;
@@ -182,10 +186,12 @@ public class WaterGrid : MonoBehaviour
             }
             if (waterFix)
             {
-                bool empty = Loop();
-                if (empty)
-                {
-                    gameObject.SetActive(false);
+                if (gridArray[width/2, depth/2].Geth() < 0.5f) {
+                    bool empty = Loop();
+                    if (empty)
+                    {
+                        gameObject.SetActive(false);
+                    }
                 }
             }
 
@@ -211,6 +217,18 @@ public class WaterGrid : MonoBehaviour
     public void AddWaterPump(Vector3 position)
     {
         outflowLocations.Add(water_grid.LocalToCell(position - water_grid.transform.position));
+        waterFix = true;
+    }
+
+    public void RemoveWaterPump(Vector3 position)
+    {
+        outflowLocations.Remove(water_grid.LocalToCell(position - water_grid.transform.position));
+        waterFix = false;
+    }
+
+    public void StopBreach()
+    {
+        inflow = false;
     }
 
     private void OnTriggerExit(Collider other)
@@ -266,8 +284,8 @@ public class WaterGrid : MonoBehaviour
         Dictionary<Vector2Int, float> currentOutflows;
         GridVertex currentColumn;
 
-        int xInflow=0;
-        int zInflow=0;
+        int xInflow = 0;
+        int zInflow = 0;
         int xOutflow;
         int zOutflow;
         int inflowLocationsSize = inflowLocations.Length;
@@ -279,14 +297,14 @@ public class WaterGrid : MonoBehaviour
             zInflow = breachPosition.z;
 
             gridArray[xInflow, zInflow].Seth(gridArray[xInflow, zInflow].Geth() + inflowRate * dt);
+        }
 
-            for (int i = 0; i < outflowLocations.Count; i++)
-            {
-                xOutflow = outflowLocations[i].x;
-                zOutflow = outflowLocations[i].z;
+        for (int i = 0; i < outflowLocations.Count; i++)
+        {
+            xOutflow = outflowLocations[i].x;
+            zOutflow = outflowLocations[i].z;
 
-                gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - inflowRate * dt);
-            }
+            gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - inflowRate * dt);
         }
 
 

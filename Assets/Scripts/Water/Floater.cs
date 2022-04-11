@@ -19,6 +19,11 @@ public class Floater : MonoBehaviour
 
     public void Start()
     {
+        Setup();
+    }
+
+    private void Setup()
+    {
         waterGrid = water.GetComponent<WaterGrid>();
         grid = waterGrid.water_grid;
         gridArray = waterGrid.gridArray;
@@ -29,16 +34,23 @@ public class Floater : MonoBehaviour
     {
         //NOT REALLY GOOD GRAVITY - dividing by mass to make gravity effect smaller - even though in reality it should be higher
         //Done this just cause it makes it look more realistic
-        Vector3 localPosition = transform.position;
-        rigidBody.AddForceAtPosition(new Vector3(0f, Physics.gravity.y / (rigidBody.mass * floaterCount), 0f), transform.position, ForceMode.Acceleration);
-        Vector3Int cellPos = grid.LocalToCell(localPosition - waterGrid.transform.position);
-        float waveHeight = gridArray[cellPos.x, cellPos.z].GetVertexPosition().y;
-        if (localPosition.y - waterGrid.transform.position.y < waveHeight)
+        if (water.activeSelf)
         {
-            float displacementMultiplier = Mathf.Clamp01((waveHeight - localPosition.y) / depthBeforeSubmerged) * displacementAmount;
-            rigidBody.AddForceAtPosition(new Vector3(0f, Mathf.Abs(Physics.gravity.y) * displacementMultiplier, 0f), localPosition, ForceMode.Acceleration);
-            rigidBody.AddForce(displacementMultiplier * -rigidBody.velocity * waterDrag * Time.fixedDeltaTime, ForceMode.VelocityChange);
-            rigidBody.AddTorque(displacementMultiplier * -rigidBody.angularVelocity * waterAngularDrag * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            if (grid == null)
+            {
+                Setup();
+            }
+            Vector3 localPosition = transform.position;
+            rigidBody.AddForceAtPosition(new Vector3(0f, Physics.gravity.y / (rigidBody.mass * floaterCount), 0f), transform.position, ForceMode.Acceleration);
+            Vector3Int cellPos = grid.LocalToCell(localPosition - waterGrid.transform.position);
+            float waveHeight = gridArray[cellPos.x, cellPos.z].GetVertexPosition().y;
+            if (localPosition.y - waterGrid.transform.position.y < waveHeight)
+            {
+                float displacementMultiplier = Mathf.Clamp01((waveHeight - localPosition.y) / depthBeforeSubmerged) * displacementAmount;
+                rigidBody.AddForceAtPosition(new Vector3(0f, Mathf.Abs(Physics.gravity.y) * displacementMultiplier, 0f), localPosition, ForceMode.Acceleration);
+                rigidBody.AddForce(displacementMultiplier * -rigidBody.velocity * waterDrag * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                rigidBody.AddTorque(displacementMultiplier * -rigidBody.angularVelocity * waterAngularDrag * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            }
         }
     }
 }

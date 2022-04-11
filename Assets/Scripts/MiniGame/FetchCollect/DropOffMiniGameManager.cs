@@ -13,6 +13,7 @@ public class DropOffMiniGameManager : MonoBehaviour
 
     public int numberOfDropOffs = 2;
     private int dropsDone = 0;
+    public bool active;
 
     public void Reset()
     {
@@ -22,7 +23,10 @@ public class DropOffMiniGameManager : MonoBehaviour
     }
     private void Start()
     {
-        Reset();
+        if (active)
+        {
+            Reset();
+        }
     }
 
     public void changeInState(bool droppedOff)

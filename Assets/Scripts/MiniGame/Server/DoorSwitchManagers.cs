@@ -9,6 +9,7 @@ public class DoorSwitchManagers : MonoBehaviour
 
     private Vector3Int currentSwitchState;
     private List<int>  currentDoorState;
+    private List<int> previousDoorState;
     private Dictionary<Vector3Int, List<int>> combinationToDoor = new Dictionary<Vector3Int, List<int>>
     {
         {new Vector3Int(0,0,0), new List<int> {0,0,0,0,0} },
@@ -29,15 +30,22 @@ public class DoorSwitchManagers : MonoBehaviour
         {
             doors.Add(transform.GetChild(i).gameObject);
         }
-        UpdateDoors();
+        //UpdateDoors();
     }
 
     public void RecieveNewSwitchState(int switchID, int value)
     {
         // Need to client rpc the update to the doors !!! 
         print(currentSwitchState);
+        previousDoorState = currentDoorState;
         currentSwitchState[switchID] = value;
         currentDoorState = combinationToDoor[currentSwitchState];
+        UpdateDoors();
+    }
+
+    public void OpenAllDoors()
+    {
+        currentDoorState = new List<int> { 1, 1, 1, 1, 1 };
         UpdateDoors();
     }
 
@@ -45,14 +53,16 @@ public class DoorSwitchManagers : MonoBehaviour
     {
         for(int i = 0; i<currentDoorState.Count; i++)
         {
-      
-            if(currentDoorState[i] == 0)
+            //print(doors[i]);
+            //print(currentDoorState[i]);
+
+            if (currentDoorState[i] == 0 && previousDoorState[i] != 0)
             {
 
                 StartCoroutine(doors[i].GetComponent<ServerDoorScript>().CloseDoor());
                 
             }
-            else
+            else if (currentDoorState[i] == 1 && previousDoorState[i] != 1)
             {
                 StartCoroutine(doors[i].GetComponent<ServerDoorScript>().OpenDoor());
             }

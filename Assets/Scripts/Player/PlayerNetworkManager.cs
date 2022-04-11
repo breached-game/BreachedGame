@@ -57,7 +57,15 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void ChangeToSub()
     {
+        float time = 15;
         starter = true;
+        CmdChangeScene("Orientation");
+        StartCoroutine(OrientationTime(time));
+    }
+
+    IEnumerator OrientationTime(float time)
+    {
+        yield return new WaitForSeconds(time);
         CmdChangeScene("Submarine");
     }
     #endregion
@@ -98,6 +106,38 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void SetCurrentPlayer(GameObject player, GameObject controlRodController)
     {
         controlRodController.gameObject.GetComponent<ControlRodTransport>().currentPlayer = player;
+    }
+    #endregion
+
+    #region:Periscope
+    public void PeriscopeSendCurrentPlayer(GameObject player, GameObject controlRodController)
+    {
+        CmdPeriscopeSendCurrentPlayer(player, controlRodController);
+    }
+
+    [Command]
+
+    public void CmdPeriscopeSendCurrentPlayer(GameObject player, GameObject controlRodController)
+    {
+        PeriscopeSetCurrentPlayer(player, controlRodController);
+    }
+
+    [ClientRpc]
+    public void PeriscopeSetCurrentPlayer(GameObject player, GameObject controlRodController)
+    {
+        controlRodController.gameObject.GetComponent<PeriscopeView>().currentPlayer = player;
+    }
+    #endregion
+
+    #region:Orientation
+    public void StartOrientation()
+    {
+        CmdStartOrientation();
+    }
+    [Command]
+    public void CmdStartOrientation()
+    {
+        NetworkServer.SpawnObjects();
     }
     #endregion
 
@@ -226,21 +266,43 @@ public class PlayerNetworkManager : NetworkBehaviour
     #endregion
 
     #region:Water
-    public void OutflowWater(GameObject waterPump)
+    public void CallRemoveWaterPump(GameObject waterPump)
     {
-        CmdOutflowWater(waterPump);
+        CmdRemoveWaterPump(waterPump);
     }
+
     [Command]
-    public void CmdOutflowWater(GameObject waterPump)
+    public void CmdRemoveWaterPump(GameObject waterPump)
     {
-        CallOutflowWater(waterPump);
+        CallRemoveAllWaterPump(waterPump);
     }
 
     [ClientRpc]
-    public void CallOutflowWater(GameObject waterPump)
+    public void CallRemoveAllWaterPump(GameObject waterPump)
     {
-        waterPump.GetComponent<WaterManager>().OutflowWater();
+        waterPump.GetComponent<WaterManager>().RemovePump();
     }
+
+    #endregion
+
+    #region Breach
+    public void StopBreach(GameObject breach)
+    {
+        CmdStopBreach(breach);
+    }
+
+    [Command]
+    public void CmdStopBreach(GameObject breach)
+    {
+        StopAllBreaches(breach);
+    }
+
+    [ClientRpc]
+    public void StopAllBreaches(GameObject breach)
+    {
+        breach.GetComponent<WaterManager>().StopBreach();
+    }
+
     #endregion
 
     #region:ColourButtons
@@ -364,6 +426,56 @@ public class PlayerNetworkManager : NetworkBehaviour
 
 
 
+    #endregion
+
+    #region Doors
+    public void OpenDoor(GameObject door)
+    {
+        CmdOpenDoor(door);
+    }
+    [Command]
+    public void CmdOpenDoor(GameObject door)
+    {
+        CallOpenDoor(door);
+    }
+    [ClientRpc]
+    public void CallOpenDoor(GameObject door)
+    {
+        door.GetComponent<Door>().OpenDoor();
+    }
+    #endregion
+
+    #region:CommandLine
+
+    public void SpawnCommandLine(GameObject commandNetwork)
+    {
+        CmdSpawnCommandLine(commandNetwork);
+    }
+    [Command]
+    public void CmdSpawnCommandLine(GameObject commandNetwork)
+    {
+        if (!commandNetwork.GetComponent<NetworkIdentity>().isActiveAndEnabled)
+        {
+            NetworkServer.Spawn(commandNetwork);
+        }
+        NetworkServer.Spawn(commandNetwork);
+    }
+    public void WriteCommand(GameObject commandNetwork, string msg, bool captain = false)
+    {
+        CmdWriteCommand(commandNetwork, msg, captain);
+    }
+    [Command]
+    public void CmdWriteCommand(GameObject commandNetwork, string msg, bool captain)
+    {
+        print("command");
+        CallNetworkQueueMessage(commandNetwork, msg, captain);
+    }
+    [ClientRpc]
+    public void CallNetworkQueueMessage(GameObject commandNetwork,string msg, bool captain)
+    {
+        commandNetwork.GetComponent<CommandNetworkManager>().QueueNetworkMessage(msg, captain);
+        print("message");
+    }
     #endregion
 
     #region:Assign Players Skins and Names
