@@ -428,6 +428,23 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #endregion
 
+    #region Doors
+    public void OpenDoor(GameObject door)
+    {
+        CmdOpenDoor(door);
+    }
+    [Command]
+    public void CmdOpenDoor(GameObject door)
+    {
+        CallOpenDoor(door);
+    }
+    [ClientRpc]
+    public void CallOpenDoor(GameObject door)
+    {
+        door.GetComponent<Door>().OpenDoor();
+    }
+    #endregion
+
     #region:CommandLine
 
     public void SpawnCommandLine(GameObject commandNetwork)

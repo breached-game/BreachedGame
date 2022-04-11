@@ -206,6 +206,11 @@ public class PlayerManager : NetworkBehaviour
     private float translation;
     private float straffe;
 
+    public void ResetSpeed()
+    {
+        Speed = defaultSpeed;
+        SprintSpeed = defaultSprintSpeed;
+    }
 
     void Update()
     {
