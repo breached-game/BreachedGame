@@ -26,7 +26,7 @@ public class CommandManager : MonoBehaviour
     void Update()
     {
         Message msg;
-        rectTransform.sizeDelta = new Vector2(Screen.width / 3, Screen.height / 4);
+        rectTransform.sizeDelta = new Vector2(Screen.width / 3, Screen.height/4);
         rectTransform.position = new Vector2(Screen.width / 6, Screen.height / 8);
         if (!typing && messages.Count != 0)
         {
@@ -47,6 +47,7 @@ public class CommandManager : MonoBehaviour
     IEnumerator TypeMessage(Message message)
     {
         string msg = message.msg;
+        string currentMsg = "";
         bool captain = message.captain;
         int msgLength = msg.Length;
         int i = 0;
@@ -57,7 +58,8 @@ public class CommandManager : MonoBehaviour
         else {textMesh.text = ""; }
         while (textMesh.text.Length < msgLength)
         {
-            textMesh.text += msg[i];
+            currentMsg += msg[i];
+            textMesh.text = currentMsg;
             yield return new WaitForSeconds(0.1f);
             i++;
         }

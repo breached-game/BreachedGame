@@ -16,10 +16,6 @@ public class OrientationSetup : MonoBehaviour
     private PlayerNetworkManager playerNetworkManager;
     private GameObject localPlayer;
     // Start is called before the first frame update
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoad;
-    }
 
     private void Awake()
     {
@@ -56,14 +52,6 @@ public class OrientationSetup : MonoBehaviour
             }
         }
         CaptainIntro();
-    }
-
-    private void OnSceneLoad(Scene scene, LoadSceneMode mode)
-    {
-        foreach (GameObject player in players)
-        {
-            player.transform.position = spawnPoint.transform.position;
-        }
     }
     private void Update()
     {
