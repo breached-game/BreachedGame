@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11552,7 +11552,7 @@ MonoBehaviour:
   ObjectiveStatusDisplay: {fileID: 1033880877}
   FailiureReasonDisplay: {fileID: 962220885}
   objectiveStatusPopUpTime: 5
-  commandNetwork: {fileID: 1563516805}
+  commandLine: {fileID: 0}
 --- !u!1 &416241915
 GameObject:
   m_ObjectHideFlags: 0
@@ -33321,6 +33321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb4e224e95769a04482550297d28c590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doors: {fileID: 0}
   resetButton: {fileID: 1143281206}
   minigameName: Servers need resetting
   minigameObjective: '- Different combinations open different doors
@@ -35964,7 +35965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200cbfc32c7bb434d96d71c1a809f875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemBeingHeld: {fileID: 5087921003995974665, guid: 116d594405c6bcf41b729ac286f901a2,
+  itemBeingHeld: {fileID: 777390571012507950, guid: f5ba305758710dc4bbba6891d865e301,
     type: 3}
 --- !u!65 &1364285461
 BoxCollider:
@@ -40452,7 +40453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200cbfc32c7bb434d96d71c1a809f875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemBeingHeld: {fileID: 5087921003995974665, guid: 116d594405c6bcf41b729ac286f901a2,
+  itemBeingHeld: {fileID: 777390571012507950, guid: f5ba305758710dc4bbba6891d865e301,
     type: 3}
 --- !u!114 &1565365546
 MonoBehaviour:
@@ -48106,7 +48107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200cbfc32c7bb434d96d71c1a809f875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemBeingHeld: {fileID: 5087921003995974665, guid: 116d594405c6bcf41b729ac286f901a2,
+  itemBeingHeld: {fileID: 777390571012507950, guid: f5ba305758710dc4bbba6891d865e301,
     type: 3}
 --- !u!114 &1863140903
 MonoBehaviour:
