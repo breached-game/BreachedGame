@@ -4315,13 +4315,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.3599999
       objectReference: {fileID: 0}
     - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
         type: 3}
@@ -6093,6 +6108,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeadBolt
       objectReference: {fileID: 0}
+    - target: {fileID: 6890561098702934863, guid: d96d7da6ebc67154ebc44023d5bbdad2,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5070fb2a692ab03438d3a05c7e5da24a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d96d7da6ebc67154ebc44023d5bbdad2, type: 3}
 --- !u!4 &219668344 stripped
@@ -25369,13 +25389,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.36
       objectReference: {fileID: 0}
     - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
         type: 3}
@@ -35915,7 +35950,7 @@ Transform:
   m_GameObject: {fileID: 1364285456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.23, y: 2.64, z: -8.97}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 1, z: 1}
   m_Children:
   - {fileID: 1133857837153537145}
   m_Father: {fileID: 1871644037}
@@ -40409,7 +40444,7 @@ Transform:
   m_GameObject: {fileID: 1565365541}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.23, y: 2.64, z: -7.613}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 1, z: 1}
   m_Children:
   - {fileID: 891595771}
   m_Father: {fileID: 233938571}
@@ -48063,7 +48098,7 @@ Transform:
   m_GameObject: {fileID: 1863140898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.23, y: 2.64, z: -6.313}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 1, z: 1}
   m_Children:
   - {fileID: 134785079}
   m_Father: {fileID: 207117896}
@@ -57077,13 +57112,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.3599999
       objectReference: {fileID: 0}
     - target: {fileID: 5939071474671529925, guid: dbdda150528bde549b0b6e7cd0ca47a4,
         type: 3}

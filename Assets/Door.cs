@@ -9,7 +9,7 @@ public class Door : MonoBehaviour
     {
         if (!open)
         {
-            gameObject.GetComponent<Animator>().Play("DeadBolt");
+            gameObject.GetComponent<Animator>().Play("Open");
             Destroy(gameObject.GetComponent<Rigidbody>());
         }
     }
