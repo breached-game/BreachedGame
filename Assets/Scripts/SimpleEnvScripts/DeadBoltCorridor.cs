@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DeadBoltCorridor : MonoBehaviour
 {
+    //This is horrible code, I'm actually sorry :( -Andrew
     public bool playersIn1 = false;
     public bool playersIn2 = false;
     public bool playersMid = false;
-    private int DoorLastOpened = 0;
     private int numberOfPlayersInMid = 0;
 
     //The doors
@@ -16,6 +16,8 @@ public class DeadBoltCorridor : MonoBehaviour
     //We dont want to play animation if there's not state change
     private bool door1Open = false;
     private bool door2Open = false;
+    private bool inUse = false;
+    private bool oneToTwo = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -49,54 +51,40 @@ public class DeadBoltCorridor : MonoBehaviour
             if (door2Open)
             {
                 door2.GetComponent<Animator>().Play("Close");
-                door2Open = false;
+                door1Open = false;
             }
+            inUse = false;
         }
-        //Opening either way
-        if (playersIn1 && !playersMid)
+        else if (playersIn1 && !inUse)
         {
-            if (!door1Open)
-            {
-                door1.GetComponent<Animator>().Play("Open");
-                door1Open = true;
-            }
-            DoorLastOpened = 1;
+            door1.GetComponent<Animator>().Play("Open");
+            door1Open = true;
+            inUse = true;
+            oneToTwo = true;
         }
-        else if (playersIn2 && !playersMid)
+        else if (playersIn2 && !inUse)
         {
-            if (!door2Open)
-            {
-                door2.GetComponent<Animator>().Play("Open");
-                door2Open = true;
-            }
-            DoorLastOpened = 2;
+            door2.GetComponent<Animator>().Play("Open");
+            door2Open = true;
+            inUse = true;
+            oneToTwo = false;
         }
-        //Openning when a player is in mid
-        if (playersMid)
+        else if(oneToTwo)
         {
-            if (DoorLastOpened == 1)
-            {
-                if (door1Open)
-                {
-                    door1.GetComponent<Animator>().Play("Close");
-                    door1Open = false;
-                    StartCoroutine(waitForDoorAnimation(2));
-                }
-            }
-            else if (DoorLastOpened == 2)
-            {
-                if (door2Open)
-                {
-                    door2.GetComponent<Animator>().Play("Close");
-                    door2Open = false;
-                    StartCoroutine(waitForDoorAnimation(1));
-                }
-            }
+            door1.GetComponent<Animator>().Play("Close");
+            door1Open = false;
+            StartCoroutine(waitForDoorAnimation(2));
+        }
+        else if (!oneToTwo)
+        {
+            door2.GetComponent<Animator>().Play("Close");
+            door2Open = false;
+            StartCoroutine(waitForDoorAnimation(1));
         }
     }
     IEnumerator waitForDoorAnimation(int doorToBeOpen)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         if(doorToBeOpen == 1)
         {
             if (!door1Open)

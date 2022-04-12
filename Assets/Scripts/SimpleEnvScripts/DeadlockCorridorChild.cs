@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DeadlockCorridorChild : MonoBehaviour
 {
+    //This is horrible code, I'm actually sorry :( -Andrew
     public bool DoorOne = false;
     private int numberOfPlayersIn = 0;
     private DeadBoltCorridor deadBoltCorridor;
