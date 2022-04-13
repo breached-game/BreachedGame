@@ -540,7 +540,10 @@ public class PlayerNetworkManager : NetworkBehaviour
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
-            Destroy(player);
+            if (player != null)
+            {
+                Destroy(player);
+            }
         }
     }
     #endregion

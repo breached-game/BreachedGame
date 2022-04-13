@@ -30,6 +30,7 @@ public class PlayButton : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         //myNetworkManager.ServerChangeScene("Lobby");
         if (!NetworkClient.active)
         {
