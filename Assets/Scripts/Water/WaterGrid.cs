@@ -76,14 +76,14 @@ public class WaterGrid : MonoBehaviour
         {
             for (int z = 0; z < depth; z++)
             {
-                GridVertex column = ScriptableObject.CreateInstance<GridVertex>();
-                column.Setup(new Vector2Int(x, z), water_grid.CellToLocal(new Vector3Int(x, 0, z)), 0.0f, cellSize);
+                GridVertex v = ScriptableObject.CreateInstance<GridVertex>();
+                v.Setup(new Vector2Int(x, z), water_grid.CellToLocal(new Vector3Int(x, 0, z)), 0.0f, cellSize);
                 if (x == 0 || z == 0 || x == width - 1 || z == depth - 1)
                 {
-                    column.boundary = true;
-                    column.isVertex = true;
+                    v.boundary = true;
+                    v.isVertex = true;
                 }
-                gridArray[x, z] = column;
+                gridArray[x, z] = v;
             }
         }
         Setup();

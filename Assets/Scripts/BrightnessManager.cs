@@ -21,6 +21,7 @@ public class BrightnessManager : MonoBehaviour
         backgroundTransform = background.GetComponent<RectTransform>();
         exitButton.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width / 8, Screen.height / 20);
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i].GetComponent<NetworkIdentity>().isLocalPlayer)

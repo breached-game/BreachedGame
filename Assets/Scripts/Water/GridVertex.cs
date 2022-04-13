@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//This class handles operations and stores values in cells in the height-based water system. 
 public class GridVertex : ScriptableObject
 {
     private Vector2Int position;
     private Vector3 localPosition;
     private float cellSize;
-    private float h;
-    private float H;
+    private float h; //depth of water
+    private float H; //terrain of cell (the height below the depth of the water)
     private float newh;
-    private Dictionary<Vector2Int, float> newOutflows;
+    private Dictionary<Vector2Int, float> newOutflows; //Inflows and outflows to other cells
     private Dictionary<Vector2Int, float> outflows;
     public int vertex;
     public bool isVertex = false;
     public bool boundary = false;
+
     public void Setup(Vector2Int arg_position, Vector3 arg_localPosition, float arg_H, float arg_cellSize)
     {
         position = arg_position;
