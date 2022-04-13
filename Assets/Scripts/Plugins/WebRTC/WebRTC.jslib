@@ -13,10 +13,6 @@ var AudioContext;
 var context;
 var destination;
 var biquadFilter;
-//bubble sound variables
-var merger;
-var bubbleSound;
-// var source;
 
 mergeInto(LibraryManager.library, {
   Hello: function () {
@@ -39,35 +35,9 @@ mergeInto(LibraryManager.library, {
     AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext();
     destination = context.createMediaStreamDestination();
-    merger = context.createChannelMerger(2);
-
     biquadFilter = context.createBiquadFilter();
     biquadFilter.type = "lowpass";
     biquadFilter.frequency.value = 300;
-
-    //loading in sound stuff
-    //var audioBuffer;
-    // const request = new XMLHttpRequest();
-    // request.open("GET", "/bubbles.wav", true);
-    // request.responseType = "arraybuffer";
-    // console.log("before load function");
-    // request.onload = function () {
-    //   audioBuffer = context.decodeAudioData(request.response);
-    //   console.log("inside load function");
-    // };
-    // request.onload = function() {
-    //   console.log("inside load function");
-    //   context.decodeAudioData(request.response, function(buffer) {
-    //     audioBuffer = buffer;
-    //   });
-    // };
-    bubbleSound = context.createMediaElementSource(
-      document.getElementById("bubbles")
-    );
-    // console.log("after load function");
-    // request.send();
-    // source = context.createBufferSource();
-    // source.buffer = audioBuffer;
 
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
@@ -78,12 +48,8 @@ mergeInto(LibraryManager.library, {
 
             microphone = context.createMediaStreamSource(stream);
             //connect filter and microphone to destination
-            //microphone.connect(biquadFilter);
-            microphone.connect(merger, 0, 0);
-            bubbleSound.connect(merger, 0, 1);
-            merger.connect(biquadFilter);
+            microphone.connect(biquadFilter);
             biquadFilter.connect(destination);
-
             //assign destination to local stream
             localStream = destination.stream;
           } else {
@@ -162,10 +128,8 @@ mergeInto(LibraryManager.library, {
       microphone.disconnect();
       //destination.disconnect(); //this may be over kill
       //biquadFilter.disconnect();
-      //microphone.connect(biquadFilter);
-      microphone.connect(merger, 0, 0);
-      bubbleSound.connect(merger, 0, 1);
-      merger.connect(biquadFilter);
+
+      microphone.connect(biquadFilter);
       biquadFilter.connect(destination);
 
       localStream = destination.stream;
@@ -174,9 +138,7 @@ mergeInto(LibraryManager.library, {
       console.log("New water state = " + inWater);
     } else {
       microphone.disconnect();
-      bubbleSound.disconnect();
       biquadFilter.disconnect();
-      merger.disconnect();
 
       //destination.disconnect();
       // biquadFilter = context.createBiquadFilter();
