@@ -91,7 +91,7 @@ public class PlayerUIManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown("escape"))
+        if (Cursor.lockState == CursorLockMode.None)
         {
             if (!mainMenu.activeSelf)
             {
@@ -108,5 +108,4 @@ public class PlayerUIManager : MonoBehaviour
             }
         }
     }
-
 }
