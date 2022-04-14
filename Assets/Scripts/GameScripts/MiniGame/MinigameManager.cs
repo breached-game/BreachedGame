@@ -100,7 +100,6 @@ public class MinigameManager : MonoBehaviour
         }
     }
 
-
     public void UpdateObjectivesPlayerUI()
     {
         UIManager.GetComponent<PlayerUIManager>().updateObjectiveList(currentObjectives, doneObjectives);
