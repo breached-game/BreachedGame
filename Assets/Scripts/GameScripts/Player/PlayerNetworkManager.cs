@@ -71,17 +71,17 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         float time = 15;
         starter = true;
-        CmdChangeCamera(false);
-        CmdChangeScene("StartGame");
+        CmdChangeScene("Orientation");
         StartCoroutine(OrientationTime(time));
     }
 
     IEnumerator OrientationTime(float time)
     {
-        yield return new WaitForSeconds(8f);
-        CmdChangeCamera(true);
-        CmdChangeScene("Orientation");
         yield return new WaitForSeconds(time);
+        CmdChangeCamera(false);
+        CmdChangeScene("StartGame");
+        yield return new WaitForSeconds(7f);
+        CmdChangeCamera(true);
         CmdChangeScene("Submarine");
     }
 
