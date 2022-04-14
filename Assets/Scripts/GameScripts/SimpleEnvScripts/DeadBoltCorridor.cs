@@ -53,15 +53,11 @@ public class DeadBoltCorridor : MonoBehaviour
         {
             if (door1Open)
             {
-                door1.GetComponent<Animator>().Play("Close");
-                //doorStop1.transform.position = doorStopPos1;
-                door1Open = false;
+                StartCoroutine(waitForCloseAnimation(1));
             }
             if (door2Open)
             {
-                door2.GetComponent<Animator>().Play("Close");
-                //doorStop2.transform.position = doorStopPos2;
-                door1Open = false;
+                StartCoroutine(waitForCloseAnimation(2));
             }
             inUse = false;
         }
@@ -83,22 +79,20 @@ public class DeadBoltCorridor : MonoBehaviour
         }
         else if(oneToTwo)
         {
-            door1.GetComponent<Animator>().Play("Close");
-            door1Open = false;
+            StartCoroutine(waitForCloseAnimation(1));
             StartCoroutine(waitForDoorAnimation(2));
             //doorStop1.transform.position = doorStopPos1;
         }
         else if (!oneToTwo)
         {
-            door2.GetComponent<Animator>().Play("Close");
-            door2Open = false;
+            StartCoroutine(waitForCloseAnimation(2));
             StartCoroutine(waitForDoorAnimation(1));
             //doorStop2.transform.position = doorStopPos2;
         }
     }
     IEnumerator waitForDoorAnimation(int doorToBeOpen)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         if(doorToBeOpen == 1)
         {
             if (!door1Open)
@@ -115,6 +109,28 @@ public class DeadBoltCorridor : MonoBehaviour
                 door2.GetComponent<Animator>().Play("Open");
                 doorStop2.transform.position = new Vector3(doorStopPos2.x, -50, doorStopPos2.z);
                 door2Open = true;
+            }
+        }
+    }
+    IEnumerator waitForCloseAnimation(int doorToBeClosed)
+    {
+        yield return new WaitForSeconds(1f);
+        if(doorToBeClosed == 1)
+        {
+            if (door1Open)
+            {
+                door1.GetComponent<Animator>().Play("Close");
+                doorStop1.transform.position = doorStopPos1;
+                door1Open = false;
+            }
+        }
+        else
+        {
+            if (door2Open)
+            {
+                door2.GetComponent<Animator>().Play("Close");
+                doorStop2.transform.position = doorStopPos2;
+                door2Open = false;
             }
         }
     }

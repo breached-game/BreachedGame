@@ -58292,6 +58292,21 @@ PrefabInstance:
       propertyPath: roomInfo
       value: 'Control Room: You are here '
       objectReference: {fileID: 0}
+    - target: {fileID: 604617377376948804, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.008
+      objectReference: {fileID: 0}
+    - target: {fileID: 604617377376948804, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.587
+      objectReference: {fileID: 0}
+    - target: {fileID: 604617377376948804, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.491
+      objectReference: {fileID: 0}
     - target: {fileID: 834447410689111829, guid: dfecc0757c9ee434b8cae48f30eebdfe,
         type: 3}
       propertyPath: roomInfo
@@ -58327,10 +58342,55 @@ PrefabInstance:
       propertyPath: roomInfo
       value: 'Server Room: Can be dark'
       objectReference: {fileID: 0}
+    - target: {fileID: 3233490417941705143, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.011
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233490417941705143, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233490417941705143, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.42
+      objectReference: {fileID: 0}
     - target: {fileID: 6126920415906462090, guid: dfecc0757c9ee434b8cae48f30eebdfe,
         type: 3}
       propertyPath: m_Name
       value: Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497256640798227377, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.017008143
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497256640798227377, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.57699823
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497256640798227377, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.11598414
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091244004414444080, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.012
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091244004414444080, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.581
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091244004414444080, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.011
       objectReference: {fileID: 0}
     - target: {fileID: 7486256724164002835, guid: dfecc0757c9ee434b8cae48f30eebdfe,
         type: 3}
@@ -58346,6 +58406,26 @@ PrefabInstance:
         type: 3}
       propertyPath: roomInfo
       value: 'Nuclear Missiles: Camera Feed Coverage'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521449015772784488, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 11.550345
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521449015772784488, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521449015772784488, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.577
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521449015772784488, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.033
       objectReference: {fileID: 0}
     - target: {fileID: 8633182882554166747, guid: dfecc0757c9ee434b8cae48f30eebdfe,
         type: 3}
