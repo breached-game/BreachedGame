@@ -79,8 +79,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     IEnumerator OrientationTime(float time)
     {
         yield return new WaitForSeconds(8f);
-        CmdChangeScene("Orientation");
         CmdChangeCamera(true);
+        CmdChangeScene("Orientation");
         yield return new WaitForSeconds(time);
         CmdChangeScene("Submarine");
     }
