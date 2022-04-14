@@ -7,7 +7,7 @@ public class MapRoomButtons : MonoBehaviour
     public GameObject mapManager;
     public string roomInfo;
     public bool topFloor = false;
-    private void OnMouseDown()
+    private void OnMouseOver()
     {
         if(topFloor == mapManager.GetComponent<InteractiveMap>().topFloor)
         {
