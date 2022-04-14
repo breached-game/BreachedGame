@@ -58315,7 +58315,7 @@ PrefabInstance:
     - target: {fileID: 1148049776081162636, guid: dfecc0757c9ee434b8cae48f30eebdfe,
         type: 3}
       propertyPath: m_text
-      value: Room information aaaaaaaa aaaa
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2008474477773699208, guid: dfecc0757c9ee434b8cae48f30eebdfe,
         type: 3}
