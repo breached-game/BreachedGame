@@ -14,7 +14,7 @@ public class DoorSwitchManagers : MonoBehaviour
     private Dictionary<Vector3Int, List<int>> combinationToDoor = new Dictionary<Vector3Int, List<int>>
     {
         {new Vector3Int(0,0,0), new List<int> {0,0,0,0,0} },
-        {new Vector3Int(0,0,1), new List<int> {0,0,1,0,0} },
+        {new Vector3Int(0,0,1), new List<int> {1,1,1,1,1} },
         {new Vector3Int(0,1,0), new List<int> {1,0,0,0,1} },
         {new Vector3Int(0,1,1), new List<int> {0,1,0,1,0} },
         {new Vector3Int(1,0,0), new List<int> {0,0,1,0,1} },

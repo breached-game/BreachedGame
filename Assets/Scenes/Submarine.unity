@@ -34830,7 +34830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb4e224e95769a04482550297d28c590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doors: {fileID: 0}
+  doors: {fileID: 294618884}
   resetButton: {fileID: 1143281206}
   minigameName: Servers need resetting
   minigameObjective: '- Different combinations open different doors

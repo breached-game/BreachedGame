@@ -418,6 +418,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     private void UpdateTime()
     {
+        print("timer Update");
         if (timerStarted)
         {
             timerManager.UpdateTimer(masterTime, time, increments);
@@ -451,8 +452,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdServerButtonPressed(GameObject button)
     {
         CallUpdateServerButtonPressed(button);
-        //button.transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour, mat);
-        button.transform.GetChild(0).GetComponent<Animator>().Play("Click");
     }
 
     [ClientRpc]
