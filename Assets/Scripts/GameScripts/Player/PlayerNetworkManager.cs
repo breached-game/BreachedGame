@@ -418,7 +418,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     private void UpdateTime()
     {
-        print("timer Update");
         if (timerStarted)
         {
             timerManager.UpdateTimer(masterTime, time, increments);

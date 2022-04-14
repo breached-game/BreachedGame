@@ -50,6 +50,7 @@ public class DoorSwitchManagers : MonoBehaviour
     public void OpenAllDoors()
     {
         success = true;
+        previousDoorState = currentDoorState;
         currentDoorState = new List<int> { 1, 1, 1, 1, 1 };
         UpdateDoors();
     }
@@ -59,7 +60,7 @@ public class DoorSwitchManagers : MonoBehaviour
         for(int i = 0; i<currentDoorState.Count; i++)
         {
             //print(doors[i]);
-            //print(currentDoorState[i]);
+            print("state: " + currentDoorState[i]);
 
             if (currentDoorState[i] == 0 && previousDoorState[i] != 0)
             {
