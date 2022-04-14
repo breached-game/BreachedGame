@@ -43,8 +43,8 @@ public class BuildScript
         BuildPipeline.BuildPlayer(buildPlayerOptions);
         Console.WriteLine("Built Server (Linux).");
         File.Delete("Builds/Linux/Server.zip");
-        ZipFile.CreateFromDirectory("Builds/Linux/Server", "Builds/Linux/Server.zip");
-        Directory.Delete("Builds/Linux/Server", true);
+        //ZipFile.CreateFromDirectory("Builds/Linux/Server", "Builds/Linux/Server.zip");
+        //Directory.Delete("Builds/Linux/Server", true);
     }
 
 
