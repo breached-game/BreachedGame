@@ -569,4 +569,36 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
     #endregion
+
+    #region Map
+    public void OnSetFloor(int floor, GameObject map)
+    {
+        CmdOnSetFloor(map, floor);
+    }
+    [Command]
+    public void CmdOnSetFloor(GameObject map, int floor)
+    {
+        CallAllOnSetFloor(map, floor);
+    }
+    [ClientRpc]
+    public void CallAllOnSetFloor(GameObject map, int floor)
+    {
+        map.GetComponent<InteractiveMap>().callSetFloor(floor);
+    }
+
+    public void OnSetRoom(string roomInfo, GameObject map, GameObject room)
+    {
+        CmdOnSetRoom(map, roomInfo, room);
+    }
+    [Command]
+    public void CmdOnSetRoom(GameObject map, string roomInfo, GameObject room)
+    {
+        CallAllOnSetRoom(map, roomInfo, room);
+    }
+    [ClientRpc]
+    public void CallAllOnSetRoom(GameObject map, string roomInfo, GameObject room)
+    {
+        map.GetComponent<InteractiveMap>().callSetRoom(roomInfo, room);
+    }
+    #endregion
 }
