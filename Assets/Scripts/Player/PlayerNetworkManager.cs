@@ -71,56 +71,14 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         float time = 15;
         starter = true;
-        CmdCameras(false);
-        CmdChangeScene("StartGame");
+        CmdChangeScene("Orientation");
         StartCoroutine(OrientationTime(time));
     }
 
-    [Command]
-    public void CmdCameras(bool on)
-    {
-        if (on)
-        {
-            TurnOnPlayerCamera();
-        }
-        else
-        {
-            TurnOffPlayerCamera();
-        }
-    }
     IEnumerator OrientationTime(float time)
     {
-        yield return new WaitForSeconds(5f);
-        CmdCameras(true);
-        CmdChangeScene("Orientation");
         yield return new WaitForSeconds(time);
         CmdChangeScene("Submarine");
-    }
-
-    [ClientRpc]
-    public void TurnOffPlayerCamera()
-    {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players)
-        {
-            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                player.GetComponent<PlayerManager>().FirstPersonCamera.SetActive(false);
-            }
-        }
-    }
-
-    [ClientRpc]
-    public void TurnOnPlayerCamera()
-    {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players)
-        {
-            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                player.GetComponent<PlayerManager>().FirstPersonCamera.SetActive(true);
-            }
-        }
     }
     #endregion
 
