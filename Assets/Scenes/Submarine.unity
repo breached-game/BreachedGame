@@ -12026,7 +12026,7 @@ MonoBehaviour:
   ObjectiveStatusDisplay: {fileID: 1033880877}
   FailiureReasonDisplay: {fileID: 962220885}
   objectiveStatusPopUpTime: 5
-  commandLine: {fileID: 0}
+  commandLine: {fileID: 1719035641}
 --- !u!1 &416241915
 GameObject:
   m_ObjectHideFlags: 0
