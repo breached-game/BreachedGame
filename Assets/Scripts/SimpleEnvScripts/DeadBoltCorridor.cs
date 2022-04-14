@@ -13,12 +13,20 @@ public class DeadBoltCorridor : MonoBehaviour
     //The doors
     public GameObject door1;
     public GameObject door2;
+    public GameObject doorStop1;
+    private Vector3 doorStopPos1;
+    public GameObject doorStop2;
+    private Vector3 doorStopPos2;
     //We dont want to play animation if there's not state change
     private bool door1Open = false;
     private bool door2Open = false;
     private bool inUse = false;
     private bool oneToTwo = false;
-
+    private void Start()
+    {
+        doorStopPos1 = doorStop1.transform.position;
+        doorStopPos2 = doorStop2.transform.position;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.transform.tag == "Player")
@@ -46,11 +54,13 @@ public class DeadBoltCorridor : MonoBehaviour
             if (door1Open)
             {
                 door1.GetComponent<Animator>().Play("Close");
+                //doorStop1.transform.position = doorStopPos1;
                 door1Open = false;
             }
             if (door2Open)
             {
                 door2.GetComponent<Animator>().Play("Close");
+                //doorStop2.transform.position = doorStopPos2;
                 door1Open = false;
             }
             inUse = false;
@@ -58,6 +68,7 @@ public class DeadBoltCorridor : MonoBehaviour
         else if (playersIn1 && !inUse)
         {
             door1.GetComponent<Animator>().Play("Open");
+            doorStop1.transform.position = new Vector3(doorStopPos1.x, -50, doorStopPos1.z);
             door1Open = true;
             inUse = true;
             oneToTwo = true;
@@ -65,6 +76,7 @@ public class DeadBoltCorridor : MonoBehaviour
         else if (playersIn2 && !inUse)
         {
             door2.GetComponent<Animator>().Play("Open");
+            doorStop2.transform.position = new Vector3(doorStopPos2.x, -50, doorStopPos2.z);
             door2Open = true;
             inUse = true;
             oneToTwo = false;
@@ -74,12 +86,14 @@ public class DeadBoltCorridor : MonoBehaviour
             door1.GetComponent<Animator>().Play("Close");
             door1Open = false;
             StartCoroutine(waitForDoorAnimation(2));
+            //doorStop1.transform.position = doorStopPos1;
         }
         else if (!oneToTwo)
         {
             door2.GetComponent<Animator>().Play("Close");
             door2Open = false;
             StartCoroutine(waitForDoorAnimation(1));
+            //doorStop2.transform.position = doorStopPos2;
         }
     }
     IEnumerator waitForDoorAnimation(int doorToBeOpen)
@@ -90,6 +104,7 @@ public class DeadBoltCorridor : MonoBehaviour
             if (!door1Open)
             {
                 door1.GetComponent<Animator>().Play("Open");
+                doorStop1.transform.position = new Vector3(doorStopPos1.x, -50, doorStopPos1.z);
                 door1Open = true;
             }
         }
@@ -98,6 +113,7 @@ public class DeadBoltCorridor : MonoBehaviour
             if (!door2Open)
             {
                 door2.GetComponent<Animator>().Play("Open");
+                doorStop2.transform.position = new Vector3(doorStopPos2.x, -50, doorStopPos2.z);
                 door2Open = true;
             }
         }
