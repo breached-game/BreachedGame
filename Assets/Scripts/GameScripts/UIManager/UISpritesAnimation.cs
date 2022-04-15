@@ -22,16 +22,13 @@ public class UISpritesAnimation : MonoBehaviour
     }
     IEnumerator playGif()
     {
-        if (sprites != null)
+        for (int i = 0; i < sprites.Length; i++)
         {
-            for (int i = 0; i < sprites.Length; i++)
-            {
-                //i need help here i have no idea why image is null sometimes -Andy
-                if (image != null) image.sprite = sprites[i];
-                yield return new WaitForSeconds(duration);
-            }
-            gameObject.SetActive(false);
+            //i need help here i have no idea why image is null sometimes -Andy
+            if (image != null) image.sprite = sprites[i];
+            yield return new WaitForSeconds(duration);
         }
+        gameObject.SetActive(false);
     } 
 }
 

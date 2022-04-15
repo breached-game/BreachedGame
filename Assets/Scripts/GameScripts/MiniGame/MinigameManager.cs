@@ -27,7 +27,7 @@ public class MinigameManager : MonoBehaviour
     private Dictionary<string, string> doneObjectives = new Dictionary<string, string>();
 
 
-    // Dictionary shape : {Objective name (string) : Reason for failure (string)
+    // Dictionary shape : {Objective name (string) : Reason for failiuew (string)
     private Dictionary<string, string> failedObjectives;
 
     public void SendObjectiveData(string objectiveName, string objectiveDescription)
@@ -36,18 +36,6 @@ public class MinigameManager : MonoBehaviour
         allObjectives.Add(objectiveName, objectiveDescription);
         currentObjectives = allObjectives;
         UpdateObjectivesPlayerUI();
-    }
-
-    //Testing reasons
-    public Dictionary<string, string> GetCurrentObjectives()
-    {
-        return currentObjectives;
-    }
-
-    //Testing reasons
-    public Dictionary<string, string> GetDoneObjectives()
-    {
-        return doneObjectives;
     }
 
     public void ObjectiveCompleted(string objectiveName, string objectiveDescription)
@@ -110,12 +98,6 @@ public class MinigameManager : MonoBehaviour
                 commandLine.GetComponent<CommandManager>().QueueMessage("Input the reset code from the control room before we start WW3!", true);
             }
         }
-    }
-
-    //Testing reasons
-    public bool GetEndgame()
-    {
-        return endgame;
     }
 
     public void UpdateObjectivesPlayerUI()
