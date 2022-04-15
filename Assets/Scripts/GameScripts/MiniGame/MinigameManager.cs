@@ -27,7 +27,26 @@ public class MinigameManager : MonoBehaviour
     private Dictionary<string, string> doneObjectives = new Dictionary<string, string>();
 
 
-    // Dictionary shape : {Objective name (string) : Reason for failiuew (string)
+    //Testing reasons
+    public Dictionary<string, string> GetCurrentObjectives()
+    {
+        return currentObjectives;
+    }
+
+    //Testing reasons
+    public Dictionary<string, string> GetDoneObjectives()
+    {
+        return doneObjectives;
+    }
+
+    //Testing reasons
+    public bool GetEndgame()
+    {
+        return endgame;
+    }
+
+
+    // Dictionary shape : {Objective name (string) : Reason for failure (string)
     private Dictionary<string, string> failedObjectives;
 
     public void SendObjectiveData(string objectiveName, string objectiveDescription)
