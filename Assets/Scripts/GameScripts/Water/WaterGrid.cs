@@ -198,31 +198,12 @@ public class WaterGrid : MonoBehaviour
             }
             if (waterFix)
             {
-                if (gridArray[width/2, depth/2].Geth() < 0.5f) {
-                    bool empty = Loop();
-                    if (empty)
-                    {
-                        gameObject.SetActive(false);
-                    }
+                if (gridArray[breachPosition.x, breachPosition.z].Geth() < 0.1f) {
+                    gameObject.SetActive(false);
                 }
             }
             yield return new WaitForSeconds(0.1f);
         }
-    }
-
-    private bool Loop()
-    {
-        for (int x = 0; x < width; x++)
-        {
-            for (int z = 0; z < depth; z++)
-            {
-                if (gridArray[x, z].Geth() > 0.1f)
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     public void AddWaterPump(Vector3 position)
@@ -342,7 +323,12 @@ public class WaterGrid : MonoBehaviour
             xOutflow = outflowLocations[i].x;
             zOutflow = outflowLocations[i].z;
 
-            gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - inflowRate * dt);
+            if (inflow)
+            {
+                gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - inflowRate * dt);
+            } else {
+                gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - 2 * inflowRate * dt);
+            }
         }
 
 
