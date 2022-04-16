@@ -52,6 +52,16 @@ public class MinigameManager : MonoBehaviour
         players = GameObject.FindGameObjectsWithTag("Player");
     }
 
+    private void Start()
+    {
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                player.GetComponent<PlayerNetworkManager>().StartMissileTimer(missileTimeText);
+            }
+        }
+    }
 
     // Dictionary shape : {Objective name (string) : Reason for failure (string)
     private Dictionary<string, string> failedObjectives;
@@ -119,6 +129,7 @@ public class MinigameManager : MonoBehaviour
         {
             if (!endgame)
             {
+                missileTimeText.SetActive(true);
                 endgame = true;
                 commandLine.GetComponent<CommandManager>().QueueMessage("Damn it! Resetting the systems has set off the missile launch protocol", true);
                 commandLine.GetComponent<CommandManager>().QueueMessage("Input the reset code from the control room before we start WW3!", true);
