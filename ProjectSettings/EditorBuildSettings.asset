@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Orientation.unity
     guid: eb7981253e7e8a548abccae49cd123fb
   - enabled: 1
+    path: Assets/Scenes/StartGame.unity
+    guid: fbfd792059032ee40af588a282d5b151
+  - enabled: 1
     path: Assets/Scenes/Submarine.unity
     guid: 9f44a336664f5294e83f9418ac3d9ed2
   - enabled: 1
