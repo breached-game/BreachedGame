@@ -1876,6 +1876,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8633182882554166747}
   - component: {fileID: 6126920415906462091}
+  - component: {fileID: 8555706741373733083}
   m_Layer: 0
   m_Name: Map 1
   m_TagString: Untagged
@@ -1920,6 +1921,22 @@ MonoBehaviour:
   Map: {fileID: 9138550330206710049}
   blueHalogram: {fileID: 2100000, guid: 11d7b18c4e7338741840302b650b7ff4, type: 2}
   greenHalogram: {fileID: 2100000, guid: 9972d7bae62aa4447a8d5c66d67a8833, type: 2}
+--- !u!114 &8555706741373733083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6126920415906462090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &7406314884858234175
 GameObject:
   m_ObjectHideFlags: 0
