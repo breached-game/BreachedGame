@@ -27,11 +27,8 @@ public class TimerManager : MonoBehaviour
 
     public void UpdateTimer(float currentTime, float time, int increments)
     {
-        if (time - currentTime < 60)
-        {
-            timerTextObject.SetActive(true);
-            timerText.text = (Mathf.Round(time - currentTime)).ToString();
-        }
+        timerTextObject.SetActive(true);
+        timerText.text = "Sea bed: " + (Mathf.Round(time - currentTime)).ToString() + "m";
         slider.value += (time / increments);
     }
 

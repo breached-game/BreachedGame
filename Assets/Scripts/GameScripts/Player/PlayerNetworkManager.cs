@@ -33,6 +33,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     string[] colours = new string[] { "red", "green", "blue" };
     private Setup setupManager;
     private int comboLength = 5;
+    private bool missileStarted = false;
 
     // Pass in the gameobject, data, 
     void Awake()
@@ -398,6 +399,40 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CallUpdateAllButtonPresses(GameObject button)
     {
         button.GetComponent<ColourMiniGameButton>().UpdateAllButtonPresses();
+    }
+
+    public void StartMissileTimer(GameObject missileText)
+    {
+        CmdStartMissileTimer(missileText);
+    }
+
+    [Command]
+    public void CmdStartMissileTimer(GameObject missileText)
+    {
+        float time = 30f;
+        if (!missileStarted)
+        {
+            missileStarted = true;
+            StartCoroutine(MissileTimer(time, missileText));
+        }
+    }
+    IEnumerator MissileTimer(float time, GameObject missileText)
+    {
+        float currentTime = time;
+        UpdateMissileTimer(currentTime, missileText);
+        while (currentTime > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            currentTime--;
+            UpdateMissileTimer(currentTime, missileText);
+        }
+        ChangeToLose();
+    }
+
+    [ClientRpc]
+    public void UpdateMissileTimer(float time, GameObject missileText)
+    {
+        missileText.GetComponent<MissileTextManager>().UpdateTime(time);
     }
     #endregion
 
