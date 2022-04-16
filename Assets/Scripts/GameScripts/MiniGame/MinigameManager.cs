@@ -51,11 +51,6 @@ public class MinigameManager : MonoBehaviour
         players = GameObject.FindGameObjectsWithTag("Player");
     }
 
-    private void Start()
-    {
-        //missileTimeText.SetActive(true);
-    }
-
     // Dictionary shape : {Objective name (string) : Reason for failure (string)
     private Dictionary<string, string> failedObjectives;
 
@@ -65,13 +60,6 @@ public class MinigameManager : MonoBehaviour
         allObjectives.Add(objectiveName, objectiveDescription);
         currentObjectives = allObjectives;
         UpdateObjectivesPlayerUI();
-        foreach (GameObject player in players)
-        {
-            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                player.GetComponent<PlayerNetworkManager>().StartMissileTimer();
-            }
-        }
     }
 
     public void ObjectiveCompleted(string objectiveName, string objectiveDescription)

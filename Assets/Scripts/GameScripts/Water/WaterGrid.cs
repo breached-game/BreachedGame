@@ -42,6 +42,7 @@ public class WaterGrid : MonoBehaviour
     public bool waterFix = false;
     private Vector3Int breachPosition = new Vector3Int();
     private bool muffle = false;
+    private Coroutine positionCoroutine;
 
     void Awake()
     {
@@ -112,7 +113,7 @@ public class WaterGrid : MonoBehaviour
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                StartCoroutine(CheckPlayerPos(other.gameObject));
+                positionCoroutine = StartCoroutine(CheckPlayerPos(other.gameObject));
             }
         }
         else if (other.gameObject.tag != "Floater")
@@ -205,7 +206,6 @@ public class WaterGrid : MonoBehaviour
                     }
                 }
             }
-
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -247,9 +247,8 @@ public class WaterGrid : MonoBehaviour
         PlayerManager playerManager = other.gameObject.GetComponent<PlayerManager>();
         if (other.gameObject.tag == "Player")
         {
-            StopCoroutine(CheckPlayerPos(other.gameObject));
-            playerManager.Speed = savedSpeeds[0];
-            playerManager.SprintSpeed = savedSpeeds[1];
+            StopCoroutine(positionCoroutine);
+            playerManager.ResetSpeed();
             if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 VoiceWrapper.waterMic();
