@@ -409,6 +409,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdStartMissileTimer(GameObject missileText)
     {
+        print("start missile timer");
         float time = 30f;
         if (!missileStarted)
         {
