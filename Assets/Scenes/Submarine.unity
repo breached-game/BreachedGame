@@ -12027,7 +12027,6 @@ MonoBehaviour:
   FailiureReasonDisplay: {fileID: 962220885}
   objectiveStatusPopUpTime: 5
   commandLine: {fileID: 1719035641}
-  missileTimeText: {fileID: 903821412}
 --- !u!1 &416241915
 GameObject:
   m_ObjectHideFlags: 0
@@ -28652,6 +28651,7 @@ MonoBehaviour:
   timer: {fileID: 764042194}
   alarms: {fileID: 419858514979956368}
   colourManager: {fileID: 293587934}
+  missileTimerText: {fileID: 903821412}
 --- !u!1 &984201041
 GameObject:
   m_ObjectHideFlags: 0

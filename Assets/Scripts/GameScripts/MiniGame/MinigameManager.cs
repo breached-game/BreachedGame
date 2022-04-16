@@ -20,7 +20,6 @@ public class MinigameManager : MonoBehaviour
     public Text FailiureReasonDisplay;
     public int objectiveStatusPopUpTime;
     public GameObject commandLine;
-    public GameObject missileTimeText;
 
 
     // Dictionary shape : {Objective name (string) : Instructions (string) 
@@ -55,13 +54,6 @@ public class MinigameManager : MonoBehaviour
     private void Start()
     {
         //missileTimeText.SetActive(true);
-        foreach (GameObject player in players)
-        {
-            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                player.GetComponent<PlayerNetworkManager>().StartMissileTimer(missileTimeText);
-            }
-        }
     }
 
     // Dictionary shape : {Objective name (string) : Reason for failure (string)
@@ -73,6 +65,13 @@ public class MinigameManager : MonoBehaviour
         allObjectives.Add(objectiveName, objectiveDescription);
         currentObjectives = allObjectives;
         UpdateObjectivesPlayerUI();
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                player.GetComponent<PlayerNetworkManager>().StartMissileTimer();
+            }
+        }
     }
 
     public void ObjectiveCompleted(string objectiveName, string objectiveDescription)
@@ -130,7 +129,6 @@ public class MinigameManager : MonoBehaviour
         {
             if (!endgame)
             {
-                missileTimeText.SetActive(true);
                 endgame = true;
                 commandLine.GetComponent<CommandManager>().QueueMessage("Damn it! Resetting the systems has set off the missile launch protocol", true);
                 commandLine.GetComponent<CommandManager>().QueueMessage("Input the reset code from the control room before we start WW3!", true);
@@ -138,7 +136,7 @@ public class MinigameManager : MonoBehaviour
                 {
                     if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
                     {
-                        player.GetComponent<PlayerNetworkManager>().StartMissileTimer(missileTimeText);
+                        player.GetComponent<PlayerNetworkManager>().StartMissileTimer();
                     }
                 }
             }

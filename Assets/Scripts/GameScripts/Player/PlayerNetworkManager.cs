@@ -19,6 +19,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     private GameObject Timer;
     private TimerManager timerManager;
+    private MissileTextManager missileManager;
 
     private GameObject networkManager;
     private MyNetworkManager myNetworkManager;
@@ -217,6 +218,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
+        missileManager = setupObject.GetComponent<Setup>().missileTimerText.GetComponent<MissileTextManager>();
     }
     #endregion
 
@@ -401,40 +403,40 @@ public class PlayerNetworkManager : NetworkBehaviour
         button.GetComponent<ColourMiniGameButton>().UpdateAllButtonPresses();
     }
 
-    public void StartMissileTimer(GameObject missileText)
+    public void StartMissileTimer()
     {
-        CmdStartMissileTimer(missileText);
+        CmdStartMissileTimer();
     }
 
     [Command]
-    public void CmdStartMissileTimer(GameObject missileText)
+    public void CmdStartMissileTimer()
     {
         print("start missile timer");
         float time = 30f;
         if (!missileStarted)
         {
             missileStarted = true;
-            StartCoroutine(MissileTimer(time, missileText));
+            StartCoroutine(MissileTimer(time));
         }
     }
-    IEnumerator MissileTimer(float time, GameObject missileText)
+    IEnumerator MissileTimer(float time)
     {
         float currentTime = time;
-        UpdateMissileTimer(currentTime, missileText);
+        UpdateMissileTimer(currentTime);
         while (currentTime > 0)
         {
             yield return new WaitForSeconds(1f);
             currentTime--;
-            UpdateMissileTimer(currentTime, missileText);
+            UpdateMissileTimer(currentTime);
         }
         CallChangeCameras(false);
         myNetworkManager.ServerChangeScene("EndGameLose");
     }
 
     [ClientRpc]
-    public void UpdateMissileTimer(float time, GameObject missileText)
+    public void UpdateMissileTimer(float time)
     {
-        missileText.GetComponent<MissileTextManager>().UpdateTime(time);
+        missileManager.UpdateTime(time);
     }
     #endregion
 

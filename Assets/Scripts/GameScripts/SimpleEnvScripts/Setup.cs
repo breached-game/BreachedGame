@@ -14,6 +14,7 @@ public class Setup : MonoBehaviour
     public GameObject timer;
     public GameObject alarms;
     public GameObject colourManager;
+    public GameObject missileTimerText;
 
     // Start is called before the first frame update
     void Start()

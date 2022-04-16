@@ -8,7 +8,7 @@ public class MissileTextManager : MonoBehaviour
 {
     private Text textDisplay;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         textDisplay = gameObject.GetComponent<Text>();
         textDisplay.text = "";
