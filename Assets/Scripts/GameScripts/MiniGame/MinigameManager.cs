@@ -54,7 +54,7 @@ public class MinigameManager : MonoBehaviour
 
     private void Start()
     {
-        missileTimeText.SetActive(true);
+        //missileTimeText.SetActive(true);
         foreach (GameObject player in players)
         {
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)

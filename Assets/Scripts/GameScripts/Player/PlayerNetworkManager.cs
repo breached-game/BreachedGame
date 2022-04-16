@@ -427,7 +427,8 @@ public class PlayerNetworkManager : NetworkBehaviour
             currentTime--;
             UpdateMissileTimer(currentTime, missileText);
         }
-        ChangeToLose();
+        CallChangeCameras(false);
+        myNetworkManager.ServerChangeScene("EndGameLose");
     }
 
     [ClientRpc]
