@@ -9,7 +9,6 @@ public class WaterGrid : MonoBehaviour
 {
     public Grid water_grid;
     public GridVertex[,] gridArray;
-    private float[,] terrain;
     public int width = 60;
     public int height = 60;
     public int depth = 60;
