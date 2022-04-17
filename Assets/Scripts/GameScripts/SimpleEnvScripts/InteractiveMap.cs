@@ -24,6 +24,7 @@ public class InteractiveMap : MonoBehaviour
 
     public void setRoomInfo(string roomInfo, GameObject room)
     {
+        if (localPlayerInside != true) return;
         if (activeRoom != null)
         {
             if (activeRoom != room) activeRoom.GetComponent<MeshRenderer>().material = blueHalogram;
@@ -34,6 +35,7 @@ public class InteractiveMap : MonoBehaviour
     }
     public void setFloor(int floor)
     {
+        if (localPlayerInside != true) return;
         if (floor == 1)
         {
             topFloor = false;
