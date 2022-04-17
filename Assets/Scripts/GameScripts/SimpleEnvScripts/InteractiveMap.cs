@@ -14,7 +14,7 @@ public class InteractiveMap : MonoBehaviour
     public Material greenHalogram;
     private TextMeshPro roomText;
     private GameObject activeRoom;
-    private PlayerNetworkManager playerNetworkManager;
+    private bool localPlayerInside = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,17 +22,17 @@ public class InteractiveMap : MonoBehaviour
         roomText = RoomInfo.GetComponent<TextMeshPro>();
     }
 
-    public void setRoomInfo(string info, GameObject room)
+    public void setRoomInfo(string roomInfo, GameObject room)
     {
-        if (playerNetworkManager == null) return;
-        playerNetworkManager.OnSetRoom(info, this.gameObject, room);
+        if (activeRoom != null)
+        {
+            if (activeRoom != room) activeRoom.GetComponent<MeshRenderer>().material = blueHalogram;
+        }
+        activeRoom = room;
+        room.GetComponent<MeshRenderer>().material = greenHalogram;
+        roomText.text = roomInfo;
     }
     public void setFloor(int floor)
-    {
-        if (playerNetworkManager == null) return;
-        playerNetworkManager.OnSetFloor(floor, this.gameObject);
-    }
-    public void callSetFloor(int floor)
     {
         if (floor == 1)
         {
@@ -45,23 +45,23 @@ public class InteractiveMap : MonoBehaviour
             Map.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
-    public void callSetRoom(string roomInfo, GameObject room)
-    {
-        if (activeRoom != null)
-        {
-            if (activeRoom != room) activeRoom.GetComponent<MeshRenderer>().material = blueHalogram;
-        }
-        activeRoom = room;
-        room.GetComponent<MeshRenderer>().material = greenHalogram;
-        roomText.text = roomInfo;
-    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.transform.tag == "Player")
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                playerNetworkManager = other.gameObject.GetComponent<PlayerNetworkManager>();
+                localPlayerInside = true;
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.transform.tag == "Player")
+        {
+            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                localPlayerInside = false;
             }
         }
     }
