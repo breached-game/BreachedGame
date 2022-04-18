@@ -19,6 +19,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     private GameObject Timer;
     private TimerManager timerManager;
+    private MissileTextManager missileManager;
 
     private GameObject networkManager;
     private MyNetworkManager myNetworkManager;
@@ -33,6 +34,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     string[] colours = new string[] { "red", "green", "blue" };
     private Setup setupManager;
     private int comboLength = 5;
+    private bool missileStarted = false;
 
     // Pass in the gameobject, data, 
     void Awake()
@@ -216,6 +218,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
+        missileManager = setupObject.GetComponent<Setup>().missileTimerText.GetComponent<MissileTextManager>();
     }
     #endregion
 
@@ -399,6 +402,41 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         button.GetComponent<ColourMiniGameButton>().UpdateAllButtonPresses();
     }
+
+    public void StartMissileTimer()
+    {
+        CmdStartMissileTimer();
+    }
+
+    [Command]
+    public void CmdStartMissileTimer()
+    {
+        float time = 30f;
+        if (!missileStarted)
+        {
+            missileStarted = true;
+            StartCoroutine(MissileTimer(time));
+        }
+    }
+    IEnumerator MissileTimer(float time)
+    {
+        float currentTime = time;
+        UpdateMissileTimer(currentTime);
+        while (currentTime > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            currentTime--;
+            UpdateMissileTimer(currentTime);
+        }
+        CallChangeCameras(false);
+        myNetworkManager.ServerChangeScene("EndGameLose");
+    }
+
+    [ClientRpc]
+    public void UpdateMissileTimer(float time)
+    {
+        missileManager.UpdateTime(time);
+    }
     #endregion
 
     #region:Timer
@@ -566,38 +604,6 @@ public class PlayerNetworkManager : NetworkBehaviour
                 Destroy(player);
             }
         }
-    }
-    #endregion
-
-    #region Map
-    public void OnSetFloor(int floor, GameObject map)
-    {
-        CmdOnSetFloor(map, floor);
-    }
-    [Command]
-    public void CmdOnSetFloor(GameObject map, int floor)
-    {
-        CallAllOnSetFloor(map, floor);
-    }
-    [ClientRpc]
-    public void CallAllOnSetFloor(GameObject map, int floor)
-    {
-        map.GetComponent<InteractiveMap>().callSetFloor(floor);
-    }
-
-    public void OnSetRoom(string roomInfo, GameObject map, GameObject room)
-    {
-        CmdOnSetRoom(map, roomInfo, room);
-    }
-    [Command]
-    public void CmdOnSetRoom(GameObject map, string roomInfo, GameObject room)
-    {
-        CallAllOnSetRoom(map, roomInfo, room);
-    }
-    [ClientRpc]
-    public void CallAllOnSetRoom(GameObject map, string roomInfo, GameObject room)
-    {
-        map.GetComponent<InteractiveMap>().callSetRoom(roomInfo, room);
     }
     #endregion
 }

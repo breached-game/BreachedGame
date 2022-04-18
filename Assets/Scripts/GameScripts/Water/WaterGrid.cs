@@ -9,7 +9,6 @@ public class WaterGrid : MonoBehaviour
 {
     public Grid water_grid;
     public GridVertex[,] gridArray;
-    private float[,] terrain;
     public int width = 60;
     public int height = 60;
     public int depth = 60;
@@ -42,6 +41,7 @@ public class WaterGrid : MonoBehaviour
     public bool waterFix = false;
     private Vector3Int breachPosition = new Vector3Int();
     private bool muffle = false;
+    private Coroutine positionCoroutine;
 
     void Awake()
     {
@@ -112,7 +112,7 @@ public class WaterGrid : MonoBehaviour
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                StartCoroutine(CheckPlayerPos(other.gameObject));
+                positionCoroutine = StartCoroutine(CheckPlayerPos(other.gameObject));
             }
         }
         else if (other.gameObject.tag != "Floater")
@@ -197,32 +197,12 @@ public class WaterGrid : MonoBehaviour
             }
             if (waterFix)
             {
-                if (gridArray[width/2, depth/2].Geth() < 0.5f) {
-                    bool empty = Loop();
-                    if (empty)
-                    {
-                        gameObject.SetActive(false);
-                    }
+                if (gridArray[breachPosition.x, breachPosition.z].Geth() < 0.1f) {
+                    gameObject.SetActive(false);
                 }
             }
-
             yield return new WaitForSeconds(0.1f);
         }
-    }
-
-    private bool Loop()
-    {
-        for (int x = 0; x < width; x++)
-        {
-            for (int z = 0; z < depth; z++)
-            {
-                if (gridArray[x, z].Geth() > 0.1f)
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     public void AddWaterPump(Vector3 position)
@@ -247,9 +227,8 @@ public class WaterGrid : MonoBehaviour
         PlayerManager playerManager = other.gameObject.GetComponent<PlayerManager>();
         if (other.gameObject.tag == "Player")
         {
-            StopCoroutine(CheckPlayerPos(other.gameObject));
-            playerManager.Speed = savedSpeeds[0];
-            playerManager.SprintSpeed = savedSpeeds[1];
+            StopCoroutine(positionCoroutine);
+            playerManager.ResetSpeed();
             if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 VoiceWrapper.waterMic();
@@ -343,7 +322,12 @@ public class WaterGrid : MonoBehaviour
             xOutflow = outflowLocations[i].x;
             zOutflow = outflowLocations[i].z;
 
-            gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - inflowRate * dt);
+            if (inflow)
+            {
+                gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - inflowRate * dt);
+            } else {
+                gridArray[xOutflow, zOutflow].Seth(gridArray[xOutflow, zOutflow].Geth() - 2 * inflowRate * dt);
+            }
         }
 
 

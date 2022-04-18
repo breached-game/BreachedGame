@@ -8,6 +8,7 @@ public class WaterTimerManager : MonoBehaviour
 {
     public float waterGridTimer = 30f;
     public GameObject waterGrid;
+    public GameObject waterGridWait;
     private bool run = true;
 
     public bool GetRun()
@@ -24,9 +25,12 @@ public class WaterTimerManager : MonoBehaviour
             }
             if (waterGridTimer < 0)
             {
-                gameObject.GetComponent<DropOffMiniGameManager>().Reset();
-                waterGrid.SetActive(true);
-                run = false;
+                if (!waterGridWait.activeSelf)
+                {
+                    gameObject.GetComponent<DropOffMiniGameManager>().Reset();
+                    waterGrid.SetActive(true);
+                    run = false;
+                }
             }
         }
     }

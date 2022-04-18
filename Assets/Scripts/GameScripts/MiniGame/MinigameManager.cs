@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.UI;
+using Mirror;
 
 public class MinigameManager : MonoBehaviour
 {
@@ -45,6 +46,10 @@ public class MinigameManager : MonoBehaviour
         return endgame;
     }
 
+    private void Awake()
+    {
+        players = GameObject.FindGameObjectsWithTag("Player");
+    }
 
     // Dictionary shape : {Objective name (string) : Reason for failure (string)
     private Dictionary<string, string> failedObjectives;
@@ -115,6 +120,13 @@ public class MinigameManager : MonoBehaviour
                 endgame = true;
                 commandLine.GetComponent<CommandManager>().QueueMessage("Damn it! Resetting the systems has set off the missile launch protocol", true);
                 commandLine.GetComponent<CommandManager>().QueueMessage("Input the reset code from the control room before we start WW3!", true);
+                foreach (GameObject player in players)
+                {
+                    if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+                    {
+                        player.GetComponent<PlayerNetworkManager>().StartMissileTimer();
+                    }
+                }
             }
         }
     }
