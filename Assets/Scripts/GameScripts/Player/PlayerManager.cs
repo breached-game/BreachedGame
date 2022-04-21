@@ -37,6 +37,10 @@ public class PlayerManager : NetworkBehaviour
         defaultSpeed = Speed;
         defaultSprintSpeed = SprintSpeed;
     }
+    private void Start()
+    {
+        TurnOnAudio();
+    }
 
     public void TurnOnAudio()
     {

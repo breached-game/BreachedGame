@@ -205,7 +205,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         int r;
         for (int i = 0; i < comboLength; i++)
         {
-            r = Random.Range(0, colours.Length - 1);
+            r = Random.Range(0, colours.Length);
             ColourCombo.Add(colours[r]);
         }
     }
