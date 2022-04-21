@@ -141,7 +141,6 @@ public class WaterGrid : MonoBehaviour
     }
     IEnumerator CheckPlayerPos(GameObject player)
     {
-        bool soundPlaying = false;
         PlayerManager playerManager = player.GetComponent<PlayerManager>();
         float waterHeight;
         savedSpeeds[0] = playerManager.defaultSpeed;
@@ -173,11 +172,7 @@ public class WaterGrid : MonoBehaviour
                             VoiceWrapper.waterMic();
                             muffle = true;
                         }
-                        if (!soundPlaying)
-                        {
-                            soundPlaying = true;
-                            player.GetComponent<AudioSource>().Play();
-                        }
+                        playerManager.inWater = true;
                         
                     }
                     else
@@ -192,7 +187,7 @@ public class WaterGrid : MonoBehaviour
                             VoiceWrapper.waterMic();
                             muffle = false;
                         }
-                        soundPlaying = false;
+                        playerManager.inWater = false;
                     }
                 }
                 catch (IndexOutOfRangeException)
@@ -201,8 +196,7 @@ public class WaterGrid : MonoBehaviour
                     playerManager.SprintSpeed = savedSpeeds[1];
                     fogController.fog = false;
                     waterDrops.SetActive(false);
-                    player.GetComponent<AudioSource>().Stop();
-                    soundPlaying = false;
+                    playerManager.inWater = false;
                 }
             }
             if (waterFix)
@@ -238,6 +232,7 @@ public class WaterGrid : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             StopCoroutine(positionCoroutine);
+            playerManager.inWater = false;
             playerManager.ResetSpeed();
             if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
