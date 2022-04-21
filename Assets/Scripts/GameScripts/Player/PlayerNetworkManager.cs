@@ -59,13 +59,13 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void ChangeToVictory()
     {
-        DestroyAllPlayers();
+        CmdChangeCamera(false);
         CmdChangeScene("EndGameWin");
     }
 
     public void ChangeToLose()
     {
-        DestroyAllPlayers();
+        CmdChangeCamera(false);
         CmdChangeScene("EndGameLose");
     }
 
