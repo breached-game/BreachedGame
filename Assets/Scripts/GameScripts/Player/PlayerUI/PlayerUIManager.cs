@@ -103,20 +103,23 @@ public class PlayerUIManager : MonoBehaviour
 
     public void Update()
     {
-        if (Cursor.lockState == CursorLockMode.None && playerCamera.activeSelf)
+        if (playerCamera != null)
         {
-            if (!mainMenu.activeSelf)
+            if (Cursor.lockState == CursorLockMode.None && playerCamera.activeSelf)
             {
-                if (mainMenu != null)
+                if (!mainMenu.activeSelf)
                 {
-                    mainMenu.SetActive(true);
-                }
-                crosshair.SetActive(false);
-                for (int i = 0; i < players.Length; i++)
-                {
-                    if (players[i].GetComponent<NetworkIdentity>().isLocalPlayer)
+                    if (mainMenu != null)
                     {
-                        players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<FirstPersonController>().cameraEnabled = false;
+                        mainMenu.SetActive(true);
+                    }
+                    crosshair.SetActive(false);
+                    for (int i = 0; i < players.Length; i++)
+                    {
+                        if (players[i].GetComponent<NetworkIdentity>().isLocalPlayer)
+                        {
+                            players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<FirstPersonController>().cameraEnabled = false;
+                        }
                     }
                 }
             }
