@@ -24,9 +24,14 @@ public class PlayerManager : NetworkBehaviour
 
     public float defaultSpeed;
     public float defaultSprintSpeed;
+    public bool inWater = false;
+    public bool soundPlaying = false;
+
+    private AudioSource waterWalking;
 
     void Awake()
     {
+        waterWalking = GetComponent<AudioSource>();
         _controller = GetComponent<CharacterController>();
         identity = GetComponent<NetworkIdentity>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -36,6 +41,10 @@ public class PlayerManager : NetworkBehaviour
         DontDestroyOnLoad(this.gameObject);
         defaultSpeed = Speed;
         defaultSprintSpeed = SprintSpeed;
+    }
+    private void Start()
+    {
+        TurnOnAudio();
     }
 
     public void TurnOnAudio()
@@ -263,10 +272,24 @@ public class PlayerManager : NetworkBehaviour
             }
 
             //Animation Control
-            if(move == new Vector3(0, 0, 0))
+            if (move == new Vector3(0, 0, 0))
             {
                 PlayerModel.GetComponent<Animator>().SetBool("Moving", false);
-            } else PlayerModel.GetComponent<Animator>().SetBool("Moving", true);
+                if (soundPlaying)
+                {
+                    waterWalking.Stop();
+                    soundPlaying = false;
+                }
+            }
+            else
+            {
+                PlayerModel.GetComponent<Animator>().SetBool("Moving", true);
+                if (inWater && !soundPlaying)
+                {
+                    waterWalking.Play();
+                    soundPlaying = true;
+                }
+            }
         }
     }
 

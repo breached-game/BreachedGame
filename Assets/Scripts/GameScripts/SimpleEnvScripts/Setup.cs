@@ -42,6 +42,7 @@ public class Setup : MonoBehaviour
                 playerUI.transform.GetChild(i).gameObject.SetActive(true);
             }
             player.GetComponent<PlayerManager>().TurnOnAudio();
+            player.GetComponent<PlayerManager>().torch.SetActive(false);
         }
     }
 
