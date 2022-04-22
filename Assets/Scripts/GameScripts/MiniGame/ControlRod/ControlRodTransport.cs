@@ -16,10 +16,20 @@ public class ControlRodTransport : NetworkBehaviour
     private PlayerManager playerManager;
     private PlayerNetworkManager playerNetworkManager;
 
+    private AudioSource controlRodAudio;
+    private Rigidbody controlRodRigidBody;
+    private bool audioPlaying = false;
+
     [SyncVar]
     public GameObject currentPlayer = null;
 
     public float magnitude;
+
+    private void Start()
+    {
+        controlRodAudio = controlRod.GetComponent<AudioSource>();
+        controlRodRigidBody = controlRod.GetComponent<Rigidbody>();
+    }
 
     public void EnteredController(GameObject player)
     {
@@ -91,5 +101,18 @@ public class ControlRodTransport : NetworkBehaviour
         GameObject playerModel = player.GetComponent<PlayerManager>().PlayerModel;
         playerModel.GetComponent<Animator>().Play("Idle");
         playerModel.transform.position = prePlayerPos;
+    }
+
+    private void Update()
+    {
+        if (controlRodRigidBody.velocity.magnitude != 0)
+        {
+            if (!audioPlaying)
+            {
+                controlRodAudio.Play();
+                audioPlaying = true;
+            }
+        }
+        else { controlRodAudio.Stop(); audioPlaying = false; }
     }
 }

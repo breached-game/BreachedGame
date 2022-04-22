@@ -25,10 +25,6 @@ public class PlayerUIManager : MonoBehaviour
     private void Awake()
     {
         players = GameObject.FindGameObjectsWithTag("Player");
-    }
-
-    private void Start()
-    {
         foreach (GameObject player in players)
         {
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
@@ -111,7 +107,10 @@ public class PlayerUIManager : MonoBehaviour
         {
             if (!mainMenu.activeSelf)
             {
-                mainMenu.SetActive(true);
+                if (mainMenu != null)
+                {
+                    mainMenu.SetActive(true);
+                }
                 crosshair.SetActive(false);
                 for (int i = 0; i < players.Length; i++)
                 {

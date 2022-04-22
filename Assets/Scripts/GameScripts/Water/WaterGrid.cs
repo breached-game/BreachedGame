@@ -231,7 +231,10 @@ public class WaterGrid : MonoBehaviour
         PlayerManager playerManager = other.gameObject.GetComponent<PlayerManager>();
         if (other.gameObject.tag == "Player")
         {
-            StopCoroutine(positionCoroutine);
+            if (positionCoroutine != null)
+            {
+                StopCoroutine(positionCoroutine);
+            }
             playerManager.inWater = false;
             playerManager.ResetSpeed();
             if (Application.platform == RuntimePlatform.WebGLPlayer)
