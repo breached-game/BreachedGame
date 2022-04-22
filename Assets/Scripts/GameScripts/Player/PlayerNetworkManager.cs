@@ -12,7 +12,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     bool timerStarted = false;
     SyncListString ColourCombo = new SyncListString();
 
-    float time = 300f;
+    float time = 480f;
     int increments = 2000;
 
     private bool starter = false;
@@ -71,7 +71,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void ChangeToSub()
     {
-        float time = 15;
+        float time = 60;
         starter = true;
         CmdChangeScene("Orientation");
         StartCoroutine(OrientationTime(time));
