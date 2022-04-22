@@ -22,7 +22,7 @@ public class PlayerUIManager : MonoBehaviour
     GameObject[] players;
     GameObject playerCamera;
 
-    private void Awake()
+    private void Start()
     {
         players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
@@ -121,6 +121,17 @@ public class PlayerUIManager : MonoBehaviour
                             players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<FirstPersonController>().cameraEnabled = false;
                         }
                     }
+                }
+            }
+        }
+        else
+        {
+            players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in players)
+            {
+                if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+                {
+                    playerCamera = player.GetComponent<PlayerManager>().FirstPersonCamera;
                 }
             }
         }
