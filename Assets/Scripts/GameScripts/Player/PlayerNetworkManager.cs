@@ -59,12 +59,20 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void ChangeToVictory()
     {
+        if (GetComponent<PlayerManager>().inWater)
+        {
+            VoiceWrapper.waterMic();
+        }
         CmdChangeCamera(false);
         CmdChangeScene("EndGameWin");
     }
 
     public void ChangeToLose()
     {
+        if (GetComponent<PlayerManager>().inWater)
+        {
+            VoiceWrapper.waterMic();
+        }
         CmdChangeCamera(false);
         CmdChangeScene("EndGameLose");
     }

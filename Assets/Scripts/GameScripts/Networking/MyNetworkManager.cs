@@ -48,7 +48,7 @@ public class MyNetworkManager : NetworkManager
     public override void OnServerSceneChanged(string sceneName)
     {
         base.OnServerSceneChanged(sceneName);
-        if (sceneName == "Submarine")
+        if (sceneName == "Orientation")
         {
             maxConnections = numPlayers;
         }
