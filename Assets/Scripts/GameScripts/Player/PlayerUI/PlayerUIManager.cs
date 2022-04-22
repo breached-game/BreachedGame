@@ -19,6 +19,25 @@ public class PlayerUIManager : MonoBehaviour
     private List<GameObject> UIElements =  new List<GameObject>();
     private float offsetY = 5;
 
+    GameObject[] players;
+    GameObject playerCamera;
+
+    private void Awake()
+    {
+        players = GameObject.FindGameObjectsWithTag("Player");
+    }
+
+    private void Start()
+    {
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                playerCamera = player.GetComponent<PlayerManager>().FirstPersonCamera;
+            }
+        }
+    }
+
     public void UpdatePlayerHolding(string itemName)
     {
         playerHoldingText.GetComponent<TextMeshProUGUI>().text = itemName;
@@ -88,13 +107,12 @@ public class PlayerUIManager : MonoBehaviour
 
     public void Update()
     {
-        if (Cursor.lockState == CursorLockMode.None)
+        if (Cursor.lockState == CursorLockMode.None && playerCamera.activeSelf)
         {
             if (!mainMenu.activeSelf)
             {
                 mainMenu.SetActive(true);
                 crosshair.SetActive(false);
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 for (int i = 0; i < players.Length; i++)
                 {
                     if (players[i].GetComponent<NetworkIdentity>().isLocalPlayer)
