@@ -39,7 +39,7 @@ public class ControlRodTransport : NetworkBehaviour
             {
                 playerManager = player.GetComponent<PlayerManager>();
                 playerNetworkManager = player.GetComponent<PlayerNetworkManager>();
-                playerNetworkManager.SendCurrentPlayer(player, this.gameObject);
+                playerNetworkManager.SendCurrentPlayer(player, this.gameObject, player);
 
                 Cursor.lockState = CursorLockMode.None;
                 playerManager.FirstPersonCamera.SetActive(false);
@@ -73,7 +73,7 @@ public class ControlRodTransport : NetworkBehaviour
                 controlRodUI.SetActive(false);
                 playerUI.SetActive(false);
 
-                playerNetworkManager.SendCurrentPlayer(null, this.gameObject);
+                playerNetworkManager.SendCurrentPlayer(null, this.gameObject, currentPlayer);
             }
         }
         
