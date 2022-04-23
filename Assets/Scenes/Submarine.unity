@@ -11006,7 +11006,6 @@ MonoBehaviour:
   controlRod: {fileID: 1212675507}
   playerUI: {fileID: 1636883686}
   playerPos: {fileID: 568748037}
-  prePlayerPos: {x: 0, y: 0, z: 0}
   currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!65 &370983072
@@ -11188,7 +11187,6 @@ MonoBehaviour:
   controlRod: {fileID: 1212675507}
   playerUI: {fileID: 1636883686}
   playerPos: {fileID: 1326359985}
-  prePlayerPos: {x: 0, y: 0, z: 0}
   currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!4 &378052622
@@ -17426,7 +17424,6 @@ MonoBehaviour:
   controlRod: {fileID: 1212675507}
   playerUI: {fileID: 1636883686}
   playerPos: {fileID: 465995127}
-  prePlayerPos: {x: 0, y: 0, z: 0}
   currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!65 &604787083
@@ -55269,7 +55266,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 0.3
   sprites:
-  - {fileID: 21300000, guid: d1be0fd9ee5ef024ba26817eeea3daf1, type: 3}
   - {fileID: 21300000, guid: 72944d1264a514547ac8d67391087e63, type: 3}
   - {fileID: 21300000, guid: 5e68035ffb301364b9508a72f62dff24, type: 3}
   - {fileID: 21300000, guid: 69dbb81942b9a134cb904869c938e0c0, type: 3}
