@@ -211,7 +211,6 @@ public class PlayerNetworkManager : NetworkBehaviour
         {
             CmdStartGame(setupObject);
             starter = false;
-            CmdAssignSkin();
         }
     }
 
@@ -580,41 +579,22 @@ public class PlayerNetworkManager : NetworkBehaviour
     #region:Assign Players Skins and Names
     public List<Material> playerMats;
     private Dictionary<GameObject, string> playerNames;
-    [Command]
-    public void CmdAssignSkin()
+
+    public void PlayerSendsTheirName(GameObject player, string name)
     {
-        //Bad practice we should pass players in some other way 
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        int m = 0;
-        foreach (GameObject player in players)
-        {
-            SetNameOnServer(player, m);
-            m++;
-        }
+        CmdSetNameOnServer(player, name);
+    }
+    [Command]
+    public void CmdSetNameOnServer(GameObject player, string name)
+    {
+        CallUpdateSetName(player, name);
     }
 
     [ClientRpc]
-    public void SetNameOnServer(GameObject player, int m)
-    {
-        if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
-        {
-            CmdSetNameOnServer(player, PlayerPrefs.GetString("Name"), m);
-        }
-    }
-
-    [Command]
-    public void CmdSetNameOnServer(GameObject player, string name, int m)
-    {
-        print("Player: " + name);
-        CallUpdateSetName(player, name, m);
-    }
-
-    [ClientRpc]
-    public void CallUpdateSetName(GameObject player, string name, int m)
+    public void CallUpdateSetName(GameObject player, string name)
     {
         print("Player: " + name);
         player.GetComponent<NameTagManager>().SetName(name);
-        player.GetComponent<PlayerManager>().PlayerModel.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = playerMats[m];
     }
     #endregion
 

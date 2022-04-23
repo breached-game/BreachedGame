@@ -49,6 +49,7 @@ public class OrientationSetup : MonoBehaviour
             {
                 playerNetworkManager = player.GetComponent<PlayerNetworkManager>();
                 playerNetworkManager.StartOrientation();
+                playerNetworkManager.PlayerSendsTheirName(this.gameObject, PlayerPrefs.GetString("Name"));
             }
         }
         CaptainIntro();
