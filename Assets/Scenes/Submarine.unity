@@ -219,8 +219,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1691728, y: 2.865895, z: 1.6984696}
-  m_Center: {x: -0.06257365, y: 0.93294686, z: 1.304582}
+  m_Size: {x: 3.1691728, y: 2.865895, z: 2.7728972}
+  m_Center: {x: -0.06257365, y: 0.93294686, z: 1.2248132}
 --- !u!1001 &14916242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -702,8 +702,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1691728, y: 2.865895, z: 1.6984696}
-  m_Center: {x: -0.06257365, y: 0.93294686, z: 1.304582}
+  m_Size: {x: 3.1691728, y: 2.865895, z: 2.7728972}
+  m_Center: {x: -0.06257365, y: 0.93294686, z: 1.2248132}
 --- !u!1001 &31457839
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -854,8 +854,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1691728, y: 2.865895, z: 1.6984696}
-  m_Center: {x: -0.06257365, y: 0.93294686, z: 1.304582}
+  m_Size: {x: 3.1691728, y: 2.865895, z: 2.7728972}
+  m_Center: {x: -0.06257365, y: 0.93294686, z: 1.2248132}
 --- !u!1 &35454252
 GameObject:
   m_ObjectHideFlags: 0
@@ -11006,6 +11006,7 @@ MonoBehaviour:
   controlRod: {fileID: 1212675507}
   playerUI: {fileID: 1636883686}
   playerPos: {fileID: 568748037}
+  prePlayerPos: {x: 0, y: 0, z: 0}
   currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!65 &370983072
@@ -11187,6 +11188,7 @@ MonoBehaviour:
   controlRod: {fileID: 1212675507}
   playerUI: {fileID: 1636883686}
   playerPos: {fileID: 1326359985}
+  prePlayerPos: {x: 0, y: 0, z: 0}
   currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!4 &378052622
@@ -11965,8 +11967,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1691728, y: 2.865895, z: 1.6984696}
-  m_Center: {x: -0.06257365, y: 0.93294686, z: 1.304582}
+  m_Size: {x: 3.1691728, y: 2.865895, z: 2.7728972}
+  m_Center: {x: -0.06257365, y: 0.93294686, z: 1.2248132}
 --- !u!1 &413493953
 GameObject:
   m_ObjectHideFlags: 0
@@ -17424,6 +17426,7 @@ MonoBehaviour:
   controlRod: {fileID: 1212675507}
   playerUI: {fileID: 1636883686}
   playerPos: {fileID: 465995127}
+  prePlayerPos: {x: 0, y: 0, z: 0}
   currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!65 &604787083

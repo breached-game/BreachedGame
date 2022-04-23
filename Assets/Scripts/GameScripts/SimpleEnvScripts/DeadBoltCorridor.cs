@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DeadBoltCorridor : MonoBehaviour
 {
-    //This is horrible code, I'm actually sorry :( -Andrew
     public bool playersIn1 = false;
     public bool playersIn2 = false;
     public bool playersMid = false;
@@ -18,10 +17,12 @@ public class DeadBoltCorridor : MonoBehaviour
     public GameObject doorStop2;
     private Vector3 doorStopPos2;
     //We dont want to play animation if there's not state change
+    /*
     private bool door1Open = false;
     private bool door2Open = false;
     private bool inUse = false;
     private bool oneToTwo = false;
+    */
     private void Start()
     {
         doorStopPos1 = doorStop1.transform.position;
@@ -49,18 +50,33 @@ public class DeadBoltCorridor : MonoBehaviour
     }
     public void OnStateChange()
     {
-        if(!playersIn1 && !playersIn2 && !playersMid)
+        if (playersIn1)
         {
-            if (door1Open)
-            {
-                StartCoroutine(waitForCloseAnimation(1));
-            }
-            if (door2Open)
-            {
-                StartCoroutine(waitForCloseAnimation(2));
-            }
-            inUse = false;
+            door1.GetComponent<Animator>().Play("Open");
+            doorStop1.transform.position = new Vector3(doorStopPos1.x, -50, doorStopPos1.z);
         }
+        if (playersIn2)
+        {
+            door2.GetComponent<Animator>().Play("Open");
+            doorStop2.transform.position = new Vector3(doorStopPos2.x, -50, doorStopPos2.z);
+        }
+        if (playersMid)
+        {
+            door1.GetComponent<Animator>().Play("Open");
+            door2.GetComponent<Animator>().Play("Open");
+            doorStop1.transform.position = new Vector3(doorStopPos1.x, -50, doorStopPos1.z);
+            doorStop2.transform.position = new Vector3(doorStopPos2.x, -50, doorStopPos2.z);
+        }
+        if (!playersIn1 && !playersIn2 && !playersMid)
+        {
+            door1.GetComponent<Animator>().Play("Close");
+            door2.GetComponent<Animator>().Play("Close");
+            doorStop2.transform.position = doorStopPos2;
+            doorStop1.transform.position = doorStopPos1;
+        }
+    }
+        /*
+         * The solution below is glitchy so to come across as more polished I am simplfying it all
         else if (playersIn1 && !inUse)
         {
             door1.GetComponent<Animator>().Play("Open");
@@ -134,4 +150,5 @@ public class DeadBoltCorridor : MonoBehaviour
             }
         }
     }
+    */
 }
