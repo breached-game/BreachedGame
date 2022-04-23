@@ -6442,7 +6442,8 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 5070fb2a692ab03438d3a05c7e5da24a, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8816880229734819299, guid: d96d7da6ebc67154ebc44023d5bbdad2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d96d7da6ebc67154ebc44023d5bbdad2, type: 3}
 --- !u!4 &219668344 stripped
 Transform:
@@ -30848,7 +30849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1064135051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59102,6 +59103,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8076009976571838619}
     m_Modifications:
+    - target: {fileID: 1148049775712725494, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.6013309
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148049775712725494, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.000000067154346
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148049775712725494, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.1604064
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148049775712725494, guid: dfecc0757c9ee434b8cae48f30eebdfe,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.057601664
+      objectReference: {fileID: 0}
     - target: {fileID: 6126920415906462090, guid: dfecc0757c9ee434b8cae48f30eebdfe,
         type: 3}
       propertyPath: m_Name
