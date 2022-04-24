@@ -5945,6 +5945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minigameName: Fix breach in the kitchen
   minigameObjective: Grab wood and fix the breaches!
+  minigameManager: {fileID: 0}
   ItemDroppedOff: {fileID: 657172703}
   numberOfDropOffs: 1
   active: 0
@@ -6799,6 +6800,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minigameName: Fix breach in storage room
   minigameObjective: Grab wood and fix the breaches!
+  minigameManager: {fileID: 0}
   ItemDroppedOff: {fileID: 1839010393}
   numberOfDropOffs: 1
   active: 0
@@ -11034,7 +11036,6 @@ MonoBehaviour:
   controlRod: {fileID: 1212675507}
   playerUI: {fileID: 1636883686}
   playerPos: {fileID: 568748037}
-  prePlayerPos: {x: 0, y: 0, z: 0}
   currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!65 &370983072
@@ -11216,7 +11217,6 @@ MonoBehaviour:
   controlRod: {fileID: 1212675507}
   playerUI: {fileID: 1636883686}
   playerPos: {fileID: 1326359985}
-  prePlayerPos: {x: 0, y: 0, z: 0}
   currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!4 &378052622
@@ -12168,7 +12168,7 @@ MonoBehaviour:
   FailiureReasonDisplay: {fileID: 962220885}
   objectiveStatusPopUpTime: 5
   commandLine: {fileID: 1719035641}
-  Caps: {fileID: 5232798461439237608}
+  commandNetwork: {fileID: 1563516805}
 --- !u!1 &416241915
 GameObject:
   m_ObjectHideFlags: 0
@@ -17455,7 +17455,6 @@ MonoBehaviour:
   controlRod: {fileID: 1212675507}
   playerUI: {fileID: 1636883686}
   playerPos: {fileID: 465995127}
-  prePlayerPos: {x: 0, y: 0, z: 0}
   currentPlayer: {fileID: 0}
   magnitude: 1
 --- !u!65 &604787083
@@ -29049,6 +29048,7 @@ MonoBehaviour:
   alarms: {fileID: 419858514979956368}
   colourManager: {fileID: 293587934}
   missileTimerText: {fileID: 903821412}
+  commandLine: {fileID: 0}
 --- !u!1 &984201041
 GameObject:
   m_ObjectHideFlags: 0
@@ -50930,6 +50930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minigameName: Fix breach below control room
   minigameObjective: Grab wood and fix the breaches!
+  minigameManager: {fileID: 0}
   ItemDroppedOff: {fileID: 366587552}
   numberOfDropOffs: 1
   active: 1

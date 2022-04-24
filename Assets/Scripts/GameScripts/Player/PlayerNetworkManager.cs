@@ -79,7 +79,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void ChangeToSub()
     {
-        float time = 60;
+        float time = 45;
         starter = true;
         CmdChangeScene("Orientation");
         StartCoroutine(OrientationTime(time));

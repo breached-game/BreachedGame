@@ -19,6 +19,7 @@ public class DropOffBatteries : MonoBehaviour
     public int numberOfDropOffs = 2;
     private int dropsDone = 0;
 
+
     public void Reset()
     {
         minigameManager = transform.parent.GetComponent<MinigameManager>();
@@ -47,6 +48,10 @@ public class DropOffBatteries : MonoBehaviour
         if (dropsDone == numberOfDropOffs)
         {
             minigameManager.ObjectiveCompleted(minigameName, minigameObjective);
+        }
+        else
+        {
+            minigameManager.commandNetwork.GetComponent<CommandNetworkManager>().SendNetworkMessage("Great, you've found one battery now grab the other one as well!", true);
         }
     }
     private void visualEffectOfBatteryDropOff()
