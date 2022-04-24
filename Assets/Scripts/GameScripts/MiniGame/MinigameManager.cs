@@ -20,6 +20,7 @@ public class MinigameManager : MonoBehaviour
     public Text FailiureReasonDisplay;
     public int objectiveStatusPopUpTime;
     public GameObject commandLine;
+    public GameObject Caps;
 
 
     // Dictionary shape : {Objective name (string) : Instructions (string) 
@@ -120,6 +121,7 @@ public class MinigameManager : MonoBehaviour
                 endgame = true;
                 commandLine.GetComponent<CommandManager>().QueueMessage("Damn it! Resetting the systems has set off the missile launch protocol", true);
                 commandLine.GetComponent<CommandManager>().QueueMessage("Input the reset code from the control room before we start WW3!", true);
+                Caps.SetActive(false);
                 foreach (GameObject player in players)
                 {
                     if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
