@@ -97,10 +97,10 @@ jobs:
 #          checkName: ${{ matrix.testMode }} test results
 #          githubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Test results (${{ matrix.testMode }})
-          path: ${{ steps.testRunner.outputs.artifactsPath }}
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: Test results (${{ matrix.testMode }})
+#          path: ${{ steps.testRunner.outputs.artifactsPath }}
 
   UploadToServer:
     runs-on: ubuntu-latest
