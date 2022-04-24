@@ -59,12 +59,20 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void ChangeToVictory()
     {
+        if (GetComponent<PlayerManager>().inWater)
+        {
+            VoiceWrapper.waterMic();
+        }
         CmdChangeCamera(false);
         CmdChangeScene("EndGameWin");
     }
 
     public void ChangeToLose()
     {
+        if (GetComponent<PlayerManager>().inWater)
+        {
+            VoiceWrapper.waterMic();
+        }
         CmdChangeCamera(false);
         CmdChangeScene("EndGameLose");
     }
@@ -127,22 +135,40 @@ public class PlayerNetworkManager : NetworkBehaviour
         controlRod.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
     }
 
-    public void SendCurrentPlayer(GameObject player, GameObject controlRodController)
+    public void SendCurrentPlayer(GameObject player, GameObject controlRodController, GameObject lazyNetworkVisualSolution)
     {
-        CmdSendCurrentPlayer(player, controlRodController);
+        CmdSendCurrentPlayer(player, controlRodController, lazyNetworkVisualSolution);
     }
 
     [Command]
 
-    public void CmdSendCurrentPlayer(GameObject player, GameObject controlRodController)
+    public void CmdSendCurrentPlayer(GameObject player, GameObject controlRodController, GameObject lazyNetworkVisualSolution)
     {
-        SetCurrentPlayer(player, controlRodController);
+        SetCurrentPlayer(player, controlRodController, lazyNetworkVisualSolution);
     }
 
     [ClientRpc]
-    public void SetCurrentPlayer(GameObject player, GameObject controlRodController)
+    public void SetCurrentPlayer(GameObject player, GameObject controlRodController, GameObject lazyNetworkVisualSolution)
     {
         controlRodController.gameObject.GetComponent<ControlRodTransport>().currentPlayer = player;
+        //Visual Effect
+        //Leaving
+        if (player == null)
+        {
+            GameObject playerModel = lazyNetworkVisualSolution.GetComponent<PlayerManager>().PlayerModel;
+            playerModel.GetComponent<Animator>().Play("Idle");
+            playerModel.transform.position = controlRodController.GetComponent<ControlRodTransport>().prePlayerPos;
+        }
+        //Entering
+        else
+        {
+            GameObject playerModel = player.GetComponent<PlayerManager>().PlayerModel;
+            playerModel.GetComponent<Animator>().Play("SitDown");
+            GameObject PlayerPos = controlRodController.GetComponent<ControlRodTransport>().playerPos;
+            playerModel.transform.position = PlayerPos.transform.position;
+            controlRodController.GetComponent<ControlRodTransport>().prePlayerPos = playerModel.transform.position;
+            player.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
     #endregion
 
