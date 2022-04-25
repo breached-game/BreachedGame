@@ -19,7 +19,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     private GameObject Timer;
     private TimerManager timerManager;
-    private MissileTextManager missileManager;
+    private GameObject missileManager;
 
     private GameObject networkManager;
     private MyNetworkManager myNetworkManager;
@@ -244,7 +244,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
-        missileManager = setupObject.GetComponent<Setup>().missileTimerText.GetComponent<MissileTextManager>();
+        missileManager = setupObject.GetComponent<Setup>().missileTimerText;
     }
     #endregion
 
@@ -461,7 +461,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     public void UpdateMissileTimer(float time)
     {
-        missileManager.UpdateTime(time);
+        missileManager.GetComponent<MissileTextManager>().UpdateTime(time);
     }
     #endregion
 
