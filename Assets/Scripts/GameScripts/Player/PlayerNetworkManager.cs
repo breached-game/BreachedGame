@@ -151,6 +151,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void SetCurrentPlayer(GameObject player, GameObject controlRodController, GameObject lazyNetworkVisualSolution)
     {
         controlRodController.gameObject.GetComponent<ControlRodTransport>().currentPlayer = player;
+        /* to be networked after the feedback
         //Visual Effect
         //Leaving
         if (player == null)
@@ -169,6 +170,7 @@ public class PlayerNetworkManager : NetworkBehaviour
             controlRodController.GetComponent<ControlRodTransport>().prePlayerPos = playerModel.transform.position;
             player.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+        */
     }
     #endregion
 
