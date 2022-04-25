@@ -211,6 +211,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         if (starter)
         {
+            print("Start game called");
             CmdStartGame(setupObject);
             starter = false;
             CmdAssignSkin();

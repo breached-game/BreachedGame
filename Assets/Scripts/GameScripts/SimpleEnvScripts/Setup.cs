@@ -21,7 +21,6 @@ public class Setup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bool firstPlayer = true;
         //Bad practice we should pass players in some other way 
         players = GameObject.FindGameObjectsWithTag("Player");
         //lights.GetComponent<LightManager>().TurnPressureAlarmOn();
@@ -29,11 +28,10 @@ public class Setup : MonoBehaviour
         lights.GetComponent<LightManager>().TurnPressureAlarmOff();
         foreach (GameObject player in players)
         {
-            if (firstPlayer)
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 PlayerNetworkManager playerManager = player.GetComponent<PlayerNetworkManager>();
                 playerManager.StartGame(this.gameObject);
-                firstPlayer = false;
             }
             player.transform.position = spawnPoint.transform.position;
             playerUI.SetActive(true);
