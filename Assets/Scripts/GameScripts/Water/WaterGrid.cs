@@ -299,7 +299,7 @@ public class WaterGrid : MonoBehaviour
 
         if (waterFix)
         {
-            if (gridArray[breachPosition.x, breachPosition.z].Geth() < 0.1f)
+            if (gridArray[breachPosition.x + 1, breachPosition.z].Geth() < 0.1f)
             {
                 gameObject.SetActive(false);
             }
