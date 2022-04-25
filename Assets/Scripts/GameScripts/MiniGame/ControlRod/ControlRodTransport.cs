@@ -87,7 +87,8 @@ public class ControlRodTransport : NetworkBehaviour
     }
 
   
-
+    //Visual effects NOT NETWORKED THEREFORE LEGACY
+    
     public void VisualEffectOfBeingInTheMiniGame(GameObject player)
     {
         GameObject playerModel = player.GetComponent<PlayerManager>().PlayerModel;
@@ -102,7 +103,7 @@ public class ControlRodTransport : NetworkBehaviour
         playerModel.GetComponent<Animator>().Play("Idle");
         playerModel.transform.position = prePlayerPos;
     }
-
+    
     private void Update()
     {
         if (controlRodRigidBody.velocity.magnitude != 0)

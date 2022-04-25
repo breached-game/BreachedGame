@@ -64,7 +64,8 @@ public class CommandManager : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
             i++;
         }
-        yield return new WaitForSeconds(1f);
+
+        yield return new WaitForSeconds(2f);
         textMesh.text = "";
         typing = false;
     }

@@ -26743,7 +26743,6 @@ GameObject:
   - component: {fileID: 903821413}
   - component: {fileID: 903821417}
   - component: {fileID: 903821416}
-  - component: {fileID: 903821415}
   - component: {fileID: 903821414}
   m_Layer: 5
   m_Name: MissileText
@@ -26783,22 +26782,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4731e1ab9134ad5488a664421314bcfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &903821415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903821412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 3339667376
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &903821416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29179,7 +29162,7 @@ MonoBehaviour:
   alarms: {fileID: 419858514979956368}
   colourManager: {fileID: 293587934}
   missileTimerText: {fileID: 903821412}
-  commandLine: {fileID: 0}
+  commandLine: {fileID: 1719035641}
 --- !u!1 &984201041
 GameObject:
   m_ObjectHideFlags: 0

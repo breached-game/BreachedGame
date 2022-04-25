@@ -115,10 +115,11 @@ public class MinigameManager : MonoBehaviour
 
     public void CheckWon()
     {
-        if (currentObjectives.Count == 0)
+        if (currentObjectives.Count == 1)
         {
             if (!endgame)
             {
+                print("endgame");
                 endgame = true;
                 commandLine.GetComponent<CommandManager>().QueueMessage("Damn it! Resetting the systems has set off the missile launch protocol", true);
                 commandLine.GetComponent<CommandManager>().QueueMessage("Input the reset code from the control room before we start WW3!", true);
