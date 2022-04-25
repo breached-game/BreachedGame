@@ -153,6 +153,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         controlRodController.gameObject.GetComponent<ControlRodTransport>().currentPlayer = player;
         //Visual Effect
         //Leaving
+        /*
         if (player == null)
         {
             GameObject playerModel = lazyNetworkVisualSolution.GetComponent<PlayerManager>().PlayerModel;
@@ -162,13 +163,14 @@ public class PlayerNetworkManager : NetworkBehaviour
         //Entering
         else
         {
+        */
             GameObject playerModel = player.GetComponent<PlayerManager>().PlayerModel;
             playerModel.GetComponent<Animator>().Play("SitDown");
             GameObject PlayerPos = controlRodController.GetComponent<ControlRodTransport>().playerPos;
             playerModel.transform.position = PlayerPos.transform.position;
             controlRodController.GetComponent<ControlRodTransport>().prePlayerPos = playerModel.transform.position;
             player.transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+        //}
     }
     #endregion
 
