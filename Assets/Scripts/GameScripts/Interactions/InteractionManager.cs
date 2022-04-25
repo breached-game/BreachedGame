@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using TMPro;
 
 public class InteractionManager : NetworkBehaviour
 {
@@ -11,12 +12,14 @@ public class InteractionManager : NetworkBehaviour
 
     public InteractionSO interactionSO;
     private GameObject interactionText;
+    private TextMeshProUGUI interactionActualText;
 
     private void Start()
     {
         interactionText = GameObject.Find("Canvas").transform.GetChild(GameObject.Find("Canvas").transform.childCount-1).gameObject;
         print(interactionText);
         interactionText.SetActive(false);
+        interactionActualText = interactionText.GetComponent<TextMeshProUGUI>();
     }
 
     void OnTriggerStay(Collider other)
@@ -26,17 +29,21 @@ public class InteractionManager : NetworkBehaviour
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer && !other.GetComponent<PlayerManager>().disableInteractionsForMinigame)
             {
-                interactionText.SetActive(true);
+                RaycastHit hit;
+                int maxDistance = 10000;
+                Transform cameraTransform = other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform;
+                //interactionText.SetActive(true);
                 //Okay so GetKeyDown actually sucks
                 //We check to see if the player is already interacting via the animator
                 Animator playerAni = other.gameObject.GetComponent<PlayerManager>().PlayerModel.GetComponent<Animator>();
                 if (Input.GetAxis("Interact") == 1 && !playerAni.GetCurrentAnimatorStateInfo(0).IsName("Interact"))
                 {
+                    interactionText.SetActive(false);
                     playerAni.Play("Interact");
-                    RaycastHit hit;
-                    int maxDistance = 10000;
+                    //RaycastHit hit;
+                    //int maxDistance = 10000;
 
-                    Transform cameraTransform = other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform;
+                    //Transform cameraTransform = other.gameObject.GetComponent<PlayerManager>().FirstPersonCamera.transform;
                     if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.forward, out hit, maxDistance))
                     {
                         //print(hit.transform.name);
@@ -47,6 +54,15 @@ public class InteractionManager : NetworkBehaviour
                             interactionSO.RunInteraction(gameObject, other.gameObject);
                         }
                     }
+                }
+                else if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.forward, out hit, maxDistance) && hit.collider.gameObject == gameObject)
+                {
+                    interactionActualText.text = "Press e to interact with " + hit.collider.gameObject.name;
+                    interactionText.SetActive(true);
+                }
+                else
+                {
+                    interactionText.SetActive(false);
                 }
             } 
         } 
