@@ -199,12 +199,6 @@ public class WaterGrid : MonoBehaviour
                     playerManager.inWater = false;
                 }
             }
-            if (waterFix)
-            {
-                if (gridArray[breachPosition.x, breachPosition.z].Geth() < 0.1f) {
-                    gameObject.SetActive(false);
-                }
-            }
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -302,6 +296,15 @@ public class WaterGrid : MonoBehaviour
         float totalHeight;
         float totalFlux;
         int vCount = 0;
+
+        if (waterFix)
+        {
+            if (gridArray[breachPosition.x + 1, breachPosition.z].Geth() < 0.1f)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
         Vector3Int inflowPosition = water_grid.LocalToCell(inflowLocations[randomIndex].transform.position - water_grid.transform.position);
         vertices.Clear();
         triangles.Clear();
