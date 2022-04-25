@@ -242,6 +242,10 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     void CallUpdateStartGame(GameObject setupObject)
     {
+        while (setupObject == null)
+        {
+            print("looping");
+        }
         print("Update start game");
         //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
         setupManager = setupObject.GetComponent<Setup>();
