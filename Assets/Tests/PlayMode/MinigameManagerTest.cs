@@ -232,12 +232,15 @@ public class MiniGameManagerTest
         GameObject ObjectiveStatusUI = new GameObject();
         gameObject.GetComponent<MinigameManager>().ObjectiveStatusUI = ObjectiveStatusUI;
 
+        GameObject caps = new GameObject();
+        gameObject.GetComponent<MinigameManager>().Caps = caps;
+
         gameObject.GetComponent<MinigameManager>().SendObjectiveData("test", "test");
         gameObject.GetComponent<MinigameManager>().ObjectiveCompleted("test", "test");
 
         yield return null;
 
-        Assert.AreEqual(true, gameObject.GetComponent<MinigameManager>().GetEndgame());
+        Assert.AreEqual(false, gameObject.GetComponent<MinigameManager>().GetEndgame());
     }
 
     [UnityTest]
@@ -291,11 +294,14 @@ public class MiniGameManagerTest
         GameObject ObjectiveStatusUI = new GameObject();
         gameObject.GetComponent<MinigameManager>().ObjectiveStatusUI = ObjectiveStatusUI;
 
+        GameObject caps = new GameObject();
+        gameObject.GetComponent<MinigameManager>().Caps = caps;
+
         gameObject.GetComponent<MinigameManager>().SendObjectiveData("test", "test");
         gameObject.GetComponent<MinigameManager>().CheckWon();
 
         yield return null;
 
-        Assert.AreEqual(false, gameObject.GetComponent<MinigameManager>().GetEndgame());
+        Assert.AreEqual(true, gameObject.GetComponent<MinigameManager>().GetEndgame());
     }
 }
