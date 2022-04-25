@@ -32,7 +32,6 @@ public class WaterGrid : MonoBehaviour
     private List<int> triangles = new List<int>();
     private List<Vector2> uvs = new List<Vector2>();
     private Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
-    public Transform waterParticleSystem;
     private Vector3Int playerGridPos;
     public GameObject waterDrops;
     public GameObject[] players;
@@ -139,6 +138,7 @@ public class WaterGrid : MonoBehaviour
             }
         }
     }
+
     IEnumerator CheckPlayerPos(GameObject player)
     {
         PlayerManager playerManager = player.GetComponent<PlayerManager>();
