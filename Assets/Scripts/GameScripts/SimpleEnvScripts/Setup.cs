@@ -47,9 +47,9 @@ public class Setup : MonoBehaviour
         commandLineManager = commandLine.GetComponent<CommandManager>();
         commandLineManager.QueueMessage("ACTION STATIONS, ACTION STATIONS!", true);
         commandLineManager.QueueMessage("That sea mine has ripped a hole in the sub and water is flooding in", true);
-        commandLineManager.QueueMessage("The loss in pressure has also caused the engines to fail and the reactor to become unstable. Take a look at the monitors to see what needs fixing!", true);
-        commandLineManager.QueueMessage("Please work together just like you've trained to stop us from hitting the ocean floor", true);
-        commandLineManager.QueueMessage("I'm pretty sure we've got some wooden plugs in one of the store rooms that might help fix the breach...", true);
+        commandLineManager.QueueMessage("Use the monitors to see what needs fixing", true);
+        commandLineManager.QueueMessage("Get the breahc fixed first so it's easier to move around", true);
+        commandLineManager.QueueMessage("I'm pretty sure theres some wooden breach plugs in the stores", true);
     }
 
     public void SetColourCombo(List<string> combination)

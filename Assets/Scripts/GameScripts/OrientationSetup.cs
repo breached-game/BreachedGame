@@ -66,8 +66,8 @@ public class OrientationSetup : MonoBehaviour
     private void CaptainIntro()
     {
         commandLine.QueueMessage("Welcome to the night shift on HMS Coronation", true);
-        commandLine.QueueMessage("We have a dangerous area ahead of us which is going to need some careful navigating", true);
-        commandLine.QueueMessage("What's going on? You all look half asleep, wandering around like headless chickens!", true);
-        commandLine.QueueMessage("You've got one minute to have a stroll around the sub and wake yourselves up for the shift ahead", true);
+        commandLine.QueueMessage("There's some food available for you in the kitchen", true);
+        commandLine.QueueMessage("Use the mini-map to go and grab it", true);
+        commandLine.QueueMessage("I've left the sub on auto-pilto so hopefully everything goes smoothly", true);
     }
 }

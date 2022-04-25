@@ -27,7 +27,8 @@ public class CommandManager : MonoBehaviour
     {
         Message msg;
         rectTransform.sizeDelta = new Vector2(Screen.width / 3, Screen.height/4);
-        rectTransform.position = new Vector2(Screen.width / 6, Screen.height / 8);
+        rectTransform.position = new Vector2(Screen.width / 6, Screen.height - ((Screen.height / 4)*1.2f));
+        textMesh.fontSize = Screen.height * 0.05f;
         if (!typing && messages.Count != 0)
         {
             typing = true;
