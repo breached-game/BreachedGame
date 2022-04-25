@@ -21,6 +21,7 @@ public class MinigameManager : MonoBehaviour
     public int objectiveStatusPopUpTime;
     public GameObject commandLine;
     public GameObject Caps;
+    public GameObject commandNetwork;
 
 
     // Dictionary shape : {Objective name (string) : Instructions (string) 

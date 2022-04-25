@@ -49,18 +49,19 @@ public class CommandManager : MonoBehaviour
         string msg = message.msg;
         string currentMsg = "";
         bool captain = message.captain;
+        string pref;
         int msgLength = msg.Length;
         int i = 0;
         if (captain)
         {
-            textMesh.text = "CAPTAIN: ";
+            pref = "CAPTAIN: ";
         }
-        else {textMesh.text = ""; }
-        while (textMesh.text.Length < msgLength)
+        else {pref = ""; }
+        while (currentMsg.Length < msgLength)
         {
             currentMsg += msg[i];
-            textMesh.text = currentMsg;
-            yield return new WaitForSeconds(0.1f);
+            textMesh.text = pref + currentMsg;
+            yield return new WaitForSeconds(0.05f);
             i++;
         }
         yield return new WaitForSeconds(1f);

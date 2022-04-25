@@ -15,6 +15,8 @@ public class Setup : MonoBehaviour
     public GameObject alarms;
     public GameObject colourManager;
     public GameObject missileTimerText;
+    public GameObject commandLine;
+    private CommandManager commandLineManager;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +46,12 @@ public class Setup : MonoBehaviour
             player.GetComponent<PlayerManager>().TurnOnAudio();
             player.GetComponent<PlayerManager>().torch.SetActive(false);
         }
+        commandLineManager = commandLine.GetComponent<CommandManager>();
+        commandLineManager.QueueMessage("ACTION STATIONS, ACTION STATIONS!", true);
+        commandLineManager.QueueMessage("That sea mine has ripped a hole in the sub and water is flooding in", true);
+        commandLineManager.QueueMessage("The loss in pressure has also caused the engines to fail and the reactor to become unstable. Take a look at the monitors to see what needs fixing!", true);
+        commandLineManager.QueueMessage("Please work together just like you've trained to stop us from hitting the ocean floor", true);
+        commandLineManager.QueueMessage("I'm pretty sure we've got some wooden plugs in one of the store rooms that might help fix the breach...", true);
     }
 
     public void SetColourCombo(List<string> combination)

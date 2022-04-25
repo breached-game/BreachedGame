@@ -7,7 +7,7 @@ public class DropOffMiniGameManager : MonoBehaviour
     public string minigameName;
     [TextArea]
     public string minigameObjective;
-    private MinigameManager minigameManager;
+    public MinigameManager minigameManager;
 
     public GameObject ItemDroppedOff;
 
@@ -40,6 +40,10 @@ public class DropOffMiniGameManager : MonoBehaviour
         {
             minigameManager.ObjectiveCompleted(minigameName, minigameObjective);
             visualEffect();
+            if (minigameName.Contains("Fix breach"))
+            {
+                minigameManager.commandNetwork.GetComponent<CommandNetworkManager>().SendNetworkMessage("Well done for fixing the breach...there's a pump in one of the stores that should get rid of the water.", true);
+            }
         }
     }
 

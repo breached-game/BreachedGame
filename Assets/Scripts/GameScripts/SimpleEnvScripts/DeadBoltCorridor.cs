@@ -70,7 +70,9 @@ public class DeadBoltCorridor : MonoBehaviour
         if (!playersIn1 && !playersIn2 && !playersMid)
         {
             door1.GetComponent<Animator>().Play("Close");
+            door1.GetComponent<AudioSource>().Play();
             door2.GetComponent<Animator>().Play("Close");
+            door2.GetComponent<AudioSource>().Play();
             doorStop2.transform.position = doorStopPos2;
             doorStop1.transform.position = doorStopPos1;
         }
