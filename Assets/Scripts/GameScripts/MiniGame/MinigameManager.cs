@@ -123,7 +123,7 @@ public class MinigameManager : MonoBehaviour
 
                 endgame = true;
                 commandLine.GetComponent<CommandManager>().QueueMessage("Damn it! Resetting the systems has set off the missile launch protocol", true);
-                commandLine.GetComponent<CommandManager>().QueueMessage("Input the reset code from the control room before we start WW3!", true);
+                commandLine.GetComponent<CommandManager>().QueueMessage("You've got 60 seconds to input the code from the command room", true);
                 Caps.SetActive(false);
                 foreach (GameObject player in players)
                 {

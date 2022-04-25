@@ -10,6 +10,14 @@ public class InteractionManager : NetworkBehaviour
     public bool available = true;
 
     public InteractionSO interactionSO;
+    private GameObject interactionText;
+
+    private void Start()
+    {
+        interactionText = GameObject.Find("Canvas").transform.GetChild(GameObject.Find("Canvas").transform.childCount-1).gameObject;
+        print(interactionText);
+        interactionText.SetActive(false);
+    }
 
     void OnTriggerStay(Collider other)
     {
@@ -18,6 +26,7 @@ public class InteractionManager : NetworkBehaviour
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer && !other.GetComponent<PlayerManager>().disableInteractionsForMinigame)
             {
+                interactionText.SetActive(true);
                 //Okay so GetKeyDown actually sucks
                 //We check to see if the player is already interacting via the animator
                 Animator playerAni = other.gameObject.GetComponent<PlayerManager>().PlayerModel.GetComponent<Animator>();
@@ -41,6 +50,16 @@ public class InteractionManager : NetworkBehaviour
                 }
             } 
         } 
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && available)
+        {
+            if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer && !other.GetComponent<PlayerManager>().disableInteractionsForMinigame)
+            {
+                interactionText.SetActive(false);
+            }
+        }
     }
     /*
     // Legacy Authority Code
