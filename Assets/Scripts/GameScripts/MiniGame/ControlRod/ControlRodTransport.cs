@@ -43,7 +43,7 @@ public class ControlRodTransport : NetworkBehaviour
 
                 Cursor.lockState = CursorLockMode.None;
                 playerManager.FirstPersonCamera.SetActive(false);
-                //VisualEffectOfBeingInTheMiniGame(player);
+                VisualEffectOfBeingInTheMiniGame(player);
                 //STOPPING PLAYER MOVING WHILE IN CONTROL ROD - MAYBE CHANGE PLAYERMANAGER TO HAVE A BOOL INSTEAD OF SETTING IT AS 0
                 playerManager.Speed = 0.0f;
                 controlRodCamera.SetActive(true);
@@ -65,7 +65,7 @@ public class ControlRodTransport : NetworkBehaviour
             if (currentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 playerManager.FirstPersonCamera.SetActive(true);
-                //VisualEffectOfLeavingAMiniGame(currentPlayer);
+                VisualEffectOfLeavingAMiniGame(currentPlayer);
                 //TRASH CODING PRACTICE INBUILT SPEED
                 playerManager.Speed = 4.0f;
                 playerManager.disableInteractionsForMinigame = false;
@@ -88,7 +88,7 @@ public class ControlRodTransport : NetworkBehaviour
 
   
     //Visual effects NOT NETWORKED THEREFORE LEGACY
-    /*
+    
     public void VisualEffectOfBeingInTheMiniGame(GameObject player)
     {
         GameObject playerModel = player.GetComponent<PlayerManager>().PlayerModel;
@@ -103,7 +103,7 @@ public class ControlRodTransport : NetworkBehaviour
         playerModel.GetComponent<Animator>().Play("Idle");
         playerModel.transform.position = prePlayerPos;
     }
-    */
+    
     private void Update()
     {
         if (controlRodRigidBody.velocity.magnitude != 0)
