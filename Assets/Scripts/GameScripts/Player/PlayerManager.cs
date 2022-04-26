@@ -45,13 +45,13 @@ public class PlayerManager : NetworkBehaviour
         defaultSpeed = Speed;
         defaultSprintSpeed = SprintSpeed;
 
+        /*
         minimapToken = transform.GetChild(3).gameObject;
         if (minimapToken.name != "MinimapToken")
         {
             Debug.Log("Incorrect Minimap Token - Seths Fault");
         }
-
-
+        */
     }
     private void Start()
     {
