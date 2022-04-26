@@ -169,7 +169,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         {
             GameObject playerModel = lazyNetworkVisualSolution.GetComponent<PlayerManager>().PlayerModel;
             playerModel.GetComponent<Animator>().Play("Idle");
-            playerModel.transform.position = new Vector3(0, -1.6f, -0.4f);
+            playerModel.transform.localPosition = new Vector3(0, -1.6f, -0.4f);
         }
         //Entering
         else
