@@ -235,6 +235,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
+        StartCoroutine(CheckReady());
         //CallUpdateStartGame(setupObject);
     }
 
@@ -266,13 +267,18 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdSetReady()
     {
         ready.Add(1);
-        if (ready.Count == NetworkServer.connections.Count)
-        {
-            StartCoroutine(masterTimer());
-            timerStarted = true;
-            StartCoroutine(AlarmTimer());
-            SetColourCombo();
-        }
+        print("Players ready: " + ready.Count);
+    }
+
+    IEnumerator CheckReady()
+    {
+        print("checking ready");
+        yield return new WaitWhile(() => ready.Count < NetworkServer.connections.Count);
+        print("ready");
+        StartCoroutine(masterTimer());
+        timerStarted = true;
+        StartCoroutine(AlarmTimer());
+        SetColourCombo();
     }
     #endregion
 
