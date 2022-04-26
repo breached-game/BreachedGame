@@ -273,23 +273,23 @@ public class PlayerNetworkManager : NetworkBehaviour
         setupObject.GetComponent<Setup>().IncreaseReady();
     }
 
-    public void Ready()
+    public void Ready(int ready)
     {
         print("ready in player network manager");
-        if (starter)
-        {
-            CmdReady();
-        }
+        CmdReady(ready);
     }
 
     [Command]
-    public void CmdReady()
+    public void CmdReady(int ready)
     {
-        print("ready");
-        StartCoroutine(masterTimer());
-        timerStarted = true;
-        StartCoroutine(AlarmTimer());
-        SetColourCombo();
+        if (ready == NetworkServer.connections.Count)
+        {
+            print("ready");
+            StartCoroutine(masterTimer());
+            timerStarted = true;
+            StartCoroutine(AlarmTimer());
+            SetColourCombo();
+        }
     }
     #endregion
 

@@ -79,10 +79,7 @@ public class Setup : MonoBehaviour
     {
         ready = ready + 1;
         print("Ready: " + ready);
-        if (ready == NetworkServer.connections.Count)
-        {
-            localPlayer.GetComponent<PlayerNetworkManager>().Ready();
-        }
+        localPlayer.GetComponent<PlayerNetworkManager>().Ready(ready);
     }
 
     private void Update()
