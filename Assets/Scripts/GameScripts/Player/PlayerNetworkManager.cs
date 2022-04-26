@@ -233,16 +233,22 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        while (players.Length < NetworkServer.connections.Count)
-        {
-            players = GameObject.FindGameObjectsWithTag("Player");
-        }
         CallUpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
         timerStarted = true;
         StartCoroutine(AlarmTimer());
         SetColourCombo();
+    }
+
+    public void SubmarineSetup(GameObject setupObject)
+    {
+        CmdSubmarineSetup(setupObject);
+    }
+
+    [Command]
+    public void CmdSubmarineSetup(GameObject setupObject)
+    {
+        CallUpdateStartGame(setupObject);
     }
 
     private void SetColourCombo()
