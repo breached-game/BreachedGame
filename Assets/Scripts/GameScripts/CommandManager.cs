@@ -29,8 +29,8 @@ public class CommandManager : MonoBehaviour
     void Update()
     {
         Message msg;
-        rectTransform.sizeDelta = new Vector2(Screen.width / 3, Screen.height/4);
-        rectTransform.position = new Vector2(Screen.width/2-Screen.width / 8, Screen.height - (Screen.height/3.8f));
+        rectTransform.position = new Vector2(Screen.width/2, Screen.height - Screen.height/8);
+        rectTransform.sizeDelta = new Vector2(Screen.width / 3, Screen.height / 4);
         hudRectTransform.sizeDelta = new Vector2(Screen.width / 5, Screen.height / 8);
         hudRectTransform.position = new Vector2(Screen.width / 2, Screen.height - hudRectTransform.sizeDelta.y / 2);
         textMesh.fontSize = Screen.height * 0.04f;
