@@ -5,4 +5,5 @@ using UnityEngine;
 public class ItemPickUp : MonoBehaviour
 {
     public GameObject itemBeingHeld;
+    public string desc;
 }

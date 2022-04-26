@@ -7,6 +7,7 @@ using Mirror;
 public class PlayerUIManager : MonoBehaviour
 {
     public GameObject playerHoldingText;
+    public GameObject playerHoldingDesc;
     public GameObject prefabObjectiveName;
     public GameObject prefabObjectiveDescription;
     public GameObject mainMenu;
@@ -34,9 +35,10 @@ public class PlayerUIManager : MonoBehaviour
         }
     }
 
-    public void UpdatePlayerHolding(string itemName)
+    public void UpdatePlayerHolding(string itemName, string itemDesc)
     {
         playerHoldingText.GetComponent<TextMeshProUGUI>().text = itemName;
+        playerHoldingDesc.GetComponent<TextMeshProUGUI>().text = itemDesc;
     }
     public void updateObjectiveList(Dictionary<string, string> objectives, Dictionary<string, string> doneObjectives)
     {
