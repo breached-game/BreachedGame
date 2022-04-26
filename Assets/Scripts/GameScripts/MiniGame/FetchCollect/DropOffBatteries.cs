@@ -16,6 +16,9 @@ public class DropOffBatteries : MonoBehaviour
     public GameObject PowerLight;
     public GameObject PowerLight2;
 
+    public Material halogram;
+    public Material real;
+
     public int numberOfDropOffs = 2;
     private int dropsDone = 0;
 
@@ -24,8 +27,12 @@ public class DropOffBatteries : MonoBehaviour
     {
         minigameManager = transform.parent.GetComponent<MinigameManager>();
         minigameManager.SendObjectiveData(minigameName, minigameObjective);
-        Battery.SetActive(false);
-        Battery2.SetActive(false);
+
+        Battery.transform.GetChild(0).GetComponent<MeshRenderer>().material = halogram;
+        Battery.transform.GetChild(1).GetComponent<MeshRenderer>().material = halogram;
+        Battery2.transform.GetChild(0).GetComponent<MeshRenderer>().material = halogram;
+        Battery2.transform.GetChild(1).GetComponent<MeshRenderer>().material = halogram;
+
         PowerLight.GetComponent<MeshRenderer>().material = Red;
         PowerLight2.GetComponent<MeshRenderer>().material = Red;
     }
@@ -58,12 +65,14 @@ public class DropOffBatteries : MonoBehaviour
     {
         if (Battery.activeInHierarchy)
         {
-            Battery2.SetActive(true);
+            Battery2.transform.GetChild(0).GetComponent<MeshRenderer>().material = real;
+            Battery2.transform.GetChild(1).GetComponent<MeshRenderer>().material = real;
             PowerLight2.GetComponent<MeshRenderer>().material = Green;
         }
         else
         {
-            Battery.SetActive(true);
+            Battery.transform.GetChild(0).GetComponent<MeshRenderer>().material = real;
+            Battery.transform.GetChild(1).GetComponent<MeshRenderer>().material = real;
             PowerLight.GetComponent<MeshRenderer>().material = Green;
         }
     }

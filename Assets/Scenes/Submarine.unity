@@ -22258,7 +22258,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1704829084}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -24503,6 +24503,8 @@ MonoBehaviour:
   Battery2: {fileID: 1816172917}
   PowerLight: {fileID: 1453599820}
   PowerLight2: {fileID: 1453599821}
+  halogram: {fileID: 2100000, guid: 11d7b18c4e7338741840302b650b7ff4, type: 2}
+  real: {fileID: 2100000, guid: f869ad9cdc14e10499ac443660e46ee6, type: 2}
   numberOfDropOffs: 2
 --- !u!1 &995283886
 GameObject:
@@ -38293,7 +38295,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f869ad9cdc14e10499ac443660e46ee6, type: 2}
+      objectReference: {fileID: 2100000, guid: 11d7b18c4e7338741840302b650b7ff4, type: 2}
+    - target: {fileID: -1461304994638716399, guid: f7ae8e12c3121774e8921b9c309f3c83,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 11d7b18c4e7338741840302b650b7ff4, type: 2}
     - target: {fileID: 919132149155446097, guid: f7ae8e12c3121774e8921b9c309f3c83,
         type: 3}
       propertyPath: m_Name
@@ -39329,8 +39336,8 @@ RectTransform:
   - {fileID: 458237871}
   - {fileID: 2038614787}
   - {fileID: 1917377996}
-  - {fileID: 105310827}
   - {fileID: 903821413}
+  - {fileID: 105310827}
   - {fileID: 1269952407}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -41352,7 +41359,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f869ad9cdc14e10499ac443660e46ee6, type: 2}
+      objectReference: {fileID: 2100000, guid: 11d7b18c4e7338741840302b650b7ff4, type: 2}
+    - target: {fileID: -1461304994638716399, guid: f7ae8e12c3121774e8921b9c309f3c83,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 11d7b18c4e7338741840302b650b7ff4, type: 2}
     - target: {fileID: 919132149155446097, guid: f7ae8e12c3121774e8921b9c309f3c83,
         type: 3}
       propertyPath: m_Name
@@ -53657,7 +53669,7 @@ PrefabInstance:
     - target: {fileID: 3935363263260304104, guid: 4a6377b0d1afbd94fb2a79911e63f89e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 3935363263260304104, guid: 4a6377b0d1afbd94fb2a79911e63f89e,
         type: 3}
