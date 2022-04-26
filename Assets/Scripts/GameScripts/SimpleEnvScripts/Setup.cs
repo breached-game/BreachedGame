@@ -18,6 +18,7 @@ public class Setup : MonoBehaviour
     public GameObject commandLine;
     private CommandManager commandLineManager;
     private GameObject localPlayer;
+    private int ready = 0;
 
     // Start is called before the first frame update
 
@@ -72,6 +73,16 @@ public class Setup : MonoBehaviour
         ColourMiniGameManger colourMinigameManager = colourManager.GetComponent<ColourMiniGameManger>();
         colourMinigameManager.correctColourCombination = combination;
         colourMinigameManager.DisplayCombinations();
+    }
+
+    public void IncreaseReady()
+    {
+        ready = ready + 1;
+        print("Ready: " + ready);
+        if (ready == NetworkServer.connections.Count)
+        {
+            localPlayer.GetComponent<PlayerNetworkManager>().Ready();
+        }
     }
 
     private void Update()

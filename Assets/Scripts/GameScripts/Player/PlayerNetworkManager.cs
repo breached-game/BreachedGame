@@ -235,8 +235,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
-        StartCoroutine(CheckReady());
-        //CallUpdateStartGame(setupObject);
     }
 
     private void SetColourCombo()
@@ -260,31 +258,33 @@ public class PlayerNetworkManager : NetworkBehaviour
         missileManager = setupObject.GetComponent<Setup>().missileTimerText;
         print(timerManager);
         print(alarmManager);
-        CmdSetReady();
+        CmdSetReady(setupObject);
     }
 
     [Command]
-    public void CmdSetReady()
+    public void CmdSetReady(GameObject setupObject)
     {
-        IncreaseReady();
-        CallIncreaseReady();
-    }
-    private void IncreaseReady()
-    {
-        ready++;
-        print(ready);
-    }
-    [ClientRpc]
-    public void CallIncreaseReady()
-    {
-        ready++;
-        print(ready);
+        CallIncreaseReady(setupObject);
     }
 
-    IEnumerator CheckReady()
+    [ClientRpc]
+    public void CallIncreaseReady(GameObject setupObject)
     {
-        print("checking ready");
-        yield return new WaitWhile(() => ready < NetworkServer.connections.Count);
+        setupObject.GetComponent<Setup>().IncreaseReady();
+    }
+
+    public void Ready()
+    {
+        print("ready in player network manager");
+        if (starter)
+        {
+            CmdReady();
+        }
+    }
+
+    [Command]
+    public void CmdReady()
+    {
         print("ready");
         StartCoroutine(masterTimer());
         timerStarted = true;
