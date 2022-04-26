@@ -233,7 +233,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
-        CallUpdateStartGame(setupObject);
+        //CallUpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
         timerStarted = true;
         StartCoroutine(AlarmTimer());
@@ -281,6 +281,8 @@ public class PlayerNetworkManager : NetworkBehaviour
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
         missileManager = setupObject.GetComponent<Setup>().missileTimerText;
+        print(timerManager);
+        print(alarmManager);
     }
     #endregion
 

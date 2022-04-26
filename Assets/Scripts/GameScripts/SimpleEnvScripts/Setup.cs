@@ -44,19 +44,21 @@ public class Setup : MonoBehaviour
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 PlayerNetworkManager playerManager = player.GetComponent<PlayerNetworkManager>();
-                playerManager.StartGame(this.gameObject);
                 playerManager.UpdateStartGame(this.gameObject);
+                playerManager.StartGame(this.gameObject);
+                player.GetComponent<PlayerManager>().TurnOnAudio();
+                player.GetComponent<PlayerManager>().torch.SetActive(false);
+                player.transform.position = spawnPoint.transform.position;
+                playerManager.StartGame(this.gameObject);
+                break;
             }
-            player.transform.position = spawnPoint.transform.position;
-            playerUI.SetActive(true);
-            //GARBAGE CODING PRACTICE BELOW
-            int children = playerUI.transform.childCount;
-            for (int i = 0; i < children; i++)
-            {
-                playerUI.transform.GetChild(i).gameObject.SetActive(true);
-            }
-            player.GetComponent<PlayerManager>().TurnOnAudio();
-            player.GetComponent<PlayerManager>().torch.SetActive(false);
+        }
+        playerUI.SetActive(true);
+        //GARBAGE CODING PRACTICE BELOW
+        int children = playerUI.transform.childCount;
+        for (int i = 0; i < children; i++)
+        {
+            playerUI.transform.GetChild(i).gameObject.SetActive(true);
         }
         commandLineManager = commandLine.GetComponent<CommandManager>();
         commandLineManager.QueueMessage("ACTION STATIONS, ACTION STATIONS!", true);
