@@ -13,6 +13,7 @@ public class WaterGridTest
     [UnitySetUp]
     public IEnumerator SetUp()
     {
+        #region WaterGridObjects
         //Instantiating BreachPoint game object
         breachPoint = new GameObject();
         breachPoint.transform.position = new Vector3(3f, 0f, 3f);
@@ -35,6 +36,7 @@ public class WaterGridTest
         waterGrid.GetComponent<WaterGrid>().inflowRate = 0f;
         waterGrid.GetComponent<WaterGrid>().gravity = 4f;
         waterGrid.GetComponent<WaterGrid>().playerSpeed = 3f;
+        #endregion WaterGridObjects
         yield return null;
     }
 
