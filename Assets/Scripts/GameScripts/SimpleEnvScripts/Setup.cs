@@ -45,7 +45,7 @@ public class Setup : MonoBehaviour
             {
                 PlayerNetworkManager playerManager = player.GetComponent<PlayerNetworkManager>();
                 playerManager.StartGame(this.gameObject);
-                playerManager.SubmarineSetup(this.gameObject);
+                playerManager.UpdateStartGame(this.gameObject);
             }
             player.transform.position = spawnPoint.transform.position;
             playerUI.SetActive(true);

@@ -264,30 +264,23 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     void CallUpdateStartGame(GameObject setupObject)
     {
-        bool ready = false;
-        while (setupObject == null)
-        {
-            print("looping");
-        }
         print("Update start game");
-        while (!ready)
-        {
-            //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
-            setupManager = setupObject.GetComponent<Setup>();
-            Timer = setupObject.GetComponent<Setup>().timer;
-            timerManager = Timer.GetComponent<TimerManager>();
-            alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
-            missileManager = setupObject.GetComponent<Setup>().missileTimerText;
-            if (setupManager == null || Timer == null || timerManager == null || alarmManager == null || missileManager == null)
-            {
-                ready = false;
-                print("looped");
-            }
-            else
-            {
-                ready = true;
-            }
-        }
+        //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
+        setupManager = setupObject.GetComponent<Setup>();
+        Timer = setupObject.GetComponent<Setup>().timer;
+        timerManager = Timer.GetComponent<TimerManager>();
+        alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
+        missileManager = setupObject.GetComponent<Setup>().missileTimerText;
+    }
+    public void UpdateStartGame(GameObject setupObject)
+    {
+        print("Update start game");
+        //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
+        setupManager = setupObject.GetComponent<Setup>();
+        Timer = setupObject.GetComponent<Setup>().timer;
+        timerManager = Timer.GetComponent<TimerManager>();
+        alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
+        missileManager = setupObject.GetComponent<Setup>().missileTimerText;
     }
     #endregion
 
