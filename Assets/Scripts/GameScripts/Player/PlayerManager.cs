@@ -295,6 +295,7 @@ public class PlayerManager : NetworkBehaviour
 
     public void updateItemText()
     {
+        //if(this.gameObject )
         //TERRIBLE PRACTICE
         GameObject UI = GameObject.Find("Canvas/PlayerUI");
         PlayerUIManager UIManager;

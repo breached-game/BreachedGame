@@ -43125,7 +43125,7 @@ GameObject:
   - component: {fileID: 1823405401}
   - component: {fileID: 1823405406}
   m_Layer: 0
-  m_Name: WaterPumpItem
+  m_Name: WaterPump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
