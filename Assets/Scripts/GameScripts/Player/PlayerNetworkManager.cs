@@ -37,6 +37,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     private bool missileStarted = false;
     private bool gameEnded = false;
 
+    private List<int> ready = new List<int>();
+
     // Pass in the gameobject, data, 
     void Awake()
     {
@@ -164,7 +166,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         controlRodController.gameObject.GetComponent<ControlRodTransport>().currentPlayer = player;
         //Visual Effect
         //Leaving
-        
+
         if (player == null)
         {
             GameObject playerModel = lazyNetworkVisualSolution.GetComponent<PlayerManager>().PlayerModel;
@@ -181,7 +183,7 @@ public class PlayerNetworkManager : NetworkBehaviour
             controlRodController.GetComponent<ControlRodTransport>().prePlayerPos = playerModel.transform.position;
             player.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        
+
     }
     #endregion
 
@@ -234,21 +236,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         NetworkServer.SpawnObjects();
         //CallUpdateStartGame(setupObject);
-        StartCoroutine(masterTimer());
-        timerStarted = true;
-        StartCoroutine(AlarmTimer());
-        SetColourCombo();
-    }
-
-    public void SubmarineSetup(GameObject setupObject)
-    {
-        CmdSubmarineSetup(setupObject);
-    }
-
-    [Command]
-    public void CmdSubmarineSetup(GameObject setupObject)
-    {
-        CallUpdateStartGame(setupObject);
     }
 
     private void SetColourCombo()
@@ -261,17 +248,6 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
-    void CallUpdateStartGame(GameObject setupObject)
-    {
-        print("Update start game");
-        //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
-        setupManager = setupObject.GetComponent<Setup>();
-        Timer = setupObject.GetComponent<Setup>().timer;
-        timerManager = Timer.GetComponent<TimerManager>();
-        alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
-        missileManager = setupObject.GetComponent<Setup>().missileTimerText;
-    }
     public void UpdateStartGame(GameObject setupObject)
     {
         print("Update start game");
@@ -283,6 +259,20 @@ public class PlayerNetworkManager : NetworkBehaviour
         missileManager = setupObject.GetComponent<Setup>().missileTimerText;
         print(timerManager);
         print(alarmManager);
+        CmdSetReady();
+    }
+
+    [Command]
+    public void CmdSetReady()
+    {
+        ready.Add(1);
+        if (ready.Count == NetworkServer.connections.Count)
+        {
+            StartCoroutine(masterTimer());
+            timerStarted = true;
+            StartCoroutine(AlarmTimer());
+            SetColourCombo();
+        }
     }
     #endregion
 
@@ -614,7 +604,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         CallNetworkQueueMessage(commandNetwork, msg, captain);
     }
     [ClientRpc]
-    public void CallNetworkQueueMessage(GameObject commandNetwork,string msg, bool captain)
+    public void CallNetworkQueueMessage(GameObject commandNetwork, string msg, bool captain)
     {
         commandNetwork.GetComponent<CommandNetworkManager>().QueueNetworkMessage(msg, captain);
         print("message");
