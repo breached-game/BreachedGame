@@ -266,8 +266,19 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdSetReady()
     {
-        ready += 1;
-        print("Players ready: " + ready);
+        IncreaseReady();
+        CallIncreaseReady();
+    }
+    private void IncreaseReady()
+    {
+        ready++;
+        print(ready);
+    }
+    [ClientRpc]
+    public void CallIncreaseReady()
+    {
+        ready++;
+        print(ready);
     }
 
     IEnumerator CheckReady()
