@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3357,6 +3357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHoldingText: {fileID: 61117697}
+  playerHoldingDesc: {fileID: 0}
   prefabObjectiveName: {fileID: 1124906396857492461, guid: ea2654f3542387d4b8243d3b180d3248,
     type: 3}
   prefabObjectiveDescription: {fileID: 485864878929471961, guid: b4c098a6bf3741047bbfca795bd238b0,
@@ -6757,6 +6758,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8058599320630289438, guid: bc0cc504e161a7e45a1e84b033b14a9a,
+        type: 3}
+      propertyPath: commandObject
+      value: 
+      objectReference: {fileID: 1216665319}
     - target: {fileID: 8058599320630289439, guid: bc0cc504e161a7e45a1e84b033b14a9a,
         type: 3}
       propertyPath: m_RootOrder

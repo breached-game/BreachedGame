@@ -66,7 +66,7 @@ public class PlayerNetworkManager : NetworkBehaviour
             CmdEndGame();
             if (GetComponent<PlayerManager>().inWater)
             {
-                VoiceWrapper.waterMic();
+                VoiceWrapper.waterMicOff();
             }
             CmdChangeCamera(false);
             CmdChangeScene("EndGameWin");
@@ -81,7 +81,7 @@ public class PlayerNetworkManager : NetworkBehaviour
             CmdEndGame();
             if (GetComponent<PlayerManager>().inWater)
             {
-                VoiceWrapper.waterMic();
+                VoiceWrapper.waterMicOff();
             }
             CmdChangeCamera(false);
             CmdChangeScene("EndGameLose");

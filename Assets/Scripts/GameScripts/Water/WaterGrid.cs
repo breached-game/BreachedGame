@@ -170,7 +170,7 @@ public class WaterGrid : MonoBehaviour
                         }
                         if (!muffle && Application.platform == RuntimePlatform.WebGLPlayer)
                         {
-                            VoiceWrapper.waterMic();
+                            VoiceWrapper.waterMicOn();
                             muffle = true;
                         }
                         playerManager.inWater = true;
@@ -185,7 +185,7 @@ public class WaterGrid : MonoBehaviour
                         waterDrops.SetActive(false);
                         if (muffle && Application.platform == RuntimePlatform.WebGLPlayer)
                         {
-                            VoiceWrapper.waterMic();
+                            VoiceWrapper.waterMicOff();
                             muffle = false;
                         }
                         playerManager.inWater = false;
@@ -234,7 +234,8 @@ public class WaterGrid : MonoBehaviour
             playerManager.ResetSpeed();
             if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
-                VoiceWrapper.waterMic();
+                VoiceWrapper.waterMicOff();
+                muffle = false;
             }
             
         }
