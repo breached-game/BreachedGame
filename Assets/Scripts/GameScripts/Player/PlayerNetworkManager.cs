@@ -35,6 +35,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     private Setup setupManager;
     private int comboLength = 5;
     private bool missileStarted = false;
+    private bool gameEnded = false;
 
     // Pass in the gameobject, data, 
     void Awake()
@@ -59,22 +60,32 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void ChangeToVictory()
     {
-        if (GetComponent<PlayerManager>().inWater)
+        if (!gameEnded)
         {
-            VoiceWrapper.waterMic();
+            gameEnded = true;
+            CmdEndGame();
+            if (GetComponent<PlayerManager>().inWater)
+            {
+                VoiceWrapper.waterMic();
+            }
+            CmdChangeCamera(false);
+            CmdChangeScene("EndGameWin");
         }
-        CmdChangeCamera(false);
-        CmdChangeScene("EndGameWin");
     }
 
     public void ChangeToLose()
     {
-        if (GetComponent<PlayerManager>().inWater)
+        if (!gameEnded)
         {
-            VoiceWrapper.waterMic();
+            gameEnded = true;
+            CmdEndGame();
+            if (GetComponent<PlayerManager>().inWater)
+            {
+                VoiceWrapper.waterMic();
+            }
+            CmdChangeCamera(false);
+            CmdChangeScene("EndGameLose");
         }
-        CmdChangeCamera(false);
-        CmdChangeScene("EndGameLose");
     }
 
     public void ChangeToSub()
@@ -463,7 +474,10 @@ public class PlayerNetworkManager : NetworkBehaviour
             UpdateMissileTimer(currentTime);
         }
         CallChangeCameras(false);
-        myNetworkManager.ServerChangeScene("EndGameLose");
+        if (!gameEnded)
+        {
+            myNetworkManager.ServerChangeScene("EndGameLose");
+        }
     }
 
     [ClientRpc]
@@ -484,7 +498,10 @@ public class PlayerNetworkManager : NetworkBehaviour
             yield return new WaitForSeconds(time / increments);
         }
         DestroyAllPlayers();
-        myNetworkManager.ServerChangeScene("EndGameLose");
+        if (!gameEnded)
+        {
+            myNetworkManager.ServerChangeScene("EndGameLose");
+        }
     }
 
     [ClientRpc]
@@ -638,6 +655,12 @@ public class PlayerNetworkManager : NetworkBehaviour
                 Destroy(player);
             }
         }
+    }
+
+    [Command]
+    public void CmdEndGame()
+    {
+        gameEnded = true;
     }
     #endregion
 }
