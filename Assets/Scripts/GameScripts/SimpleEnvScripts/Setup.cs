@@ -17,8 +17,21 @@ public class Setup : MonoBehaviour
     public GameObject missileTimerText;
     public GameObject commandLine;
     private CommandManager commandLineManager;
+    private GameObject localPlayer;
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                localPlayer = player;
+            }
+        }
+    }
     void Start()
     {
         //Bad practice we should pass players in some other way 
@@ -57,5 +70,16 @@ public class Setup : MonoBehaviour
         ColourMiniGameManger colourMinigameManager = colourManager.GetComponent<ColourMiniGameManger>();
         colourMinigameManager.correctColourCombination = combination;
         colourMinigameManager.DisplayCombinations();
+    }
+
+    private void Update()
+    {
+        if (localPlayer != null)
+        {
+            if (localPlayer.transform.position.y < 0)
+            {
+                localPlayer.transform.position = spawnPoint.transform.position;
+            }
+        }
     }
 }

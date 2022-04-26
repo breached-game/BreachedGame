@@ -233,6 +233,11 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        while (players.Length < NetworkServer.connections.Count)
+        {
+            players = GameObject.FindGameObjectsWithTag("Player");
+        }
         CallUpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
         timerStarted = true;
@@ -253,17 +258,30 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     void CallUpdateStartGame(GameObject setupObject)
     {
+        bool ready = false;
         while (setupObject == null)
         {
             print("looping");
         }
         print("Update start game");
-        //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
-        setupManager = setupObject.GetComponent<Setup>();
-        Timer = setupObject.GetComponent<Setup>().timer;
-        timerManager = Timer.GetComponent<TimerManager>();
-        alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
-        missileManager = setupObject.GetComponent<Setup>().missileTimerText;
+        while (!ready)
+        {
+            //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
+            setupManager = setupObject.GetComponent<Setup>();
+            Timer = setupObject.GetComponent<Setup>().timer;
+            timerManager = Timer.GetComponent<TimerManager>();
+            alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
+            missileManager = setupObject.GetComponent<Setup>().missileTimerText;
+            if (setupManager == null || Timer == null || timerManager == null || alarmManager == null || missileManager == null)
+            {
+                ready = false;
+                print("looped");
+            }
+            else
+            {
+                ready = true;
+            }
+        }
     }
     #endregion
 
