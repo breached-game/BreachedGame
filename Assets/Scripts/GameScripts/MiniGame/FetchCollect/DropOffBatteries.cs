@@ -63,7 +63,7 @@ public class DropOffBatteries : MonoBehaviour
     }
     private void visualEffectOfBatteryDropOff()
     {
-        if (Battery.activeInHierarchy)
+        if(Battery.transform.GetChild(0).GetComponent<MeshRenderer>().material == real)
         {
             Battery2.transform.GetChild(0).GetComponent<MeshRenderer>().material = real;
             Battery2.transform.GetChild(1).GetComponent<MeshRenderer>().material = real;
