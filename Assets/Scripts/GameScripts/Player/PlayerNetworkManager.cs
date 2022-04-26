@@ -37,7 +37,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     private bool missileStarted = false;
     private bool gameEnded = false;
 
-    private List<int> ready = new List<int>();
+    private int ready = 0;
 
     // Pass in the gameobject, data, 
     void Awake()
@@ -266,14 +266,14 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdSetReady()
     {
-        ready.Add(1);
-        print("Players ready: " + ready.Count);
+        ready += 1;
+        print("Players ready: " + ready);
     }
 
     IEnumerator CheckReady()
     {
         print("checking ready");
-        yield return new WaitWhile(() => ready.Count < NetworkServer.connections.Count);
+        yield return new WaitWhile(() => ready < NetworkServer.connections.Count);
         print("ready");
         StartCoroutine(masterTimer());
         timerStarted = true;
