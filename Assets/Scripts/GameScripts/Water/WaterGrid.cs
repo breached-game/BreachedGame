@@ -41,6 +41,8 @@ public class WaterGrid : MonoBehaviour
     private Vector3Int breachPosition = new Vector3Int();
     private bool muffle = false;
     private Coroutine positionCoroutine;
+    public GameObject breachPlane;
+    private Vector3 breachPlanePosition;
 
     void Awake()
     {
@@ -85,6 +87,7 @@ public class WaterGrid : MonoBehaviour
                 gridArray[x, z] = v;
             }
         }
+        breachPlanePosition = new Vector3(0, 0, 0);
         Setup();
     }
 
@@ -430,6 +433,10 @@ public class WaterGrid : MonoBehaviour
                     if (inflowPosition.x == x && inflowPosition.z == z)
                     {
                         vertices.Add(new Vector3(currentColumn.GetVertexPosition().x, gridArray[x - 2, z].GetVertexPosition().y, currentColumn.GetVertexPosition().z));
+                        breachPlanePosition.x = x * cellSize;
+                        breachPlanePosition.z = z * cellSize;
+                        breachPlanePosition.y = gridArray[x - 2, z].GetVertexPosition().y;
+                        breachPlane.transform.localPosition = breachPlanePosition;
                     }
                     else 
                     { 
