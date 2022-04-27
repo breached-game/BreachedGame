@@ -37,7 +37,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     private bool missileStarted = false;
     private bool gameEnded = false;
 
-    private int ready = 0;
 
     // Pass in the gameobject, data, 
     void Awake()
@@ -235,6 +234,16 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
+        StartCoroutine(WaitStartGame());
+    }
+
+    IEnumerator WaitStartGame()
+    {
+        yield return new WaitForSeconds(5);
+        StartCoroutine(masterTimer());
+        timerStarted = true;
+        StartCoroutine(AlarmTimer());
+        SetColourCombo();
     }
 
     private void SetColourCombo()
@@ -250,7 +259,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void UpdateStartGame(GameObject setupObject)
     {
         print("Update start game");
-        //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
         setupManager = setupObject.GetComponent<Setup>();
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
@@ -258,38 +266,6 @@ public class PlayerNetworkManager : NetworkBehaviour
         missileManager = setupObject.GetComponent<Setup>().missileTimerText;
         print(timerManager);
         print(alarmManager);
-        CmdSetReady(setupObject);
-    }
-
-    [Command]
-    public void CmdSetReady(GameObject setupObject)
-    {
-        CallIncreaseReady(setupObject);
-    }
-
-    [ClientRpc]
-    public void CallIncreaseReady(GameObject setupObject)
-    {
-        setupObject.GetComponent<Setup>().IncreaseReady();
-    }
-
-    public void Ready(int ready)
-    {
-        print("ready in player network manager");
-        CmdReady(ready);
-    }
-
-    [Command]
-    public void CmdReady(int ready)
-    {
-        if (ready == NetworkServer.connections.Count)
-        {
-            print("ready");
-            StartCoroutine(masterTimer());
-            timerStarted = true;
-            StartCoroutine(AlarmTimer());
-            SetColourCombo();
-        }
     }
     #endregion
 
@@ -333,13 +309,27 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     void TurnAlarmOn()
     {
-        alarmManager.StartAlarm();
+        if (alarmManager == null)
+        {
+            print("Alarm manager not set");
+        }
+        else
+        {
+            alarmManager.StartAlarm();
+        }
     }
 
     [ClientRpc]
     void TurnAlarmOff()
     {
-        alarmManager.StopAlarm();
+        if (alarmManager == null)
+        {
+            print("Alarm manager not set");
+        }
+        else
+        {
+            alarmManager.StopAlarm();
+        }
     }
 
     [ClientRpc]
@@ -509,7 +499,14 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     public void UpdateMissileTimer(float time)
     {
-        missileManager.GetComponent<MissileTextManager>().UpdateTime(time);
+        if (missileManager == null)
+        {
+            print("Missile manager not set");
+        }
+        else
+        {
+            missileManager.GetComponent<MissileTextManager>().UpdateTime(time);
+        }
     }
     #endregion
 
@@ -535,7 +532,14 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         if (timerStarted)
         {
-            timerManager.UpdateTimer(masterTime, time, increments);
+            if (timerManager == null)
+            {
+                print("Timer manager not set");
+            }
+            else
+            {
+                timerManager.UpdateTimer(masterTime, time, increments);
+            }
         }
     }
     #endregion

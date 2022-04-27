@@ -10,7 +10,7 @@ public class Setup : MonoBehaviour
     public GameObject playerUI;
     public GameObject lights;
     public List<GameObject> items;
-    public int GameTime = 300;
+    public int GameTime = 480;
     public GameObject timer;
     public GameObject alarms;
     public GameObject colourManager;
@@ -18,7 +18,6 @@ public class Setup : MonoBehaviour
     public GameObject commandLine;
     private CommandManager commandLineManager;
     private GameObject localPlayer;
-    private int ready = 0;
 
     // Start is called before the first frame update
 
@@ -40,6 +39,9 @@ public class Setup : MonoBehaviour
         //lights.GetComponent<LightManager>().TurnPressureAlarmOn();
         timer.GetComponent<TimerManager>().startTimer(GameTime);
         lights.GetComponent<LightManager>().TurnPressureAlarmOff();
+        print(timer);
+        print(lights);
+        print(alarms);
         foreach (GameObject player in players)
         {
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
@@ -73,13 +75,6 @@ public class Setup : MonoBehaviour
         ColourMiniGameManger colourMinigameManager = colourManager.GetComponent<ColourMiniGameManger>();
         colourMinigameManager.correctColourCombination = combination;
         colourMinigameManager.DisplayCombinations();
-    }
-
-    public void IncreaseReady()
-    {
-        ready = ready + 1;
-        print("Ready: " + ready);
-        localPlayer.GetComponent<PlayerNetworkManager>().Ready(ready);
     }
 
     private void Update()
