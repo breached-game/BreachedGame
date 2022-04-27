@@ -306,13 +306,14 @@ public class PlayerManager : NetworkBehaviour
                     waterWalking.Play();
                     soundPlaying = true;
                 }
+                else if(!inWater && soundPlaying)
+                {
+                    waterWalking.Stop();
+                    soundPlaying = false;
+                }
             }
-            
         }
         tagMapMarkerToCurrentFloor();
-
-
-
     }
 
     private void tagMapMarkerToCurrentFloor()
