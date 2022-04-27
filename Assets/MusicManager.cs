@@ -36,6 +36,12 @@ public class MusicManager : MonoBehaviour
             audioSource.clip = intenseMusic;
             audioSource.Play();
         }
+        else if (currentScene == "EndGameWin" && scene != "Submarine")
+        {
+            audioSource.Stop();
+            audioSource.clip = lobbyMusic;
+            audioSource.Play();
+        }
         scene = currentScene;
     }
 }

@@ -429,7 +429,6 @@ public class WaterGrid : MonoBehaviour
                 {
                     if (inflowPosition.x == x && inflowPosition.z == z)
                     {
-                        print(x);
                         vertices.Add(new Vector3(currentColumn.GetVertexPosition().x, gridArray[x - 2, z].GetVertexPosition().y, currentColumn.GetVertexPosition().z));
                     }
                     else 
