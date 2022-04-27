@@ -29,6 +29,7 @@ public class PlayerManager : NetworkBehaviour
 
     private AudioSource waterWalking;
 
+    private GameObject minimapCamera;
     public GameObject minimapToken;
     private float switchFloorHeight = 3.0f;
 
@@ -45,13 +46,17 @@ public class PlayerManager : NetworkBehaviour
         defaultSpeed = Speed;
         defaultSprintSpeed = SprintSpeed;
 
-        /*
+
         minimapToken = transform.GetChild(3).gameObject;
         if (minimapToken.name != "MinimapToken")
         {
             Debug.Log("Incorrect Minimap Token - Seths Fault");
         }
-        */
+        minimapCamera = GameObject.FindGameObjectWithTag("MinimapCamera");
+        
+        Debug.Log(minimapCamera.name);
+        
+
     }
     private void Start()
     {
@@ -285,6 +290,7 @@ public class PlayerManager : NetworkBehaviour
             //Animation Control
             if (move == new Vector3(0, 0, 0))
             {
+
                 PlayerModel.GetComponent<Animator>().SetBool("Moving", false);
                 if (soundPlaying)
                 {
@@ -301,23 +307,44 @@ public class PlayerManager : NetworkBehaviour
                     soundPlaying = true;
                 }
             }
+            
         }
+        tagMapMarkerToCurrentFloor();
+
+
+
     }
 
     private void tagMapMarkerToCurrentFloor()
     {
-        if (minimapToken.CompareTag("FirstFloor"))
+
+        if (minimapToken.layer  == LayerMask.NameToLayer("FirstFloor"))
         {
-            if (identity.transform.position.y < switchFloorHeight)
+            if (identity.transform.position.y > switchFloorHeight) // if player above the switch floor height
             {
-                minimapToken.transform.tag = "SecondFloor";
+                minimapToken.layer = LayerMask.NameToLayer("SecondFloor");
+                if (identity.isLocalPlayer)
+                {
+                    /*Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);
+                    minimapCamera.GetComponent<Camera>().cullingMask = LayerMask.NameToLayer("SecondFloor"); // 9 is layer of second floor
+                    Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);*/
+                    minimapCamera.GetComponent<Camera>().cullingMask = 512;
+                }
             }
         }
         else
         {
-            if (identity.transform.position.y > switchFloorHeight)
+            if (identity.transform.position.y < switchFloorHeight) // else on Second floor and if player below the switch floor height
             {
-                minimapToken.transform.tag = "FirstFloor";
+                minimapToken.layer = LayerMask.NameToLayer("FirstFloor");
+                if (identity.isLocalPlayer)
+                {
+                    /* Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);
+                     minimapCamera.GetComponent<Camera>().cullingMask = LayerMask.NameToLayer("FirstFloor") << 0; // 8 is layer of first floor
+                     Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);*/
+                    minimapCamera.GetComponent<Camera>().cullingMask = 256;
+
+                }
             }
         }
 
