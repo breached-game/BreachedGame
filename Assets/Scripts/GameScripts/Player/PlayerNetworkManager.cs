@@ -235,12 +235,13 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
-        StartCoroutine(WaitStartGame());
+        StartCoroutine(WaitStartGame(setupObject));
     }
 
-    IEnumerator WaitStartGame()
+    IEnumerator WaitStartGame(GameObject setupObject)
     {
         yield return new WaitForSeconds(10);
+        UpdateStartGame(setupObject);
         StartCoroutine(masterTimer());
         timerStarted = true;
         StartCoroutine(AlarmTimer());
@@ -257,6 +258,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
 
+    [ClientRpc]
     public void UpdateStartGame(GameObject setupObject)
     {
         print("Update start game");
@@ -265,6 +267,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
         missileManager = setupObject.GetComponent<Setup>().missileTimerText;
+        timerStarted = true;
         print(timerManager);
         print(alarmManager);
     }
