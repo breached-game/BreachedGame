@@ -20,6 +20,6 @@ public class HUDController : MonoBehaviour
     {
         rectTransform.position = new Vector2(Screen.width / 2, Screen.height / 16);
         rectTransform.sizeDelta = new Vector2(Screen.width / 10, Screen.height / 8f);
-        itemRectTransform.position = new Vector2(Screen.width / 2, Screen.height / 5f);
+        itemRectTransform.position = new Vector2(Screen.width / 2, Screen.height / 16f);
     }
 }
