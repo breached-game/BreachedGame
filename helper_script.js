@@ -94,6 +94,11 @@ function setUpPeer(peerUuid, displayName, initCall = false) {
 function checkPeerDisconnect(event, peerUuid) {
   var state = peerConnections[peerUuid].pc.iceConnectionState;
   console.log(`connection with peer ${peerUuid} ${state}`);
+  window.unityInstance.SendMessage(
+    "MicManager",
+    "PrintMsgCaptain",
+    String(state)
+  );
   if (state === "failed" || state === "closed" || state === "disconnected") {
     delete peerConnections[peerUuid];
     //start();

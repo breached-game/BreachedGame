@@ -34,7 +34,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "NetworkingTutorial",
-        productVersion: "0.0.804",
+        productVersion: "0.0.849",
       };
 
       const container = document.querySelector("#unity-container");
@@ -74,6 +74,7 @@
           progressBarEmpty.style.display = "";
           progressBarFull.style.width = `${100 * progress}%`;
         }).then((unityInstance) => {
+          window.unityInstance = unityInstance;
           loadingCover.style.display = "none";
           if (canFullscreen) {
             if (!hideFullScreenButton) {
