@@ -421,13 +421,21 @@ public class WaterGrid : MonoBehaviour
                     }
                     currentColumn.UpdateValues();
                 }
+                if (inflowPosition.x == x && inflowPosition.z == z)
+                {
+                    currentColumn.isVertex = true;
+                }
                 if (currentColumn.isVertex)
                 {
                     if (inflowPosition.x == x && inflowPosition.z == z)
                     {
+                        print(x);
                         vertices.Add(new Vector3(currentColumn.GetVertexPosition().x, gridArray[x - 2, z].GetVertexPosition().y, currentColumn.GetVertexPosition().z));
                     }
-                    else { vertices.Add(currentColumn.GetVertexPosition()); }
+                    else 
+                    { 
+                        vertices.Add(currentColumn.GetVertexPosition()); 
+                    }
                     uvs.Add(new Vector2(currentColumn.GetVertexPosition().x, currentColumn.GetVertexPosition().z));
                     currentColumn.vertex = vCount;
                     vCount++;
