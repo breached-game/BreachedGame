@@ -47,7 +47,6 @@ public class Setup : MonoBehaviour
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 PlayerNetworkManager playerManager = player.GetComponent<PlayerNetworkManager>();
-                playerManager.UpdateStartGame(this.gameObject);
                 player.GetComponent<PlayerManager>().TurnOnAudio();
                 player.GetComponent<PlayerManager>().torch.SetActive(false);
                 player.transform.position = spawnPoint.transform.position;
