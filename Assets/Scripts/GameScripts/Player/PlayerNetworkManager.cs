@@ -239,7 +239,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     IEnumerator WaitStartGame()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         StartCoroutine(masterTimer());
         timerStarted = true;
         StartCoroutine(AlarmTimer());
@@ -472,7 +472,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdStartMissileTimer()
     {
-        float time = 30f;
+        float time = 60f;
         if (!missileStarted)
         {
             missileStarted = true;

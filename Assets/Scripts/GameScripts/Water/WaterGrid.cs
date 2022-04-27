@@ -179,8 +179,7 @@ public class WaterGrid : MonoBehaviour
                     else
                     {
                         // put water muffle off here
-                        playerManager.Speed = savedSpeeds[0];
-                        playerManager.SprintSpeed = savedSpeeds[1];
+                        playerManager.ResetSpeed();
                         fogController.fog = false;
                         waterDrops.SetActive(false);
                         if (muffle && Application.platform == RuntimePlatform.WebGLPlayer)
