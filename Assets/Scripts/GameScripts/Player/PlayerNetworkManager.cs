@@ -163,7 +163,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void SetCurrentPlayer(GameObject player, GameObject controlRodController, GameObject lazyNetworkVisualSolution)
     {
         controlRodController.gameObject.GetComponent<ControlRodTransport>().currentPlayer = player;
-        /* to be networked after the feedback
+
         //Visual Effect
         //Leaving
 
