@@ -10,6 +10,7 @@ public class WaterTimerManager : MonoBehaviour
     public GameObject waterGrid;
     public GameObject waterGridWait;
     private bool run = true;
+    public bool online = true;
 
     public bool GetRun()
     {
@@ -30,7 +31,10 @@ public class WaterTimerManager : MonoBehaviour
                     gameObject.GetComponent<DropOffMiniGameManager>().Reset();
                     waterGrid.SetActive(true);
                     run = false;
-                    gameObject.GetComponent<DropOffMiniGameManager>().minigameManager.commandNetwork.GetComponent<CommandNetworkManager>().SendNetworkMessage("Another breach has opened up due to the pressure, just when we thought we were safe!", true);
+                    if (online)
+                    {
+                        gameObject.GetComponent<DropOffMiniGameManager>().minigameManager.commandNetwork.GetComponent<CommandNetworkManager>().SendNetworkMessage("Another breach has opened up due to the pressure, just when we thought we were safe!", true);
+                    }
                 }
             }
         }

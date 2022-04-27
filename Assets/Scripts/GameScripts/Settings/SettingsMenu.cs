@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Mirror;
@@ -35,10 +35,15 @@ public class SettingsMenu : MonoBehaviour
         RectTransform brightnessTransform = brightness.GetComponent<RectTransform>();
         brightnessTransform.sizeDelta = new Vector2(mainMenuTransform.rect.width / 2, mainMenuTransform.rect.height / 16);
         brightnessTransform.localPosition = new Vector3(0, -1 * mainMenuTransform.rect.height / 7, 0);
+
+        //Remembering settings already input 
+        if (PlayerPrefs.GetFloat("Sensitivity") != 0) Sensitivity.GetComponent<UnityEngine.UI.Slider>().value = PlayerPrefs.GetFloat("Sensitivity");
+        brightness.GetComponent<UnityEngine.UI.Slider>().value = PlayerPrefs.GetFloat("Brightness");
     }
     //HARD CODED TRY TO FIND PLAYER FROM ALL PLAYERS - LOOK FOR BETTER SOLUTION
     public void SetMouseSensitivity(float sensitivity)
     {
+        PlayerPrefs.SetFloat("Sensitivity", sensitivity);
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < players.Length; i++)
         {
@@ -51,6 +56,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetBrightness(float brightness)
     {
+        PlayerPrefs.SetFloat("Brightness", brightness);
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < players.Length; i++)
         {
@@ -65,7 +71,7 @@ public class SettingsMenu : MonoBehaviour
     {
         mainMenu.SetActive(false);
         crosshair.SetActive(true);
-        Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < players.Length; i++)
         {

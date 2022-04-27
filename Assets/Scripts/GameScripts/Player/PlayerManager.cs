@@ -29,6 +29,9 @@ public class PlayerManager : NetworkBehaviour
 
     private AudioSource waterWalking;
 
+    public GameObject minimapToken;
+    private float switchFloorHeight = 3.0f;
+
     void Awake()
     {
         waterWalking = GetComponent<AudioSource>();
@@ -41,6 +44,14 @@ public class PlayerManager : NetworkBehaviour
         DontDestroyOnLoad(this.gameObject);
         defaultSpeed = Speed;
         defaultSprintSpeed = SprintSpeed;
+
+        /*
+        minimapToken = transform.GetChild(3).gameObject;
+        if (minimapToken.name != "MinimapToken")
+        {
+            Debug.Log("Incorrect Minimap Token - Seths Fault");
+        }
+        */
     }
     private void Start()
     {
@@ -174,7 +185,7 @@ public class PlayerManager : NetworkBehaviour
         //Visual Effect
         playerManager.VisualEffectOfPlayerDroppingItem();
 
-        if (droppedItem.transform.name == "WaterPumpItem")
+        if (droppedItem.transform.name == "WaterPump")
         {
             droppedItem.GetComponent<WaterManager>().AddPump();
         }
@@ -293,17 +304,36 @@ public class PlayerManager : NetworkBehaviour
         }
     }
 
+    private void tagMapMarkerToCurrentFloor()
+    {
+        if (minimapToken.CompareTag("FirstFloor"))
+        {
+            if (identity.transform.position.y < switchFloorHeight)
+            {
+                minimapToken.transform.tag = "SecondFloor";
+            }
+        }
+        else
+        {
+            if (identity.transform.position.y > switchFloorHeight)
+            {
+                minimapToken.transform.tag = "FirstFloor";
+            }
+        }
+
+    }
+
     public void updateItemText()
     {
+        //if(this.gameObject )
         //TERRIBLE PRACTICE
         GameObject UI = GameObject.Find("Canvas/PlayerUI");
         PlayerUIManager UIManager;
-        // Andrew's fault
         if (UI != null)
         {
             UIManager = UI.GetComponent<PlayerUIManager>();
-            if (objectPlayerHas != null) UIManager.UpdatePlayerHolding(objectPlayerHas.transform.name);
-            else UIManager.UpdatePlayerHolding("");
+            if (objectPlayerHas != null) UIManager.UpdatePlayerHolding(objectPlayerHas.transform.name, objectPlayerHas.GetComponent<ItemPickUp>().desc);
+            else UIManager.UpdatePlayerHolding("", "");
         }
     }
 }

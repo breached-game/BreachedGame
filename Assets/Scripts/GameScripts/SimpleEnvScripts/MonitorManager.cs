@@ -13,6 +13,7 @@ public class MonitorManager : MonoBehaviour
     {
         objectiveMonitorManager = GetComponent<ObjectiveMonitorManager>();
     }
+
     public void UpdateObjectives(Dictionary<string, string> objectives, Dictionary<string, string> doneObjectives)
     {
         for (int i = 0; i < gameObject.transform.childCount; i++)

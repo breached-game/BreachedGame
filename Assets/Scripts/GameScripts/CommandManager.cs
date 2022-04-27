@@ -15,19 +15,25 @@ public class CommandManager : MonoBehaviour
     private bool typing = false;
     private Queue messages = new Queue();
     private RectTransform rectTransform;
+    public GameObject hudTrap;
+    private RectTransform hudRectTransform;
     // Start is called before the first frame update
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         textMesh = GetComponent<TextMeshProUGUI>();
+        hudRectTransform = hudTrap.GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Message msg;
-        rectTransform.sizeDelta = new Vector2(Screen.width / 3, Screen.height/4);
-        rectTransform.position = new Vector2(Screen.width / 6, Screen.height / 8);
+        rectTransform.position = new Vector2(Screen.width/2, Screen.height - Screen.height/8);
+        rectTransform.sizeDelta = new Vector2(Screen.width / 3, Screen.height / 4);
+        hudRectTransform.sizeDelta = new Vector2(Screen.width / 5, Screen.height / 8);
+        hudRectTransform.position = new Vector2(Screen.width / 2, Screen.height - hudRectTransform.sizeDelta.y / 2);
+        textMesh.fontSize = Screen.height * 0.04f;
         if (!typing && messages.Count != 0)
         {
             typing = true;

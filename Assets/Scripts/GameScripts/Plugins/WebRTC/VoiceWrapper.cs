@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 
 public class VoiceWrapper : MonoBehaviour
 {
-    //public GameObject TempGameObject;
 
     [DllImport("__Internal")]
     public static extern void Hello();
@@ -15,5 +14,8 @@ public class VoiceWrapper : MonoBehaviour
     public static extern void muteMic();
 
     [DllImport("__Internal")]
-    public static extern void waterMic();
+    public static extern void waterMicOn();
+
+    [DllImport("__Internal")]
+    public static extern void waterMicOff();
 }

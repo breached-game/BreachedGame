@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MicManagerScript : MonoBehaviour
 {
+    public GameObject commandObject;
+    private CommandManager commandManager;
+    
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -17,6 +20,7 @@ public class MicManagerScript : MonoBehaviour
         //Debug.Log("finsihed calling hello function");
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
+            commandManager = commandObject.GetComponent<CommandManager>();
             VoiceWrapper.start();
         }
     }
@@ -43,5 +47,17 @@ public class MicManagerScript : MonoBehaviour
     void MicAccepted()
     {
         print("Microphone permission has been granted");
+    }
+
+    //Peer lost connection 
+    void PrintMsgCaptain(string state)
+    {
+        
+        if (state == "failed" || state == "closed" || state == "disconnected")
+        {
+            commandManager.QueueMessage("You have lost voice connection to a Teammate");
+        } else if (state == "connected") {
+            commandManager.QueueMessage("New connection to a Teammate");
+        }
     }
 }

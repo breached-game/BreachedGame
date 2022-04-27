@@ -8,13 +8,13 @@ using Mirror;
 
 public class MinigameManager : MonoBehaviour
 {
-    public GameObject winScreen;//
+    public GameObject winScreen; //Not used
     private GameObject[] players;
     
     public GameObject UIManager;
 
     private bool endgame = false;
-    public GameObject ObjectiveStatusUI;
+    public GameObject ObjectiveStatusUI; //Only set active
     public GameObject ObjectiveCompleteGif;
     public Text ObjectiveStatusDisplay;
     public Text FailiureReasonDisplay;
@@ -120,9 +120,10 @@ public class MinigameManager : MonoBehaviour
             if (!endgame)
             {
                 print("endgame");
+
                 endgame = true;
                 commandLine.GetComponent<CommandManager>().QueueMessage("Damn it! Resetting the systems has set off the missile launch protocol", true);
-                commandLine.GetComponent<CommandManager>().QueueMessage("Input the reset code from the control room before we start WW3!", true);
+                commandLine.GetComponent<CommandManager>().QueueMessage("You've got 60 seconds to input the code from the command room", true);
                 Caps.SetActive(false);
                 foreach (GameObject player in players)
                 {

@@ -32,7 +32,6 @@ public class WaterGrid : MonoBehaviour
     private List<int> triangles = new List<int>();
     private List<Vector2> uvs = new List<Vector2>();
     private Dictionary<Vector2Int, float> tempFlux = new Dictionary<Vector2Int, float>();
-    public Transform waterParticleSystem;
     private Vector3Int playerGridPos;
     public GameObject waterDrops;
     public GameObject[] players;
@@ -119,6 +118,7 @@ public class WaterGrid : MonoBehaviour
         {
             Vector3Int cellPos = water_grid.LocalToCell(other.gameObject.transform.position - water_grid.transform.position);
             Vector3Int cellWidth = water_grid.LocalToCell(other.gameObject.transform.localScale / 2);
+
             if (cellWidth.x < 1)
             {
                 cellWidth.x = 1;
@@ -139,6 +139,7 @@ public class WaterGrid : MonoBehaviour
             }
         }
     }
+
     IEnumerator CheckPlayerPos(GameObject player)
     {
         PlayerManager playerManager = player.GetComponent<PlayerManager>();
@@ -169,7 +170,7 @@ public class WaterGrid : MonoBehaviour
                         }
                         if (!muffle && Application.platform == RuntimePlatform.WebGLPlayer)
                         {
-                            VoiceWrapper.waterMic();
+                            VoiceWrapper.waterMicOn();
                             muffle = true;
                         }
                         playerManager.inWater = true;
@@ -178,13 +179,12 @@ public class WaterGrid : MonoBehaviour
                     else
                     {
                         // put water muffle off here
-                        playerManager.Speed = savedSpeeds[0];
-                        playerManager.SprintSpeed = savedSpeeds[1];
+                        playerManager.ResetSpeed();
                         fogController.fog = false;
                         waterDrops.SetActive(false);
                         if (muffle && Application.platform == RuntimePlatform.WebGLPlayer)
                         {
-                            VoiceWrapper.waterMic();
+                            VoiceWrapper.waterMicOff();
                             muffle = false;
                         }
                         playerManager.inWater = false;
@@ -233,7 +233,8 @@ public class WaterGrid : MonoBehaviour
             playerManager.ResetSpeed();
             if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
-                VoiceWrapper.waterMic();
+                VoiceWrapper.waterMicOff();
+                muffle = false;
             }
             
         }

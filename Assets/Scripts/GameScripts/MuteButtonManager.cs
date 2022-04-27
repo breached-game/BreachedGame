@@ -16,6 +16,14 @@ public class MuteButtonManager : MonoBehaviour
     {
         rectTransform = gameObject.GetComponent<RectTransform>();
         actualImage = gameObject.GetComponent<Image>();
+        if(PlayerPrefs.GetInt("Mute") == 1)
+        {
+            actualImage.sprite = muted;
+        }
+        else
+        {
+            actualImage.sprite = unmuted;
+        }
     }
 
     // Update is called once per frame
@@ -33,12 +41,14 @@ public class MuteButtonManager : MonoBehaviour
     {
         if (actualImage.sprite == muted)
         {
+            PlayerPrefs.SetInt("Mute", 0);
             print("unmuted");
             actualImage.sprite = unmuted;
             VoiceWrapper.muteMic();
         }
         else
         {
+            PlayerPrefs.SetInt("Mute", 1);
             print("muted");
             actualImage.sprite = muted;
             VoiceWrapper.muteMic();
