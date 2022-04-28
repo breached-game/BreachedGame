@@ -56,13 +56,15 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetBrightness(float brightness)
     {
+        ColorAdjustments c;
         PlayerPrefs.SetFloat("Brightness", brightness);
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i].GetComponent<NetworkIdentity>().isLocalPlayer)
             {
-                players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<Volume>().profile.components[0].parameters[0].SetValue(new FloatParameter(brightness));
+                players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<Volume>().profile.TryGet(out c);
+                c.postExposure.value = brightness;
             }
         }
     }
