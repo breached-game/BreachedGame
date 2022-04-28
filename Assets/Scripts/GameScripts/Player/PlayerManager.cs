@@ -180,6 +180,7 @@ public class PlayerManager : NetworkBehaviour
         playerManager.updateItemText();
         //Visual Effect
         playerManager.VisualEffectOfPlayerDroppingItem();
+        droppedItem.GetComponent<InteractionManager>().pickedUp = false;
     }
     [ClientRpc]
     void UpdateDropItem(NetworkIdentity playerID)
@@ -205,6 +206,7 @@ public class PlayerManager : NetworkBehaviour
         {
             droppedItem.GetComponent<WaterManager>().AddPump();
         }
+        droppedItem.GetComponent<InteractionManager>().pickedUp = false;
     }
     #endregion
 

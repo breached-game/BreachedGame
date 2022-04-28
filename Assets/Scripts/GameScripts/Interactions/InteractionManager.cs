@@ -11,8 +11,9 @@ public class InteractionManager : NetworkBehaviour
     public bool available = true;
 
     public InteractionSO interactionSO;
-    private GameObject interactionText;
+    public GameObject interactionText;
     private TextMeshProUGUI interactionActualText;
+    public bool pickedUp = false;
 
     private void Awake()
     {
@@ -55,9 +56,10 @@ public class InteractionManager : NetworkBehaviour
                         }
                     }
                 }
-                else if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.forward, out hit, maxDistance) && hit.collider.gameObject == gameObject)
+                else if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.forward, out hit, maxDistance) && hit.collider.gameObject == gameObject && !pickedUp)
                 {
                     interactionActualText.text = "Press e to interact with " + hit.collider.gameObject.name;
+                    Debug.Log("Trigger");
                     interactionText.SetActive(true);
                 }
                 else

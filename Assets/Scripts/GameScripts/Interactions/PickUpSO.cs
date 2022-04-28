@@ -9,10 +9,9 @@ public class PickUpSO : InteractionSO
         //if the player is not carrying anything
         if (Player.GetComponent<PlayerManager>().objectPlayerHas == null)
         {
-            Debug.Log("Picked up " + interactable.name);
             Player.GetComponent<PlayerManager>().CallCmdPickupObject(interactable);
-
-            if (interactable.transform.name == "WaterPumpItem")
+            interactable.GetComponent<InteractionManager>().pickedUp = true;
+            if (interactable.transform.name == "WaterPump")
             {
                 Player.GetComponent<PlayerNetworkManager>().CallRemoveWaterPump(interactable);
             }
