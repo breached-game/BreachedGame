@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16121,6 +16121,8 @@ MonoBehaviour:
   lights: {fileID: 426058794}
   commandObject: {fileID: 620290711}
   networkCommand: {fileID: 323501366}
+  localPlayerMinimapColour: {fileID: 2100000, guid: c64cb8f8daded88458533df235ed89e4,
+    type: 2}
 --- !u!1001 &585345742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48043,6 +48045,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: 098d44cb3721e4d4fab9495f9d2b302f, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!23 &1690148029
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -59,7 +59,7 @@ public class InteractionManager : NetworkBehaviour
                 else if (Physics.Raycast(cameraTransform.transform.position, cameraTransform.forward, out hit, maxDistance) && hit.collider.gameObject == gameObject && !pickedUp)
                 {
                     interactionActualText.text = "Press e to interact with " + hit.collider.gameObject.name;
-                    Debug.Log("Trigger");
+                    //Debug.Log("Trigger");
                     interactionText.SetActive(true);
                 }
                 else

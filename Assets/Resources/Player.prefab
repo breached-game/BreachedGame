@@ -180,6 +180,8 @@ MonoBehaviour:
   inWater: 0
   soundPlaying: 0
   minimapToken: {fileID: 0}
+  localPlayerMinimapColour: {fileID: 2100000, guid: c64cb8f8daded88458533df235ed89e4,
+    type: 2}
   Speed: 4
   SprintSpeed: 6
   smooth: 5
