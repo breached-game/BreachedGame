@@ -83,6 +83,26 @@ public class WaterGridTest
     }
 
     [UnityTest]
+    public IEnumerator WaterGridOutflowsIntialisedCorrectly()
+    {
+        waterGrid.SetActive(true);
+        yield return new WaitForFixedUpdate();
+        Dictionary<Vector2Int, float> outflows = new Dictionary<Vector2Int, float>();
+        outflows.Add(Vector2Int.right, 0f);
+        outflows.Add(Vector2Int.left, 0f);
+        outflows.Add(Vector2Int.up, 0f);
+        outflows.Add(Vector2Int.down, 0f);
+        for (int x = 0; x < waterGrid.GetComponent<WaterGrid>().width; x++)
+        {
+            for (int z = 0; z < waterGrid.GetComponent<WaterGrid>().depth; z++)
+            {
+                Assert.AreEqual(outflows, waterGrid.GetComponent<WaterGrid>().gridArray[x, z].GetOutflows());
+                Assert.AreEqual(outflows, waterGrid.GetComponent<WaterGrid>().gridArray[x, z].GetNewOutflows());
+            }
+        }
+    }
+
+    [UnityTest]
     public IEnumerator WaterGridNoFixedUpdate()
     {
         waterGrid.SetActive(true);
