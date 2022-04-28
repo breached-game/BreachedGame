@@ -32,8 +32,6 @@ public class Floater : MonoBehaviour
     
     private void FixedUpdate()
     {
-        //NOT REALLY GOOD GRAVITY - dividing by mass to make gravity effect smaller - even though in reality it should be higher
-        //Done this just cause it makes it look more realistic
         if (water.activeSelf)
         {
             if (grid == null)
