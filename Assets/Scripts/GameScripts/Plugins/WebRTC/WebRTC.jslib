@@ -8,6 +8,7 @@ var serverConnection;
 
 var inWater;
 var microphone;
+var gainNode;
 //node constructors
 var AudioContext;
 var context;
@@ -36,8 +37,10 @@ mergeInto(LibraryManager.library, {
     context = new AudioContext();
     destination = context.createMediaStreamDestination();
     biquadFilter = context.createBiquadFilter();
+    gainNode = context.createGain();
     biquadFilter.type = "lowpass";
     biquadFilter.frequency.value = 400;
+    gainNode.gain.value = 1.5;
 
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
@@ -48,7 +51,8 @@ mergeInto(LibraryManager.library, {
 
             microphone = context.createMediaStreamSource(stream);
             //connect filter and microphone to destination
-            microphone.connect(biquadFilter);
+            microphone.connect(gainNode);
+            gainNode.connect(biquadFilter);
             biquadFilter.connect(destination);
             //assign destination to local stream
             localStream = destination.stream;
@@ -135,7 +139,8 @@ mergeInto(LibraryManager.library, {
     }
     microphone.disconnect();
 
-    microphone.connect(biquadFilter);
+    microphone.connect(gainNode);
+    gainNode.connect(biquadFilter);
     biquadFilter.connect(destination);
 
     localStream = destination.stream;
@@ -147,6 +152,7 @@ mergeInto(LibraryManager.library, {
     }
     microphone.disconnect();
     biquadFilter.disconnect();
+    gainNode.disconnect();
 
     microphone.connect(destination);
 
