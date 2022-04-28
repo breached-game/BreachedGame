@@ -65,6 +65,7 @@ public class SettingsMenu : MonoBehaviour
             {
                 players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<Volume>().profile.TryGet(out c);
                 c.postExposure.value = brightness;
+                players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<Volume>().profile.Reset();
             }
         }
     }
