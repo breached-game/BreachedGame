@@ -6,7 +6,6 @@ public class DinnerPlateSO : InteractionSO
 {
     public override void RunInteraction(GameObject interactable, GameObject Player)
     {
-        interactable.GetComponent<StorageForOrientationManager>().relayToManagerDinnerPlate(Player);
-        interactable.GetComponent<BoxCollider>().enabled = false;
+        Player.GetComponent<PlayerNetworkManager>().DinnerPlate(Player, interactable);
     }
 }

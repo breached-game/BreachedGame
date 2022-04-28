@@ -588,34 +588,19 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #region Orientation Minigames
     //Dinner Plate
-    public void DinnerPlate(GameObject player, GameObject orientationManager)
+    public void DinnerPlate(GameObject player, GameObject interactable)
     {
-        CmdDinnerPlate(player, orientationManager);
+        CmdDinnerPlate(player, interactable);
     }
     [Command]
-    public void CmdDinnerPlate(GameObject player, GameObject orientationManager)
+    public void CmdDinnerPlate(GameObject player, GameObject interactable)
     {
-        CallDinnerPlate(player, orientationManager);
+        CallDinnerPlate(player, interactable);
     }
     [ClientRpc]
-    public void CallDinnerPlate(GameObject player, GameObject orientationManager)
+    public void CallDinnerPlate(GameObject player, GameObject interactable)
     {
-        orientationManager.GetComponent<OrientationMiniGameManager>().addPlayerPlate(player);
-    }
-    //Bed
-    public void Bed(GameObject player, GameObject orientationManager)
-    {
-        CmdBed(player, orientationManager);
-    }
-    [Command]
-    public void CmdBed(GameObject player, GameObject orientationManager)
-    {
-        CallBed(player, orientationManager);
-    }
-    [ClientRpc]
-    public void CallBed(GameObject player, GameObject orientationManager)
-    {
-        orientationManager.GetComponent<OrientationMiniGameManager>().addPlayerBed(player);
+        interactable.GetComponent<dinnerPlate>().playerDone(player);
     }
     #endregion
 
