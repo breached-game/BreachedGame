@@ -2717,7 +2717,7 @@ GameObject:
   - component: {fileID: 85834830}
   - component: {fileID: 85834831}
   m_Layer: 0
-  m_Name: BreachPoint_2
+  m_Name: Breach Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6046,7 +6046,7 @@ GameObject:
   - component: {fileID: 208892119}
   - component: {fileID: 208892118}
   m_Layer: 0
-  m_Name: DoorSwitch (2)
+  m_Name: Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7562,7 +7562,7 @@ GameObject:
   - component: {fileID: 275480848}
   - component: {fileID: 275480847}
   m_Layer: 0
-  m_Name: DoorSwitch
+  m_Name: Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12460,7 +12460,7 @@ GameObject:
   - component: {fileID: 448830991}
   - component: {fileID: 448830990}
   m_Layer: 0
-  m_Name: GreenButton
+  m_Name: Green Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18449,7 +18449,7 @@ GameObject:
   - component: {fileID: 714065048}
   - component: {fileID: 714065047}
   m_Layer: 0
-  m_Name: DoorSwitch (1)
+  m_Name: Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18919,7 +18919,7 @@ GameObject:
   - component: {fileID: 729619370}
   - component: {fileID: 729619369}
   m_Layer: 0
-  m_Name: BlueButton
+  m_Name: Blue Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26443,7 +26443,7 @@ GameObject:
   - component: {fileID: 1038556138}
   - component: {fileID: 1038556139}
   m_Layer: 0
-  m_Name: BreachPoint_1
+  m_Name: Breach Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40811,7 +40811,7 @@ GameObject:
   - component: {fileID: 1693733055}
   - component: {fileID: 1693733054}
   m_Layer: 0
-  m_Name: RedButton
+  m_Name: Red Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52014,45 +52014,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8076009976571838619}
     m_Modifications:
-    - target: {fileID: 1461768958, guid: dfecc0757c9ee434b8cae48f30eebdfe, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1148049775008691060, guid: dfecc0757c9ee434b8cae48f30eebdfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1148049775704190927, guid: dfecc0757c9ee434b8cae48f30eebdfe,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: be9e482d028e9234da250ae990729af7, type: 2}
-    - target: {fileID: 1148049775712725494, guid: dfecc0757c9ee434b8cae48f30eebdfe,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1.6013309
-      objectReference: {fileID: 0}
-    - target: {fileID: 1148049775712725494, guid: dfecc0757c9ee434b8cae48f30eebdfe,
-        type: 3}
-      propertyPath: m_Center.x
-      value: 0.000000067154346
-      objectReference: {fileID: 0}
-    - target: {fileID: 1148049775712725494, guid: dfecc0757c9ee434b8cae48f30eebdfe,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 1.1604064
-      objectReference: {fileID: 0}
-    - target: {fileID: 1148049775712725494, guid: dfecc0757c9ee434b8cae48f30eebdfe,
-        type: 3}
-      propertyPath: m_Center.z
-      value: 0.057601664
-      objectReference: {fileID: 0}
-    - target: {fileID: 1148049776823028339, guid: dfecc0757c9ee434b8cae48f30eebdfe,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: be9e482d028e9234da250ae990729af7, type: 2}
     - target: {fileID: 6126920415906462090, guid: dfecc0757c9ee434b8cae48f30eebdfe,
         type: 3}
       propertyPath: m_Name
