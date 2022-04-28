@@ -17,9 +17,9 @@ public class MinimapManager : MonoBehaviour
     private void Update()
     {
         position.x = 1.5f * (Screen.width / 16);
-        position.y = 1.5f * (Screen.height / 10);
+        position.y = 1.5f * (Screen.height / 8);
         sizeDelta.x = Screen.width / 8;
-        sizeDelta.y = Screen.height / 5;
+        sizeDelta.y = Screen.height / 4;
         rectTransform.position = position;
         rectTransform.sizeDelta = sizeDelta;
     }

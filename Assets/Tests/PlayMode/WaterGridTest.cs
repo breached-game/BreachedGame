@@ -9,11 +9,15 @@ public class WaterGridTest
     GameObject waterGrid;
     GameObject waterDrops;
     GameObject breachPoint;
+    GameObject breachPlane;
 
     [UnitySetUp]
     public IEnumerator SetUp()
     {
         #region WaterGridObjects
+        //Instantiating BreachPlane game object
+        breachPlane = new GameObject();
+
         //Instantiating BreachPoint game object
         breachPoint = new GameObject();
         breachPoint.transform.position = new Vector3(3f, 0f, 3f);
@@ -36,6 +40,7 @@ public class WaterGridTest
         waterGrid.GetComponent<WaterGrid>().inflowRate = 0f;
         waterGrid.GetComponent<WaterGrid>().gravity = 4f;
         waterGrid.GetComponent<WaterGrid>().playerSpeed = 3f;
+        waterGrid.GetComponent<WaterGrid>().breachPlane = breachPlane;
         #endregion WaterGridObjects
         yield return null;
     }
@@ -46,6 +51,7 @@ public class WaterGridTest
         Object.Destroy(waterGrid);
         Object.Destroy(waterDrops);
         Object.Destroy(breachPoint);
+        Object.Destroy(breachPlane);
     }
 
     [UnityTest]
@@ -63,9 +69,60 @@ public class WaterGridTest
     }
 
     [UnityTest]
+    public IEnumerator WaterGridOneFixedUpdateCorrectTerrainHeight()
+    {
+        waterGrid.SetActive(true);
+        yield return new WaitForFixedUpdate();
+        for (int x = 0; x < waterGrid.GetComponent<WaterGrid>().width; x++)
+        {
+            for (int z = 0; z < waterGrid.GetComponent<WaterGrid>().depth; z++)
+            {
+                Assert.AreEqual(0.0f, waterGrid.GetComponent<WaterGrid>().gridArray[x, z].GetH());
+            }
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator WaterGridOutflowsIntialisedCorrectly()
+    {
+        waterGrid.SetActive(true);
+        yield return new WaitForFixedUpdate();
+        Dictionary<Vector2Int, float> outflows = new Dictionary<Vector2Int, float>();
+        outflows.Add(Vector2Int.right, 0f);
+        outflows.Add(Vector2Int.left, 0f);
+        outflows.Add(Vector2Int.up, 0f);
+        outflows.Add(Vector2Int.down, 0f);
+        for (int x = 0; x < waterGrid.GetComponent<WaterGrid>().width; x++)
+        {
+            for (int z = 0; z < waterGrid.GetComponent<WaterGrid>().depth; z++)
+            {
+                Assert.AreEqual(outflows, waterGrid.GetComponent<WaterGrid>().gridArray[x, z].GetOutflows());
+                Assert.AreEqual(outflows, waterGrid.GetComponent<WaterGrid>().gridArray[x, z].GetNewOutflows());
+            }
+        }
+    }
+
+    [UnityTest]
     public IEnumerator WaterGridNoFixedUpdate()
     {
-        yield return null;
+        waterGrid.SetActive(true);
+        yield return new WaitForFixedUpdate();
+        for (int x = 0; x < waterGrid.GetComponent<WaterGrid>().width; x++)
+        {
+            for (int z = 0; z < waterGrid.GetComponent<WaterGrid>().depth; z++)
+            {
+                Assert.AreEqual(0.0f, waterGrid.GetComponent<WaterGrid>().gridArray[x, z].Geth());
+            }
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator BreachPlaneCorrectPosition()
+    {
+        breachPoint.transform.position = new Vector3(3f, 3f, 3f);
+        waterGrid.SetActive(true);
+        yield return new WaitForFixedUpdate();
+        Assert.AreEqual(new Vector3(breachPoint.transform.position.x, waterGrid.GetComponent<WaterGrid>().gridArray[1, 3].GetVertexPosition().y, breachPoint.transform.position.z), breachPlane.transform.position);
     }
 
     [Test]
@@ -95,6 +152,50 @@ public class WaterGridTest
         Assert.AreEqual(false, waterGrid.GetComponent<WaterGrid>().waterFix);
     }
 
+    [Test]
+    public void AddedBoxCollider()
+    {
+        waterGrid.SetActive(true);
+        Assert.AreEqual(true, (waterGrid.GetComponent<BoxCollider>() != null));
+    }
+
+    [Test]
+    public void CheckBoxColliderSize()
+    {
+        waterGrid.SetActive(true);
+        Assert.AreEqual(new Vector3(waterGrid.GetComponent<WaterGrid>().width, waterGrid.GetComponent<WaterGrid>().height, waterGrid.GetComponent<WaterGrid>().depth), waterGrid.GetComponent<BoxCollider>().size);
+    }
+
+    [Test]
+    public void CheckBoxColliderIsTrigger()
+    {
+        waterGrid.SetActive(true);
+        Assert.AreEqual(true, waterGrid.GetComponent<BoxCollider>().isTrigger);
+    }
+
+    [Test]
+    public void CheckVerticesAndBoundaries()
+    {
+        waterGrid.SetActive(true);
+        for (int x = 0; x < waterGrid.GetComponent<WaterGrid>().width; x++)
+        {
+            Assert.AreEqual(true, waterGrid.GetComponent<WaterGrid>().gridArray[x, 0].isVertex);
+            Assert.AreEqual(true, waterGrid.GetComponent<WaterGrid>().gridArray[x, 0].boundary);
+
+            Assert.AreEqual(true, waterGrid.GetComponent<WaterGrid>().gridArray[x, waterGrid.GetComponent<WaterGrid>().depth - 1].isVertex);
+            Assert.AreEqual(true, waterGrid.GetComponent<WaterGrid>().gridArray[x, waterGrid.GetComponent<WaterGrid>().depth - 1].boundary);
+        }
+
+        for (int z = 0; z < waterGrid.GetComponent<WaterGrid>().depth; z++)
+        {
+            Assert.AreEqual(true, waterGrid.GetComponent<WaterGrid>().gridArray[0, z].isVertex);
+            Assert.AreEqual(true, waterGrid.GetComponent<WaterGrid>().gridArray[0, z].boundary);
+
+            Assert.AreEqual(true, waterGrid.GetComponent<WaterGrid>().gridArray[waterGrid.GetComponent<WaterGrid>().width - 1, z].isVertex);
+            Assert.AreEqual(true, waterGrid.GetComponent<WaterGrid>().gridArray[waterGrid.GetComponent<WaterGrid>().width - 1, z].boundary);
+        }
+    }
+
     [UnityTest]
     public IEnumerator InflowBeingAdded()
     {
@@ -120,6 +221,16 @@ public class WaterGridTest
                 Assert.AreEqual(0.0f, waterGrid.GetComponent<WaterGrid>().gridArray[x, z].Geth());
             }
         }
+    }
+
+    [UnityTest]
+    public IEnumerator WaterGridSetToInactive()
+    {
+        Vector3 waterPumpPosition = new Vector3(0f, 0f, 0f);
+        waterGrid.SetActive(true);
+        waterGrid.GetComponent<WaterGrid>().AddWaterPump(waterPumpPosition);
+        yield return new WaitForFixedUpdate();
+        Assert.AreEqual(false, waterGrid.activeSelf);
     }
 
     [UnityTest]

@@ -43,6 +43,7 @@ public class WaterGrid : MonoBehaviour
     private Coroutine positionCoroutine;
     public GameObject breachPlane;
     private Vector3 breachPlanePosition;
+    private PlayerManager playerInWaterManager;
 
     void Awake()
     {
@@ -115,6 +116,7 @@ public class WaterGrid : MonoBehaviour
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 positionCoroutine = StartCoroutine(CheckPlayerPos(other.gameObject));
+                playerInWaterManager = other.gameObject.GetComponent<PlayerManager>();
             }
         }
         else if (other.gameObject.tag != "Floater")
@@ -221,6 +223,7 @@ public class WaterGrid : MonoBehaviour
     public void StopBreach()
     {
         inflow = false;
+        breachPlane.SetActive(false);
     }
 
     private void OnTriggerExit(Collider other)
@@ -305,6 +308,11 @@ public class WaterGrid : MonoBehaviour
         {
             if (gridArray[breachPosition.x + 1, breachPosition.z].Geth() < 0.1f)
             {
+                if (positionCoroutine != null)
+                {
+                    playerInWaterManager.ResetSpeed();
+                    StopCoroutine(positionCoroutine);
+                }
                 gameObject.SetActive(false);
             }
         }
@@ -428,6 +436,13 @@ public class WaterGrid : MonoBehaviour
                 {
                     currentColumn.isVertex = true;
                 }
+                if (outflowLocations.Count > 0)
+                {
+                    if (outflowLocations[0].x == x && outflowLocations[0].z == z)
+                    {
+                        currentColumn.isVertex = true;
+                    }
+                }
                 if (currentColumn.isVertex)
                 {
                     if (inflowPosition.x == x && inflowPosition.z == z)
@@ -437,6 +452,17 @@ public class WaterGrid : MonoBehaviour
                         breachPlanePosition.z = z * cellSize;
                         breachPlanePosition.y = gridArray[x - 2, z].GetVertexPosition().y;
                         breachPlane.transform.localPosition = breachPlanePosition;
+                    }
+                    else if (outflowLocations.Count > 0)
+                    {
+                        if (outflowLocations[0].x == x && outflowLocations[0].z == z)
+                        {
+                            vertices.Add(new Vector3(currentColumn.GetVertexPosition().x, 0.2f, currentColumn.GetVertexPosition().z));
+                        }
+                        else
+                        {
+                            vertices.Add(currentColumn.GetVertexPosition());
+                        }
                     }
                     else 
                     { 

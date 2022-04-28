@@ -31,6 +31,8 @@ public class PlayerManager : NetworkBehaviour
 
     private GameObject minimapCamera;
     public GameObject minimapToken;
+    private MinigameCameraScript minimapCameraController;
+
     private float switchFloorHeight = 3.0f;
 
     void Awake()
@@ -52,9 +54,18 @@ public class PlayerManager : NetworkBehaviour
         {
             Debug.Log("Incorrect Minimap Token - Seths Fault");
         }
+
+        if (identity.isLocalPlayer)
+        {
+            minimapToken.GetComponent<Material>().color = Color.blue;
+        }
+
+
         minimapCamera = GameObject.FindGameObjectWithTag("MinimapCamera");
-        
-        Debug.Log(minimapCamera.name);
+        minimapCameraController = minimapCamera.GetComponent<MinigameCameraScript>();
+
+
+        //Debug.Log(minimapCamera.name);
         
 
     }
@@ -169,6 +180,7 @@ public class PlayerManager : NetworkBehaviour
         playerManager.updateItemText();
         //Visual Effect
         playerManager.VisualEffectOfPlayerDroppingItem();
+        droppedItem.GetComponent<InteractionManager>().pickedUp = false;
     }
     [ClientRpc]
     void UpdateDropItem(NetworkIdentity playerID)
@@ -194,6 +206,7 @@ public class PlayerManager : NetworkBehaviour
         {
             droppedItem.GetComponent<WaterManager>().AddPump();
         }
+        droppedItem.GetComponent<InteractionManager>().pickedUp = false;
     }
     #endregion
 
@@ -329,7 +342,8 @@ public class PlayerManager : NetworkBehaviour
                     /*Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);
                     minimapCamera.GetComponent<Camera>().cullingMask = LayerMask.NameToLayer("SecondFloor"); // 9 is layer of second floor
                     Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);*/
-                    minimapCamera.GetComponent<Camera>().cullingMask = 512;
+                    //minimapCamera.GetComponent<Camera>().cullingMask = 512;
+                    minimapCameraController.TransformToSecondFloorView();
                 }
             }
         }
@@ -343,7 +357,8 @@ public class PlayerManager : NetworkBehaviour
                     /* Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);
                      minimapCamera.GetComponent<Camera>().cullingMask = LayerMask.NameToLayer("FirstFloor") << 0; // 8 is layer of first floor
                      Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);*/
-                    minimapCamera.GetComponent<Camera>().cullingMask = 256;
+                    //minimapCamera.GetComponent<Camera>().cullingMask = 256;
+                    minimapCameraController.TransformToFirstFloorView();
 
                 }
             }
