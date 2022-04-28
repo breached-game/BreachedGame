@@ -2683,6 +2683,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: ef513ddc0dfa9344c8af0a08129c1a70, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!65 &85834828
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3202,6 +3204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 97508985}
+  - component: {fileID: 97508986}
   m_Layer: 5
   m_Name: ControlRodUIs
   m_TagString: Untagged
@@ -3231,6 +3234,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &97508986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97508984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be454a55345476246bd0c17cc0946940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &104465251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6006,6 +6021,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: 5add993df886f694a99df3b05b3b2c2d, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &208892121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7522,6 +7539,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: 5add993df886f694a99df3b05b3b2c2d, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &275480850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7718,6 +7737,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: ef513ddc0dfa9344c8af0a08129c1a70, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &281096667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9246,6 +9267,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: ef513ddc0dfa9344c8af0a08129c1a70, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &330008228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10480,6 +10503,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: 33406a9daa1dad845929acebbad4e1c9, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &370983074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10680,6 +10705,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: 33406a9daa1dad845929acebbad4e1c9, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &378052625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12437,6 +12464,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: d963c0e571423314390d266f6a62b016, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &448830993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15634,6 +15663,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: 33406a9daa1dad845929acebbad4e1c9, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &604787085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18409,6 +18440,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: 5add993df886f694a99df3b05b3b2c2d, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &714065050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18896,6 +18929,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: d963c0e571423314390d266f6a62b016, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &729619372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26407,6 +26442,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: ef513ddc0dfa9344c8af0a08129c1a70, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &1038556136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28638,6 +28675,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: 4644e22e20f3a5a4cb1bd8c1a08d50ef, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &1143281211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33957,6 +33996,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: ac287b8f8bee61346a853a85741d7f11, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &1364285459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37822,6 +37863,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: ac287b8f8bee61346a853a85741d7f11, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &1565365547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40788,6 +40831,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: d963c0e571423314390d266f6a62b016, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &1693733057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43488,6 +43533,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: ac287b8f8bee61346a853a85741d7f11, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &1823405404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62648,6 +62695,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: 098d44cb3721e4d4fab9495f9d2b302f, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!65 &7942236555069501625
 BoxCollider:
   m_ObjectHideFlags: 0
