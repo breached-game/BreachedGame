@@ -586,6 +586,39 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #endregion
 
+    #region Orientation Minigames
+    //Dinner Plate
+    public void DinnerPlate(GameObject player, GameObject orientationManager)
+    {
+        CmdDinnerPlate(player, orientationManager);
+    }
+    [Command]
+    public void CmdDinnerPlate(GameObject player, GameObject orientationManager)
+    {
+        CallDinnerPlate(player, orientationManager);
+    }
+    [ClientRpc]
+    public void CallDinnerPlate(GameObject player, GameObject orientationManager)
+    {
+        orientationManager.GetComponent<OrientationMiniGameManager>().addPlayerPlate(player);
+    }
+    //Bed
+    public void Bed(GameObject player, GameObject orientationManager)
+    {
+        CmdBed(player, orientationManager);
+    }
+    [Command]
+    public void CmdBed(GameObject player, GameObject orientationManager)
+    {
+        CallBed(player, orientationManager);
+    }
+    [ClientRpc]
+    public void CallBed(GameObject player, GameObject orientationManager)
+    {
+        orientationManager.GetComponent<OrientationMiniGameManager>().addPlayerBed(player);
+    }
+    #endregion
+
     #region Doors
     public void OpenDoor(GameObject door)
     {
