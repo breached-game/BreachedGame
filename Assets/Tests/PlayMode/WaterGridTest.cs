@@ -263,4 +263,42 @@ public class WaterGridTest
         yield return null;
         Assert.AreEqual(0f, waterGrid.GetComponent<WaterGrid>().gridArray[10, 10].GetH());
     }
+
+    [UnityTest]
+    public IEnumerator InactiveBreachPlane()
+    {
+        waterGrid.GetComponent<WaterGrid>().StopBreach();
+        waterGrid.SetActive(true);
+        yield return null;
+        Assert.AreEqual(false, waterGrid.GetComponent<WaterGrid>().breachPlane.activeSelf);
+    }
+
+    [UnityTest]
+    public IEnumerator OutflowVertexIsCorrect()
+    {
+        Vector3 waterPumpPosition = new Vector3(2f, 2f, 2f);
+        waterGrid.GetComponent<WaterGrid>().inflowRate = 150f;
+        waterGrid.SetActive(true);
+        waterGrid.GetComponent<WaterGrid>().AddWaterPump(waterPumpPosition);
+        yield return new WaitForFixedUpdate();
+        Assert.AreEqual(0.2f, waterGrid.GetComponent<MeshFilter>().mesh.vertices[2].y);
+    }
+
+    [UnityTest]
+    public IEnumerator WaterGridElementsWithWaterAreVertices()
+    {
+        waterGrid.GetComponent<WaterGrid>().inflowRate = 150f;
+        waterGrid.SetActive(true);
+        yield return new WaitForFixedUpdate();
+        for (int x = 0; x < waterGrid.GetComponent<WaterGrid>().width; x++)
+        {
+            for (int z = 0; z < waterGrid.GetComponent<WaterGrid>().depth; z++)
+            {
+                if (waterGrid.GetComponent<WaterGrid>().gridArray[x, z].Geth() > 0f)
+                {
+                    Assert.AreEqual(true, waterGrid.GetComponent<WaterGrid>().gridArray[x, z].isVertex);
+                }
+            }
+        }
+    }
 }
