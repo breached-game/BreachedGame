@@ -37,7 +37,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     private bool missileStarted = false;
     private bool gameEnded = false;
 
-    private int ready = 0;
 
     // Pass in the gameobject, data, 
     void Awake()
@@ -164,6 +163,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void SetCurrentPlayer(GameObject player, GameObject controlRodController, GameObject lazyNetworkVisualSolution)
     {
         controlRodController.gameObject.GetComponent<ControlRodTransport>().currentPlayer = player;
+
         //Visual Effect
         //Leaving
 
@@ -235,8 +235,17 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdStartGame(GameObject setupObject)
     {
         NetworkServer.SpawnObjects();
-        StartCoroutine(CheckReady());
-        //CallUpdateStartGame(setupObject);
+        StartCoroutine(WaitStartGame(setupObject));
+    }
+
+    IEnumerator WaitStartGame(GameObject setupObject)
+    {
+        yield return new WaitForSeconds(10);
+        UpdateStartGame(setupObject);
+        StartCoroutine(masterTimer());
+        timerStarted = true;
+        StartCoroutine(AlarmTimer());
+        SetColourCombo();
     }
 
     private void SetColourCombo()
@@ -249,36 +258,18 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
 
+    [ClientRpc]
     public void UpdateStartGame(GameObject setupObject)
     {
         print("Update start game");
-        //setupObject.GetComponent<StartGameButton>().UpdateStartGame();
         setupManager = setupObject.GetComponent<Setup>();
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
         missileManager = setupObject.GetComponent<Setup>().missileTimerText;
+        timerStarted = true;
         print(timerManager);
         print(alarmManager);
-        CmdSetReady();
-    }
-
-    [Command]
-    public void CmdSetReady()
-    {
-        ready += 1;
-        print("Players ready: " + ready);
-    }
-
-    IEnumerator CheckReady()
-    {
-        print("checking ready");
-        yield return new WaitWhile(() => ready < NetworkServer.connections.Count);
-        print("ready");
-        StartCoroutine(masterTimer());
-        timerStarted = true;
-        StartCoroutine(AlarmTimer());
-        SetColourCombo();
     }
     #endregion
 
@@ -322,13 +313,27 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     void TurnAlarmOn()
     {
-        alarmManager.StartAlarm();
+        if (alarmManager == null)
+        {
+            print("Alarm manager not set");
+        }
+        else
+        {
+            alarmManager.StartAlarm();
+        }
     }
 
     [ClientRpc]
     void TurnAlarmOff()
     {
-        alarmManager.StopAlarm();
+        if (alarmManager == null)
+        {
+            print("Alarm manager not set");
+        }
+        else
+        {
+            alarmManager.StopAlarm();
+        }
     }
 
     [ClientRpc]
@@ -471,7 +476,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdStartMissileTimer()
     {
-        float time = 30f;
+        float time = 60f;
         if (!missileStarted)
         {
             missileStarted = true;
@@ -498,7 +503,14 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     public void UpdateMissileTimer(float time)
     {
-        missileManager.GetComponent<MissileTextManager>().UpdateTime(time);
+        if (missileManager == null)
+        {
+            print("Missile manager not set");
+        }
+        else
+        {
+            missileManager.GetComponent<MissileTextManager>().UpdateTime(time);
+        }
     }
     #endregion
 
@@ -524,7 +536,14 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         if (timerStarted)
         {
-            timerManager.UpdateTimer(masterTime, time, increments);
+            if (timerManager == null)
+            {
+                print("Timer manager not set");
+            }
+            else
+            {
+                timerManager.UpdateTimer(masterTime, time, increments);
+            }
         }
     }
     #endregion

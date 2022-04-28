@@ -10,7 +10,7 @@ public class Setup : MonoBehaviour
     public GameObject playerUI;
     public GameObject lights;
     public List<GameObject> items;
-    public int GameTime = 300;
+    public int GameTime = 480;
     public GameObject timer;
     public GameObject alarms;
     public GameObject colourManager;
@@ -39,12 +39,14 @@ public class Setup : MonoBehaviour
         //lights.GetComponent<LightManager>().TurnPressureAlarmOn();
         timer.GetComponent<TimerManager>().startTimer(GameTime);
         lights.GetComponent<LightManager>().TurnPressureAlarmOff();
+        print(timer);
+        print(lights);
+        print(alarms);
         foreach (GameObject player in players)
         {
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 PlayerNetworkManager playerManager = player.GetComponent<PlayerNetworkManager>();
-                playerManager.UpdateStartGame(this.gameObject);
                 player.GetComponent<PlayerManager>().TurnOnAudio();
                 player.GetComponent<PlayerManager>().torch.SetActive(false);
                 player.transform.position = spawnPoint.transform.position;

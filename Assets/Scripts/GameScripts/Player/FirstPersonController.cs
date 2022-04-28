@@ -28,7 +28,8 @@ public class FirstPersonController : MonoBehaviour
     private float originalSprintSpeed;
 
     private Quaternion currentRotation;
-    
+
+    private PlayerManager playerManager;
 
     private NetworkIdentity identity;
 
@@ -40,6 +41,7 @@ public class FirstPersonController : MonoBehaviour
         {
             GetComponent<Camera>().enabled = false;
         }
+        playerManager = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>();
     }
 
     public void StartShake()
@@ -47,35 +49,18 @@ public class FirstPersonController : MonoBehaviour
         if (gameObject.activeSelf)
         {
             shaking = true;
-            originalSpeed = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed;
-            originalSprintSpeed = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed;
-            gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed = 1f;
-            gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed = 1f;
-            //StartCoroutine(Shake());
+            if (identity.isLocalPlayer)
+            {
+                playerManager.Speed = 1f;
+                playerManager.SprintSpeed = 1f;
+            }
         }
-    }
-
-    IEnumerator Shake()
-    {
-        Quaternion originalRotation = transform.rotation;
-        float x;
-        float y;
-        while (shaking)
-        {
-            transform.rotation = currentRotation;
-            x = Random.Range(-3f, 3f);
-            y = Random.Range(-3f, 3f);
-            transform.rotation = Quaternion.Euler(x + currentRotation.eulerAngles.x, y + currentRotation.eulerAngles.y, currentRotation.eulerAngles.z);
-            yield return new WaitForSeconds(0.01f);
-        }
-        transform.rotation = originalRotation;
     }
 
     public void StopShake()
     {
         shaking = false;
-        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().Speed = originalSpeed;
-        gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>().SprintSpeed = originalSprintSpeed;
+        playerManager.ResetSpeed();
     }
 
     // Update is called once per frame
@@ -85,7 +70,11 @@ public class FirstPersonController : MonoBehaviour
         {
             if (cameraEnabled)
             {
-                if (shaking) { actualSensitivity = sensitivity/5; }
+                if (shaking) { 
+                    actualSensitivity = sensitivity/5; 
+                    playerManager.Speed = 1f;
+                    playerManager.SprintSpeed = 1f;
+                }
                 else{ actualSensitivity = sensitivity; }
                 // md is mosue delta
                 var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));

@@ -29,12 +29,13 @@ public class Ladder : MonoBehaviour
 
     IEnumerator PlayerClimb(Vector3 startPos, Vector3 stopPos, GameObject player)
     {
-        float t = 0.01f;
+        float dt = 0.005f;
+        float t = 0.005f;
         while (t <= 1)
         {
             player.transform.position = Vector3.Lerp(startPos, stopPos, t);
-            yield return new WaitForSeconds(0.01f);
-            t += 0.01f;
+            yield return new WaitForSeconds(dt);
+            t += dt;
         }
         playerAni.Play("StopClimbing");
         if (startPos == bottomPos.transform.position)
@@ -45,6 +46,7 @@ public class Ladder : MonoBehaviour
         else
         {
             player.transform.position = stopPos;
+            player.GetComponent<PlayerManager>().ResetSpeed();
         }
         playerAni.SetBool("Ladder", false);
     }

@@ -41,6 +41,8 @@ public class WaterGrid : MonoBehaviour
     private Vector3Int breachPosition = new Vector3Int();
     private bool muffle = false;
     private Coroutine positionCoroutine;
+    public GameObject breachPlane;
+    private Vector3 breachPlanePosition;
 
     void Awake()
     {
@@ -85,6 +87,7 @@ public class WaterGrid : MonoBehaviour
                 gridArray[x, z] = v;
             }
         }
+        breachPlanePosition = new Vector3(0, 0, 0);
         Setup();
     }
 
@@ -179,8 +182,7 @@ public class WaterGrid : MonoBehaviour
                     else
                     {
                         // put water muffle off here
-                        playerManager.Speed = savedSpeeds[0];
-                        playerManager.SprintSpeed = savedSpeeds[1];
+                        playerManager.ResetSpeed();
                         fogController.fog = false;
                         waterDrops.SetActive(false);
                         if (muffle && Application.platform == RuntimePlatform.WebGLPlayer)
@@ -422,13 +424,24 @@ public class WaterGrid : MonoBehaviour
                     }
                     currentColumn.UpdateValues();
                 }
+                if (inflowPosition.x == x && inflowPosition.z == z)
+                {
+                    currentColumn.isVertex = true;
+                }
                 if (currentColumn.isVertex)
                 {
                     if (inflowPosition.x == x && inflowPosition.z == z)
                     {
                         vertices.Add(new Vector3(currentColumn.GetVertexPosition().x, gridArray[x - 2, z].GetVertexPosition().y, currentColumn.GetVertexPosition().z));
+                        breachPlanePosition.x = x * cellSize;
+                        breachPlanePosition.z = z * cellSize;
+                        breachPlanePosition.y = gridArray[x - 2, z].GetVertexPosition().y;
+                        breachPlane.transform.localPosition = breachPlanePosition;
                     }
-                    else { vertices.Add(currentColumn.GetVertexPosition()); }
+                    else 
+                    { 
+                        vertices.Add(currentColumn.GetVertexPosition()); 
+                    }
                     uvs.Add(new Vector2(currentColumn.GetVertexPosition().x, currentColumn.GetVertexPosition().z));
                     currentColumn.vertex = vCount;
                     vCount++;

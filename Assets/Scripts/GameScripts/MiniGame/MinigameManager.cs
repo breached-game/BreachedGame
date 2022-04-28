@@ -8,13 +8,13 @@ using Mirror;
 
 public class MinigameManager : MonoBehaviour
 {
-    public GameObject winScreen;//
+    public GameObject winScreen; //Not used
     private GameObject[] players;
     
     public GameObject UIManager;
 
     private bool endgame = false;
-    public GameObject ObjectiveStatusUI;
+    public GameObject ObjectiveStatusUI; //Only set active
     public GameObject ObjectiveCompleteGif;
     public Text ObjectiveStatusDisplay;
     public Text FailiureReasonDisplay;
