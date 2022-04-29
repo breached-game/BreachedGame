@@ -17,12 +17,14 @@ public class CommandManager : MonoBehaviour
     private RectTransform rectTransform;
     public GameObject hudTrap;
     private RectTransform hudRectTransform;
+    private Image hudImage;
     // Start is called before the first frame update
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         textMesh = GetComponent<TextMeshProUGUI>();
         hudRectTransform = hudTrap.GetComponent<RectTransform>();
+        hudImage = hudTrap.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -50,8 +52,22 @@ public class CommandManager : MonoBehaviour
         messages.Enqueue(message);
     }
 
+    private Color ChangeHudColour(Color c)
+    {
+        if (c.a == 0.8f)
+        {
+            c.a = 0.25f;
+        }
+        else
+        {
+            c.a = 0.8f;
+        }
+        return c;
+    }
+
     IEnumerator TypeMessage(Message message)
     {
+        Color colour = hudImage.color;
         string msg = message.msg;
         string currentMsg = "";
         bool captain = message.captain;
@@ -65,13 +81,22 @@ public class CommandManager : MonoBehaviour
         else {pref = ""; }
         while (currentMsg.Length < msgLength)
         {
+            if (i % 10 == 0)
+            {
+                hudImage.color = new Color(0,0,0,0.25f);
+            }
+            else if (i % 10 == 5)
+            {
+                hudImage.color = new Color(0, 0, 0, 0.5f);
+            }
             currentMsg += msg[i];
             textMesh.text = pref + currentMsg;
             yield return new WaitForSeconds(0.05f);
             i++;
         }
-
+        hudImage.color = new Color(0, 0, 0, 0.5f);
         yield return new WaitForSeconds(2f);
+        hudImage.color = new Color(0, 0, 0, 0.25f);
         textMesh.text = "";
         typing = false;
     }
