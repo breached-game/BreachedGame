@@ -74,7 +74,6 @@ public class MinigameManager : MonoBehaviour
         CheckWon();
         UpdateObjectivesPlayerUI();
         ShowSuccess(objectiveName);
-        commandLine.GetComponent<CommandManager>().QueueMessage("Well done you solved one problem: " + objectiveName, true);
     }
 
     public void ObjectiveFailed(string objectiveName, string reasonForFailiure)

@@ -70,7 +70,9 @@ public class OrientationSetup : MonoBehaviour
     {
         commandLine.QueueMessage("Welcome to the night shift on HMS Coronation", true);
         commandLine.QueueMessage("There's some food available for you in the kitchen", true);
-        commandLine.QueueMessage("Use the mini-map to go and grab it", true);
-        commandLine.QueueMessage("I've left the sub on auto-pilto so hopefully everything goes smoothly", true);
+        commandLine.QueueMessage("Use the ladder to go downstairs...", false);
+        commandLine.QueueMessage("...then use the mini-map to find the kitchen!", false);
+        commandLine.QueueMessage("TIP: Hold down shift to sprint", false);
+        commandLine.QueueMessage("I've left the sub on auto-pilot so everyone stay vigilant!", true);
     }
 }
