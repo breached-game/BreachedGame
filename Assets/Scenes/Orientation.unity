@@ -16127,7 +16127,7 @@ MonoBehaviour:
   lights: {fileID: 426058794}
   commandObject: {fileID: 620290711}
   networkCommand: {fileID: 323501366}
-  localPlayerMinimapColour: {fileID: 2100000, guid: 4125c9b367d172b439f214922aeddacd,
+  localPlayerMinimapColour: {fileID: 2100000, guid: fd9b5d3c764000f4ab0442252c9b1999,
     type: 2}
 --- !u!1001 &585345742
 PrefabInstance:
