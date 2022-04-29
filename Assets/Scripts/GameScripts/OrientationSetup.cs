@@ -27,6 +27,7 @@ public class OrientationSetup : MonoBehaviour
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 localPlayer = player;
+                player.GetComponent<PlayerManager>().minimapToken.SetActive(true);
                 player.GetComponent<PlayerManager>().minimapToken.GetComponent<MeshRenderer>().material = localPlayerMinimapColour;
             }
         }
