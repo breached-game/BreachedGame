@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 166381435953312049}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 30, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 100, y: 4, z: 100}
   m_Children: []
   m_Father: {fileID: 839167058831722922}
   m_RootOrder: 3
@@ -70,7 +70,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 166381435953312049}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -8678823145569952518, guid: 89caa8cf5bdb5cb4f97dba0005f219ef, type: 3}
 --- !u!23 &135952002076581431
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -180,8 +180,6 @@ MonoBehaviour:
   inWater: 0
   soundPlaying: 0
   minimapToken: {fileID: 0}
-  localPlayerMinimapColour: {fileID: 2100000, guid: c64cb8f8daded88458533df235ed89e4,
-    type: 2}
   Speed: 4
   SprintSpeed: 6
   smooth: 5
