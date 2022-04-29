@@ -15,6 +15,8 @@ public class OrientationSetup : MonoBehaviour
     public GameObject networkCommand;
     private PlayerNetworkManager playerNetworkManager;
     private GameObject localPlayer;
+
+    public Material localPlayerMinimapColour;
     // Start is called before the first frame update
 
     private void Awake()
@@ -25,6 +27,7 @@ public class OrientationSetup : MonoBehaviour
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 localPlayer = player;
+                player.GetComponent<PlayerManager>().minimapToken.GetComponent<MeshRenderer>().material = localPlayerMinimapColour;
             }
         }
     }

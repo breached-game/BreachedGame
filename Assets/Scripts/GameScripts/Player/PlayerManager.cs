@@ -33,7 +33,9 @@ public class PlayerManager : NetworkBehaviour
     public GameObject minimapToken;
     private MinigameCameraScript minimapCameraController;
 
+
     private float switchFloorHeight = 3.0f;
+    //
 
     void Awake()
     {
@@ -54,12 +56,6 @@ public class PlayerManager : NetworkBehaviour
         {
             Debug.Log("Incorrect Minimap Token - Seths Fault");
         }
-
-        if (identity.isLocalPlayer)
-        {
-            minimapToken.GetComponent<Material>().color = Color.blue;
-        }
-
 
         minimapCamera = GameObject.FindGameObjectWithTag("MinimapCamera");
         minimapCameraController = minimapCamera.GetComponent<MinigameCameraScript>();

@@ -8,5 +8,6 @@ public class ResetServerButton : MonoBehaviour
     {
         transform.parent.GetComponent<ServerRoomMinigameManager>().Success();
         transform.GetChild(0).GetComponent<Animator>().Play("Click");
+        gameObject.SetActive(false);
     }
 }

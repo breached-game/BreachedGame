@@ -586,6 +586,24 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #endregion
 
+    #region Orientation Minigames
+    //Dinner Plate
+    public void DinnerPlate(GameObject player, GameObject interactable)
+    {
+        CmdDinnerPlate(player, interactable);
+    }
+    [Command]
+    public void CmdDinnerPlate(GameObject player, GameObject interactable)
+    {
+        CallDinnerPlate(player, interactable);
+    }
+    [ClientRpc]
+    public void CallDinnerPlate(GameObject player, GameObject interactable)
+    {
+        interactable.GetComponent<dinnerPlate>().playerDone(player);
+    }
+    #endregion
+
     #region Doors
     public void OpenDoor(GameObject door)
     {
