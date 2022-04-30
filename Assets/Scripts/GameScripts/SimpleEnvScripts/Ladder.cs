@@ -34,8 +34,8 @@ public class Ladder : MonoBehaviour
         while (t <= 1)
         {
             player.transform.position = Vector3.Lerp(startPos, stopPos, t);
-            yield return new WaitForSeconds(dt/2);
-            t += dt;
+            yield return new WaitForSeconds(dt/10);
+            t += dt * 3;
         }
         playerAni.Play("StopClimbing");
         if (startPos == bottomPos.transform.position)

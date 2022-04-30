@@ -76,7 +76,7 @@ public class CommandManager : MonoBehaviour
         int i = 0;
         if (captain)
         {
-            pref = "COMMANDER: ";
+            pref = "CAPTAIN: ";
         }
         else {pref = ""; }
         while (currentMsg.Length < msgLength)
