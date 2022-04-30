@@ -37,6 +37,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     private bool missileStarted = false;
     private bool gameEnded = false;
 
+    string[] names = new string[] { "Lt.Barnes", "Lt.Holdcroft", "Lt.Morgan", "Lt.Vojnovic" };
+
 
     // Pass in the gameobject, data, 
     void Awake()
@@ -91,6 +93,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     public void ChangeToSub()
     {
+        CmdSetPlayerNames();
         float time = 45;
         starter = true;
         CmdChangeScene("Orientation");
@@ -246,6 +249,27 @@ public class PlayerNetworkManager : NetworkBehaviour
         timerStarted = true;
         StartCoroutine(AlarmTimer());
         SetColourCombo();
+    }
+
+    [Command]
+    private void CmdSetPlayerNames()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        int skin = 0;
+        foreach (GameObject player in players)
+        {
+            CallSetNameOnClient(player, skin);
+            skin++;
+        }
+    }
+
+    [ClientRpc]
+    public void CallSetNameOnClient(GameObject player, int skin)
+    {
+        string n = names[skin];
+        print("Player: " + n);
+        player.GetComponent<NameTagManager>().SetName(n);
+        player.GetComponent<PlayerManager>().PlayerModel.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = playerMats[skin];
     }
 
     private void SetColourCombo()

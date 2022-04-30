@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10448,6 +10448,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractText
       objectReference: {fileID: 0}
+    - target: {fileID: 3935363263260304107, guid: 4a6377b0d1afbd94fb2a79911e63f89e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a6377b0d1afbd94fb2a79911e63f89e, type: 3}
 --- !u!224 &1064024973 stripped
@@ -13286,6 +13291,8 @@ MonoBehaviour:
   syncInterval: 0.1
   available: 1
   interactionSO: {fileID: 11400000, guid: 298f6b200de16c64ab54163f7bdc203b, type: 2}
+  interactionText: {fileID: 0}
+  pickedUp: 0
 --- !u!114 &1371499924
 MonoBehaviour:
   m_ObjectHideFlags: 0

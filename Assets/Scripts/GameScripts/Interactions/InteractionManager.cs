@@ -17,8 +17,7 @@ public class InteractionManager : NetworkBehaviour
 
     private void Awake()
     {
-        interactionText = GameObject.Find("Canvas").transform.GetChild(GameObject.Find("Canvas").transform.childCount-1).gameObject;
-        print(interactionText);
+        interactionText = GameObject.Find("Canvas").gameObject.transform.Find("InteractText").gameObject;
         interactionText.SetActive(false);
         interactionActualText = interactionText.GetComponent<TextMeshProUGUI>();
     }
