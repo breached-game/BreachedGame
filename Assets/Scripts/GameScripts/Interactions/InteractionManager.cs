@@ -78,40 +78,4 @@ public class InteractionManager : NetworkBehaviour
             }
         }
     }
-    /*
-    // Legacy Authority Code
-    int playersInColliderCount = 0;
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player" && available)
-        {
-            //other.gameObject is the local player
-            //Display interaction not available
-            //UIManager.ShowInteractionText(false);
-            playersInColliderCount--;
-            if (playersInColliderCount == 0 && other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                //Take Authority Away
-                other.gameObject.GetComponent<PlayerManager>().CmdRemoveAurthority(this.gameObject);
-            }
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            if (available)
-            {
-                if(other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
-                {
-                    playersInColliderCount++;
-                    //Give Aurthority
-                    other.gameObject.GetComponent<PlayerManager>().CmdAssignAurthority(this.gameObject);
-                    //Debug.Log("This object has authority: " +  this.gameObject.GetComponent<NetworkIdentity>().hasAuthority);
-                }
-            }
-        }
-    }
-    */
 }

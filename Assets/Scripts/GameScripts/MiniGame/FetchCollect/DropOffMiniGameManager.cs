@@ -42,6 +42,11 @@ public class DropOffMiniGameManager : MonoBehaviour
             visualEffect();
             if (minigameName.Contains("Fix breach"))
             {
+                AudioSource[] audios = gameObject.GetComponentsInChildren<AudioSource>();
+                foreach (AudioSource audio in audios)
+                {
+                    audio.Stop();
+                }
                 minigameManager.commandNetwork.GetComponent<CommandNetworkManager>().SendNetworkMessage("Well done for fixing the breach...there's a pump in one of the stores that should get rid of the water.", true);
             }
         }

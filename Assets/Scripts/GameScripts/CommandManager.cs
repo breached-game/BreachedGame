@@ -76,7 +76,7 @@ public class CommandManager : MonoBehaviour
         int i = 0;
         if (captain)
         {
-            pref = "COMMANDER: ";
+            pref = "CAPTAIN: ";
         }
         else {pref = ""; }
         while (currentMsg.Length < msgLength)
@@ -84,10 +84,12 @@ public class CommandManager : MonoBehaviour
             if (i % 10 == 0)
             {
                 hudImage.color = new Color(0,0,0,0.25f);
+                textMesh.outlineWidth = 0f;
             }
             else if (i % 10 == 5)
             {
                 hudImage.color = new Color(0, 0, 0, 0.5f);
+                textMesh.outlineWidth = 0.2f;
             }
             currentMsg += msg[i];
             textMesh.text = pref + currentMsg;
@@ -95,6 +97,7 @@ public class CommandManager : MonoBehaviour
             i++;
         }
         hudImage.color = new Color(0, 0, 0, 0.25f);
+        textMesh.outlineWidth = 0f;
         yield return new WaitForSeconds(2f);
         textMesh.text = "";
         typing = false;

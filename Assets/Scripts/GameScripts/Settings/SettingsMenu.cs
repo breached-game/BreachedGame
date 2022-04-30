@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Mirror;
+using UnityEngine.Audio;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class SettingsMenu : MonoBehaviour
     public GameObject Logo;
     public GameObject Sensitivity;
     public GameObject crosshair;
-    public GameObject brightness;
+    public GameObject musicVolume;
+    public AudioMixer musicMixer;
 
     private void Start()
     {
@@ -32,13 +34,13 @@ public class SettingsMenu : MonoBehaviour
         RectTransform SensitivityTransform = Sensitivity.GetComponent<RectTransform>();
         SensitivityTransform.sizeDelta = new Vector2(mainMenuTransform.rect.width / 2, mainMenuTransform.rect.height / 16);
         SensitivityTransform.localPosition = new Vector3(0, -1 * mainMenuTransform.rect.height / 32, 0);
-        RectTransform brightnessTransform = brightness.GetComponent<RectTransform>();
-        brightnessTransform.sizeDelta = new Vector2(mainMenuTransform.rect.width / 2, mainMenuTransform.rect.height / 16);
-        brightnessTransform.localPosition = new Vector3(0, -1 * mainMenuTransform.rect.height / 7, 0);
+        RectTransform musicVolumeTransform = musicVolume.GetComponent<RectTransform>();
+        musicVolumeTransform.sizeDelta = new Vector2(mainMenuTransform.rect.width / 2, mainMenuTransform.rect.height / 16);
+        musicVolumeTransform.localPosition = new Vector3(0, -1 * mainMenuTransform.rect.height / 7, 0);
 
         //Remembering settings already input 
         if (PlayerPrefs.GetFloat("Sensitivity") != 0) Sensitivity.GetComponent<UnityEngine.UI.Slider>().value = PlayerPrefs.GetFloat("Sensitivity");
-        brightness.GetComponent<UnityEngine.UI.Slider>().value = PlayerPrefs.GetFloat("Brightness");
+        musicVolume.GetComponent<UnityEngine.UI.Slider>().value = PlayerPrefs.GetFloat("MusicVolume");
     }
     //HARD CODED TRY TO FIND PLAYER FROM ALL PLAYERS - LOOK FOR BETTER SOLUTION
     public void SetMouseSensitivity(float sensitivity)
@@ -54,20 +56,10 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    public void SetBrightness(float brightness)
+    public void SetMusicVolume(float volume)
     {
-        ColorAdjustments c;
-        PlayerPrefs.SetFloat("Brightness", brightness);
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        for (int i = 0; i < players.Length; i++)
-        {
-            if (players[i].GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<Volume>().profile.TryGet(out c);
-                c.postExposure.value = brightness;
-                players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<Volume>().profile.Reset();
-            }
-        }
+        PlayerPrefs.SetFloat("MusicVolume", volume);
+        musicMixer.SetFloat("musicVol", volume);
     }
 
     public void BackButton()
