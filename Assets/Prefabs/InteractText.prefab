@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3935363263260304104}
   - component: {fileID: 3935363263260304105}
   - component: {fileID: 3935363263260304106}
+  - component: {fileID: 7656199897178240210}
   m_Layer: 5
   m_Name: InteractText
   m_TagString: InteractText
@@ -135,3 +136,15 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7656199897178240210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3935363263260304107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f46545f0eaa74124194d25914d8bb68d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

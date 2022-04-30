@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -48748,6 +48748,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1704829084}
     m_Modifications:
+    - target: {fileID: 2712563410488717140, guid: 46a5039db5734a6488c0eb517690c700,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2712563410488717142, guid: 46a5039db5734a6488c0eb517690c700,
         type: 3}
       propertyPath: m_Pivot.x
@@ -65463,6 +65468,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InteractText
+      objectReference: {fileID: 0}
+    - target: {fileID: 3935363263260304107, guid: 4a6377b0d1afbd94fb2a79911e63f89e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a6377b0d1afbd94fb2a79911e63f89e, type: 3}
