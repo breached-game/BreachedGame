@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public GameObject doorStop;
-    private bool open = false;
+    public bool open = false;
     public void OpenDoor()
     {
         if (!open)

@@ -311,6 +311,7 @@ public class WaterGrid : MonoBehaviour
                 if (positionCoroutine != null)
                 {
                     playerInWaterManager.ResetSpeed();
+                    playerInWaterManager.inWater = false;
                     StopCoroutine(positionCoroutine);
                 }
                 gameObject.SetActive(false);

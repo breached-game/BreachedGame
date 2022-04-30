@@ -38,10 +38,14 @@ public class InteractionNoRaycastManager : NetworkBehaviour
                     //Want access to interactable SO
                     interactionSO.RunInteraction(gameObject, other.gameObject);
                 }
-                else
+                else if (!gameObject.GetComponent<Door>().open)
                 {
                     interactionActualText.text = "Press e to interact with " + gameObject.name;
                     interactionText.SetActive(true);
+                }
+                else
+                {
+                    interactionText.SetActive(false);
                 }
             }
         }
