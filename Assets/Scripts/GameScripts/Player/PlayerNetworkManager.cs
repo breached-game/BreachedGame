@@ -67,7 +67,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         {
             gameEnded = true;
             CmdEndGame();
-            if (GetComponent<PlayerManager>().inWater)
+            if (GetComponent<PlayerManager>().inWater && Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 VoiceWrapper.waterMicOff();
             }
@@ -82,7 +82,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         {
             gameEnded = true;
             CmdEndGame();
-            if (GetComponent<PlayerManager>().inWater)
+            if (GetComponent<PlayerManager>().inWater && Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 VoiceWrapper.waterMicOff();
             }
