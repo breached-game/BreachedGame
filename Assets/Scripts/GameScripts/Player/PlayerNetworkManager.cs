@@ -37,6 +37,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     private bool missileStarted = false;
     private bool gameEnded = false;
 
+    private bool orientationEnded = false;
+
     string[] names = new string[] { "Lt.Barnes", "Lt.Holdcroft", "Lt.Morgan", "Lt.Vojnovic" };
 
 
@@ -94,20 +96,17 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void ChangeToSub()
     {
         CmdSetPlayerNames();
-        float time = 45;
         starter = true;
         CmdChangeScene("Orientation");
-        StartCoroutine(OrientationTime(time));
     }
 
-    IEnumerator OrientationTime(float time)
+    IEnumerator FinishOrientationTime()
     {
-        yield return new WaitForSeconds(time);
-        CmdChangeCamera(false);
-        CmdChangeScene("StartGame");
+        CallChangeCameras(false);
+        myNetworkManager.ServerChangeScene("StartGame");
         yield return new WaitForSeconds(7f);
-        CmdChangeCamera(true);
-        CmdChangeScene("Submarine");
+        CallChangeCameras(true);
+        myNetworkManager.ServerChangeScene("Submarine");
     }
 
     [Command]
@@ -612,19 +611,27 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #region Orientation Minigames
     //Dinner Plate
-    public void DinnerPlate(GameObject player, GameObject interactable)
+    public void DinnerPlate(GameObject interactable)
     {
-        CmdDinnerPlate(player, interactable);
+        CmdDinnerPlate(interactable);
     }
     [Command]
-    public void CmdDinnerPlate(GameObject player, GameObject interactable)
+    public void CmdDinnerPlate(GameObject interactable)
     {
-        CallDinnerPlate(player, interactable);
+        CallDinnerPlate(interactable);
+        if (!orientationEnded)
+        {
+            StartCoroutine(FinishOrientationTime());
+        }
+        else
+        {
+            orientationEnded = true;
+        }
     }
     [ClientRpc]
-    public void CallDinnerPlate(GameObject player, GameObject interactable)
+    public void CallDinnerPlate(GameObject interactable)
     {
-        interactable.GetComponent<dinnerPlate>().playerDone(player);
+        interactable.SetActive(false);
     }
     #endregion
 
