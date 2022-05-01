@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class ControlRodUISetup : MonoBehaviour
 {
+    RectTransform ControlRodUI;
     // Start is called before the first frame update
     void Start()
     {
-        RectTransform ControlRodUI = this.gameObject.GetComponent<RectTransform>();
+        ControlRodUI = this.gameObject.GetComponent<RectTransform>();
         //ControlRodUI.sizeDelta = new Vector2(mainMenuTransform.rect.width * 3 / 4, mainMenuTransform.rect.height / 8);
-        ControlRodUI.localPosition = new Vector3(Screen.height / 2, Screen.width/2, 0);
+    }
+    private void Update()
+    {
+        ControlRodUI.position = new Vector2(3 * Screen.width / 4, Screen.height / 2);
     }
 }

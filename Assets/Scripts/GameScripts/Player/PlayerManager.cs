@@ -268,12 +268,6 @@ public class PlayerManager : NetworkBehaviour
             }
             _controller.Move(translation *  transform.forward);
             _controller.Move(straffe *  transform.right);
-
-            if (Input.GetKeyDown("escape"))
-            {
-                // turn on the cursor
-                Cursor.lockState = CursorLockMode.None;
-            }
             
             if (!_controller.isGrounded)
             {
