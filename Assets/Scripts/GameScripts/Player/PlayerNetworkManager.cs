@@ -228,7 +228,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         if (starter)
         {
-            print("Start game called");
             CmdStartGame(setupObject);
             starter = false;
         }
@@ -285,7 +284,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     public void UpdateStartGame(GameObject setupObject)
     {
-        print("Update start game");
         setupManager = setupObject.GetComponent<Setup>();
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
@@ -374,7 +372,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     #region:DropOff
     public void DropOff(GameObject interactable)
     {
-        Debug.Log("dropping off");
         CmdDropOff(interactable);
     }
     [Command]
@@ -673,14 +670,12 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdWriteCommand(GameObject commandNetwork, string msg, bool captain)
     {
-        print("command");
         CallNetworkQueueMessage(commandNetwork, msg, captain);
     }
     [ClientRpc]
     public void CallNetworkQueueMessage(GameObject commandNetwork, string msg, bool captain)
     {
         commandNetwork.GetComponent<CommandNetworkManager>().QueueNetworkMessage(msg, captain);
-        print("message");
     }
     #endregion
 

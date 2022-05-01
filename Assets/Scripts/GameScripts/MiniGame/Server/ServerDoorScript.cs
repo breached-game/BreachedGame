@@ -27,7 +27,6 @@ public class ServerDoorScript : MonoBehaviour
 
     public IEnumerator OpenDoor()
     {
-        print("Opening Door");
         float current_t = 0f;
         Vector3 distanceToMove  = openDoorPos - closedDoorPos ;
   

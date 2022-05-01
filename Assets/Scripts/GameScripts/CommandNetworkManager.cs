@@ -23,13 +23,11 @@ public class CommandNetworkManager : MonoBehaviour
 
     public void SendNetworkMessage(string msg, bool captain)
     {
-        print(msg);
         playerNetworkManager.WriteCommand(this.gameObject, msg, captain);
     }
 
     public void QueueNetworkMessage(string msg, bool captain)
     {
-        print("Msg");
         commandManager.QueueMessage(msg, captain);
     }
 }
