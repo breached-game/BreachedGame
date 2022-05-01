@@ -41,6 +41,8 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     string[] names = new string[] { "Lt.Barnes", "Lt.Holdcroft", "Lt.Morgan", "Lt.Vojnovic" };
 
+    public List<Material> playerMats;
+
 
     // Pass in the gameobject, data, 
     void Awake()
@@ -229,7 +231,6 @@ public class PlayerNetworkManager : NetworkBehaviour
             print("Start game called");
             CmdStartGame(setupObject);
             starter = false;
-            CmdAssignSkin();
         }
     }
 
@@ -291,8 +292,6 @@ public class PlayerNetworkManager : NetworkBehaviour
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
         missileManager = setupObject.GetComponent<Setup>().missileTimerText;
         timerStarted = true;
-        print(timerManager);
-        print(alarmManager);
     }
     #endregion
 
@@ -682,47 +681,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         commandNetwork.GetComponent<CommandNetworkManager>().QueueNetworkMessage(msg, captain);
         print("message");
-    }
-    #endregion
-
-    #region:Assign Players Skins and Names
-    public List<Material> playerMats;
-    private Dictionary<GameObject, string> playerNames;
-    [Command]
-    public void CmdAssignSkin()
-    {
-        //Bad practice we should pass players in some other way 
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        int m = 0;
-        foreach (GameObject player in players)
-        {
-            SetNameOnServer(player, m);
-            m++;
-        }
-    }
-
-    [ClientRpc]
-    public void SetNameOnServer(GameObject player, int m)
-    {
-        if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
-        {
-            CmdSetNameOnServer(player, PlayerPrefs.GetString("Name"), m);
-        }
-    }
-
-    [Command]
-    public void CmdSetNameOnServer(GameObject player, string name, int m)
-    {
-        print("Player: " + name);
-        CallUpdateSetName(player, name, m);
-    }
-
-    [ClientRpc]
-    public void CallUpdateSetName(GameObject player, string name, int m)
-    {
-        print("Player: " + name);
-        player.GetComponent<NameTagManager>().SetName(name);
-        player.GetComponent<PlayerManager>().PlayerModel.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = playerMats[m];
     }
     #endregion
 

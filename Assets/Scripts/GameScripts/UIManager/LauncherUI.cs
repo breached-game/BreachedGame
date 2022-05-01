@@ -124,6 +124,8 @@ public class LauncherUI : MonoBehaviour
             manager.StopClient();
             Destroy(manager.gameObject);
             Destroy(GameObject.Find("BackgroundMusic"));
+            Destroy(GameObject.Find("MicManager"));
+            Destroy(GameObject.Find("MinimapCamera"));
         }
         //Application.Quit();
     }
