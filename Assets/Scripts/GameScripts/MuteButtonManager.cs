@@ -9,7 +9,7 @@ public class MuteButtonManager : MonoBehaviour
     public Sprite muted;
     public Sprite unmuted;
     private Image actualImage;
-    private int size = Screen.width / 15;
+    private int size = Screen.width / 25;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +29,7 @@ public class MuteButtonManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        size = Screen.width / 25;
         rectTransform.sizeDelta = new Vector2(size, size);
         rectTransform.localPosition = new Vector3(Screen.width/2 - size/2, Screen.height/2 - size/2);
         if (Input.GetKeyDown(KeyCode.M))
