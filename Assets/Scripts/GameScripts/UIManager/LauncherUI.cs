@@ -121,7 +121,9 @@ public class LauncherUI : MonoBehaviour
         // stop client if client-only
         if (NetworkClient.isConnected)
         {
-                manager.StopClient();
+            manager.StopClient();
+            Destroy(manager.gameObject);
+            Destroy(GameObject.Find("BackgroundMusic"));
         }
         //Application.Quit();
     }
