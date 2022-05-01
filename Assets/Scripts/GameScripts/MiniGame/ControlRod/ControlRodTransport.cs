@@ -46,6 +46,7 @@ public class ControlRodTransport : NetworkBehaviour
                 //VisualEffectOfBeingInTheMiniGame(player);
                 //STOPPING PLAYER MOVING WHILE IN CONTROL ROD - MAYBE CHANGE PLAYERMANAGER TO HAVE A BOOL INSTEAD OF SETTING IT AS 0
                 playerManager.Speed = 0.0f;
+                playerUI.SetActive(false);
                 controlRodCamera.SetActive(true);
                 controlRodUI.SetActive(true);
             }
@@ -71,8 +72,7 @@ public class ControlRodTransport : NetworkBehaviour
                 playerManager.disableInteractionsForMinigame = false;
                 controlRodCamera.SetActive(false);
                 controlRodUI.SetActive(false);
-                playerUI.SetActive(false);
-
+                playerUI.SetActive(true);
                 playerNetworkManager.SendCurrentPlayer(null, this.gameObject, currentPlayer);
             }
         }
