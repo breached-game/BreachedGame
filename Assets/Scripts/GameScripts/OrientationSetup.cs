@@ -55,7 +55,6 @@ public class OrientationSetup : MonoBehaviour
                 playerNetworkManager.StartOrientation();
             }
         }
-        CaptainIntro();
     }
     private void Update()
     {
@@ -67,7 +66,7 @@ public class OrientationSetup : MonoBehaviour
             }
         }
     }
-    private void CaptainIntro()
+    public void CaptainIntro()
     {
         commandLine.QueueMessage("Welcome to the night shift on HMS Coronation", true);
         commandLine.QueueMessage("There's some food available for you in the kitchen", true);
