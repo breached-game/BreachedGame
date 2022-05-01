@@ -15,7 +15,6 @@ public class DropOffSO : InteractionSO
                 player.GetComponent<PlayerNetworkManager>().StopBreach(interactable);
             }
         }
-        Debug.Log("Try to drop off");
         player.GetComponent<PlayerNetworkManager>().DropOff(interactable);
     }
 }

@@ -39,9 +39,6 @@ public class Setup : MonoBehaviour
         //lights.GetComponent<LightManager>().TurnPressureAlarmOn();
         timer.GetComponent<TimerManager>().startTimer(GameTime);
         lights.GetComponent<LightManager>().TurnPressureAlarmOff();
-        print(timer);
-        print(lights);
-        print(alarms);
         foreach (GameObject player in players)
         {
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)

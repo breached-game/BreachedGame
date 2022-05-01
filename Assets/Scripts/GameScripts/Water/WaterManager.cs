@@ -22,7 +22,6 @@ public class WaterManager : NetworkBehaviour
     
     public void StopBreach()
     {
-        print("Stopping breach");
         Vector3Int breachPosition;
         for (int i = 0; i < waterGridObjects.Length; i++)
         {

@@ -23,7 +23,6 @@ public class DropOff : NetworkBehaviour
         if (playerHas.name == dropOffPrefab.name)
         {
             //if the player has the right item to drop off
-            print(dropOffPrefab + " has been dropped off");
 
             /* Legacy
             //respawn object 
@@ -44,8 +43,6 @@ public class DropOff : NetworkBehaviour
 
             hasItem = true;
             itemDropped = playerHas;
-            Debug.Log("The drop off zone now has the item: " + playerHas.name);
-
             //Tell manager that we have change of state
             if (batteryDropOff == false)
             {

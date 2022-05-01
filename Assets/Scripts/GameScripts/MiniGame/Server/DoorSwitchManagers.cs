@@ -39,7 +39,6 @@ public class DoorSwitchManagers : MonoBehaviour
         // Need to client rpc the update to the doors !!! 
         if (!success)
         {
-            print(currentSwitchState);
             previousDoorState = currentDoorState;
             currentSwitchState[switchID] = value;
             currentDoorState = combinationToDoor[currentSwitchState];
@@ -59,9 +58,6 @@ public class DoorSwitchManagers : MonoBehaviour
     {
         for(int i = 0; i<currentDoorState.Count; i++)
         {
-            //print(doors[i]);
-            print("state: " + currentDoorState[i]);
-
             if (currentDoorState[i] == 0 && previousDoorState[i] != 0)
             {
 

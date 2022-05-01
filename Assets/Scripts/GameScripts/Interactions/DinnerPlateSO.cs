@@ -6,6 +6,6 @@ public class DinnerPlateSO : InteractionSO
 {
     public override void RunInteraction(GameObject interactable, GameObject Player)
     {
-        Player.GetComponent<PlayerNetworkManager>().DinnerPlate(Player, interactable);
+        Player.GetComponent<PlayerNetworkManager>().DinnerPlate(interactable);
     }
 }

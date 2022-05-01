@@ -107,7 +107,7 @@ public class PlayerUIManager : MonoBehaviour
     {
         if (playerCamera != null)
         {
-            if (Cursor.lockState == CursorLockMode.None && playerCamera.activeSelf)
+            if (Input.GetKeyDown("escape") && playerCamera.activeSelf)
             {
                 if (!mainMenu.activeSelf)
                 {

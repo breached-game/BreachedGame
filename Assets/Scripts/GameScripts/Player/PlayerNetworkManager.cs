@@ -37,7 +37,11 @@ public class PlayerNetworkManager : NetworkBehaviour
     private bool missileStarted = false;
     private bool gameEnded = false;
 
+    private bool orientationEnded = false;
+
     string[] names = new string[] { "Lt.Barnes", "Lt.Holdcroft", "Lt.Morgan", "Lt.Vojnovic" };
+
+    public List<Material> playerMats;
 
 
     // Pass in the gameobject, data, 
@@ -94,20 +98,17 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void ChangeToSub()
     {
         CmdSetPlayerNames();
-        float time = 45;
         starter = true;
         CmdChangeScene("Orientation");
-        StartCoroutine(OrientationTime(time));
     }
 
-    IEnumerator OrientationTime(float time)
+    IEnumerator FinishOrientationTime()
     {
-        yield return new WaitForSeconds(time);
-        CmdChangeCamera(false);
-        CmdChangeScene("StartGame");
+        CallChangeCameras(false);
+        myNetworkManager.ServerChangeScene("StartGame");
         yield return new WaitForSeconds(7f);
-        CmdChangeCamera(true);
-        CmdChangeScene("Submarine");
+        CallChangeCameras(true);
+        myNetworkManager.ServerChangeScene("Submarine");
     }
 
     [Command]
@@ -227,10 +228,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         if (starter)
         {
-            print("Start game called");
             CmdStartGame(setupObject);
             starter = false;
-            CmdAssignSkin();
         }
     }
 
@@ -285,15 +284,12 @@ public class PlayerNetworkManager : NetworkBehaviour
     [ClientRpc]
     public void UpdateStartGame(GameObject setupObject)
     {
-        print("Update start game");
         setupManager = setupObject.GetComponent<Setup>();
         Timer = setupObject.GetComponent<Setup>().timer;
         timerManager = Timer.GetComponent<TimerManager>();
         alarmManager = setupObject.GetComponent<Setup>().alarms.GetComponent<PressureAlarm>();
         missileManager = setupObject.GetComponent<Setup>().missileTimerText;
         timerStarted = true;
-        print(timerManager);
-        print(alarmManager);
     }
     #endregion
 
@@ -376,7 +372,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     #region:DropOff
     public void DropOff(GameObject interactable)
     {
-        Debug.Log("dropping off");
         CmdDropOff(interactable);
     }
     [Command]
@@ -612,19 +607,27 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #region Orientation Minigames
     //Dinner Plate
-    public void DinnerPlate(GameObject player, GameObject interactable)
+    public void DinnerPlate(GameObject interactable)
     {
-        CmdDinnerPlate(player, interactable);
+        CmdDinnerPlate(interactable);
     }
     [Command]
-    public void CmdDinnerPlate(GameObject player, GameObject interactable)
+    public void CmdDinnerPlate(GameObject interactable)
     {
-        CallDinnerPlate(player, interactable);
+        CallDinnerPlate(interactable);
+        if (!orientationEnded)
+        {
+            StartCoroutine(FinishOrientationTime());
+        }
+        else
+        {
+            orientationEnded = true;
+        }
     }
     [ClientRpc]
-    public void CallDinnerPlate(GameObject player, GameObject interactable)
+    public void CallDinnerPlate(GameObject interactable)
     {
-        interactable.GetComponent<dinnerPlate>().playerDone(player);
+        interactable.SetActive(false);
     }
     #endregion
 
@@ -667,55 +670,12 @@ public class PlayerNetworkManager : NetworkBehaviour
     [Command]
     public void CmdWriteCommand(GameObject commandNetwork, string msg, bool captain)
     {
-        print("command");
         CallNetworkQueueMessage(commandNetwork, msg, captain);
     }
     [ClientRpc]
     public void CallNetworkQueueMessage(GameObject commandNetwork, string msg, bool captain)
     {
         commandNetwork.GetComponent<CommandNetworkManager>().QueueNetworkMessage(msg, captain);
-        print("message");
-    }
-    #endregion
-
-    #region:Assign Players Skins and Names
-    public List<Material> playerMats;
-    private Dictionary<GameObject, string> playerNames;
-    [Command]
-    public void CmdAssignSkin()
-    {
-        //Bad practice we should pass players in some other way 
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        int m = 0;
-        foreach (GameObject player in players)
-        {
-            SetNameOnServer(player, m);
-            m++;
-        }
-    }
-
-    [ClientRpc]
-    public void SetNameOnServer(GameObject player, int m)
-    {
-        if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
-        {
-            CmdSetNameOnServer(player, PlayerPrefs.GetString("Name"), m);
-        }
-    }
-
-    [Command]
-    public void CmdSetNameOnServer(GameObject player, string name, int m)
-    {
-        print("Player: " + name);
-        CallUpdateSetName(player, name, m);
-    }
-
-    [ClientRpc]
-    public void CallUpdateSetName(GameObject player, string name, int m)
-    {
-        print("Player: " + name);
-        player.GetComponent<NameTagManager>().SetName(name);
-        player.GetComponent<PlayerManager>().PlayerModel.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = playerMats[m];
     }
     #endregion
 

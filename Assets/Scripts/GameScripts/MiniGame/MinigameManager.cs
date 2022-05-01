@@ -118,8 +118,6 @@ public class MinigameManager : MonoBehaviour
         {
             if (!endgame)
             {
-                print("endgame");
-
                 endgame = true;
                 commandLine.GetComponent<CommandManager>().QueueMessage("Damn it! Resetting the systems has set off the missile launch protocol", true);
                 commandLine.GetComponent<CommandManager>().QueueMessage("You've got 60 seconds to input the code from the command room", true);
