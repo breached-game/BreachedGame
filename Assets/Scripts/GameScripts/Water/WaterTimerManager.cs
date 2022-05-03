@@ -31,10 +31,10 @@ public class WaterTimerManager : MonoBehaviour
                     gameObject.GetComponent<DropOffMiniGameManager>().Reset();
                     waterGrid.SetActive(true);
                     run = false;
-                    gameObject.transform.Find("Breach Point").gameObject.SetActive(true);
-                    gameObject.transform.Find("Dripping").gameObject.SetActive(true);
                     if (online)
                     {
+                        gameObject.transform.Find("Breach Point").gameObject.SetActive(true);
+                        gameObject.transform.Find("Dripping").gameObject.SetActive(true);
                         gameObject.GetComponent<DropOffMiniGameManager>().minigameManager.commandNetwork.GetComponent<CommandNetworkManager>().SendNetworkMessage("Another breach has opened up due to the pressure, just when we thought we were safe!", true);
                     }
                 }
