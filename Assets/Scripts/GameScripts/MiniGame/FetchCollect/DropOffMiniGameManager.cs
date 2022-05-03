@@ -45,7 +45,7 @@ public class DropOffMiniGameManager : MonoBehaviour
                 {
                     audio.Stop();
                 }
-                minigameManager.commandNetwork.GetComponent<CommandNetworkManager>().SendNetworkMessage("Well done for fixing the breach...there's a pump in one of the stores that should get rid of the water.", true);
+                minigameManager.commandLine.GetComponent<CommandManager>().QueueMessage("Well done for fixing the breach...there's a pump in one of the stores that should get rid of the water.", true);
             }
         }
     }

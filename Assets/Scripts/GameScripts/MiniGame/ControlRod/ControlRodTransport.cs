@@ -43,9 +43,11 @@ public class ControlRodTransport : NetworkBehaviour
 
                 Cursor.lockState = CursorLockMode.None;
                 playerManager.FirstPersonCamera.SetActive(false);
+                playerManager.disableInteractionsForMinigame = true;
                 //VisualEffectOfBeingInTheMiniGame(player);
                 //STOPPING PLAYER MOVING WHILE IN CONTROL ROD - MAYBE CHANGE PLAYERMANAGER TO HAVE A BOOL INSTEAD OF SETTING IT AS 0
                 playerManager.Speed = 0.0f;
+                playerManager.SprintSpeed = 0.0f;
                 playerUI.SetActive(false);
                 controlRodCamera.SetActive(true);
                 controlRodUI.SetActive(true);
