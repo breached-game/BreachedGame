@@ -58,7 +58,7 @@ public class DropOffBatteries : MonoBehaviour
         }
         else
         {
-            minigameManager.commandNetwork.GetComponent<CommandNetworkManager>().SendNetworkMessage("Great, you've found one battery now grab the other one as well!", true);
+            minigameManager.commandLine.GetComponent<CommandManager>().QueueMessage("Great, you've found one battery now grab the other one as well!", true);
         }
     }
     private void visualEffectOfBatteryDropOff()
