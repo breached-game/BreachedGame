@@ -32,10 +32,10 @@ public class CommandManager : MonoBehaviour
     {
         Message msg;
         rectTransform.position = new Vector2(Screen.width/2, Screen.height - Screen.height/8);
-        rectTransform.sizeDelta = new Vector2(Screen.width / 3, Screen.height / 4);
-        hudRectTransform.sizeDelta = new Vector2(Screen.width / 5, Screen.height / 8);
+        rectTransform.sizeDelta = new Vector2(Screen.width / 2.5f, Screen.height / 4);
+        hudRectTransform.sizeDelta = new Vector2(Screen.width / 5, Screen.height / 7);
         hudRectTransform.position = new Vector2(Screen.width / 2, Screen.height - hudRectTransform.sizeDelta.y / 2);
-        textMesh.fontSize = Screen.height * 0.05f;
+        textMesh.fontSize = Screen.height * 0.045f;
         if (!typing && messages.Count != 0)
         {
             typing = true;

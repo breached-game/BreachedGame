@@ -69,8 +69,7 @@ public class ControlRodTransport : NetworkBehaviour
             {
                 playerManager.FirstPersonCamera.SetActive(true);
                 //VisualEffectOfLeavingAMiniGame(currentPlayer);
-                //TRASH CODING PRACTICE INBUILT SPEED
-                playerManager.Speed = 4.0f;
+                playerManager.ResetSpeed();
                 playerManager.disableInteractionsForMinigame = false;
                 controlRodCamera.SetActive(false);
                 controlRodUI.SetActive(false);

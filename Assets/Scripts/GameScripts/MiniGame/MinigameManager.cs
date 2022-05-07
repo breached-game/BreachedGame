@@ -87,8 +87,9 @@ public class MinigameManager : MonoBehaviour
 
     public void ShowSuccess(string objectiveName)
     {
-        ObjectiveCompleteGif.SetActive(true);
-        StartCoroutine(TextDisplayTime());
+        ObjectiveStatusDisplay.text = "";
+        FailiureReasonDisplay.text = "";
+        ObjectiveStatusUI.SetActive(true);
         ObjectiveCompleteGif.GetComponent<UISpritesAnimation>().Play();
     }
 
@@ -101,15 +102,18 @@ public class MinigameManager : MonoBehaviour
 
         FailiureReasonDisplay.color = Color.red;
         FailiureReasonDisplay.text = failiureReason;
+        ObjectiveStatusDisplay.gameObject.SetActive(true);
+        ObjectiveStatusUI.SetActive(true);
+        ObjectiveCompleteGif.SetActive(false);
         StartCoroutine(TextDisplayTime());
     }
 
     IEnumerator TextDisplayTime()
     {
-        ObjectiveStatusUI.SetActive(true);
         yield return new WaitForSeconds(objectiveStatusPopUpTime);
         ObjectiveStatusUI.SetActive(false);
-
+        ObjectiveStatusDisplay.text = "";
+        FailiureReasonDisplay.text = "";
     }
 
     public void CheckWon()
