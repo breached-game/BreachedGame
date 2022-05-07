@@ -138,6 +138,7 @@ public class MiniGameManagerTest
 
         //Instantiating ObjectiveStatusUI
         objectiveStatusUI = new GameObject();
+        objectiveStatusUI.AddComponent<Text>();
 
         //Instantiating PlayerUI - needs playerHoldingText, playerHoldingDesc, prefabObjectiveName, prefabObjectiveDescription, mainMenu, crosshair, monitors
         uiManager = new GameObject();
@@ -160,6 +161,8 @@ public class MiniGameManagerTest
         minigameManager.GetComponent<MinigameManager>().UIManager = uiManager;
         minigameManager.GetComponent<MinigameManager>().ObjectiveStatusUI = objectiveStatusUI;
         minigameManager.GetComponent<MinigameManager>().ObjectiveCompleteGif = objectiveCompleteGif;
+        minigameManager.GetComponent<MinigameManager>().ObjectiveStatusDisplay = objectiveStatusUI.GetComponent<Text>();
+        minigameManager.GetComponent<MinigameManager>().FailiureReasonDisplay = objectiveStatusUI.GetComponent<Text>();
         minigameManager.GetComponent<MinigameManager>().objectiveStatusPopUpTime = 1;
         minigameManager.GetComponent<MinigameManager>().commandLine = commandLine;
         minigameManager.GetComponent<MinigameManager>().Caps = caps;
@@ -243,7 +246,7 @@ public class MiniGameManagerTest
         Assert.AreEqual(true, minigameManager.GetComponent<MinigameManager>().ObjectiveCompleteGif.activeSelf);
         yield return new WaitForSeconds(1);
 
-        Assert.AreEqual(false, minigameManager.GetComponent<MinigameManager>().ObjectiveStatusUI.activeSelf);
+        Assert.AreEqual(true, minigameManager.GetComponent<MinigameManager>().ObjectiveStatusUI.activeSelf);
     }
 
     [UnityTest]
