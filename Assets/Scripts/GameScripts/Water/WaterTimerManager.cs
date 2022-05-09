@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//This class handles breaches. It acts as a timer and once the waterGridTimer has expired, a water breach occurs and a new minigame is created.
+/*
+    THIS CLASS HANDLES BREACHES. IT ACTS AS A TIMER AND ONCE THE TIMER HAS EXPIRED, A WATER BREACH OCCURS AND A NEW MINIGAME IS CREATED.
+    Contributors: Srdjan Vojnovic
+*/
 public class WaterTimerManager : MonoBehaviour
 {
     public float waterGridTimer = 30f;
@@ -20,6 +22,7 @@ public class WaterTimerManager : MonoBehaviour
     void Update()
     {
         if (run) {
+            //This decreases the timer.
             if (waterGridTimer > 0)
             {
                 waterGridTimer -= Time.deltaTime;
@@ -28,11 +31,14 @@ public class WaterTimerManager : MonoBehaviour
             {
                 if (!waterGridWait.activeSelf)
                 {
+                    //Sets a new game objective
                     gameObject.GetComponent<DropOffMiniGameManager>().Reset();
+                    //Creates new breach
                     waterGrid.SetActive(true);
                     run = false;
                     if (online)
                     {
+                        //Sets new breachpoint
                         gameObject.transform.Find("Breach Point").gameObject.SetActive(true);
                         gameObject.transform.Find("Dripping").gameObject.SetActive(true);
                         gameObject.GetComponent<DropOffMiniGameManager>().minigameManager.commandNetwork.GetComponent<CommandNetworkManager>().SendNetworkMessage("Another breach has opened up due to the pressure, just when we thought we were safe!", true);

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//This class handles operations and stores values in cells in the height-based water system. 
+/*
+    THIS CLASS HANDLES OPERATIONS AND STORES VALUES IN CELLS IN THE HEIGHT-BASED WATER SYSTEM
+    Contributors: Sam Barnes-Thornton and Srdjan Vojnovic
+*/
 public class GridVertex : ScriptableObject
 {
     private Vector2Int position;
@@ -20,6 +23,7 @@ public class GridVertex : ScriptableObject
 
     public void Setup(Vector2Int arg_position, Vector3 arg_localPosition, float arg_H, float arg_cellSize)
     {
+        //Intialises values for the grid cell
         position = arg_position;
         localPosition = arg_localPosition;
         cellSize = arg_cellSize;

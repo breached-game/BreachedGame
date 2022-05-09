@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*
+    THIS CLASS HANDLES BUOYANCY PHYSICS FOR FLOATING OBJECTS.
+    Contributors: Srdjan Vojnovic
+*/
 public class Floater : MonoBehaviour
 {
     public Rigidbody rigidBody;
@@ -39,11 +44,14 @@ public class Floater : MonoBehaviour
                 Setup();
             }
             Vector3 localPosition = transform.position;
+            //Applies gravity
             rigidBody.AddForceAtPosition(new Vector3(0f, Physics.gravity.y / (rigidBody.mass * floaterCount), 0f), transform.position, ForceMode.Acceleration);
             Vector3Int cellPos = grid.LocalToCell(localPosition - waterGrid.transform.position);
             float waveHeight = gridArray[cellPos.x, cellPos.z].GetVertexPosition().y;
+            //If object is under water
             if (localPosition.y - waterGrid.transform.position.y < waveHeight)
             {
+                //Following equations apply physics to object
                 float displacementMultiplier = Mathf.Clamp01((waveHeight - localPosition.y) / depthBeforeSubmerged) * displacementAmount;
                 rigidBody.AddForceAtPosition(new Vector3(0f, Mathf.Abs(Physics.gravity.y) * displacementMultiplier, 0f), localPosition, ForceMode.Acceleration);
                 rigidBody.AddForce(displacementMultiplier * -rigidBody.velocity * waterDrag * Time.fixedDeltaTime, ForceMode.VelocityChange);
