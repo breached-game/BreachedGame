@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+/*
+THIS CLASS HANDLES ALL OBJECTS WHICH AFFECT WATER. THESE INCLUDE WOOD AND WATER PUMPS.
+Contributors: Srdjan Vojnovic
+*/
+
 public class WaterManager : NetworkBehaviour
 {
     public GameObject[] waterGridObjects;
@@ -10,6 +15,7 @@ public class WaterManager : NetworkBehaviour
 
     private void Start()
     {
+        //Initialises water grids
         for (int i = 0; i < waterGridObjects.Length; i++)
         {
             waterGrids.Add(waterGridObjects[i].GetComponent<WaterGrid>());
@@ -20,6 +26,7 @@ public class WaterManager : NetworkBehaviour
         //waterGrid.run = true;
     }
     
+    //Calls stop breach in water grid, which stops water to inflow.
     public void StopBreach()
     {
         Vector3Int breachPosition;
@@ -42,6 +49,7 @@ public class WaterManager : NetworkBehaviour
         }
     }
 
+    //Adds outflow in water grid
     public void AddPump()
     {
         Vector3Int waterPumpGridPosition;
@@ -65,6 +73,7 @@ public class WaterManager : NetworkBehaviour
         }
     }
 
+    //Removes outflow in water grid.
     public void RemovePump()
     {
         Vector3Int waterPumpGridPosition;

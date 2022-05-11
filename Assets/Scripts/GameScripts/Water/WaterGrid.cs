@@ -5,6 +5,11 @@ using UnityEngine.UI;
 using System;
 using Mirror;
 
+/*
+THIS CLASS HANDLES ALL WATER SIMULATION CALCULATIONS. ALSO, THE CLASS ALLOWS MUFFLED SOUNDS AND SLOWS THE PLAYER WHEN IN WATER.
+Contributors: Sam Barnes-Thornton and Srdjan Vojnovic.
+*/
+
 public class WaterGrid : MonoBehaviour
 {
     public Grid water_grid;
@@ -44,11 +49,13 @@ public class WaterGrid : MonoBehaviour
 
     void Awake()
     {
+        //Initialises variables
         int inflowLocationsSize = inflowLocations.Length;
         System.Random rnd = new System.Random();
         randomIndex = rnd.Next(0, inflowLocationsSize);
 
         players = GameObject.FindGameObjectsWithTag("Player");
+        //Creates a box collider to fit the grid
         boxCollider = gameObject.AddComponent<BoxCollider>();
         meshFilter = gameObject.GetComponent<MeshFilter>();
         meshFilter.mesh = columnMesh = new Mesh();
@@ -59,7 +66,6 @@ public class WaterGrid : MonoBehaviour
         cellSize = water_grid.cellSize[0];
         boxCollider.size = (new Vector3(width, height, depth) * cellSize);
         boxCollider.isTrigger = true;
-        //boxCollider.size /= 2;
         dx = cellSize;
         inflow = true;
         gridArray = new GridVertex[width, depth];
@@ -83,6 +89,7 @@ public class WaterGrid : MonoBehaviour
 
     private void Setup()
     {
+        //Initialises an inflow cell based on a position given by the developers.
         int xInflow;
         int yInflow;
         int zInflow;
@@ -95,13 +102,13 @@ public class WaterGrid : MonoBehaviour
         zInflow = breachPosition.z;
 
         gridArray[xInflow, zInflow].Seth(yInflow);
-        //Instantiate(waterParticleSystem, water_grid.transform.position + water_grid.CellToLocal(new Vector3Int(breachPosition.x, 0, breachPosition.z)), Quaternion.Euler(new Vector3(0, 0, 180)));
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
+            //Starts coroutine if the game object colliding with water grid is a player.
             if (other.gameObject.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 positionCoroutine = StartCoroutine(CheckPlayerPos(other.gameObject));
@@ -110,6 +117,7 @@ public class WaterGrid : MonoBehaviour
         }
         else if (other.gameObject.tag != "Floater")
         {
+            //Sets terrain height for the cells that have an object in it.
             Vector3Int cellPos = water_grid.LocalToCell(other.gameObject.transform.position - water_grid.transform.position);
             Vector3Int cellWidth = water_grid.LocalToCell(other.gameObject.transform.localScale / 2);
 
@@ -149,7 +157,7 @@ public class WaterGrid : MonoBehaviour
                     waterHeight = gridArray[playerGridPos.x, playerGridPos.z].GetVertexPosition().y;
                     if (waterHeight > 0)
                     {
-                        // put water muffle on here
+                        //Slows player and adds muffle effect on player's mic.
                         playerManager.Speed = playerSpeed;
                         playerManager.SprintSpeed = playerSpeed;
                         if (!muffle && Application.platform == RuntimePlatform.WebGLPlayer)
@@ -162,7 +170,7 @@ public class WaterGrid : MonoBehaviour
                     }
                     else
                     {
-                        // put water muffle off here
+                        //If there is no water then muffle effect and player speed limit is removed.
                         playerManager.ResetSpeed();
                         if (muffle && Application.platform == RuntimePlatform.WebGLPlayer)
                         {
@@ -183,18 +191,21 @@ public class WaterGrid : MonoBehaviour
         }
     }
 
+    //Initialises an outflow location called when water pump is placed down.
     public void AddWaterPump(Vector3 position)
     {
         outflowLocations.Add(water_grid.LocalToCell(position - water_grid.transform.position));
         waterFix = true;
     }
 
+    //Removes an outflow location if water pump is picked up.
     public void RemoveWaterPump(Vector3 position)
     {
         outflowLocations.Remove(water_grid.LocalToCell(position - water_grid.transform.position));
         waterFix = false;
     }
 
+    //Stops any inflow - happens when wood is placed in inflow cell.
     public void StopBreach()
     {
         inflow = false;
@@ -206,6 +217,7 @@ public class WaterGrid : MonoBehaviour
         PlayerManager playerManager = other.gameObject.GetComponent<PlayerManager>();
         if (other.gameObject.tag == "Player")
         {
+            //If player leaves water grid, then the coroutine is stopped and water mic muffle effect and player speed limit is removed.
             if (positionCoroutine != null)
             {
                 StopCoroutine(positionCoroutine);
@@ -221,6 +233,7 @@ public class WaterGrid : MonoBehaviour
         }
         else if (other.gameObject.tag != "Floater")
         {
+            //Removes terrain height if object leaves the water grid.
             Vector3Int cellPos = water_grid.LocalToCell(other.gameObject.transform.position - water_grid.transform.position);
             Vector3Int cellWidth = water_grid.LocalToCell(other.gameObject.transform.localScale / 2);
             if (cellWidth.x < 1)
@@ -254,6 +267,7 @@ public class WaterGrid : MonoBehaviour
         return sum;
     }
 
+    //Returns the total inflow to a cell.
     private float SumInflows(GridVertex currentColumn)
     {
         float iR;
@@ -289,6 +303,7 @@ public class WaterGrid : MonoBehaviour
                     playerInWaterManager.inWater = false;
                     StopCoroutine(positionCoroutine);
                 }
+                //If water is low enough, the water grid is set inactive in order to reduce computational cost.
                 gameObject.SetActive(false);
             }
         }
@@ -306,6 +321,7 @@ public class WaterGrid : MonoBehaviour
         int xOutflow;
         int zOutflow;
         int inflowLocationsSize = inflowLocations.Length;
+        //Allows water to inflow into the grid by using a parameter inflowRate which is pre-determined by the developers.
         if (inflow)
         {
             breachPosition = water_grid.LocalToCell(inflowLocations[randomIndex].transform.position - water_grid.transform.position);
@@ -316,6 +332,7 @@ public class WaterGrid : MonoBehaviour
             gridArray[xInflow, zInflow].Seth(gridArray[xInflow, zInflow].Geth() + inflowRate * dt);
         }
 
+        //Allows water to outflow.
         for (int i = 0; i < outflowLocations.Count; i++)
         {
             xOutflow = outflowLocations[i].x;
@@ -329,7 +346,7 @@ public class WaterGrid : MonoBehaviour
             }
         }
 
-
+        //Following for loops implement calculations done by the paper discussed in the report.
         for (int x = 1; x < width - 1; x++)
         {
             for (int z = 1; z < depth - 1; z++)
@@ -389,6 +406,7 @@ public class WaterGrid : MonoBehaviour
             }
         }
         int vertexCount = columnMesh.vertexCount;
+        //Updates each cell's water depth and does marching cubes algorithm. 
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < depth; z++)
@@ -399,7 +417,6 @@ public class WaterGrid : MonoBehaviour
                     dV = dt * (SumInflows(currentColumn) - SumDictionary(currentColumn.GetNewOutflows()));
                     if (currentColumn.Geth() + dV / (dx * dx) + currentColumn.GetH() >= height && x != xInflow && z != zInflow)
                     {
-                        //inflow = false;
                         currentColumn.SetNewh(height - currentColumn.GetH() - 1);
                     }
                     else
