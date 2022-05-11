@@ -1,3 +1,8 @@
+#
+# Generates Unity License required for testing and deployment 
+# Contributors: Daniel Savidge, Luke Benson
+#
+
 name: Get Unity license activation file 🔐
 
 on: workflow_dispatch
