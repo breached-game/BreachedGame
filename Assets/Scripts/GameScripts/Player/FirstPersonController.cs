@@ -5,16 +5,22 @@ using Mirror;
 
 public class FirstPersonController : MonoBehaviour
 {
+    /*
+        SCRIPT FOR CONTROLLING THE FIRST PERSON CAMERA VIEW
+        USING A MOUSE AND WASD
+
+        Contributors: Andrew Morgan and Sam Barnes-Thornton
+    */
 
     [SerializeField]
     public float sensitivity = 5.0f;
     [SerializeField]
     public float smoothing = 2.0f;
-    // the chacter is the capsule
+    // The character is the capsule
     public GameObject character;
-    // get the incremental value of mouse moving
+    // Get the incremental value of mouse moving
     private Vector2 mouseLook;
-    // smooth the mouse moving
+    // Smooth the mouse moving
     private Vector2 smoothV;
     // Used for slowing the camera during shaking
     private float actualSensitivity;
@@ -23,9 +29,6 @@ public class FirstPersonController : MonoBehaviour
     public int maxAngle;
     public bool cameraEnabled = true;
     private bool shaking = false;
-
-    private float originalSpeed;
-    private float originalSprintSpeed;
 
     private Quaternion currentRotation;
 
@@ -36,14 +39,17 @@ public class FirstPersonController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        // Disables player camera for all non-local players
         identity = character.GetComponent<NetworkIdentity>();
         if (!identity.isLocalPlayer)
         {
             GetComponent<Camera>().enabled = false;
         }
+        // Sets playerManager reference for efficient use later on
         playerManager = gameObject.transform.parent.transform.parent.GetComponent<PlayerManager>();
     }
 
+    // Shakes camera when alarms are sounding
     public void StartShake()
     {
         if (gameObject.activeSelf)
@@ -51,12 +57,14 @@ public class FirstPersonController : MonoBehaviour
             shaking = true;
             if (identity.isLocalPlayer)
             {
+                // Slows down player
                 playerManager.Speed = 1f;
                 playerManager.SprintSpeed = 1f;
             }
         }
     }
 
+    // Stops player shaking when alarms are not on
     public void StopShake()
     {
         shaking = false;
@@ -70,7 +78,9 @@ public class FirstPersonController : MonoBehaviour
         {
             if (cameraEnabled)
             {
+                // Shaking boolean used to set parameters slightly different
                 if (shaking) { 
+                    // Player can still move mouse when shaking but it is much slower
                     actualSensitivity = sensitivity/5; 
                     playerManager.Speed = 1f;
                     playerManager.SprintSpeed = 1f;
@@ -86,6 +96,7 @@ public class FirstPersonController : MonoBehaviour
                 mouseLook += smoothV;
                 // vector3.right means the x-axis
                 mouseLook.y = Mathf.Clamp(mouseLook.y, minAngle, maxAngle);
+                // Shaking is done by simply rotating the camera angle to a random value every frame
                 if (shaking)
                 {
                     float x = Random.Range(-3f, 3f);

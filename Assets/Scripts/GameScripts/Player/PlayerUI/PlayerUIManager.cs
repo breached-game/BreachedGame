@@ -6,6 +6,12 @@ using Mirror;
 
 public class PlayerUIManager : MonoBehaviour
 {
+    /*
+        SCRIPT FOR MANAGING THE BARE BONES PLAYER USER
+        INTERFACE: THE SETTINGS MENU AND ITEM DESCRIPTION
+
+        Contributors: Andrew Morgan, Sam Barnes-Thornton and Seth Holdcroft
+    */
     public GameObject playerHoldingText;
     public GameObject playerHoldingDesc;
     public GameObject prefabObjectiveName;
@@ -17,14 +23,12 @@ public class PlayerUIManager : MonoBehaviour
     public Color doneObjectTextColour;
     public Color objectTextColour;
 
-    private List<GameObject> UIElements =  new List<GameObject>();
-    private float offsetY = 5;
-
     GameObject[] players;
     GameObject playerCamera;
 
     private void Start()
     {
+        // Sets the local player camera reference for easy use later on
         players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
@@ -35,78 +39,25 @@ public class PlayerUIManager : MonoBehaviour
         }
     }
 
+    // Updates the description of the item the player is holding
     public void UpdatePlayerHolding(string itemName, string itemDesc)
     {
         playerHoldingText.GetComponent<TextMeshProUGUI>().text = itemName;
         playerHoldingDesc.GetComponent<TextMeshProUGUI>().text = itemDesc;
     }
+
+    // Called by minigame manager to update the objectives that have been completed
     public void updateObjectiveList(Dictionary<string, string> objectives, Dictionary<string, string> doneObjectives)
     {
-        //Removed on screen objectives as they now appear on monitors
-        /*offsetY = 5;
-        foreach (GameObject UIElement in UIElements)
-        {
-            Destroy(UIElement);
-        }
-        UIElements.Clear();
-        if (doneObjectives != null)
-        {
-            foreach (var objective in doneObjectives)
-            {
-                string objectiveName = objective.Key;
-                string objectiveDescription = objective.Value;
-                createObjectiveBox(objectiveName, objectiveDescription, doneObjectTextColour);
-            }
-        }
-
-        foreach (var objective in objectives)
-        {
-            string objectiveName = objective.Key;
-            string objectiveDescription = objective.Value;
-            createObjectiveBox(objectiveName, objectiveDescription, objectTextColour);
-        }*/
         monitors.UpdateObjectives(objectives, doneObjectives);
     }
 
-    private void setPosition(RectTransform UIElement)
-    {
-        //Get this from parent //hard coded to be lazy
-        float defaultx = -100;
-        float defaulty = 100;
-        UIElement.localPosition = new Vector3(defaultx, defaulty - offsetY, 0);
-        UIElements.Add(UIElement.gameObject);
-    }
-    private void createObjectiveBox(string objectiveName, string objectiveDescription, Color colour)
-    {
-        GameObject objectiveNameUI = Instantiate(prefabObjectiveName, new Vector3(0,0,0), Quaternion.identity);
-        objectiveNameUI.transform.SetParent(gameObject.transform, true);
-        objectiveNameUI.GetComponent<TextMeshProUGUI>().text = objectiveName;
-        objectiveNameUI.GetComponent<TextMeshProUGUI>().color = colour;
-
-        //If first then don't update offset
-        if(UIElements.Count != 0)
-        {
-            offsetY = offsetY + objectiveNameUI.GetComponent<RectTransform>().rect.height/2;
-        }
-        setPosition(objectiveNameUI.GetComponent<RectTransform>());
-
-        GameObject objectiveDescriptionUI = Instantiate(prefabObjectiveDescription, new Vector3(0, 0, 0), Quaternion.identity);
-        objectiveDescriptionUI.transform.SetParent(gameObject.transform, true);
-        objectiveDescriptionUI.GetComponent<TextMeshProUGUI>().text = objectiveDescription;
-        objectiveDescriptionUI.GetComponent<TextMeshProUGUI>().color = colour;
-
-        offsetY = offsetY + objectiveDescriptionUI.GetComponent<RectTransform>().rect.height/2;
-        setPosition(objectiveDescriptionUI.GetComponent<RectTransform>());
-
-    }
-
- 
-
-
     public void Update()
     {
+        // Shows the settings menu when escape is pressed
         if (Input.GetKeyDown("escape"))
         {
+            // Sets cursor to appear when the main menu is visible
             Cursor.lockState = CursorLockMode.None;
             if (!mainMenu.activeSelf)
             {
@@ -119,6 +70,7 @@ public class PlayerUIManager : MonoBehaviour
                 {
                     if (players[i].GetComponent<NetworkIdentity>().isLocalPlayer)
                     {
+                        // Stops the local player from being able to look around whilst browsing the settings menu
                         players[i].GetComponent<PlayerManager>().FirstPersonCamera.GetComponent<FirstPersonController>().cameraEnabled = false;
                     }
                 }

@@ -4,30 +4,35 @@ using UnityEngine;
 
 public class DeadBoltCorridor : MonoBehaviour
 {
+    /*
+        SCRIPT TO MANAGE THE OPENING AND CLOSING OF DEADBOLT DOORS IN CORRIDORS.
+        OIGINALLY STOPPED TWO DOORS FROM BEING OPEN AT ONCE BUT THIS CHANGED AS
+        IT BECAME TOO COMPLICATED.
+
+        Contributors: Andrew Morgan
+    */
     public bool playersIn1 = false;
     public bool playersIn2 = false;
     public bool playersMid = false;
     private int numberOfPlayersInMid = 0;
 
-    //The doors
+    // The doors
     public GameObject door1;
     public GameObject door2;
+    // The water blocks (empty game objects with rigid bodies)
     public GameObject doorStop1;
     private Vector3 doorStopPos1;
     public GameObject doorStop2;
     private Vector3 doorStopPos2;
-    //We dont want to play animation if there's not state change
-    /*
-    private bool door1Open = false;
-    private bool door2Open = false;
-    private bool inUse = false;
-    private bool oneToTwo = false;
-    */
     private void Start()
     {
+        // Defining vectors for the water stops for the doors
         doorStopPos1 = doorStop1.transform.position;
         doorStopPos2 = doorStop2.transform.position;
     }
+
+    // Called when a player walks near, and therefore needs to
+    // open, a door
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.transform.tag == "Player")
@@ -38,6 +43,9 @@ public class DeadBoltCorridor : MonoBehaviour
             OnStateChange();
         }
     }
+
+    // Called when a player walks away from the door, as it
+    // therefore needs to be closed
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.transform.tag == "Player")
@@ -48,18 +56,26 @@ public class DeadBoltCorridor : MonoBehaviour
             OnStateChange();
         }
     }
+
+    // Called by various functions to open the correct doors depending on
+    // where players are in the corridor
     public void OnStateChange()
     {
+        // Ifs are used rather than else ifs as there could be players on both sides of the corridor
+        // Checks whether players are near door 1
         if (playersIn1)
         {
             door1.GetComponent<Animator>().Play("Open");
+            // Water stops have to be moved down in order to exit the water collider
             doorStop1.transform.position = new Vector3(doorStopPos1.x, -50, doorStopPos1.z);
         }
+        // Checks whether players are near door 2
         if (playersIn2)
         {
             door2.GetComponent<Animator>().Play("Open");
             doorStop2.transform.position = new Vector3(doorStopPos2.x, -50, doorStopPos2.z);
         }
+        // Stops players from getting stuck in between the doors
         if (playersMid)
         {
             door1.GetComponent<Animator>().Play("Open");
@@ -67,6 +83,7 @@ public class DeadBoltCorridor : MonoBehaviour
             doorStop1.transform.position = new Vector3(doorStopPos1.x, -50, doorStopPos1.z);
             doorStop2.transform.position = new Vector3(doorStopPos2.x, -50, doorStopPos2.z);
         }
+        // Closes all doors if there are no players near or in the corridor
         if (!playersIn1 && !playersIn2 && !playersMid)
         {
             door1.GetComponent<Animator>().Play("Close");
@@ -77,80 +94,4 @@ public class DeadBoltCorridor : MonoBehaviour
             doorStop1.transform.position = doorStopPos1;
         }
     }
-        /*
-         * The solution below is glitchy so to come across as more polished I am simplfying it all
-        else if (playersIn1 && !inUse)
-        {
-            door1.GetComponent<Animator>().Play("Open");
-            doorStop1.transform.position = new Vector3(doorStopPos1.x, -50, doorStopPos1.z);
-            door1Open = true;
-            inUse = true;
-            oneToTwo = true;
-        }
-        else if (playersIn2 && !inUse)
-        {
-            door2.GetComponent<Animator>().Play("Open");
-            doorStop2.transform.position = new Vector3(doorStopPos2.x, -50, doorStopPos2.z);
-            door2Open = true;
-            inUse = true;
-            oneToTwo = false;
-        }
-        else if(oneToTwo)
-        {
-            StartCoroutine(waitForCloseAnimation(1));
-            StartCoroutine(waitForDoorAnimation(2));
-            //doorStop1.transform.position = doorStopPos1;
-        }
-        else if (!oneToTwo)
-        {
-            StartCoroutine(waitForCloseAnimation(2));
-            StartCoroutine(waitForDoorAnimation(1));
-            //doorStop2.transform.position = doorStopPos2;
-        }
-    }
-    IEnumerator waitForDoorAnimation(int doorToBeOpen)
-    {
-        yield return new WaitForSeconds(2f);
-        if(doorToBeOpen == 1)
-        {
-            if (!door1Open)
-            {
-                door1.GetComponent<Animator>().Play("Open");
-                doorStop1.transform.position = new Vector3(doorStopPos1.x, -50, doorStopPos1.z);
-                door1Open = true;
-            }
-        }
-        else
-        {
-            if (!door2Open)
-            {
-                door2.GetComponent<Animator>().Play("Open");
-                doorStop2.transform.position = new Vector3(doorStopPos2.x, -50, doorStopPos2.z);
-                door2Open = true;
-            }
-        }
-    }
-    IEnumerator waitForCloseAnimation(int doorToBeClosed)
-    {
-        yield return new WaitForSeconds(1f);
-        if(doorToBeClosed == 1)
-        {
-            if (door1Open)
-            {
-                door1.GetComponent<Animator>().Play("Close");
-                doorStop1.transform.position = doorStopPos1;
-                door1Open = false;
-            }
-        }
-        else
-        {
-            if (door2Open)
-            {
-                door2.GetComponent<Animator>().Play("Close");
-                doorStop2.transform.position = doorStopPos2;
-                door2Open = false;
-            }
-        }
-    }
-    */
 }

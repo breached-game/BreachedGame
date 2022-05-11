@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class SwimmingFishCycle : MonoBehaviour
 {
+    /*
+        SCRIPT TO ANIMATE THE FISH SWIMMING AROUND IN MENU SCENES AND THE LOBBY
+
+        Contributors: Andrew Morgan
+    */
+
+    // Array of colliders to act as bounds for turning the fish around
     public GameObject[] patrolPoints;
     public int speed = 5;
     public int index = 0;
@@ -15,6 +22,7 @@ public class SwimmingFishCycle : MonoBehaviour
         transform.position += transform.forward * Time.deltaTime * speed;
     }
 
+    // Checks if fish have hit the bounds of their 'patrol'
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == patrolPoints[index])

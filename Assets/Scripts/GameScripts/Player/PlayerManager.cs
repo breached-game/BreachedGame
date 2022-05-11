@@ -6,6 +6,11 @@ using Mirror;
 
 public class PlayerManager : NetworkBehaviour
 {
+    /*
+        SCRIPT FOR MANAGING ALL PLAYER INTERACTIONS AND MOVWEMENT WITHIN THE GAME ENVIRONMENT
+
+        Contributors: Andrew Morgan, Sam Barnes-Thornton and Seth Holdcroft
+    */
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
 
@@ -20,6 +25,7 @@ public class PlayerManager : NetworkBehaviour
     public GameObject objectPlayerHas = null;
     public GameObject torch;
 
+    // Used for when a player has temporarily moved to a different camera for a minigam
     public bool disableInteractionsForMinigame = false;
 
     public float defaultSpeed;
@@ -27,6 +33,7 @@ public class PlayerManager : NetworkBehaviour
     public bool inWater = false;
     public bool soundPlaying = false;
 
+    // Audio source for when the player is walking through water
     private AudioSource waterWalking;
 
     private GameObject minimapCamera;
@@ -42,10 +49,10 @@ public class PlayerManager : NetworkBehaviour
         waterWalking = GetComponent<AudioSource>();
         _controller = GetComponent<CharacterController>();
         identity = GetComponent<NetworkIdentity>();
+        // Makes sure cursor is locked when a player first joins
         Cursor.lockState = CursorLockMode.Locked;
 
-        // #Critical
-        // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
+        // We flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
         DontDestroyOnLoad(this.gameObject);
         defaultSpeed = Speed;
         defaultSprintSpeed = SprintSpeed;
@@ -59,21 +66,18 @@ public class PlayerManager : NetworkBehaviour
 
         minimapCamera = GameObject.FindGameObjectWithTag("MinimapCamera");
         minimapCameraController = minimapCamera.GetComponent<MinigameCameraScript>();
-
-
-        //Debug.Log(minimapCamera.name);
-        
-
     }
+
+
     private void Start()
     {
         TurnOnAudio();
     }
 
+    // Turns on local player's audio listener
     public void TurnOnAudio()
     {
-        // #Important
-        // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
+        // Used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
         if (identity.isLocalPlayer)
         {
             PlayerManager.LocalPlayerInstance = this.gameObject;
@@ -82,10 +86,10 @@ public class PlayerManager : NetworkBehaviour
     }
 
 
+    // Used to turn off the local player's audio listener if another camera has to be used for some reason
     public void TurnOffAudio()
     {
-        // #Important
-        // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
+        // Used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
         if (identity.isLocalPlayer)
         {
             PlayerManager.LocalPlayerInstance = this.gameObject;
@@ -93,38 +97,15 @@ public class PlayerManager : NetworkBehaviour
         }
     }
     #region Player Sync
-    // Legacy Authority Code
-    /*
-    [Command]
-    public void CmdAssignAurthority(GameObject wantsAurthority)
-    {
-        GetComponent<NetworkIdentity>().connectionToClient.clientOwnedObjects.Add(wantsAurthority.GetComponent<NetworkIdentity>());
-        wantsAurthority.gameObject.GetComponent<NetworkIdentity>().AssignClientAuthority(GetComponent<NetworkIdentity>().connectionToClient);
-        print("Player has given " + wantsAurthority.transform.name + " Aurthority");
-
-
-        /*var networkIdentity = wantsAurthority.gameObject.GetComponent<NetworkIdentity>();
-        networkIdentity.AssignClientAuthority(identity.connectionToClient);
-
-    }
-    */
-    /*
-    [Command]
-    public void CmdRemoveAurthority(GameObject wantsRemovedAurthority)
-    {
-        wantsRemovedAurthority.GetComponent<NetworkIdentity>().RemoveClientAuthority();
-        print("Player has removed " + wantsRemovedAurthority.transform.name + " Aurthority");
-        /* var networkIdentity = wantsRemovedAurthority.gameObject.GetComponent<NetworkIdentity>();
-         networkIdentity.AssignClientAuthority(identity.connectionToClient);
-    }
-    */
-
+    // Each local player has authority to call commands on the server
+    // The commands called here are not in PlayerNetworkManage because
+    // they directly relate to what the local player is holding
     public void CallCmdPickupObject(GameObject objectBeingPickedUp)
     {
         CmdPickUpObject(objectBeingPickedUp);
     }
-   
 
+    // Picks up an object if it is available and sets all necessary resulting parameters
     [Command]
     public void CmdPickUpObject(GameObject objectBeingPickedUp)
     {
@@ -142,6 +123,8 @@ public class PlayerManager : NetworkBehaviour
         }
         else print("Player tried to pick up none active gameobject");
     }
+
+    // Relays to all clients that the player has picked up an object
     [ClientRpc]
     void UpdatePickUpObjects(GameObject player, GameObject objectBeingPickedUp)
     {
@@ -154,9 +137,12 @@ public class PlayerManager : NetworkBehaviour
             playerManager.updateItemText();
         }
         objectBeingPickedUp.SetActive(false);
+        // Visual effect is called using PlayerNetworkManager
         playerManager.VisualEffectOfPlayerPickingUpItem(objectBeingPickedUp);
 
     }
+    
+    // Drops an item if the player is holding one
     [Command]
     public void CmdDropItem()
     {
@@ -178,6 +164,8 @@ public class PlayerManager : NetworkBehaviour
         playerManager.VisualEffectOfPlayerDroppingItem();
         droppedItem.GetComponent<InteractionManager>().pickedUp = false;
     }
+
+    // Relays to all clients that the player has dropped an item
     [ClientRpc]
     void UpdateDropItem(NetworkIdentity playerID)
     {
@@ -240,6 +228,8 @@ public class PlayerManager : NetworkBehaviour
     private float translation;
     private float straffe;
 
+
+    // Resets speed back to defaults when it has been changed (either for water or shaking)
     public void ResetSpeed()
     {
         Speed = defaultSpeed;
@@ -251,9 +241,10 @@ public class PlayerManager : NetworkBehaviour
         if (identity.isLocalPlayer)
         {
             // Input.GetAxis() is used to get the user's input
-            // You can furthor set it on Unity. (Edit, Project Settings, Input)
+            // You can further set it on Unity. (Edit, Project Settings, Input)
             Vector3 move = new Vector3(translation, 0, straffe);
 
+            // Checks whether the user is holding down shift (to sprint)
             if(Input.GetAxisRaw("Sprint") != 0)
             {
                 translation = Input.GetAxis("Vertical") * SprintSpeed * Time.deltaTime;
@@ -269,46 +260,55 @@ public class PlayerManager : NetworkBehaviour
             _controller.Move(translation *  transform.forward);
             _controller.Move(straffe *  transform.right);
             
+            // Makes sure player is on the ground (-10 is the approximated value for gravity)
             if (!_controller.isGrounded)
             {
                 _controller.Move(new Vector3(0, -10, 0) * Time.deltaTime);
             }
 
+            // Drops item if G is pressed
             if (Input.GetKeyDown(KeyCode.G) && objectPlayerHas != null)
             {
                 CmdDropItem();
             }
 
-            //check if we have torch 
+            // Check if we have torch 
             if (objectPlayerHas != null)
             {
                 if (objectPlayerHas.transform.name == "Torch")
                 {
+                    // Set light to be on
                     torch.SetActive(true);
                 }
-                //Update the item text
+                // Update the item text
                 updateItemText();
             }
 
-            //Animation Control
+            // Animation Control
+            // Player is not moving:
             if (move == new Vector3(0, 0, 0))
             {
-
+                // Moving animation is turned off
                 PlayerModel.GetComponent<Animator>().SetBool("Moving", false);
                 if (soundPlaying)
                 {
+                    // No water walking sound is played even if in water
                     waterWalking.Stop();
                     soundPlaying = false;
                 }
             }
+            // Player is moving
             else
             {
+                // Moving animation turned on
                 PlayerModel.GetComponent<Animator>().SetBool("Moving", true);
+                // Turns on water walking sound if it is not playing and player is in water
                 if (inWater && !soundPlaying)
                 {
                     waterWalking.Play();
                     soundPlaying = true;
                 }
+                // Turns off water walking sound if player not in water
                 else if(!inWater && soundPlaying)
                 {
                     waterWalking.Stop();
@@ -319,9 +319,10 @@ public class PlayerManager : NetworkBehaviour
         tagMapMarkerToCurrentFloor();
     }
 
+
+    // Moves player minimap marker to be on the right floor
     private void tagMapMarkerToCurrentFloor()
     {
-
         if (minimapToken.layer  == LayerMask.NameToLayer("FirstFloor"))
         {
             if (identity.transform.position.y > switchFloorHeight) // if player above the switch floor height
@@ -329,10 +330,6 @@ public class PlayerManager : NetworkBehaviour
                 minimapToken.layer = LayerMask.NameToLayer("SecondFloor");
                 if (identity.isLocalPlayer)
                 {
-                    /*Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);
-                    minimapCamera.GetComponent<Camera>().cullingMask = LayerMask.NameToLayer("SecondFloor"); // 9 is layer of second floor
-                    Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);*/
-                    //minimapCamera.GetComponent<Camera>().cullingMask = 512;
                     minimapCameraController.TransformToSecondFloorView();
                 }
             }
@@ -344,10 +341,6 @@ public class PlayerManager : NetworkBehaviour
                 minimapToken.layer = LayerMask.NameToLayer("FirstFloor");
                 if (identity.isLocalPlayer)
                 {
-                    /* Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);
-                     minimapCamera.GetComponent<Camera>().cullingMask = LayerMask.NameToLayer("FirstFloor") << 0; // 8 is layer of first floor
-                     Debug.Log(minimapCamera.GetComponent<Camera>().cullingMask);*/
-                    //minimapCamera.GetComponent<Camera>().cullingMask = 256;
                     minimapCameraController.TransformToFirstFloorView();
 
                 }
@@ -356,10 +349,10 @@ public class PlayerManager : NetworkBehaviour
 
     }
 
+
+    // Updates the item text for what the player is holding
     public void updateItemText()
     {
-        //if(this.gameObject )
-        //TERRIBLE PRACTICE
         GameObject UI = GameObject.Find("Canvas/PlayerUI");
         PlayerUIManager UIManager;
         if (UI != null)

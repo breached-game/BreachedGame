@@ -28,6 +28,7 @@ public class Setup : MonoBehaviour
 
     private void Awake()
     {
+        // Sets local client's player in local variable so it can be referenced easily later on
         players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {

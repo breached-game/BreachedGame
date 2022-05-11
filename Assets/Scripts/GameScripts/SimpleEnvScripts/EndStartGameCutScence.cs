@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class EndStartGameCutScence : MonoBehaviour
 {
-    // Start is called before the first frame update
+    /*
+        SIMPLE SCRIPT FOR RUNNING THE CUT SCENE
+
+        Contributors: Andrew Morgan
+    */
     void Start()
     {
         StartCoroutine(cutscence());
@@ -13,6 +17,5 @@ public class EndStartGameCutScence : MonoBehaviour
     IEnumerator cutscence()
     {
         yield return new WaitForSeconds(7f);
-        print("Here we load the scence");
     }
 }

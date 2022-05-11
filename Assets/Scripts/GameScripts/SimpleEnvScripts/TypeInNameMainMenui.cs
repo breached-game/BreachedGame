@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class TypeInNameMainMenui : MonoBehaviour
 {
+    /*
+        SCRIPT FOR ENTERING NAMES IN THE MAIN MENU
+        NOT IN THE CURRENT VERSION BUT INCLUDED FOR
+        FUTURE USE
+
+        Contributors: Andrew Morgan
+    */
     public string playerName = "";
+    // List of prefab models for each letter
     public List<GameObject> alphabet;
     public float interval = 0.5f;
+    // Prefab models for displaying errors
     public GameObject ErrorDisplayCannotDelete;
     public GameObject ErrorDisplayNotChar;
 
     // Update is called once per frame
     void Update()
     {
+        // Simply checks whether each letter has been pressed and adds that to the name
+        // Also displays the corresponding prefab model
         if (Input.GetKeyDown(KeyCode.A) && playerName.Length < transform.childCount) AddLetter(1, playerName.Length);
         else if (Input.GetKeyDown(KeyCode.B) && playerName.Length < transform.childCount) AddLetter(2, playerName.Length);
         else if (Input.GetKeyDown(KeyCode.C) && playerName.Length < transform.childCount) AddLetter(3, playerName.Length);
@@ -48,12 +59,16 @@ public class TypeInNameMainMenui : MonoBehaviour
             }
         }
     }
+
+    // Coroutine displaying error model if they occur
     IEnumerator DisplayNotPossible(GameObject error)
     {
-            error.SetActive(true);
-            yield return new WaitForSeconds(interval);
-            error.SetActive(false);
+        error.SetActive(true);
+        yield return new WaitForSeconds(interval);
+        error.SetActive(false);
     }
+
+    // Adds prefab letter model to screen display
     void AddLetter(int alphbetNum, int index)
     {
         GameObject letter;

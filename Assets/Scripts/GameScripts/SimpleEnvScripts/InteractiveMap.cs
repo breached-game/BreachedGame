@@ -7,6 +7,11 @@ using Mirror;
 
 public class InteractiveMap : MonoBehaviour
 {
+    /*
+        SCRIPT FOR MANAGING THE INTERACTIVE MAP IN THE CONTROL ROOM
+
+        Contributors: Andrew Morgan
+    */
     public bool topFloor = true;
     public GameObject RoomInfo;
     public GameObject Map;
@@ -19,20 +24,26 @@ public class InteractiveMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Sets variable to Unity component for later reference
         roomText = RoomInfo.GetComponent<TextMeshPro>();
     }
 
     public void setRoomInfo(string roomInfo, GameObject room)
     {
+        // Checks whether player is close enough to interact
         if (localPlayerInside != true) return;
+        // Sets current highlighted room to be a standard blue hologram
         if (activeRoom != null)
         {
             if (activeRoom != room) activeRoom.GetComponent<MeshRenderer>().material = blueHalogram;
         }
+        // Sets currently selected room to be green
         activeRoom = room;
         room.GetComponent<MeshRenderer>().material = greenHalogram;
         roomText.text = roomInfo;
     }
+
+    // Used to changed the floor that the map is displaying
     public void setFloor(int floor)
     {
         if (localPlayerInside != true) return;
@@ -47,6 +58,8 @@ public class InteractiveMap : MonoBehaviour
             Map.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
+
+    // Checks whether collided player is local and sets that they are close enough to interact
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.transform.tag == "Player")
@@ -57,6 +70,8 @@ public class InteractiveMap : MonoBehaviour
             }
         }
     }
+
+    // Checks whether collided player is local and sets that they are now too far away
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.transform.tag == "Player")

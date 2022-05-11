@@ -15,12 +15,14 @@ public class LobbySetup : MonoBehaviour
 
     void Start()
     {
+        // Finds all players in the scene and turns on their audio listeners
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
             print("On");
             player.GetComponent<PlayerManager>().TurnOnAudio();
         }
+        // Queues command line messages for settings etc.
         commandManager = commandObject.GetComponent<CommandManager>();
         commandManager.QueueMessage("Welcome to the lobby area!");
         commandManager.QueueMessage("Please wait until all of your team are in the lobby to press the red button");

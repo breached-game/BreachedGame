@@ -6,15 +6,28 @@ using UnityEngine.UI;
 
 public class PlayerNetworkManager : NetworkBehaviour
 {
+    /*
+        STUBS SCRIPT FOR ALL NETWORKED FUNCTION CALLS FROM EACH PLAYER
+        PLAYER MODEL IS ONLY OBJECT WITH AUTHORITY SO EVERYTHING MUST
+        COME THROUGH THIS
+
+        Contributors: Sam Barnes-Thornton, Andrew Morgan, Seth Holdcroft, Srdjan Vojnovic, Luke Benson
+    */
+
+    // Sync variables for the master timer
     [SyncVar]
     private float masterTime;
     [SyncVar]
     bool timerStarted = false;
+    // SyncList so that the random colour combination can be relayed to each client
     SyncListString ColourCombo = new SyncListString();
 
+    // Length of time for main game to take
     float time = 480f;
+    // Increments for time updates
     int increments = 2000;
 
+    // Indicates whether particular player pressed the start game button
     private bool starter = false;
 
     private GameObject Timer;
@@ -31,20 +44,22 @@ public class PlayerNetworkManager : NetworkBehaviour
     private GameObject alarms;
     private PressureAlarm alarmManager;
 
+    // Colour options for random combination
     string[] colours = new string[] { "red", "green", "blue" };
     private Setup setupManager;
+    // Length of random colour combination
     private int comboLength = 5;
     private bool missileStarted = false;
     private bool gameEnded = false;
 
     private bool orientationEnded = false;
 
+    // Possible names for players in the game
     string[] names = new string[] { "Lt.Barnes", "Lt.Holdcroft", "Lt.Morgan", "Lt.Vojnovic" };
 
+    // Public list of materials for player models (each player is a different colour)
     public List<Material> playerMats;
 
-
-    // Pass in the gameobject, data, 
     void Awake()
     {
         networkIdentity = GetComponent<NetworkIdentity>();
@@ -52,58 +67,75 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     void Start()
     {
+        // Sets various Unity object references for use later on
         networkManager = GameObject.Find("NetworkManager");
         myNetworkManager = networkManager.GetComponent<MyNetworkManager>();
         cameraController = gameObject.GetComponentInChildren<FirstPersonController>();
+        // Sets callback for colour combo SyncList
         ColourCombo.Callback += onComboUpdated;
     }
 
+    // Networking for scene changes
     #region:SceneChange
+
+    // Changes the scene on the server
     [Command]
     public void CmdChangeScene(string scene)
     {
         myNetworkManager.ServerChangeScene(scene);
     }
 
+    // Manages changing to the victory scene
     public void ChangeToVictory()
     {
+        // Makes sure that multiple players don't try to change the scene
         if (!gameEnded)
         {
             gameEnded = true;
             CmdEndGame();
+            // Turns off muffle
             if (GetComponent<PlayerManager>().inWater && Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 VoiceWrapper.waterMicOff();
             }
+            // Turns off player cameras as they are not needed in victory scene
             CmdChangeCamera(false);
             CmdChangeScene("EndGameWin");
         }
     }
 
+    // Manages changing to the lose scene
     public void ChangeToLose()
     {
+        // Makes sure that multiple players don't try to change the scene
         if (!gameEnded)
         {
             gameEnded = true;
             CmdEndGame();
+            // Turns off muffle
             if (GetComponent<PlayerManager>().inWater && Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 VoiceWrapper.waterMicOff();
             }
+            // Turns off player cameras as they are not needed in victory scene
             CmdChangeCamera(false);
             CmdChangeScene("EndGameLose");
         }
     }
 
+    // Changes from lobby to orientation
     public void ChangeToSub()
     {
         CmdSetPlayerNames();
+        // Master player set as one that presses start button
         starter = true;
         CmdChangeScene("Orientation");
     }
 
+    // Runs cut scene after dinner plate has been pressed
     IEnumerator FinishOrientationTime()
     {
+        // Player cameras turned off as not needed
         CallChangeCameras(false);
         myNetworkManager.ServerChangeScene("StartGame");
         yield return new WaitForSeconds(7f);
@@ -111,12 +143,14 @@ public class PlayerNetworkManager : NetworkBehaviour
         myNetworkManager.ServerChangeScene("Submarine");
     }
 
+    // Command to set all players' cameras to either be on or off
     [Command]
     public void CmdChangeCamera(bool active)
     {
         CallChangeCameras(active);
     }
 
+    // RPC call setting cameras to be on or off
     [ClientRpc]
     public void CallChangeCameras(bool active)
     {
@@ -131,6 +165,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    // Networking for the control rod minigame
     #region:ControlRod
     public void MoveControlRod(Vector3 direction, float magnitude, GameObject controlRod)
     {
@@ -188,26 +223,6 @@ public class PlayerNetworkManager : NetworkBehaviour
             player.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
-    }
-    #endregion
-
-    #region:Periscope
-    public void PeriscopeSendCurrentPlayer(GameObject player, GameObject controlRodController)
-    {
-        CmdPeriscopeSendCurrentPlayer(player, controlRodController);
-    }
-
-    [Command]
-
-    public void CmdPeriscopeSendCurrentPlayer(GameObject player, GameObject controlRodController)
-    {
-        PeriscopeSetCurrentPlayer(player, controlRodController);
-    }
-
-    [ClientRpc]
-    public void PeriscopeSetCurrentPlayer(GameObject player, GameObject controlRodController)
-    {
-        controlRodController.gameObject.GetComponent<PeriscopeView>().currentPlayer = player;
     }
     #endregion
 

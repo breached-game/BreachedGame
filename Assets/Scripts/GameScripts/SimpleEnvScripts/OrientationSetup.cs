@@ -6,6 +6,11 @@ using Mirror;
 
 public class OrientationSetup : MonoBehaviour
 {
+    /*
+        COORDINATES THE SETUP OF THE ORIENTATION SCENE AND THE MINIMAP
+
+        Contributors: Sam Barnes-Thornton and Seth Holdcroft
+    */
     public GameObject spawnPoint;
     private GameObject[] players;
     public GameObject playerUI;
@@ -21,12 +26,15 @@ public class OrientationSetup : MonoBehaviour
 
     private void Awake()
     {
-       players = GameObject.FindGameObjectsWithTag("Player");
+        // Finds all player game objects in the game
+        players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
+            // Checks if player is local client
             if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
             {
                 localPlayer = player;
+                // Sets the minimap colour for the local player
                 player.GetComponent<PlayerManager>().minimapToken.SetActive(true);
                 player.GetComponent<PlayerManager>().minimapToken.GetComponent<MeshRenderer>().material = localPlayerMinimapColour;
             }
@@ -39,7 +47,6 @@ public class OrientationSetup : MonoBehaviour
         foreach (GameObject player in players)
         {
             playerUI.SetActive(true);
-            //GARBAGE CODING PRACTICE BELOW
             int children = playerUI.transform.childCount;
             for (int i = 0; i < children; i++)
             {
@@ -55,6 +62,7 @@ public class OrientationSetup : MonoBehaviour
     }
     private void Update()
     {
+        // Fixes problem of players occasionally falling through the map
         if (localPlayer != null)
         {
             if (localPlayer.transform.position.y < 0)
@@ -63,6 +71,8 @@ public class OrientationSetup : MonoBehaviour
             }
         }
     }
+
+    // Queues the command line messages to explain the orientation scene
     public void CaptainIntro()
     {
         commandLine.QueueMessage("Welcome to the night shift on HMS Coronation", true);
