@@ -1,12 +1,15 @@
-// Whenever a new message is received, we check if it’s intended for us and whether it’s
-//from https://www.dmcinfo.com/latest-thinking/blog/id/9852/multi-user-video-chat-with-webrtc
-// for setting a new peer or initiating the connection.
-// SDP stands for Session Description Protocol.
+//Inspired by https://www.dmcinfo.com/latest-thinking/blog/id/9852/multi-user-video-chat-with-webrtc
 
-// key is uuid, values are peer connection object and user defined display name string
+/*
+VOICE CONNECTIONS AND COMMUNTICATIONS MANAGER
+Contributors: Daniel Savidge and Luke Benson 
+*/
+
+//Key is uuid, values are peer connection object and user defined display name string
 var peerConnections = {};
 
 const peerConnectionConfig = {
+  //Defines server to send ICE candidates
   iceServers: [
     {
       urls: "turn:breached-coturn.icedcoffee.dev:7777",
@@ -16,11 +19,13 @@ const peerConnectionConfig = {
     //{ urls: "stun:stun.services.mozilla.com" },
   ],
 };
+
+//Deals with messages from peers via the signalling server
 function gotMessageFromServer(message) {
   var signal = JSON.parse(message.data);
   var peerUuid = signal.uuid;
 
-  // Ignore messages that are not for us or from ourselves
+  //Ignore messages that are not for us or from ourselves
   if (
     peerUuid == localUuid ||
     (signal.dest != localUuid && signal.dest != "all")
@@ -28,7 +33,7 @@ function gotMessageFromServer(message) {
     return;
 
   if (signal.displayName && signal.dest == "all") {
-    // set up peer connection object for a newcomer peer
+    //Set up peer connection object for a newcomer peer
     setUpPeer(peerUuid, signal.displayName);
     serverConnection.send(
       JSON.stringify({
@@ -38,14 +43,13 @@ function gotMessageFromServer(message) {
       })
     );
   } else if (signal.displayName && signal.dest == localUuid) {
-    // this is sent back to user after they join server
-    // initiate call if we are the newcomer peer
+    //This is sent back to user after they join server AND initiates call if we are the newcomer peer
     setUpPeer(peerUuid, signal.displayName, true);
   } else if (signal.sdp) {
+    //Deal with offers to establish peer connection
     peerConnections[peerUuid].pc
       .setRemoteDescription(new RTCSessionDescription(signal.sdp))
       .then(function () {
-        // Only create answers in response to offers
         if (signal.sdp.type == "offer") {
           peerConnections[peerUuid].pc
             .createAnswer()
@@ -62,8 +66,7 @@ function gotMessageFromServer(message) {
       .catch(errorHandler);
   }
 }
-// Once we have a new peer, we can add them to the peerConnections object
-// with the UUID as a key.
+// Once we have a new peer, we can add them to the peerConnections object with the UUID as a key.
 function setUpPeer(peerUuid, displayName, initCall = false) {
   peerConnections[peerUuid] = {
     displayName: displayName,
@@ -90,10 +93,11 @@ function setUpPeer(peerUuid, displayName, initCall = false) {
   }
 }
 
-// New imported function
+//Checks for disconnection
 function checkPeerDisconnect(event, peerUuid) {
   var state = peerConnections[peerUuid].pc.iceConnectionState;
   console.log(`connection with peer ${peerUuid} ${state}`);
+  //Sends status update through unity captain command line
   window.unityInstance.SendMessage(
     "MicManager",
     "PrintMsgCaptain",
@@ -101,10 +105,10 @@ function checkPeerDisconnect(event, peerUuid) {
   );
   if (state === "failed" || state === "closed" || state === "disconnected") {
     delete peerConnections[peerUuid];
-    //start();
   }
 }
 
+//Creates html elements to assign incoming peer audio
 function gotRemoteStream(event, peerUuid) {
   console.log(`got remote stream, peer ${peerUuid}`);
   console.log(event.streams[0]);
@@ -115,6 +119,7 @@ function gotRemoteStream(event, peerUuid) {
   document.getElementsByTagName("body")[0].appendChild(audioElement);
 }
 
+//Forwards on ICE candidates to other peers
 function gotIceCandidate(event, peerUuid) {
   if (event.candidate != null) {
     serverConnection.send(
@@ -123,6 +128,7 @@ function gotIceCandidate(event, peerUuid) {
   }
 }
 
+//Sets up description for ICE candidates
 function createdDescription(description, peerUuid) {
   console.log(`got description, peer ${peerUuid}`);
   peerConnections[peerUuid].pc
@@ -139,6 +145,7 @@ function createdDescription(description, peerUuid) {
     .catch(errorHandler);
 }
 
+//Error handler
 function errorHandler(error) {
   console.log(error);
 }

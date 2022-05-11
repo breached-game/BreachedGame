@@ -2,22 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+THIS CLASS HANDLES COMMUNICATION BETWEEN JAVASCRIPT AND UNITY TO INITIALISE VOICE COMMUNICATION.
+Contributors: Daniel Savidge and Luke Benson 
+*/
+
+
 public class MicManagerScript : MonoBehaviour
 {
     public GameObject commandObject;
     private CommandManager commandManager;
-    
+    //Stop object getting destroyed on scene change
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
     }
-    // Start is called before the first frame update
+
+    //Gets command line object and starts voice communication process
     void Start()
     {
-        // removed hello testing call as gave error abort on stack trace. 
-        //Debug.Log("About to call hello function");
-        //VoiceWrapper.Hello();
-        //Debug.Log("finsihed calling hello function");
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
             commandManager = commandObject.GetComponent<CommandManager>();
@@ -25,7 +28,6 @@ public class MicManagerScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -34,7 +36,7 @@ public class MicManagerScript : MonoBehaviour
     //Message printed when microphone has been recieved
     void MicRecieved()
     {
-        print("Microphone permission has been granted");
+        print("Microphone permission has been recieved");
     }
 
     //Message printed when microphone has been rejected
@@ -49,7 +51,7 @@ public class MicManagerScript : MonoBehaviour
         print("Microphone permission has been granted");
     }
 
-    //Peer lost connection 
+    //Outputting connection status to captain command line, called from JavaScript
     void PrintMsgCaptain(string state)
     {
         

@@ -1,5 +1,10 @@
-//from https://www.dmcinfo.com/latest-thinking/blog/id/9852/multi-user-video-chat-with-webrtc
-// check if have to import WebSocket stuff
+//Inspired by https://www.dmcinfo.com/latest-thinking/blog/id/9852/multi-user-video-chat-with-webrtc
+
+/*
+CONTAINS WEBRTC JAVASCRIPT FUNCTIONS THAT ARE ACCESSIBLE FROM UNITY. INCLUDING VOICE EFFECTS AND MUTE MICROPHONE FUNCTIONALITY.
+THIS FILE USES HELPER JAVASCRIPT FUNCTIONS WHICH IS REFERENCED IN OUR index.html FILE FOR HANDLING CONNECTIONS AND COMMUNTICATIONS.   
+Contributors: Daniel Savidge and Luke Benson 
+*/
 
 var localUuid;
 var localDisplayName;
@@ -7,9 +12,9 @@ var localStream;
 var serverConnection;
 
 var inWater;
+//Node constructors
 var microphone;
 var gainNode;
-//node constructors
 var AudioContext;
 var context;
 var destination;
@@ -20,26 +25,31 @@ mergeInto(LibraryManager.library, {
     window.alert("Hello world");
   },
 
-  // set up local video stream
+  //Initialises voice connection
   start: function () {
+    //Sets up users id
     localUuid = "_" + Math.random().toString(36).substring(2, 11);
     inWater = false;
 
     console.log("Network Identity = " + localUuid);
-    localDisplayName = localUuid; //could have a better name here
+    localDisplayName = localUuid;
 
+    //Specifies we only need uses audio input
     var constraints = {
       video: false,
       audio: true,
     };
 
+    //Created audio context so audio nodes can be defined and implemented
     AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext();
     destination = context.createMediaStreamDestination();
+    //Defines filter node (muffles microphone)
     biquadFilter = context.createBiquadFilter();
-    gainNode = context.createGain();
     biquadFilter.type = "lowpass";
     biquadFilter.frequency.value = 400;
+    //Defines gain node (volume)
+    gainNode = context.createGain();
     gainNode.gain.value = 1.5;
 
     if (navigator.mediaDevices.getUserMedia) {
@@ -47,38 +57,32 @@ mergeInto(LibraryManager.library, {
         .getUserMedia(constraints)
         .then(function (stream) {
           if (inWater == true) {
-            //setting values of the filter (causes muffled mic sound)
-
             microphone = context.createMediaStreamSource(stream);
-            //connect filter and microphone to destination
+            //Connect filter and microphone to destination
             microphone.connect(gainNode);
             gainNode.connect(biquadFilter);
             biquadFilter.connect(destination);
-            //assign destination to local stream
+            //Assign destination to local stream
             localStream = destination.stream;
           } else {
             microphone = context.createMediaStreamSource(stream);
             microphone.connect(destination);
-
-            //standard stream
             localStream = destination.stream;
           }
           console.log("Got MediaStream:", stream);
-          //window.unityInstance.SendMessage("MicManager", "MicRecieved");
         })
         .catch(function (errorHandler) {
           console.error("Error getting the mic.", errorHandler);
-          //window.unityInstance.SendMessage("MicManager", "MicRejected");
         })
-        // set up websocket and message all existing clients
         .then(function () {
-          //serverConnection = new WebSocket('wss://' + window.location.hostname + ':' + WS_PORT);
+          //Checks microphone permission is allowed
           if (microphone == null) {
             return;
           }
+          //Set up websocket and message all existing clients
           serverConnection = new WebSocket(
             "wss://breached-webrtc.icedcoffee.dev:7777"
-          ); //may need to add port
+          );
           serverConnection.onmessage = gotMessageFromServer;
           serverConnection.onopen = function (event) {
             serverConnection.send(
@@ -90,7 +94,7 @@ mergeInto(LibraryManager.library, {
             );
           };
 
-          //attempt at Reconnect
+          //Reconnects client on disconnection
           serverConnection.onclose = ws.onclose = function (e) {
             console.log(
               "Socket is closed. Reconnect will be attempted in 1 second.",
@@ -109,7 +113,7 @@ mergeInto(LibraryManager.library, {
     }
   },
 
-  //Mute Mic button
+  //Changes users microphone state to and from muted/unmuted
   muteMic: function () {
     if (microphone == null) {
       return;
@@ -133,6 +137,7 @@ mergeInto(LibraryManager.library, {
     }
   },
 
+  //Applies water muffled effect on users voice
   waterMicOn: function () {
     if (microphone == null) {
       return;
@@ -146,6 +151,7 @@ mergeInto(LibraryManager.library, {
     localStream = destination.stream;
   },
 
+  //Disables water muffled effect on users voice
   waterMicOff: function () {
     if (microphone == null) {
       return;
