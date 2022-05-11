@@ -5,6 +5,13 @@ using Mirror;
 
 public class Setup : MonoBehaviour
 {
+    /*
+        IMPLEMENTED IN ORDER TO COMBAT PROBLEMS WITH DESYNCHRONISATION
+        DURING NETWORKED SCENE CHANGES. PROVIDES PLAYERNETWORKMANAGER
+        WITH VARIOUS GAME OBJECTS FOR LATER USE
+
+        Contributors: Sam Barnes-Thornton
+    */
     public GameObject spawnPoint;
     public GameObject[] players;
     public GameObject playerUI;
@@ -18,8 +25,6 @@ public class Setup : MonoBehaviour
     public GameObject commandLine;
     private CommandManager commandLineManager;
     private GameObject localPlayer;
-
-    // Start is called before the first frame update
 
     private void Awake()
     {
@@ -47,17 +52,18 @@ public class Setup : MonoBehaviour
                 player.GetComponent<PlayerManager>().TurnOnAudio();
                 player.GetComponent<PlayerManager>().torch.SetActive(false);
                 player.transform.position = spawnPoint.transform.position;
+                // Calls StartGame in PlayerNetworkManager to setup timers and alarms etc.
                 playerManager.StartGame(this.gameObject);
                 break;
             }
         }
         playerUI.SetActive(true);
-        //GARBAGE CODING PRACTICE BELOW
         int children = playerUI.transform.childCount;
         for (int i = 0; i < children; i++)
         {
             playerUI.transform.GetChild(i).gameObject.SetActive(true);
         }
+        // Uses command line to setup the story for the game
         commandLineManager = commandLine.GetComponent<CommandManager>();
         commandLineManager.QueueMessage("ACTION STATIONS, ACTION STATIONS!", true);
         commandLineManager.QueueMessage("That sea mine has ripped a hole in the sub and water is flooding in!", true);
@@ -66,6 +72,7 @@ public class Setup : MonoBehaviour
         commandLineManager.QueueMessage("I'm pretty sure theres some wooden breach plugs in the stores...", true);
     }
 
+    // Called by PlayerNetworkManager to set the random colour combination for the missiles
     public void SetColourCombo(List<string> combination)
     {
         ColourMiniGameManger colourMinigameManager = colourManager.GetComponent<ColourMiniGameManger>();
@@ -75,6 +82,7 @@ public class Setup : MonoBehaviour
 
     private void Update()
     {
+        // Used to combat strange bug where players fall through map after spawning
         if (localPlayer != null)
         {
             if (localPlayer.transform.position.y < 0)

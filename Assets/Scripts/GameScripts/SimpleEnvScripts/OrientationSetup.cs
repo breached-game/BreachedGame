@@ -35,9 +35,6 @@ public class OrientationSetup : MonoBehaviour
     void Start()
     {
         commandLine = commandObject.GetComponent<CommandManager>();
-        //Bad practice we should pass players in some other way 
-        
-        //lights.GetComponent<LightManager>().TurnPressureAlarmOn();
         lights.GetComponent<LightManager>().TurnPressureAlarmOff();
         foreach (GameObject player in players)
         {

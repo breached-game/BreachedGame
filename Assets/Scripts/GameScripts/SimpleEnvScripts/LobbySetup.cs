@@ -5,9 +5,13 @@ using Mirror;
 
 public class LobbySetup : MonoBehaviour
 {
+    /*
+        TURNS ON AUDIO AND CALLS COMMAND LINE FOR LOBBY
+
+        Contributors: Sam Barnes-Thornton
+    */
     public GameObject commandObject;
     private CommandManager commandManager;
-    // Start is called before the first frame update
 
     void Start()
     {

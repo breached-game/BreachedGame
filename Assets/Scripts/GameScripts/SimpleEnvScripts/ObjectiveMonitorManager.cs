@@ -6,6 +6,12 @@ using TMPro;
 
 public class ObjectiveMonitorManager : MonoBehaviour
 {
+    /*
+        COORDINATES THE TEXT ON MONITORS IN INDIVIDUAL OBJECTIVE ROOMS
+        SIMPLY TAKES IN PUBLIC GAME OBJECTS OF EACH MONITOR
+
+        Contributors: Sam Barnes-Thornton
+    */
     public GameObject EngineMonitor;
     public GameObject ReactorMonitor;
     public GameObject ServerMonitor;
@@ -24,7 +30,8 @@ public class ObjectiveMonitorManager : MonoBehaviour
         MissileText = MissileMonitor.transform.GetChild(1).GetComponent<TextMeshPro>();
     }
 
-    // Update is called once per frame
+    // Called from the control room monitor manager to relay
+    // objectives to these monitors
     public void UpdateObjectiveMonitor(string objectiveLoc, string objective)
     {
         switch (objectiveLoc)
