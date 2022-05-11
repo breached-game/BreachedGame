@@ -6,6 +6,10 @@ using Mirror;
 
 public class ColourMiniGameManger : MonoBehaviour
 {
+    /*
+     Controls the logic of the button minigame (Stop the nuclear bombs going off task). All child components send data to this managaer, and this manager communicates to the minigame manager.
+    Contirbutors: Seth, Andy
+     */
     public List<string> correctColourCombination; // Can make this private and randomly generated -> Laterbase
     private List<string> currentColourCombination = new List<string>();
 
@@ -122,6 +126,8 @@ public class ColourMiniGameManger : MonoBehaviour
             combinationDisplay.transform.GetChild(i).transform.gameObject.GetComponent<MeshRenderer>().material = matOutcome;
         }
     }
+
+
 
     IEnumerator FlickerEffect(Material matFlicker)
     {

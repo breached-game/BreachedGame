@@ -5,6 +5,11 @@ using Mirror;
 
 public class DropOff : NetworkBehaviour
 {
+
+    /*
+     Handles the dropping of items.
+     Contributors : Andy
+     */
     public string itemToBeDroppedOff;
 
     public GameObject dropOffPrefab;

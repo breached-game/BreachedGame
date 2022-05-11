@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class DropOffMiniGameManager : MonoBehaviour
 {
+    /*
+     Manager for the drop off minigames. Handles for both the fix engine and plug up the breaches tasks/
+     Contributors : Andy
+     */
     public string minigameName;
     [TextArea]
     public string minigameObjective;

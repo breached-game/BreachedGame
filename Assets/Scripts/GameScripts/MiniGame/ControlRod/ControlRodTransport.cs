@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+     /*
+     Script used to handle interactions with the control rod controllers for the stop the meltdown minigame.
+     Contributors : Seth, Srdjan
+     */
 public class ControlRodTransport : NetworkBehaviour
 {
     public GameObject controlRodCamera;
@@ -31,6 +35,7 @@ public class ControlRodTransport : NetworkBehaviour
         controlRodRigidBody = controlRod.GetComponent<Rigidbody>();
     }
 
+    //Player enters the control rod point of view if it is empty. Stops there movement and seats them in the control rod controller seats. Shows the new UI for moving the control rods
     public void EnteredController(GameObject player)
     {
         if (currentPlayer == null)

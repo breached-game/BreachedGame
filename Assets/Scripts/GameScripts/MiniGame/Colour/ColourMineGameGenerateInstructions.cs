@@ -5,6 +5,9 @@ using TMPro;
 
 public class ColourMineGameGenerateInstructions : MonoBehaviour
 {
+    /*
+     Redundant file
+     */
     private List<string> textList;
     private string text;
     // Start is called before the first frame update

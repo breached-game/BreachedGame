@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ControlRodManager : MonoBehaviour
+
+    /*
+     Manages the state of the control rod task. Relays information to the minigame mananger
+     Contributors : Seth
+     */
+
 {
+
     private MinigameManager minigameManager;
 
     public GameObject controlRod;

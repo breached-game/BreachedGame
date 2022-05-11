@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class DropOffBatteries : MonoBehaviour
 {
+    /*
+     Script for controlling the drop off batteries task aka fix the engine. 
+     Contributors : Seth
+     */
     public string minigameName;
     [TextArea]
     public string minigameObjective;
