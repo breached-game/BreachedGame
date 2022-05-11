@@ -5,6 +5,11 @@ using System.Collections;
 
 public class UISpritesAnimation : MonoBehaviour
 {
+    /*
+        HANDLES THE ANIMATION OF THE OBJECTIVE COMPLETE GIF
+
+        Contributors: Andrew Morgan
+    */
     public float duration;
 
     [SerializeField] private Sprite[] sprites;
@@ -26,7 +31,6 @@ public class UISpritesAnimation : MonoBehaviour
         {
             for (int i = 0; i < sprites.Length; i++)
             {
-                //i need help here i have no idea why image is null sometimes -Andy
                 if (image != null) image.sprite = sprites[i];
                 yield return new WaitForSeconds(duration);
             }

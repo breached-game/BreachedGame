@@ -6,6 +6,11 @@ using Mirror;
 
 public class LauncherUI : MonoBehaviour
 {
+    /*
+        SETS UP THE PLAYER'S UI FOR EACH SCENE. ALSO HANDLES CONNECTION/DISCONNECTION OF CLIENTS.
+
+        Contributors: Andrew Morgan
+    */
     private NetworkManager manager;
     public GameObject status;
     public GameObject networkManager;
@@ -27,7 +32,7 @@ public class LauncherUI : MonoBehaviour
     {
         StatusLabels();
 
-        //Start player disable UI
+        // Start player disable UI
         if (NetworkClient.isConnected)
         {
             if (ClientScene.localPlayer == null)
@@ -35,8 +40,7 @@ public class LauncherUI : MonoBehaviour
                 ClientScene.AddPlayer(NetworkClient.connection);
                 LobbyUI.SetActive(true);
                 PlayerUI.SetActive(true);
-
-                //TRASH CODING PRACTICE BELOW
+                // Sets all children of the playerUI game object to be active
                 int children = PlayerUI.transform.childCount;
                 for (int i = 0; i < children; i++)
                 {
@@ -45,17 +49,17 @@ public class LauncherUI : MonoBehaviour
                 crosshair.SetActive(true);
             }
         }
-
+        
+        // Displays number of clients currently connected
         if (LobbyUI.activeSelf)
         {
-            //MenuCamera.SetActive(false);
             LobbyUI.GetComponent<Text>().text = countObjects() + "/" + GameObject.Find("NetworkManager").GetComponent<MyNetworkManager>().maxConnections;
         }
     }
 
+    // Counts number of players currently in the scene
     int countObjects()
     {
-
         var go = GameObject.FindGameObjectsWithTag("Player");
         int counter = 0;
 
@@ -93,7 +97,7 @@ public class LauncherUI : MonoBehaviour
         else print("Trying to connect when already connected");
     }
 
-
+    // Used to display the networking status - used for development only
     void StatusLabels()
     {
         // host mode

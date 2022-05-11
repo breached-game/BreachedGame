@@ -6,11 +6,21 @@ using TMPro;
 
 public class CommandManager : MonoBehaviour
 {
+    /*
+        HANDLES THE CAPTAIN 'COMMAND LINE' AT THE TOP OF THE SCREEN
+        BOTH ADJUSTS THE SIZE FOR SCREEN DIMENSIONS AND COORDINATES
+        THE PRINTING OF MESSAGES
+
+        Contributors: Sam Barnes-Thornton
+     */
+
+    // Struct to make the passing of captain's messages more efficient
     private struct Message
     {
         public string msg;
         public bool captain;
     }
+
     private TextMeshProUGUI textMesh;
     private bool typing = false;
     private Queue messages = new Queue();
@@ -18,7 +28,7 @@ public class CommandManager : MonoBehaviour
     public GameObject hudTrap;
     private RectTransform hudRectTransform;
     private Image hudImage;
-    // Start is called before the first frame update
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -31,11 +41,14 @@ public class CommandManager : MonoBehaviour
     void Update()
     {
         Message msg;
+        // Code below adjusts dimensions
         rectTransform.position = new Vector2(Screen.width/2, Screen.height - Screen.height/8);
         rectTransform.sizeDelta = new Vector2(Screen.width / 2.5f, Screen.height / 4);
         hudRectTransform.sizeDelta = new Vector2(Screen.width / 5, Screen.height / 7);
         hudRectTransform.position = new Vector2(Screen.width / 2, Screen.height - hudRectTransform.sizeDelta.y / 2);
         textMesh.fontSize = Screen.height * 0.045f;
+        // Works it's way through the queue of messages, ensuring it is never trying to type multiple
+        // messages at once
         if (!typing && messages.Count != 0)
         {
             typing = true;
@@ -44,6 +57,7 @@ public class CommandManager : MonoBehaviour
         }
     }
 
+    // Queues a message to be written onto the command line
     public void QueueMessage(string msg, bool captain=false)
     {
         Message message = new Message();
@@ -52,22 +66,10 @@ public class CommandManager : MonoBehaviour
         messages.Enqueue(message);
     }
 
-    private Color ChangeHudColour(Color c)
-    {
-        if (c.a == 0.8f)
-        {
-            c.a = 0.25f;
-        }
-        else
-        {
-            c.a = 0.8f;
-        }
-        return c;
-    }
-
+    // Coroutine to type a message on the command line as if it is
+    // being typed by hand
     IEnumerator TypeMessage(Message message)
     {
-        Color colour = hudImage.color;
         string msg = message.msg;
         string currentMsg = "";
         bool captain = message.captain;

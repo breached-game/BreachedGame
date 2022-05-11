@@ -5,6 +5,12 @@ using Mirror;
 
 public class CommandNetworkManager : MonoBehaviour
 {
+    /*
+        USED AS AN ADD-ON TO PLAYERNETWORKMANAGER TO SIMPLIFY THE PROCESS
+        OF WRITING COMMAND LINE MESSAGES THAT EVERY PLAYER NEEDS TO SEE
+
+        Contributors: Sam Barnes-Thornton
+    */
     public GameObject commandObject;
     private CommandManager commandManager;
     private PlayerNetworkManager playerNetworkManager;

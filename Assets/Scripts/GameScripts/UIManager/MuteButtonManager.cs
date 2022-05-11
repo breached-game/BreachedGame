@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class MuteButtonManager : MonoBehaviour
 {
+    /*
+        HANDLES THE SIZING AND STATE CHANGES OF THE MUTE BUTTON
+
+        Contributors: Sam Barnes-Thornton and Andrew Morgan
+    */
     private RectTransform rectTransform;
     public Sprite muted;
     public Sprite unmuted;
@@ -16,6 +21,8 @@ public class MuteButtonManager : MonoBehaviour
     {
         rectTransform = gameObject.GetComponent<RectTransform>();
         actualImage = gameObject.GetComponent<Image>();
+        // Checks whether previous player preference was muted
+        // and changes image accordingly
         if(PlayerPrefs.GetInt("Mute") == 1)
         {
             actualImage.sprite = muted;
@@ -32,6 +39,7 @@ public class MuteButtonManager : MonoBehaviour
         size = Screen.width / 25;
         rectTransform.sizeDelta = new Vector2(size, size);
         rectTransform.localPosition = new Vector3(Screen.width/2 - size/2, Screen.height/2 - size/2);
+        // Allows user to press M to mute/unmute
         if (Input.GetKeyDown(KeyCode.M))
         {
             ChangeState();
@@ -45,6 +53,7 @@ public class MuteButtonManager : MonoBehaviour
             PlayerPrefs.SetInt("Mute", 0);
             print("unmuted");
             actualImage.sprite = unmuted;
+            // Calls jslib function to unmute webrtc
             VoiceWrapper.muteMic();
         }
         else
@@ -52,6 +61,7 @@ public class MuteButtonManager : MonoBehaviour
             PlayerPrefs.SetInt("Mute", 1);
             print("muted");
             actualImage.sprite = muted;
+            // Calls jslib function to mute webrtc
             VoiceWrapper.muteMic();
         }
     }

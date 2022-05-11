@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ControlRodUISetup : MonoBehaviour
 {
+    /*
+        SORTS THE SETUP OF THE CONTROL ROD TASK MOVEMENT BUTTONS
+
+        Contributors: Seth Holdcroft and Andrew Morgan
+    */
     RectTransform ControlRodUI;
     // Start is called before the first frame update
     void Start()
