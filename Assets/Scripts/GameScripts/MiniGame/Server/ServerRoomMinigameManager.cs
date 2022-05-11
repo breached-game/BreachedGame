@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ServerRoomMinigameManager : MonoBehaviour
 {
+
+    /*
+     Handles the logic for the server minigame. Relays to the minigame manager when the task is completed.
+     Contributors : Seth
+     */
     private MinigameManager minigameManager;
     public GameObject doors;
     public GameObject resetButton;

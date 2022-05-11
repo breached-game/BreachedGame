@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ServerRoomDoorSwitch : MonoBehaviour
 {
+
+    /*
+     Handles the logic for the switches in the server task.
+     Contributors : Seth
+     */
     public GameObject doorSwitchManager;
     private int currentValue = 0;
     public int switchID;

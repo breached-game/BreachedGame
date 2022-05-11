@@ -8,6 +8,12 @@ using Mirror;
 
 public class MinigameManager : MonoBehaviour
 {
+    /*
+     Used to handle the states of all the tasks. Recieves Success/Failiure events from each of the tasks, and subsequently communicates this to the correct UI element. 
+     Once all the tasks are completed, starts the final minigame.
+     Contributors : Seth
+     */
+
     public GameObject winScreen; //Not used
     private GameObject[] players;
     

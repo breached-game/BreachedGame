@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class ServerDoorScript : MonoBehaviour
 {
-  
+    /*
+     Handles movement of the doors in the server task. 
+     Contributors : Seth
+     */
+
     private float doorMoveTime = 1f;
 
     private Transform doorTransform;

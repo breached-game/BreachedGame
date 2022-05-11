@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class DoorSwitchManagers : MonoBehaviour
 {
-   
+    /*
+     Controlls the state of the doors used in the server minigame
+     Contributors : Seth
+     */
+
     private List<GameObject> doors =new List<GameObject>();
 
     private Vector3Int currentSwitchState;
@@ -13,8 +17,10 @@ public class DoorSwitchManagers : MonoBehaviour
     private bool success = false;
     private Dictionary<Vector3Int, List<int>> combinationToDoor = new Dictionary<Vector3Int, List<int>>
     {
+
+       //Left handside if the state of the levers, the right hand side shows the resulant state of the doors
         {new Vector3Int(0,0,0), new List<int> {0,0,0,0,0} },
-        {new Vector3Int(0,0,1), new List<int> {1,1,1,1,1} },
+        {new Vector3Int(0,0,1), new List<int> {0,1,1,0,1} },
         {new Vector3Int(0,1,0), new List<int> {1,0,0,0,1} },
         {new Vector3Int(0,1,1), new List<int> {0,1,0,1,0} },
         {new Vector3Int(1,0,0), new List<int> {0,0,1,0,1} },
@@ -45,7 +51,7 @@ public class DoorSwitchManagers : MonoBehaviour
             UpdateDoors();
         }
     }
-
+    // Used when the game is finished
     public void OpenAllDoors()
     {
         success = true;

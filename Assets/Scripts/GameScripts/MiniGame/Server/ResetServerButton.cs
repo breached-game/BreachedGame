@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ResetServerButton : MonoBehaviour
 {
+    /*
+     Script for button used to complete the Fix the server minigame 
+     Contributors : Seth
+     */
     public void ResetButtonPressed() 
     {
         transform.parent.GetComponent<ServerRoomMinigameManager>().Success();
