@@ -706,7 +706,6 @@ GameObject:
   - component: {fileID: 2885201991963974563}
   - component: {fileID: 7371969082908715734}
   - component: {fileID: 7764423650666235636}
-  - component: {fileID: 3634087309234521186}
   - component: {fileID: 2940760453493428066}
   - component: {fileID: 8867522727370857289}
   m_Layer: 0
@@ -800,24 +799,6 @@ MonoBehaviour:
   minAngle: -75
   maxAngle: 75
   cameraEnabled: 1
---- !u!114 &3634087309234521186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6180585762312476838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56edc23782b03f348b83e724b4a5f48d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fog: 0
-  fogColor: {r: 0.14117648, g: 0.41960785, b: 0.8666667, a: 1}
-  fogDensity: 0.1
-  ambientLight: {r: 0, g: 0, b: 0, a: 0}
-  haloStrength: 0
-  flareStrength: 0
 --- !u!114 &2940760453493428066
 MonoBehaviour:
   m_ObjectHideFlags: 0
