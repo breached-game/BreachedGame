@@ -5,7 +5,7 @@ using UnityEngine;
 public class InteractionSO : ScriptableObject
 {
     /*
-        RUN BY THE INTERACTION MANAGER, RunInteraction WILL ALWAYS WRITTEN OVER
+        RUN BY THE INTERACTION MANAGER, RunInteraction WILL ALWAYS BE WRITTEN OVER
         Contributors: Andrew Morgan and Seth Holdcroft
     */
     public virtual void RunInteraction(GameObject interactable, GameObject player)

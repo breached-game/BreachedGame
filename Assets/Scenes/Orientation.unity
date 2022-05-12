@@ -8976,12 +8976,12 @@ RectTransform:
   - {fileID: 1272300845}
   - {fileID: 164496794}
   - {fileID: 399540770}
-  - {fileID: 642728022}
-  - {fileID: 1385784106}
   - {fileID: 1085861630}
+  - {fileID: 642728022}
+  - {fileID: 811669467}
+  - {fileID: 1385784106}
   - {fileID: 1425378277}
   - {fileID: 429146084}
-  - {fileID: 811669467}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12362,7 +12362,7 @@ PrefabInstance:
     - target: {fileID: 3935363263260304104, guid: 4a6377b0d1afbd94fb2a79911e63f89e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 3935363263260304104, guid: 4a6377b0d1afbd94fb2a79911e63f89e,
         type: 3}
@@ -18335,7 +18335,7 @@ PrefabInstance:
     - target: {fileID: 5091893384926821733, guid: 93c32d6c75e7e454d85c86d94ac37261,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5091893384926821733, guid: 93c32d6c75e7e454d85c86d94ac37261,
         type: 3}
@@ -23246,7 +23246,7 @@ RectTransform:
   - {fileID: 1783743118}
   - {fileID: 1942997403}
   m_Father: {fileID: 348614175}
-  m_RootOrder: 17
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -30809,7 +30809,7 @@ RectTransform:
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 348614175}
-  m_RootOrder: 14
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -41171,7 +41171,7 @@ PrefabInstance:
     - target: {fileID: 2202673661340968670, guid: 6f73b2cf26e11974a99182ac6eee8db4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2202673661340968670, guid: 6f73b2cf26e11974a99182ac6eee8db4,
         type: 3}
@@ -55131,19 +55131,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1943604299}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1943604302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943604301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 332b02ae7b7766b42bf2664531116624, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playersDone: []
 --- !u!114 &1943604303
 MonoBehaviour:
   m_ObjectHideFlags: 0

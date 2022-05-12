@@ -9,7 +9,12 @@ public class PlayerNetworkManager : NetworkBehaviour
     /*
         STUBS SCRIPT FOR ALL NETWORKED FUNCTION CALLS FROM EACH PLAYER
         PLAYER MODEL IS ONLY OBJECT WITH AUTHORITY SO EVERYTHING MUST
-        COME THROUGH THIS
+        COME THROUGH THIS.
+
+        GENERAL PATTERN IS:
+        CLIENT CALLS FUNCTION IN THIS SCRIPT
+        THAT FUNCTION CALLS [COMMAND] WHICH RUNS ON THE SERVER
+        [COMMAND] CALLS [CLIENTRPC] WHICH RUNS ON EACH CLIENT
 
         Contributors: Sam Barnes-Thornton, Andrew Morgan, Seth Holdcroft, Srdjan Vojnovic, Luke Benson
     */
@@ -167,12 +172,13 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     // Networking for the control rod minigame
     #region:ControlRod
+
+    // Calculates force for movement and calls command
     public void MoveControlRod(Vector3 direction, float magnitude, GameObject controlRod)
     {
         Vector3 force = direction * magnitude;
         CmdMoveControlRod(force, controlRod);
     }
-
 
     [Command]
     public void CmdMoveControlRod(Vector3 force, GameObject controlRod)
@@ -180,12 +186,15 @@ public class PlayerNetworkManager : NetworkBehaviour
         CmdUpdateControlRodMovement(force, controlRod);
     }
 
+    // Relays the control rod movement to all clients
     [ClientRpc]
     public void CmdUpdateControlRodMovement(Vector3 force, GameObject controlRod)
     {
+        // Moves control rod by adding a force to the rigid body
         controlRod.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
     }
 
+    // Sends a command to let the server know which player is in a specific controller
     public void SendCurrentPlayer(GameObject player, GameObject controlRodController, GameObject lazyNetworkVisualSolution)
     {
         CmdSendCurrentPlayer(player, controlRodController, lazyNetworkVisualSolution);
@@ -198,6 +207,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         SetCurrentPlayer(player, controlRodController, lazyNetworkVisualSolution);
     }
 
+    // Relays to all clients that a player has entered a controller
     [ClientRpc]
     public void SetCurrentPlayer(GameObject player, GameObject controlRodController, GameObject lazyNetworkVisualSolution)
     {
@@ -226,11 +236,14 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    // Networking for the start of the orientation scene
     #region:Orientation
     public void StartOrientation()
     {
         CmdStartOrientation();
     }
+
+    // Simply spawns all of the network objects required for the orientation scene
     [Command]
     public void CmdStartOrientation()
     {
@@ -238,9 +251,13 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    // Networking for the start of the main game
     #region:StartButton
+
+    // Called at the beinning of the submarine scene
     public void StartGame(GameObject setupObject)
     {
+        // Only executes anything if the player is the one who pressed the lobby button
         if (starter)
         {
             CmdStartGame(setupObject);
@@ -255,6 +272,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         StartCoroutine(WaitStartGame(setupObject));
     }
 
+    // Coroutine used to wait for all players to be loaded into the scene before the timer is started
     IEnumerator WaitStartGame(GameObject setupObject)
     {
         yield return new WaitForSeconds(10);
@@ -265,6 +283,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         SetColourCombo();
     }
 
+    // Assigns a name and skin to all players once they have moved into the submarine
     [Command]
     private void CmdSetPlayerNames()
     {
@@ -277,6 +296,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
 
+    // Relays names and skins to all clients
     [ClientRpc]
     public void CallSetNameOnClient(GameObject player, int skin)
     {
@@ -286,6 +306,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         player.GetComponent<PlayerManager>().PlayerModel.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = playerMats[skin];
     }
 
+    // Generates the random colour combination for the missile task
     private void SetColourCombo()
     {
         int r;
@@ -296,6 +317,8 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
 
+    // Used to setup object references on clients for the submarine scene
+    // Without these references the timer and alarms will fail
     [ClientRpc]
     public void UpdateStartGame(GameObject setupObject)
     {
@@ -308,6 +331,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    // Legacy code for a button which turns off the alarms
+    // Left in to show development stages
     #region:PressureButton
     public void PressureAlarmPress(GameObject pressureAlarm)
     {
@@ -325,7 +350,10 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    // Timing for the pressure alarms
     #region:PressureAlarm
+
+    // Coroutine for initiating alarm sounds and shaking at random intervals
     IEnumerator AlarmTimer()
     {
         float wait = 0f;
@@ -345,6 +373,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
 
+    // Checks for object reference and starts alarm
     [ClientRpc]
     void TurnAlarmOn()
     {
@@ -358,6 +387,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
 
+    // Checks for object reference and stops alarm
     [ClientRpc]
     void TurnAlarmOff()
     {
@@ -371,12 +401,14 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
 
+    // Relays camera shake to all clients
     [ClientRpc]
     void ShakeCameraOn()
     {
         cameraController.StartShake();
     }
 
+    // Relays camera shake off to all clients
     [ClientRpc]
     void ShakeCameraOff()
     {
@@ -384,7 +416,10 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    // Networking for dropping off items (now only batteries in the game)
     #region:DropOff
+
+    // Called by a client to say an item has been dropped off
     public void DropOff(GameObject interactable)
     {
         CmdDropOff(interactable);
@@ -395,6 +430,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         CallDroppingOffItem(interactable);
     }
 
+    // Relays to all clients that an item has been dropped off
     [ClientRpc]
     public void CallDroppingOffItem(GameObject interactable)
     {
@@ -402,7 +438,10 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    // Networking for the interactions between the water pump and the water
     #region:Water
+
+    // Called by a client to say they have removed the water pump
     public void CallRemoveWaterPump(GameObject waterPump)
     {
         CmdRemoveWaterPump(waterPump);
@@ -414,6 +453,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         CallRemoveAllWaterPump(waterPump);
     }
 
+    // Relays to all clients that a water pump has been removed
     [ClientRpc]
     public void CallRemoveAllWaterPump(GameObject waterPump)
     {
@@ -422,7 +462,10 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #endregion
 
+    // Networking for stopping and starting breaches
     #region Breach
+
+    // Called by a client to stop a breach (when wood has been placed)
     public void StopBreach(GameObject breach)
     {
         CmdStopBreach(breach);
@@ -434,6 +477,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         StopAllBreaches(breach);
     }
 
+    // Relays the call to stop a breach to all clients
     [ClientRpc]
     public void StopAllBreaches(GameObject breach)
     {
@@ -442,12 +486,16 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #endregion
 
+    // Networking for the colour combination buttons for the missiles
+    // Also includes the missile countdown timer
     #region:ColourButtons
 
+    // Callback function for when the random combination is generated
     void onComboUpdated(SyncListString.Operation op, int index, string oldColour, string newColour)
     {
         switch (op)
         {
+            // We are only interested in when a colour is added to the list
             case SyncListString.Operation.OP_ADD:
                 // index is where it was added into the list
                 // newItem is the new item
@@ -483,6 +531,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
 
+    // Called by a client when they press a button
     public void ButtonPressed(GameObject button)
     {
         CmdButtonPressed(button);
@@ -492,21 +541,23 @@ public class PlayerNetworkManager : NetworkBehaviour
     public void CmdButtonPressed(GameObject button)
     {
         CallUpdateAllButtonPresses(button);
-        //button.transform.parent.GetComponent<ColourMiniGameManger>().sendPressedColour(colour, mat);
         button.transform.GetChild(0).GetComponent<Animator>().Play("Click");
     }
 
+    // Relays that a button has been pressed (will play animation on all clients
     [ClientRpc]
     public void CallUpdateAllButtonPresses(GameObject button)
     {
         button.GetComponent<ColourMiniGameButton>().UpdateAllButtonPresses();
     }
 
+    // Called by a client to start the missile timer when all obectives have been completed
     public void StartMissileTimer()
     {
         CmdStartMissileTimer();
     }
 
+    // Checks the timer has not already been started and initiates a coroutine
     [Command]
     public void CmdStartMissileTimer()
     {
@@ -517,6 +568,8 @@ public class PlayerNetworkManager : NetworkBehaviour
             StartCoroutine(MissileTimer(time));
         }
     }
+
+    // Master coroutine only run on the server which then updates time left to all clients
     IEnumerator MissileTimer(float time)
     {
         float currentTime = time;
@@ -534,6 +587,7 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
 
+    // Relays amount of time left to all clients every second
     [ClientRpc]
     public void UpdateMissileTimer(float time)
     {
@@ -548,7 +602,10 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    // Networking for the main game timer
     #region:Timer
+
+    // Coroutine to count down the time and update the clients at regular intervals
     IEnumerator masterTimer()
     {
         masterTime = 0f;
@@ -558,13 +615,16 @@ public class PlayerNetworkManager : NetworkBehaviour
             masterTime += (time / increments);
             yield return new WaitForSeconds(time / increments);
         }
+        // Players are destroyed at the end of the game
         DestroyAllPlayers();
+        // If the timer ends and the game has not already ended then it changes to the lose screen
         if (!gameEnded)
         {
             myNetworkManager.ServerChangeScene("EndGameLose");
         }
     }
 
+    // Relays time to all players
     [ClientRpc]
     private void UpdateTime()
     {
@@ -620,18 +680,25 @@ public class PlayerNetworkManager : NetworkBehaviour
 
     #endregion
 
+    // Networking for tasks in the orientation phase
+    // This is currently limited but our vision was to include more of a tutorial
+    // within the orientation
     #region Orientation Minigames
-    //Dinner Plate
+    
+    // Called by a player when they interact with the dinner plate
     public void DinnerPlate(GameObject interactable)
     {
         CmdDinnerPlate(interactable);
     }
+
     [Command]
     public void CmdDinnerPlate(GameObject interactable)
     {
         CallDinnerPlate(interactable);
+        // Checks if a player has already interacted
         if (!orientationEnded)
         {
+            // If not it starts the cut scene
             StartCoroutine(FinishOrientationTime());
         }
         else
@@ -639,6 +706,8 @@ public class PlayerNetworkManager : NetworkBehaviour
             orientationEnded = true;
         }
     }
+
+    // Removes dinner plate for all players so it cannot be pressed again
     [ClientRpc]
     public void CallDinnerPlate(GameObject interactable)
     {
@@ -646,7 +715,11 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    // Networking for the opening of the doors below the control room
     #region Doors
+
+    // All functions are fairly self-explanatory!
+
     public void OpenDoor(GameObject door)
     {
         CmdOpenDoor(door);
@@ -663,8 +736,10 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    // Networking for the captain command line
     #region:CommandLine
 
+    // Used in orientation time to make sure the networked aspect of the command line spawns
     public void SpawnCommandLine(GameObject commandNetwork)
     {
         CmdSpawnCommandLine(commandNetwork);
@@ -678,6 +753,8 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
         NetworkServer.Spawn(commandNetwork);
     }
+
+    // Called by a client to queue a command that all players need to see
     public void WriteCommand(GameObject commandNetwork, string msg, bool captain = false)
     {
         CmdWriteCommand(commandNetwork, msg, captain);
@@ -687,6 +764,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         CallNetworkQueueMessage(commandNetwork, msg, captain);
     }
+
+    // Relays a command to all clients by queueing it
     [ClientRpc]
     public void CallNetworkQueueMessage(GameObject commandNetwork, string msg, bool captain)
     {
@@ -694,7 +773,10 @@ public class PlayerNetworkManager : NetworkBehaviour
     }
     #endregion
 
+    // Networking for the end game scenes
     #region EndGameScenes
+
+    // Destroys all players on all clients
     [ClientRpc]
     public void DestroyAllPlayers()
     {
@@ -708,6 +790,8 @@ public class PlayerNetworkManager : NetworkBehaviour
         }
     }
 
+    // Used for ensuring multiple players don't try and end the game
+    // Or so that the timer doesn't run out if the game has already ended
     [Command]
     public void CmdEndGame()
     {
