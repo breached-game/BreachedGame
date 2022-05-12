@@ -4,6 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "InteractionScriptableObject", menuName = "Interactions/PickUp")]
 public class PickUpSO : InteractionSO
 {
+     /*
+        RUN BY THE INTERACTION MANAGER, MADE FOR A GIVEN INTERACTABLE
+        Contributors: Andrew Morgan and Seth Holdcroft
+    */
     public override void RunInteraction(GameObject interactable, GameObject Player)
     {
         //if the player is not carrying anything

@@ -6,6 +6,11 @@ using TMPro;
 
 public class InteractionNoRaycastManager : NetworkBehaviour
 {
+     /*
+        SORTS OUT ALL INTERACTIONS, ONLY PROXIMITY 
+        RUNS INTERACTION SCRIPTABLE OBJECT IF INTERACTING 
+        Contributors: Andrew Morgan
+    */
     //We manage all interaction here
     [SyncVar]
     public bool available = true;
