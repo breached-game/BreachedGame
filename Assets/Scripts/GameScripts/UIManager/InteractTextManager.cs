@@ -5,6 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 public class InteractTextManager : MonoBehaviour
 {
+    /*
+        SCRIPT FOR DYNAMICALLY SIZING THE 'press e to interact' TEXT
+
+        Contributors: Sam Barnes-Thornton and Seth Holdcroft
+    */
     private RectTransform rectTransform;
     private TextMeshProUGUI textMesh;
     void Awake()

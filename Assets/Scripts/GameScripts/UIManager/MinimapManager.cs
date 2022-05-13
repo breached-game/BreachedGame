@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class MinimapManager : MonoBehaviour
 {
+    /*
+        SCRIPT FOR DYNAMICALLY SIZING THE MINIMAP
+
+        Contributors: Sam Barnes-Thornton and Seth Holdcroft
+    */ 
     private RectTransform rectTransform;
     private Vector2 position = new Vector2();
     private Vector2 sizeDelta = new Vector2();

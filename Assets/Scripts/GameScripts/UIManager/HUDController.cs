@@ -5,10 +5,15 @@ using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour
 {
+    /*
+        SCRIPT FOR DYNAMICALLY SIZING PLAYER HEADS UP DISPLAY
+
+        Contributors: Sam Barnes-Thornton
+    */
     public GameObject PlayerUI;
     private RectTransform rectTransform;
     private RectTransform itemRectTransform;
-    // Start is called before the first frame update
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
